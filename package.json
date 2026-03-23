@@ -1,7 +1,7 @@
 {
   "name": "llm-test-suite",
-  "version": "1.0.0",
-  "description": "Comprehensive test suite for local LLM server (llama.cpp) - speed, accuracy, tool calling, context window tests",
+  "version": "2.0.0",
+  "description": "Comprehensive LLM test suite - basic tests + enterprise compliance testing across standards, personas, and company types",
   "main": "run-all-tests.js",
   "type": "module",
   "scripts": {
@@ -9,9 +9,16 @@
     "test:speed": "node tests/speed-test.js",
     "test:accuracy": "node tests/accuracy-test.js",
     "test:tools": "node tests/tool-calling-test.js",
-    "test:context": "node tests/context-window-test.js"
+    "test:context": "node tests/context-window-test.js",
+    "enterprise": "node run-enterprise-tests.js",
+    "enterprise:stats": "node run-enterprise-tests.js stats",
+    "enterprise:pilot": "node run-enterprise-tests.js pilot",
+    "enterprise:quick": "node run-enterprise-tests.js quick",
+    "enterprise:standard": "node run-enterprise-tests.js standard",
+    "enterprise:comprehensive": "node run-enterprise-tests.js comprehensive",
+    "enterprise:functions": "node run-enterprise-tests.js function-calling"
   },
-  "keywords": ["llm", "testing", "llama.cpp", "benchmark"],
+  "keywords": ["llm", "testing", "llama.cpp", "benchmark", "compliance", "enterprise", "GDPR", "ISO27001", "SOC2"],
   "author": "Libor Ballaty <libor@arionetworks.com>",
   "license": "MIT"
 }

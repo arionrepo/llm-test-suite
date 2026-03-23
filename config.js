@@ -6,7 +6,7 @@
 export const config = {
   // LLM Server Configuration
   llmServer: {
-    baseUrl: 'http://localhost:8088',
+    baseUrl: 'http://127.0.0.1:8088',
     timeout: 60000, // 60 seconds
   },
 
