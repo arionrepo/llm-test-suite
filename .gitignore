@@ -1,0 +1,15 @@
+# Reports directory (test results)
+reports/
+
+# Node modules (if any dependencies added later)
+node_modules/
+
+# macOS
+.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

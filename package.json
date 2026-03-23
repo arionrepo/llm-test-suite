@@ -1,0 +1,17 @@
+{
+  "name": "llm-test-suite",
+  "version": "1.0.0",
+  "description": "Comprehensive test suite for local LLM server (llama.cpp) - speed, accuracy, tool calling, context window tests",
+  "main": "run-all-tests.js",
+  "type": "module",
+  "scripts": {
+    "test": "node run-all-tests.js",
+    "test:speed": "node tests/speed-test.js",
+    "test:accuracy": "node tests/accuracy-test.js",
+    "test:tools": "node tests/tool-calling-test.js",
+    "test:context": "node tests/context-window-test.js"
+  },
+  "keywords": ["llm", "testing", "llama.cpp", "benchmark"],
+  "author": "Libor Ballaty <libor@arionetworks.com>",
+  "license": "MIT"
+}
