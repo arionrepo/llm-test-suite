@@ -5,6 +5,8 @@
 
 import { generateAllTests } from './enterprise/test-data-generator.js';
 import { getAllArionComplyPrompts } from './enterprise/arioncomply-workflows/ui-tasks.js';
+import { getIntentTests, getWorkflowTests } from './enterprise/arioncomply-workflows/intent-classification-tests.js';
+import { PromptComplexityAnalyzer } from './utils/prompt-complexity-analyzer.js';
 import fs from 'fs';
 
 const EXPORT_DIR = './reports/prompts';
@@ -128,33 +130,197 @@ function exportArionComplyPrompts(filename) {
   console.log('✅ Exported to: ' + EXPORT_DIR + '/' + filename);
 }
 
+function exportComprehensiveJSON() {
+  console.log('\n📝 Generating Comprehensive JSON Export...\n');
+
+  const analyzer = new PromptComplexityAnalyzer();
+  const complianceTests = generateAllTests();
+  const arioncomplyPrompts = getAllArionComplyPrompts();
+  const intentTests = getIntentTests();
+  const workflowTests = getWorkflowTests();
+
+  const comprehensiveExport = {
+    metadata: {
+      timestamp: new Date().toISOString(),
+      version: '2.0.0',
+      description: 'Comprehensive LLM test prompts for enterprise compliance and ArionComply application',
+      totalPrompts: complianceTests.length + arioncomplyPrompts.length + intentTests.length + workflowTests.length
+    },
+
+    complianceTests: {
+      description: 'General compliance knowledge tests across standards, knowledge types, and personas',
+      testingMode: 'baseline_llm_only',
+      note: 'Tests LLM training data WITHOUT any retrieval systems (no RAG, no vector DB)',
+      count: complianceTests.length,
+      tests: complianceTests.map(t => {
+        const complexityAnalysis = analyzer.analyzePrompt(t.question);
+        return {
+          id: t.id,
+          category: 'compliance_knowledge',
+          standard: t.standard,
+          knowledgeType: t.knowledgeType,
+          persona: t.persona,
+          question: t.question,
+          expectedTopics: t.expectedTopics,
+          expectedCitation: t.expectedCitation,
+          retrievalStrategy: t.retrievalStrategy,
+          complexity: t.complexity,
+          promptComplexity: {
+            level: complexityAnalysis.complexityLevel,
+            score: complexityAnalysis.complexityScore,
+            tokens: complexityAnalysis.estimatedTokens,
+            technicalDensity: Math.round(complexityAnalysis.technicalDensity * 10) / 10,
+            isMultiPart: complexityAnalysis.isMultiPart,
+            hasComparison: complexityAnalysis.hasComparisonRequest,
+            performanceClass: complexityAnalysis.performanceClass
+          }
+        };
+      })
+    },
+
+    arioncomplyWorkflows: {
+      description: 'ArionComply application-specific workflow and UI guidance prompts',
+      count: arioncomplyPrompts.length,
+      prompts: arioncomplyPrompts.map(p => {
+        const complexityAnalysis = analyzer.analyzePrompt(p.prompt);
+        return {
+          category: 'arioncomply_workflow',
+          taskCategory: p.category,
+          task: p.task,
+          contextLevel: p.contextLevel,
+          userType: p.userType,
+          prompt: p.prompt,
+          expectedClarifications: p.expectedClarifications,
+          expectedGuidance: p.expectedGuidance,
+          promptComplexity: {
+            level: complexityAnalysis.complexityLevel,
+            score: complexityAnalysis.complexityScore,
+            tokens: complexityAnalysis.estimatedTokens,
+            technicalDensity: Math.round(complexityAnalysis.technicalDensity * 10) / 10,
+            performanceClass: complexityAnalysis.performanceClass
+          }
+        };
+      })
+    },
+
+    intentClassification: {
+      description: 'ArionComply intent classification accuracy tests',
+      count: intentTests.length,
+      tests: intentTests.map(t => {
+        const complexityAnalysis = analyzer.analyzePrompt(t.userQuery);
+        return {
+          category: 'intent_classification',
+          userQuery: t.userQuery,
+          expectedIntent: t.expectedIntent,
+          intentCategory: t.intentCategory,
+          confidence: t.confidence,
+          contextClues: t.contextClues,
+          ambiguity: t.ambiguity,
+          possibleIntents: t.possibleIntents,
+          expectedClarifications: t.expectedClarifications,
+          requiredContext: t.requiredContext,
+          promptComplexity: {
+            level: complexityAnalysis.complexityLevel,
+            score: complexityAnalysis.complexityScore,
+            tokens: complexityAnalysis.estimatedTokens,
+            performanceClass: complexityAnalysis.performanceClass
+          }
+        };
+      })
+    },
+
+    workflowUnderstanding: {
+      description: 'ArionComply workflow understanding and step accuracy tests',
+      count: workflowTests.length,
+      tests: workflowTests.map(t => {
+        const complexityAnalysis = analyzer.analyzePrompt(t.userQuery);
+        return {
+          category: 'workflow_understanding',
+          task: t.task,
+          userQuery: t.userQuery,
+          expectedSteps: t.expectedSteps,
+          expectedScreens: t.expectedScreens,
+          expectedButtons: t.expectedButtons,
+          expectedFeatures: t.expectedFeatures,
+          expectedElements: t.expectedElements,
+          expectedDeadlines: t.expectedDeadlines,
+          mustMention: t.mustMention,
+          scoringCriteria: t.scoringCriteria,
+          promptComplexity: {
+            level: complexityAnalysis.complexityLevel,
+            score: complexityAnalysis.complexityScore,
+            tokens: complexityAnalysis.estimatedTokens,
+            performanceClass: complexityAnalysis.performanceClass
+          }
+        };
+      })
+    },
+
+    summary: {
+      byCategory: {
+        compliance_knowledge: complianceTests.length,
+        arioncomply_workflow: arioncomplyPrompts.length,
+        intent_classification: intentTests.length,
+        workflow_understanding: workflowTests.length
+      },
+      byStandard: {},
+      byKnowledgeType: {},
+      byPersona: {},
+      byIntentCategory: {}
+    }
+  };
+
+  // Calculate summary statistics
+  complianceTests.forEach(t => {
+    comprehensiveExport.summary.byStandard[t.standard] =
+      (comprehensiveExport.summary.byStandard[t.standard] || 0) + 1;
+    comprehensiveExport.summary.byKnowledgeType[t.knowledgeType] =
+      (comprehensiveExport.summary.byKnowledgeType[t.knowledgeType] || 0) + 1;
+    comprehensiveExport.summary.byPersona[t.persona] =
+      (comprehensiveExport.summary.byPersona[t.persona] || 0) + 1;
+  });
+
+  intentTests.forEach(t => {
+    comprehensiveExport.summary.byIntentCategory[t.intentCategory] =
+      (comprehensiveExport.summary.byIntentCategory[t.intentCategory] || 0) + 1;
+  });
+
+  fs.mkdirSync(EXPORT_DIR, { recursive: true });
+  const filepath = EXPORT_DIR + '/all-prompts-comprehensive.json';
+  fs.writeFileSync(filepath, JSON.stringify(comprehensiveExport, null, 2));
+
+  console.log('✅ Comprehensive JSON exported: ' + filepath);
+  console.log('\n📊 Contents:');
+  console.log('  Compliance Tests: ' + comprehensiveExport.complianceTests.count);
+  console.log('  ArionComply Workflows: ' + comprehensiveExport.arioncomplyWorkflows.count);
+  console.log('  Intent Classification: ' + comprehensiveExport.intentClassification.count);
+  console.log('  Workflow Understanding: ' + comprehensiveExport.workflowUnderstanding.count);
+  console.log('  Total Prompts: ' + comprehensiveExport.metadata.totalPrompts);
+
+  return filepath;
+}
+
 function main() {
   console.log('\n📝 Exporting Enterprise Test Prompts...\n');
 
   // Generate and export compliance tests
   const tests = generateAllTests();
-  
+
   exportToCSV(tests, 'compliance-prompts.csv');
   exportToMarkdown(tests, 'compliance-prompts.md');
 
   // Export ArionComply-specific prompts
   exportArionComplyPrompts('arioncomply-prompts.md');
 
-  // Generate summary
-  const summary = {
-    timestamp: new Date().toISOString(),
-    compliance_tests: tests.length,
-    arioncomply_prompts: getAllArionComplyPrompts().length,
-    total: tests.length + getAllArionComplyPrompts().length
-  };
+  // Export comprehensive JSON
+  const jsonPath = exportComprehensiveJSON();
 
-  fs.writeFileSync(EXPORT_DIR + '/summary.json', JSON.stringify(summary, null, 2));
-  
-  console.log('\n📊 Summary:');
-  console.log('  Compliance Tests: ' + summary.compliance_tests);
-  console.log('  ArionComply Prompts: ' + summary.arioncomply_prompts);
-  console.log('  Total Prompts: ' + summary.total);
-  console.log('\n✅ All prompts exported to: ' + EXPORT_DIR);
+  console.log('\n✅ All formats exported to: ' + EXPORT_DIR);
+  console.log('\n📄 Files created:');
+  console.log('  - compliance-prompts.csv (spreadsheet format)');
+  console.log('  - compliance-prompts.md (markdown format)');
+  console.log('  - arioncomply-prompts.md (workflow documentation)');
+  console.log('  - all-prompts-comprehensive.json (complete JSON for review)');
 }
 
 if (import.meta.url === 'file://' + process.argv[1]) {

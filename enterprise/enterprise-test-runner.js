@@ -145,10 +145,15 @@ export class EnterpriseTestRunner {
   async runComparisonTest(models, testSubset) {
     printTestHeader('ENTERPRISE COMPLIANCE MULTI-MODEL COMPARISON');
 
+    console.log('\n⚠️  BASELINE TESTING MODE');
+    console.log('   Testing: Pure LLM responses (NO retrieval systems)');
+    console.log('   Purpose: Identify which retrieval infrastructure to BUILD');
+    console.log('   Current: No vector DB, no knowledge graph, no RAG pipeline\n');
+
     const allTests = generateAllTests();
     const testsToRun = testSubset || allTests.slice(0, 20); // Default to 20 tests
 
-    console.log('\nTest Suite Statistics:');
+    console.log('Test Suite Statistics:');
     console.log('  Total tests available: ' + allTests.length);
     console.log('  Running: ' + testsToRun.length + ' tests');
     console.log('  Across: ' + models.length + ' models');
@@ -167,8 +172,10 @@ export class EnterpriseTestRunner {
 
   generateDiagnostics() {
     console.log('\n' + '='.repeat(70));
-    console.log('GENERATING RETRIEVAL PIPELINE DIAGNOSTICS');
+    console.log('BASELINE LLM KNOWLEDGE ANALYSIS (NO RETRIEVAL SYSTEM TESTED)');
     console.log('='.repeat(70));
+    console.log('\n⚠️  NOTE: This tests LLM training data ONLY (no RAG, no vector DB, no knowledge graph)');
+    console.log('   Results show where retrieval infrastructure NEEDS TO BE BUILT\n');
 
     const diagnostics = {
       byStandard: {},
@@ -294,30 +301,49 @@ export class EnterpriseTestRunner {
   }
 
   printDiagnostics(diagnostics) {
-    console.log('\n📊 Model Performance Summary:');
+    console.log('\n📊 BASELINE LLM PERFORMANCE (Without Any Retrieval):');
+    console.log('   (Testing what models know from training data alone)\n');
+
     for (const [model, stats] of Object.entries(diagnostics.byModel)) {
-      console.log('  ' + model.padEnd(25) + 
+      console.log('  ' + model.padEnd(25) +
                   stats.passed + '/' + stats.totalTests + ' passed ' +
                   '(avg score: ' + stats.avgScore.toFixed(1) + '%)');
     }
 
-    console.log('\n📊 Knowledge Type Performance:');
+    console.log('\n📊 Knowledge Type Baseline Performance:');
+    console.log('   (Shows what LLM knows WITHOUT vector DB, knowledge graph, or RAG)\n');
+
     for (const [kt, stats] of Object.entries(diagnostics.byKnowledgeType)) {
-      console.log('  ' + kt.padEnd(15) + 
+      const statusIcon = stats.avgScore >= 70 ? '✅' : stats.avgScore >= 50 ? '⚠️' : '❌';
+      console.log('  ' + statusIcon + ' ' + kt.padEnd(15) +
                   stats.passed + '/' + stats.total + ' passed ' +
                   '(avg score: ' + stats.avgScore.toFixed(1) + '%)');
     }
 
     if (diagnostics.retrievalRecommendations.length > 0) {
-      console.log('\n🔍 RETRIEVAL PIPELINE RECOMMENDATIONS:');
+      console.log('\n' + '='.repeat(70));
+      console.log('🔧 RETRIEVAL INFRASTRUCTURE TO BUILD (Based on Baseline Gaps)');
+      console.log('='.repeat(70));
+      console.log('\n⚠️  These are RECOMMENDATIONS for what to implement, not current systems\n');
+
       diagnostics.retrievalRecommendations.forEach((rec, idx) => {
-        console.log('\n' + (idx + 1) + '. ' + rec.knowledgeType + ' Knowledge');
-        console.log('   Current Performance: ' + rec.currentScore + ' (Pass Rate: ' + rec.passRate + ')');
-        console.log('   Priority: ' + rec.priority);
-        console.log('   Recommended Strategy: ' + rec.recommendedStrategy);
-        console.log('   Actions:');
-        rec.actions.forEach(action => console.log('     - ' + action));
+        console.log('\n' + (idx + 1) + '. ' + rec.knowledgeType + ' Knowledge - ' + rec.priority + ' PRIORITY');
+        console.log('   ├─ Baseline LLM Score: ' + rec.currentScore + ' (Pass Rate: ' + rec.passRate + ')');
+        console.log('   ├─ Gap Analysis: LLM training data insufficient for ' + rec.knowledgeType.toLowerCase() + ' queries');
+        console.log('   ├─ Build This: ' + rec.recommendedStrategy.toUpperCase());
+        console.log('   └─ Implementation Actions:');
+        rec.actions.forEach((action, i) => {
+          const prefix = i === rec.actions.length - 1 ? '      └─' : '      ├─';
+          console.log(prefix + ' ' + action);
+        });
       });
+
+      console.log('\n' + '='.repeat(70));
+      console.log('💡 SUMMARY: Build these retrieval layers to close knowledge gaps');
+      console.log('='.repeat(70));
+    } else {
+      console.log('\n✅ All knowledge types performing well with baseline LLM (>60% avg)');
+      console.log('   Consider retrieval enhancements for further improvement');
     }
   }
 
