@@ -1,6 +1,11 @@
 # Reports directory (test results)
 reports/
 
+# API Keys (NEVER commit these!)
+config.llm-judge.js
+.env
+*.key
+
 # Node modules (if any dependencies added later)
 node_modules/
 
