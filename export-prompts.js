@@ -7,9 +7,27 @@ import { generateAllTests } from './enterprise/test-data-generator.js';
 import { getAllArionComplyPrompts } from './enterprise/arioncomply-workflows/ui-tasks.js';
 import { getIntentTests, getWorkflowTests } from './enterprise/arioncomply-workflows/intent-classification-tests.js';
 import { PromptComplexityAnalyzer } from './utils/prompt-complexity-analyzer.js';
+import { InputComplexityAnalyzer } from './utils/input-complexity-analyzer.js';
+import { OutputComplexityAnalyzer } from './utils/output-complexity-analyzer.js';
 import fs from 'fs';
 
 const EXPORT_DIR = './reports/prompts';
+
+// Helper functions for complexity calculations
+function categorizePerformance(score) {
+  if (score < 30) return 'fast';
+  if (score < 50) return 'medium';
+  if (score < 70) return 'slow';
+  return 'very_slow';
+}
+
+function predictResponseTime(inputAnalysis, outputAnalysis) {
+  const parseTime = inputAnalysis.estimatedTokens * 10;
+  const baseGenTime = typeof outputAnalysis.expectedResponseTokens === 'string' ?
+    parseInt(outputAnalysis.expectedResponseTokens.split('-')[0]) : 300;
+  const genTime = baseGenTime * 35;
+  return parseTime + genTime;
+}
 
 function exportToCSV(tests, filename) {
   // Create header
@@ -133,7 +151,10 @@ function exportArionComplyPrompts(filename) {
 function exportComprehensiveJSON() {
   console.log('\n📝 Generating Comprehensive JSON Export...\n');
 
-  const analyzer = new PromptComplexityAnalyzer();
+  const legacyAnalyzer = new PromptComplexityAnalyzer(); // For backwards compatibility
+  const inputAnalyzer = new InputComplexityAnalyzer();
+  const outputAnalyzer = new OutputComplexityAnalyzer();
+
   const complianceTests = generateAllTests();
   const arioncomplyPrompts = getAllArionComplyPrompts();
   const intentTests = getIntentTests();
@@ -153,7 +174,13 @@ function exportComprehensiveJSON() {
       note: 'Tests LLM training data WITHOUT any retrieval systems (no RAG, no vector DB)',
       count: complianceTests.length,
       tests: complianceTests.map(t => {
-        const complexityAnalysis = analyzer.analyzePrompt(t.question);
+        const legacyAnalysis = legacyAnalyzer.analyzePrompt(t.question);
+        const inputAnalysis = inputAnalyzer.analyze(t.question);
+        const outputAnalysis = outputAnalyzer.analyze(t);
+
+        // Calculate weighted performance prediction
+        const weightedComplexity = (inputAnalysis.inputComplexityScore * 0.25) + (outputAnalysis.outputComplexityScore * 0.75);
+
         return {
           id: t.id,
           category: 'compliance_knowledge',
@@ -165,14 +192,45 @@ function exportComprehensiveJSON() {
           expectedCitation: t.expectedCitation,
           retrievalStrategy: t.retrievalStrategy,
           complexity: t.complexity,
+
+          // 2D Complexity Model
+          inputComplexity: {
+            score: inputAnalysis.inputComplexityScore,
+            level: inputAnalysis.inputComplexityLevel,
+            tokens: inputAnalysis.estimatedTokens,
+            technicalDensity: Math.round(inputAnalysis.technicalDensity * 10) / 10,
+            specificityLevel: inputAnalysis.specificityLevel,
+            isMultiPart: inputAnalysis.isMultiPart,
+            hasConditional: inputAnalysis.hasConditional
+          },
+
+          outputComplexity: {
+            score: outputAnalysis.outputComplexityScore,
+            level: outputAnalysis.outputComplexityLevel,
+            expectedTokens: outputAnalysis.expectedResponseTokens,
+            responseType: outputAnalysis.responseType,
+            knowledgeDepth: outputAnalysis.knowledgeDepth,
+            requiresMultiSource: outputAnalysis.requiresMultiSource,
+            requiresSynthesis: outputAnalysis.requiresSynthesis,
+            retrievalHops: outputAnalysis.retrievalHops
+          },
+
+          performancePrediction: {
+            weightedComplexityScore: Math.round(weightedComplexity),
+            dominantFactor: outputAnalysis.outputComplexityScore > inputAnalysis.inputComplexityScore ? 'output' : 'input',
+            estimatedResponseTimeMs: predictResponseTime(inputAnalysis, outputAnalysis),
+            performanceClass: categorizePerformance(weightedComplexity)
+          },
+
+          // Legacy complexity (for backwards compatibility)
           promptComplexity: {
-            level: complexityAnalysis.complexityLevel,
-            score: complexityAnalysis.complexityScore,
-            tokens: complexityAnalysis.estimatedTokens,
-            technicalDensity: Math.round(complexityAnalysis.technicalDensity * 10) / 10,
-            isMultiPart: complexityAnalysis.isMultiPart,
-            hasComparison: complexityAnalysis.hasComparisonRequest,
-            performanceClass: complexityAnalysis.performanceClass
+            level: legacyAnalysis.complexityLevel,
+            score: legacyAnalysis.complexityScore,
+            tokens: legacyAnalysis.estimatedTokens,
+            technicalDensity: Math.round(legacyAnalysis.technicalDensity * 10) / 10,
+            isMultiPart: legacyAnalysis.isMultiPart,
+            hasComparison: legacyAnalysis.hasComparisonRequest,
+            performanceClass: legacyAnalysis.performanceClass
           }
         };
       })
@@ -182,7 +240,7 @@ function exportComprehensiveJSON() {
       description: 'ArionComply application-specific workflow and UI guidance prompts',
       count: arioncomplyPrompts.length,
       prompts: arioncomplyPrompts.map(p => {
-        const complexityAnalysis = analyzer.analyzePrompt(p.prompt);
+        const complexityAnalysis = legacyAnalyzer.analyzePrompt(p.prompt);
         return {
           category: 'arioncomply_workflow',
           taskCategory: p.category,
@@ -207,7 +265,7 @@ function exportComprehensiveJSON() {
       description: 'ArionComply intent classification accuracy tests',
       count: intentTests.length,
       tests: intentTests.map(t => {
-        const complexityAnalysis = analyzer.analyzePrompt(t.userQuery);
+        const complexityAnalysis = legacyAnalyzer.analyzePrompt(t.userQuery);
         return {
           category: 'intent_classification',
           userQuery: t.userQuery,
@@ -233,7 +291,7 @@ function exportComprehensiveJSON() {
       description: 'ArionComply workflow understanding and step accuracy tests',
       count: workflowTests.length,
       tests: workflowTests.map(t => {
-        const complexityAnalysis = analyzer.analyzePrompt(t.userQuery);
+        const complexityAnalysis = legacyAnalyzer.analyzePrompt(t.userQuery);
         return {
           category: 'workflow_understanding',
           task: t.task,
