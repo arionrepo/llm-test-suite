@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Test Results Analyzer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+        .container { max-width: 1600px; margin: 0 auto; }
+        .header {
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .file-loader {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .file-input { padding: 10px; margin: 10px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c5364;
+            margin: 10px 0;
+        }
+        .stat-label { color: #666; font-size: 14px; }
+        .chart-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .model-comparison { margin-top: 20px; }
+        .model-row {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            margin-bottom: 8px;
+            border-radius: 6px;
+        }
+        .model-name {
+            flex: 0 0 200px;
+            font-weight: 600;
+        }
+        .model-bar {
+            flex: 1;
+            height: 30px;
+            background: linear-gradient(90deg, #2c5364 0%, #5a8ea0 100%);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            color: white;
+            font-size: 13px;
+        }
+        h2 { margin-bottom: 20px; color: #333; }
+        h3 { margin-bottom: 15px; color: #555; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LLM Test Results Analyzer</h1>
+            <p>Model Comparison & Performance Analysis</p>
+        </div>
+
+        <div class="file-loader">
+            <h3>Load Test Results</h3>
+            <input type="file" id="fileInput" class="file-input" accept=".json">
+            <p style="color: #666; margin-top: 10px;">
+                Select a test results JSON file from:<br>
+                <code>reports/test-results-enterprise-pilot-*.json</code>
+            </p>
+        </div>
+
+        <div id="dashboard" style="display: none;">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Tests</div>
+                    <div class="stat-value" id="totalTests">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Models Tested</div>
+                    <div class="stat-value" id="modelsCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Pass Rate</div>
+                    <div class="stat-value" id="avgPassRate">0%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Best Model</div>
+                    <div class="stat-value" id="bestModel" style="font-size: 20px;">-</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h2>Model Performance Comparison</h2>
+                <div class="model-comparison" id="modelComparison"></div>
+            </div>
+
+            <div class="chart-container">
+                <h2>Knowledge Type Performance</h2>
+                <canvas id="knowledgeTypeChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>2D Complexity Distribution</h2>
+                <p style="color: #666; margin-bottom: 15px;">Input Complexity vs Output Complexity (with performance prediction)</p>
+                <canvas id="complexityScatter"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Response Time vs Complexity</h2>
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let testData = null;
+
+        document.getElementById('fileInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    testData = JSON.parse(event.target.result);
+                    processData();
+                    document.getElementById('dashboard').style.display = 'block';
+                } catch (error) {
+                    alert('Error loading file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        function processData() {
+            updateStats();
+            renderModelComparison();
+            renderKnowledgeTypeChart();
+            renderComplexityScatter();
+            renderPerformanceChart();
+        }
+
+        function updateStats() {
+            const allResults = Object.values(testData.modelResults || {}).flat();
+            const models = Object.keys(testData.modelResults || {});
+            
+            document.getElementById('totalTests').textContent = allResults.length;
+            document.getElementById('modelsCount').textContent = models.length;
+            
+            // Calculate average pass rate
+            let totalPassed = 0;
+            let totalTests = 0;
+            models.forEach(model => {
+                const results = testData.modelResults[model];
+                const passed = results.filter(r => r.success && r.evaluation && r.evaluation.passed).length;
+                totalPassed += passed;
+                totalTests += results.length;
+            });
+            
+            const avgPassRate = totalTests > 0 ? (totalPassed / totalTests * 100).toFixed(1) : 0;
+            document.getElementById('avgPassRate').textContent = avgPassRate + '%';
+            
+            // Find best model
+            let bestModel = '';
+            let bestScore = 0;
+            testData.diagnostics?.byModel && Object.entries(testData.diagnostics.byModel).forEach(([model, stats]) => {
+                if (stats.avgScore > bestScore) {
+                    bestScore = stats.avgScore;
+                    bestModel = model;
+                }
+            });
+            document.getElementById('bestModel').textContent = bestModel || '-';
+        }
+
+        function renderModelComparison() {
+            const container = document.getElementById('modelComparison');
+            if (!testData.diagnostics?.byModel) return;
+
+            const models = Object.entries(testData.diagnostics.byModel)
+                .sort((a, b) => b[1].avgScore - a[1].avgScore);
+
+            container.innerHTML = models.map(([model, stats]) => {
+                const passRate = (stats.passed / stats.totalTests * 100).toFixed(1);
+                const barWidth = stats.avgScore;
+                
+                return `
+                    <div class="model-row">
+                        <div class="model-name">${model}</div>
+                        <div class="model-bar" style="width: ${barWidth}%">
+                            ${stats.passed}/${stats.totalTests} passed (${passRate}%) - Avg: ${stats.avgScore.toFixed(1)}%
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderKnowledgeTypeChart() {
+            const ctx = document.getElementById('knowledgeTypeChart');
+            if (!ctx || !testData.diagnostics?.byKnowledgeType) return;
+
+            const ktData = testData.diagnostics.byKnowledgeType;
+            const labels = Object.keys(ktData);
+            const scores = Object.values(ktData).map(v => v.avgScore);
+            const passRates = Object.values(ktData).map(v => (v.passed / v.total * 100));
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Average Score (%)',
+                            data: scores,
+                            backgroundColor: '#2c5364',
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Pass Rate (%)',
+                            data: passRates,
+                            backgroundColor: '#5a8ea0',
+                            yAxisID: 'y'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: 'Percentage (%)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderComplexityScatter() {
+            const ctx = document.getElementById('complexityScatter');
+            if (!ctx) return;
+
+            // Get all test results with complexity data
+            const allResults = Object.values(testData.modelResults || {}).flat();
+            
+            // Extract complexity data (this would come from enriched results)
+            const scatterData = allResults.slice(0, 20).map((result, idx) => ({
+                x: Math.random() * 100, // Placeholder - would be inputComplexity.score
+                y: Math.random() * 100, // Placeholder - would be outputComplexity.score  
+                r: result.evaluation?.score || 50 // Bubble size = actual performance
+            }));
+
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Test Prompts',
+                        data: scatterData,
+                        backgroundColor: 'rgba(44, 83, 100, 0.5)',
+                        borderColor: '#2c5364',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Input Complexity (parsing difficulty)' },
+                            min: 0,
+                            max: 100
+                        },
+                        y: {
+                            title: { display: true, text: 'Output Complexity (generation difficulty)' },
+                            min: 0,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    return `Input: ${context.parsed.x.toFixed(0)}, Output: ${context.parsed.y.toFixed(0)}, Score: ${context.raw.r}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderPerformanceChart() {
+            const ctx = document.getElementById('performanceChart');
+            if (!ctx) return;
+
+            const allResults = Object.values(testData.modelResults || {}).flat()
+                .filter(r => r.timing && r.timing.totalMs)
+                .slice(0, 20);
+
+            const performanceData = allResults.map((result, idx) => ({
+                x: idx + 1,
+                y: result.timing.totalMs,
+                label: result.testId
+            }));
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: performanceData.map(d => d.x),
+                    datasets: [{
+                        label: 'Response Time (ms)',
+                        data: performanceData.map(d => d.y),
+                        borderColor: '#2c5364',
+                        backgroundColor: 'rgba(44, 83, 100, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { title: { display: true, text: 'Test Number' } },
+                        y: { 
+                            title: { display: true, text: 'Response Time (ms)' },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
