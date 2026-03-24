@@ -4,6 +4,7 @@
 **Description:** Complete reference for all test metrics - what they measure, how they're calculated, why they matter
 **Author:** Libor Ballaty <libor@arionetworks.com>
 **Created:** 2026-03-24
+**Last Updated:** 2026-03-24
 
 ---
 
@@ -11,9 +12,59 @@
 
 This document explains every metric used in the LLM test suite, organized by category.
 
+**KEY CHANGE (2026-03-24):** Complexity model refactored from 1D to 2D
+- **Input Complexity** - How hard is the question to parse?
+- **Output Complexity** - How hard is the answer to generate?
+- **Performance Prediction** - Weighted combination (output matters 3x more)
+
+See: `2D-COMPLEXITY-SUMMARY.md` for implementation details
+
 ---
 
-## Prompt Complexity Metrics
+## 2D Complexity Model (NEW)
+
+### Input Complexity vs Output Complexity
+
+**Why Two Dimensions?**
+
+The old system mixed question complexity with answer complexity:
+```
+"What is GDPR?"
+Old Score: 30/100 ("simple")
+Predicted: ~500ms
+Actual: 14,865ms ❌ WRONG!
+
+Problem: Simple question, but complex answer needs 400+ tokens
+```
+
+**New System - Two Separate Scores:**
+
+```javascript
+{
+  "inputComplexity": {
+    "score": 8,      // Question is simple (3 words)
+    "level": "simple"
+  },
+  "outputComplexity": {
+    "score": 33,     // Answer is moderate (needs explanation)
+    "level": "moderate"
+  },
+  "performancePrediction": {
+    "weightedScore": 27,  // (8×0.25) + (33×0.75)
+    "estimatedResponseTimeMs": 10540,  // Much more accurate!
+    "dominantFactor": "output"
+  }
+}
+```
+
+**Why Output Matters 3x More:**
+- Parsing input: ~10ms per token (fast)
+- Generating output: ~35ms per token (slow)
+- A 400-token answer takes 30x longer than parsing a 10-token question
+
+---
+
+## Input Complexity Metrics (9 metrics)
 
 ### 1. Character Count
 

@@ -40,6 +40,35 @@ Comprehensive LLM testing framework with two testing modes:
 - **Information retention:** Remember details from earlier in conversation
 - **Context limits:** How does it behave at 10M token limit?
 
+### LLM-as-Judge Evaluation (NEW!)
+
+**Automated evaluation** of test results using cloud LLMs:
+- **Claude (Anthropic)** - Expert compliance evaluation
+- **GPT-4 (OpenAI)** - Benchmark comparison
+- **Ensemble Mode** - Multiple judges, aggregate scores
+
+**What judges evaluate:**
+1. Topic coverage accuracy (better than keyword matching)
+2. Response quality (correctness, completeness, appropriateness)
+3. Workflow accuracy (correct steps, screens, buttons for ArionComply)
+4. Hallucination detection (fabricated facts, wrong citations)
+
+**Output format:**
+- Pass/Fail with detailed reasoning
+- Detailed score breakdown (topic coverage: 85%, accuracy: 90%, etc.)
+- Qualitative analysis (strengths, weaknesses, gaps)
+- Human review queue for disagreements
+
+**Configuration:** Set API keys in environment or config
+```bash
+export ANTHROPIC_API_KEY="your-key"
+export OPENAI_API_KEY="your-key"
+```
+
+See: `utils/cloud-llm-judge.js`, `review-interface.html`
+
+---
+
 ## Quick Start
 
 ### Basic Tests (Single Model)
@@ -157,6 +186,33 @@ Startup, SMB, Enterprise, SaaS Provider, Healthcare, Financial Services, Public 
 - Data Subject Requests
 - Vendor Risk Assessment
 - AI System Registration
+
+### 2D Complexity Model (NEW!)
+
+**Input Complexity** - How hard is the question to parse?
+- Lexical: token count, technical density, word complexity
+- Structural: multi-part, conditionals, specificity
+- Score: 0-100
+
+**Output Complexity** - How hard is the answer to generate?
+- Response scope: expected tokens, knowledge depth
+- Knowledge type: factual (simple) → synthesis (complex)
+- Processing: multi-source, reasoning, synthesis required
+- Score: 0-100
+
+**Performance Prediction:**
+```
+weightedScore = (inputScore × 0.25) + (outputScore × 0.75)
+Why: Output generation dominates performance (3x more important than parsing)
+
+Example:
+"What is GDPR?"
+├─ Input: 8/100 (simple question)
+└─ Output: 33/100 (moderate - needs comprehensive explanation)
+→ Weighted: 27/100 → Predicted: ~10s (Actual: 14.8s ✓ accurate!)
+```
+
+See: `2D-COMPLEXITY-SUMMARY.md` and `METRICS-DOCUMENTATION.md`
 
 ### Retrieval Pipeline Diagnostics
 
