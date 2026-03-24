@@ -102,8 +102,31 @@ Tests generate:
 
 ## Enterprise Testing Features
 
-### Compliance Standards (15)
-GDPR, CCPA, CPRA, HIPAA, EU AI Act, CA SB 1047, CA AB 2013, ISO 27001, ISO 27017, ISO 27018, SOC 2, NIST CSF, CIS Controls, PCI-DSS, CSA CCM, FedRAMP
+### Compliance Standards (29)
+
+**Privacy & Data Protection:**
+GDPR, CCPA, CPRA, HIPAA, PIPEDA
+
+**AI Regulations:**
+EU AI Act, CA SB 1047, CA AB 2013
+
+**ISO Security & Privacy:**
+ISO 27001, ISO 27002, ISO 27017, ISO 27018, ISO 27701, ISO 22301, ISO/IEC 27050
+
+**Cloud Security:**
+CSA CCM, CSA STAR, FedRAMP
+
+**NIST Frameworks:**
+NIST CSF, NIST 800-53, NIST 800-171
+
+**Audit & Controls:**
+SOC 2, SSAE 18, CIS Controls, COBIT
+
+**Payment & Financial:**
+PCI-DSS, SOX, GLBA
+
+**Defense:**
+CMMC 2.0
 
 ### Knowledge Types (5)
 - **Factual**: Definitions, requirements, facts

@@ -98,7 +98,37 @@ export const COMPLIANCE_STANDARDS = {
     keyTopics: ['PII in cloud', 'cloud processor obligations', 'customer consent'],
     retrievalNeeds: ['vector_db', 'exact_match']
   },
-  
+
+  ISO_27701: {
+    name: 'Privacy Information Management System',
+    category: 'privacy-framework',
+    jurisdiction: 'International',
+    year: 2019,
+    keyTopics: ['PIMS', 'privacy controls', 'PII processing', 'extends ISO 27001', 'data protection'],
+    description: 'Privacy extension to ISO 27001, provides guidance for PII controllers and processors',
+    retrievalNeeds: ['knowledge_graph', 'vector_db', 'exact_match']
+  },
+
+  ISO_27002: {
+    name: 'Information Security Controls',
+    category: 'security-guidance',
+    jurisdiction: 'International',
+    year: 2022,
+    controls: 93,
+    keyTopics: ['security controls', 'implementation guidance', 'best practices', 'complements ISO 27001'],
+    description: 'Code of practice providing implementation guidance for ISO 27001 controls',
+    retrievalNeeds: ['procedural', 'vector_db']
+  },
+
+  ISO_22301: {
+    name: 'Business Continuity Management',
+    category: 'business-continuity',
+    jurisdiction: 'International',
+    year: 2019,
+    keyTopics: ['BCMS', 'business continuity', 'disaster recovery', 'resilience'],
+    retrievalNeeds: ['procedural', 'knowledge_graph']
+  },
+
   SOC_2: {
     name: 'Service Organization Control 2',
     category: 'security-framework',
@@ -140,7 +170,39 @@ export const COMPLIANCE_STANDARDS = {
     retrievalNeeds: ['exact_match', 'procedural', 'knowledge_graph']
   },
   
+  // NIST Standards
+  NIST_800_53: {
+    name: 'NIST Security and Privacy Controls',
+    category: 'security-framework',
+    jurisdiction: 'US Federal',
+    year: 2020,
+    controls: 1000,
+    keyTopics: ['security controls catalog', 'privacy controls', 'federal systems', 'control baselines'],
+    description: 'Comprehensive catalog of security and privacy controls for federal systems',
+    retrievalNeeds: ['exact_match', 'knowledge_graph', 'vector_db']
+  },
+
+  NIST_800_171: {
+    name: 'Protecting Controlled Unclassified Information',
+    category: 'data-security',
+    jurisdiction: 'US Federal',
+    year: 2020,
+    requirements: 110,
+    keyTopics: ['CUI protection', 'contractor requirements', 'CMMC alignment'],
+    retrievalNeeds: ['exact_match', 'procedural']
+  },
+
   // Cloud Security
+  CSA_STAR: {
+    name: 'Cloud Security Alliance Security Trust Assurance and Risk',
+    category: 'cloud-security',
+    jurisdiction: 'International',
+    year: 2023,
+    levels: ['Level 1: Self-assessment', 'Level 2: Third-party audit', 'Level 3: Continuous monitoring'],
+    keyTopics: ['cloud security certification', 'transparency', 'CCM alignment', 'public registry'],
+    retrievalNeeds: ['knowledge_graph', 'procedural']
+  },
+
   CSA_CCM: {
     name: 'Cloud Controls Matrix',
     category: 'cloud-security',
@@ -159,6 +221,77 @@ export const COMPLIANCE_STANDARDS = {
     impactLevels: ['Low', 'Moderate', 'High'],
     keyTopics: ['federal cloud security', 'authorization', 'continuous monitoring', 'NIST 800-53'],
     retrievalNeeds: ['knowledge_graph', 'exact_match', 'procedural']
+  },
+
+  // Additional Cloud Security Standards
+  ISO_IEC_27050: {
+    name: 'Electronic Discovery',
+    category: 'data-security',
+    jurisdiction: 'International',
+    year: 2016,
+    keyTopics: ['eDiscovery', 'data preservation', 'legal hold', 'ESI'],
+    retrievalNeeds: ['procedural', 'exact_match']
+  },
+
+  SSAE_18: {
+    name: 'Statement on Standards for Attestation Engagements No. 18',
+    category: 'audit-standard',
+    jurisdiction: 'US',
+    year: 2017,
+    keyTopics: ['SOC audit standard', 'service organization controls', 'attestation'],
+    description: 'Audit standard that defines requirements for SOC 1, SOC 2, and SOC 3 reports',
+    retrievalNeeds: ['procedural', 'exact_match']
+  },
+
+  COBIT: {
+    name: 'Control Objectives for Information and Related Technologies',
+    category: 'it-governance',
+    jurisdiction: 'International',
+    year: 2019,
+    version: 'COBIT 2019',
+    domains: ['EDM (Evaluate, Direct, Monitor)', 'APO (Align, Plan, Organize)', 'BAI (Build, Acquire, Implement)', 'DSS (Deliver, Service, Support)', 'MEA (Monitor, Evaluate, Assess)'],
+    keyTopics: ['IT governance', 'enterprise governance', 'value optimization', 'risk management'],
+    retrievalNeeds: ['knowledge_graph', 'procedural', 'vector_db']
+  },
+
+  CMMC: {
+    name: 'Cybersecurity Maturity Model Certification',
+    category: 'data-security',
+    jurisdiction: 'US Federal',
+    year: 2023,
+    version: 'CMMC 2.0',
+    levels: ['Level 1: Foundational', 'Level 2: Advanced', 'Level 3: Expert'],
+    keyTopics: ['defense contractors', 'CUI protection', 'NIST 800-171', 'certification'],
+    retrievalNeeds: ['knowledge_graph', 'procedural']
+  },
+
+  // Financial & Audit
+  SOX: {
+    name: 'Sarbanes-Oxley Act',
+    category: 'financial-compliance',
+    jurisdiction: 'US',
+    year: 2002,
+    keyTopics: ['financial reporting', 'IT general controls', 'audit requirements', 'ITGC'],
+    retrievalNeeds: ['procedural', 'exact_match']
+  },
+
+  GLBA: {
+    name: 'Gramm-Leach-Bliley Act',
+    category: 'financial-privacy',
+    jurisdiction: 'US',
+    year: 1999,
+    keyTopics: ['financial privacy', 'safeguards rule', 'privacy notice', 'consumer information'],
+    retrievalNeeds: ['exact_match', 'procedural']
+  },
+
+  // International Privacy
+  PIPEDA: {
+    name: 'Personal Information Protection and Electronic Documents Act',
+    category: 'privacy',
+    jurisdiction: 'Canada',
+    year: 2000,
+    keyTopics: ['Canadian privacy law', 'fair information principles', 'consent', 'accountability'],
+    retrievalNeeds: ['vector_db', 'exact_match']
   }
 };
 
