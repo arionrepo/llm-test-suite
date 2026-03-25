@@ -1,0 +1,807 @@
+# Test Prompt Schema Specification
+
+**File:** /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/docs/PROMPT-SCHEMA.md
+**Description:** Formal JSON schema specification for LLM test prompts
+**Author:** Libor Ballaty <libor@arionetworks.com>
+**Created:** 2026-03-25
+
+---
+
+## 1. Schema Overview
+
+### 1.1 Format
+
+All test prompts follow a consistent JSON schema supporting:
+- Generic compliance testing
+- Vendor-specific workflow testing
+- Multi-dimensional filtering
+- Performance benchmarking
+
+### 1.2 Schema Version
+
+**Current Version:** `2.1.0`
+
+**Versioning:**
+- Major version: Breaking changes (e.g., required field added)
+- Minor version: New optional fields
+- Patch version: Clarifications, no structural changes
+
+---
+
+## 2. Base Schema (All Test Types)
+
+### 2.1 Required Fields
+
+```typescript
+interface TestPromptBase {
+  // Unique identifier
+  id: string;                    // Format: {VENDOR}_{STANDARD}_{TYPE}_{PERSONA}_{N}
+
+  // Categorization
+  category: string;              // Test category (see taxonomy)
+  vendor: string | null;         // "Generic" | "ArionComply" | "VendorName" | null
+
+  // The actual test question
+  question: string;              // The prompt sent to LLM
+
+  // Expected behavior
+  expectedTopics: string[];      // Topics that should appear in response
+
+  // Complexity
+  complexity: "beginner" | "intermediate" | "advanced" | "expert";
+}
+```
+
+### 2.2 Optional Fields
+
+```typescript
+interface TestPromptOptional {
+  // Compliance taxonomy (for compliance tests)
+  standard?: string;             // "GDPR" | "ISO_27001" | "SOC_2" | etc.
+  knowledgeType?: "FACTUAL" | "RELATIONAL" | "PROCEDURAL" | "EXACT_MATCH" | "SYNTHESIS";
+  persona?: "NOVICE" | "PRACTITIONER" | "MANAGER" | "AUDITOR" | "EXECUTIVE" | "DEVELOPER";
+
+  // Validation criteria
+  expectedCitation?: string | null;     // Exact citation required (e.g., "Article 6")
+  expectedBehavior?: string;            // Expected LLM behavior description
+  expectedGuidance?: string[];          // Step-by-step guidance expected
+  expectedSteps?: string[];             // Workflow steps expected
+  expectedClarifications?: string[];    // Clarifying questions LLM should ask
+
+  // Retrieval strategy
+  retrievalStrategy?: "vector_db" | "knowledge_graph" | "structured_retrieval" |
+                      "meilisearch" | "rag_synthesis" | "hybrid";
+
+  // Performance metadata
+  promptComplexity?: PromptComplexity;  // Auto-calculated complexity scores
+  estimatedTokens?: number;             // Estimated prompt size in tokens
+}
+```
+
+### 2.3 Vendor-Specific Extensions
+
+#### ArionComply Multi-Tier Tests
+
+```typescript
+interface ArionComplyMultiTierTest extends TestPromptBase {
+  vendor: "ArionComply";
+  category: "ai_backend_multitier";
+
+  // TIER configuration
+  tier2Mode: "assessment" | "framework-gdpr" | "framework-iso27001" |
+             "product-value" | "product-features" | "general";
+  tier1Content: string;           // TIER 1 base system prompt
+  tier2Content: string;           // TIER 2 situational prompt
+  tier3Context: OrganizationProfile;  // TIER 3 org context
+
+  // Organization profile for TIER 3
+  orgProfile: OrganizationProfile;
+
+  // Conversation history (for mid-conversation tests)
+  conversationHistory: ConversationMessage[];
+
+  // Full assembled prompt
+  fullPrompt: string;             // TIER1 + TIER2 + TIER3 + user message
+}
+
+interface OrganizationProfile {
+  industry: string;               // "Healthcare" | "Finance" | "Technology" | etc.
+  org_size: string;              // "1-50" | "51-250" | "251-1000" | "1000+"
+  region: string;                // "EU" | "US" | "UK" | "Global"
+  frameworks: string[];          // ["GDPR", "ISO_27001", ...]
+  maturity_level: string;        // "Initial" | "Developing" | "Defined" | "Managed" | "Optimizing"
+  profile_completion: number;    // 0-100
+}
+
+interface ConversationMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+```
+
+#### ArionComply Workflow Tests
+
+```typescript
+interface ArionComplyWorkflowTest extends TestPromptBase {
+  vendor: "ArionComply";
+  category: "arioncomply_workflow";
+
+  // Workflow metadata
+  taskCategory: string;          // "evidence_management" | "assessment" | etc.
+  task: string;                  // Task description
+  contextLevel: "complete_context" | "missing_standard" | "minimal_context";
+  userType: "NOVICE" | "PRACTITIONER" | "MANAGER" | "AUDITOR";
+
+  // Prompt variations
+  prompts: {
+    complete_context: string;
+    missing_standard?: string;
+    missing_control?: string;
+    minimal_context?: string;
+  };
+
+  // Expected behavior
+  expectedGuidance: string[];
+  expectedClarifications?: string[];
+}
+```
+
+---
+
+## 3. Field Definitions
+
+### 3.1 Core Fields
+
+#### `id` (required)
+
+**Type:** `string`
+
+**Format:** `{VENDOR}_{STANDARD}_{KNOWLEDGETYPE}_{PERSONA}_{INDEX}`
+
+**Examples:**
+- Generic test: `GDPR_FACTUAL_NOVICE_1`
+- Vendor test: `ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1`
+
+**Rules:**
+- Must be unique across all tests
+- SCREAMING_SNAKE_CASE
+- Vendor prefix optional for Generic tests
+- Vendor prefix required for vendor tests (use abbreviation if needed)
+- Index starts at 1
+
+#### `category` (required)
+
+**Type:** `string`
+
+**Allowed Values:**
+- `"compliance_knowledge"` - Generic compliance tests
+- `"arioncomply_workflow"` - ArionComply UI/workflow tests
+- `"ai_backend_multitier"` - ArionComply multi-tier prompt tests
+- `"intent_classification"` - Intent detection tests
+- `"workflow_understanding"` - Step accuracy tests
+- `"{vendor}_custom"` - Vendor-specific custom category
+
+**Rules:**
+- Use snake_case
+- Should describe test purpose, not vendor
+- Vendor-specific categories must include vendor prefix
+
+#### `vendor` (required)
+
+**Type:** `string | null`
+
+**Allowed Values:**
+- `"Generic"` - Vendor-agnostic compliance knowledge
+- `"ArionComply"` - ArionComply platform-specific
+- `null` - Legacy, treated as Generic
+- Custom vendor names (PascalCase)
+
+**Rules:**
+- Use official brand name capitalization
+- No abbreviations (except standard ones like "AWS")
+- PascalCase format
+- Cannot be empty string
+
+**Examples:**
+```json
+{ "vendor": "Generic" }
+{ "vendor": "ArionComply" }
+{ "vendor": "Salesforce" }
+{ "vendor": "AWS" }
+{ "vendor": null }  // Legacy, treat as Generic
+```
+
+#### `question` (required)
+
+**Type:** `string`
+
+**Format:** Natural language question or statement
+
+**Rules:**
+- Must be clear and unambiguous
+- Should be realistic (something a user would actually ask)
+- Length: 5-500 characters recommended
+- Should not include instructions to LLM (those go in system prompt)
+
+**Examples:**
+- ✅ "What is GDPR?"
+- ✅ "How do I implement encryption for personal data?"
+- ❌ "Explain GDPR. Be brief." (instruction included)
+- ❌ "gdpr?" (too vague)
+
+#### `expectedTopics` (required)
+
+**Type:** `string[]`
+
+**Format:** Array of keywords/phrases that should appear in response
+
+**Rules:**
+- Minimum 2 topics
+- Maximum 10 topics recommended
+- Use lowercase
+- Be specific but not too narrow
+- Include synonyms if multiple valid terms exist
+
+**Examples:**
+```json
+{
+  "question": "What is GDPR?",
+  "expectedTopics": ["regulation", "privacy", "EU", "data protection", "personal data"]
+}
+```
+
+#### `complexity` (required)
+
+**Type:** `enum`
+
+**Allowed Values:**
+- `"beginner"` - Basic factual questions, simple concepts
+- `"intermediate"` - Implementation details, moderate complexity
+- `"advanced"` - Complex scenarios, multi-step processes
+- `"expert"` - Synthesis, edge cases, deep technical knowledge
+
+**Guidelines:**
+
+| Level | Characteristics | Example |
+|-------|----------------|---------|
+| beginner | Single concept, factual recall | "What is GDPR?" |
+| intermediate | Multiple concepts, practical application | "How do I implement consent management?" |
+| advanced | Complex scenarios, trade-offs | "How should we handle cross-border transfers post-Schrems II?" |
+| expert | Synthesis, edge cases, optimization | "Design a privacy-by-design architecture for a multi-tenant SaaS with EU and US customers" |
+
+### 3.2 Compliance Taxonomy Fields
+
+#### `standard` (optional)
+
+**Type:** `string`
+
+**Allowed Values:** See TAXONOMY-GUIDE.md for complete list (29 standards)
+
+**Common Values:**
+- `"GDPR"` - General Data Protection Regulation
+- `"ISO_27001"` - Information Security Management
+- `"SOC_2"` - Service Organization Control 2
+- `"HIPAA"` - Health Insurance Portability and Accountability Act
+- `"CCPA"` - California Consumer Privacy Act
+
+**Rules:**
+- Use SCREAMING_SNAKE_CASE for multi-word standards
+- Use official acronyms where applicable
+- `null` for non-compliance tests
+
+#### `knowledgeType` (optional)
+
+**Type:** `enum`
+
+**Allowed Values:**
+- `"FACTUAL"` - Definitions, requirements, facts
+- `"RELATIONAL"` - Cross-references, mappings, relationships
+- `"PROCEDURAL"` - Step-by-step processes, workflows
+- `"EXACT_MATCH"` - Precise citations, exact regulatory text
+- `"SYNTHESIS"` - Multi-document analysis, comparisons
+
+**Guidelines:**
+
+| Type | Question Characteristics | Example |
+|------|-------------------------|---------|
+| FACTUAL | "What is...", "Define...", "List..." | "What is personal data under GDPR?" |
+| RELATIONAL | "How does X relate to Y?", "Map..." | "How does GDPR map to ISO 27701?" |
+| PROCEDURAL | "How do I...", "What are the steps..." | "How do I conduct a DPIA?" |
+| EXACT_MATCH | "What does Article X say?", "Quote..." | "What is the exact text of GDPR Article 6?" |
+| SYNTHESIS | "Compare...", "Analyze...", "Synthesize..." | "Compare GDPR, CCPA, and PIPEDA breach notification requirements" |
+
+#### `persona` (optional)
+
+**Type:** `enum`
+
+**Allowed Values:**
+- `"NOVICE"` - New to compliance, needs explanations
+- `"PRACTITIONER"` - Technical implementer, needs implementation details
+- `"MANAGER"` - Strategic oversight, needs workflows and priorities
+- `"AUDITOR"` - Verification-focused, needs evidence criteria
+- `"EXECUTIVE"` - Business-focused, needs risk and ROI
+- `"DEVELOPER"` - Code-focused, needs technical implementation
+
+**Guidelines:**
+
+| Persona | Characteristics | Expected Response Style |
+|---------|----------------|------------------------|
+| NOVICE | New to topic, needs context | Educational, explanatory, simple language |
+| PRACTITIONER | Knows concepts, needs "how to" | Technical, step-by-step, practical |
+| MANAGER | Strategic, needs workflows | Process-oriented, prioritization, delegation |
+| AUDITOR | Verification-focused | Evidence-based, criteria, validation |
+| EXECUTIVE | Business impact-focused | Risk, ROI, strategic value |
+| DEVELOPER | Technical implementation | Code examples, architecture, APIs |
+
+### 3.3 Validation Fields
+
+#### `expectedCitation` (optional)
+
+**Type:** `string | null`
+
+**Format:** Specific article, section, or control reference
+
+**When to Use:** Only for EXACT_MATCH knowledge type
+
+**Examples:**
+```json
+{ "expectedCitation": "Article 6" }
+{ "expectedCitation": "ISO 27001 Control A.8.2" }
+{ "expectedCitation": "SOC 2 CC6.1" }
+{ "expectedCitation": null }  // Not an exact citation test
+```
+
+#### `expectedBehavior` (optional)
+
+**Type:** `string`
+
+**Format:** Natural language description of expected LLM behavior
+
+**Examples:**
+```json
+{
+  "expectedBehavior": "Should initiate GDPR gap assessment workflow and ask first assessment question"
+}
+{
+  "expectedBehavior": "Should parse the affirmative response, extract compliance status (YES) and evidence, then proceed to next control"
+}
+```
+
+#### `expectedGuidance` (optional)
+
+**Type:** `string[]`
+
+**Format:** Array of expected step-by-step guidance
+
+**When to Use:** For procedural questions or workflow tests
+
+**Example:**
+```json
+{
+  "question": "How do I upload evidence for a control?",
+  "expectedGuidance": [
+    "Navigate to the control detail page",
+    "Click the Add Evidence button",
+    "Select evidence type",
+    "Upload file or provide link",
+    "Add description and tags"
+  ]
+}
+```
+
+#### `expectedSteps` (optional)
+
+**Type:** `string[]`
+
+**Format:** Array of workflow steps
+
+**When to Use:** For workflow understanding tests
+
+**Example:**
+```json
+{
+  "expectedSteps": [
+    "Describe the processing activity",
+    "Assess necessity and proportionality",
+    "Identify risks to data subjects",
+    "Determine mitigation measures",
+    "Document in DPIA report"
+  ]
+}
+```
+
+#### `expectedClarifications` (optional)
+
+**Type:** `string[]`
+
+**Format:** Array of clarifying questions LLM should ask
+
+**When to Use:** For ambiguous queries or incomplete context
+
+**Example:**
+```json
+{
+  "question": "How do I upload evidence?",
+  "expectedClarifications": [
+    "Which compliance standard are you working with?",
+    "Which specific control do you need to provide evidence for?",
+    "What type of evidence do you have? (document, screenshot, policy, etc.)"
+  ]
+}
+```
+
+### 3.4 Performance Metadata
+
+#### `promptComplexity` (optional, auto-generated)
+
+**Type:** `object`
+
+**Format:**
+```typescript
+interface PromptComplexity {
+  level: "simple" | "moderate" | "complex" | "very_complex";
+  score: number;              // 0-100
+  tokens: number;             // Estimated token count
+  technicalDensity: number;   // Percentage of technical terms
+  isMultiPart: boolean;       // Has multiple sub-questions
+  hasComparison: boolean;     // Requires comparison
+  performanceClass: "fast" | "medium" | "slow" | "very_slow";
+}
+```
+
+**Auto-Calculated By:** test-data-generator.js
+
+**Do Not Manually Set:** This field is computed automatically
+
+#### `estimatedTokens` (optional)
+
+**Type:** `number`
+
+**Format:** Integer representing approximate token count
+
+**When to Use:** For multi-tier tests where full prompt is assembled
+
+**Example:**
+```json
+{ "estimatedTokens": 2300 }  // TIER1 + TIER2 + TIER3 + user message
+```
+
+#### `retrievalStrategy` (optional)
+
+**Type:** `enum`
+
+**Allowed Values:**
+- `"vector_db"` - Semantic search via vector database
+- `"knowledge_graph"` - Graph traversal for relationships
+- `"structured_retrieval"` - SQL/database queries
+- `"meilisearch"` - Fast text search
+- `"rag_synthesis"` - Multi-document RAG synthesis
+- `"hybrid"` - Combination of strategies
+
+**Guidelines:**
+
+| Strategy | Best For | Example |
+|----------|---------|---------|
+| vector_db | Semantic similarity, factual recall | "What is GDPR?" |
+| knowledge_graph | Relationships, mappings | "How does GDPR relate to ISO 27001?" |
+| structured_retrieval | Precise lookups, citations | "What does Article 6 say?" |
+| meilisearch | Fast keyword search | "Find all controls about encryption" |
+| rag_synthesis | Multi-document synthesis | "Compare GDPR and CCPA" |
+| hybrid | Complex queries needing multiple strategies | "Explain GDPR data retention and show relevant controls" |
+
+---
+
+## 4. Validation Rules
+
+### 4.1 Required Field Combinations
+
+**Generic Compliance Test:**
+```typescript
+// MUST have:
+id, category, vendor, question, expectedTopics, complexity
+
+// SHOULD have:
+standard, knowledgeType, persona
+
+// MAY have:
+expectedCitation, retrievalStrategy
+```
+
+**ArionComply Workflow Test:**
+```typescript
+// MUST have:
+id, category: "arioncomply_workflow", vendor: "ArionComply", question, expectedTopics, complexity
+
+// SHOULD have:
+taskCategory, task, userType, expectedGuidance
+
+// MAY have:
+prompts, expectedClarifications
+```
+
+**ArionComply Multi-Tier Test:**
+```typescript
+// MUST have:
+id, category: "ai_backend_multitier", vendor: "ArionComply", question, expectedTopics, complexity,
+tier2Mode, tier1Content, tier2Content, tier3Context, orgProfile, fullPrompt
+
+// SHOULD have:
+estimatedTokens
+
+// MAY have:
+conversationHistory
+```
+
+### 4.2 Field Validation Rules
+
+**`id` validation:**
+- Must be unique
+- Must match pattern: `^[A-Z][A-Z0-9_]+$`
+- Must not exceed 100 characters
+
+**`vendor` validation:**
+- Cannot be empty string (use `null` or `"Generic"`)
+- Must be PascalCase if not null
+
+**`question` validation:**
+- Minimum length: 5 characters
+- Maximum length: 1000 characters
+- Must not be only whitespace
+
+**`expectedTopics` validation:**
+- Minimum array length: 2
+- Maximum array length: 20
+- Each topic: 1-100 characters
+- Should be lowercase (recommended, not enforced)
+
+**`complexity` validation:**
+- Must be one of: `"beginner"`, `"intermediate"`, `"advanced"`, `"expert"`
+
+**`standard` validation:**
+- Must be in allowed standards list (see TAXONOMY-GUIDE.md)
+- Use SCREAMING_SNAKE_CASE
+
+**`knowledgeType` validation:**
+- Must be one of: `"FACTUAL"`, `"RELATIONAL"`, `"PROCEDURAL"`, `"EXACT_MATCH"`, `"SYNTHESIS"`
+
+**`persona` validation:**
+- Must be one of: `"NOVICE"`, `"PRACTITIONER"`, `"MANAGER"`, `"AUDITOR"`, `"EXECUTIVE"`, `"DEVELOPER"`
+
+---
+
+## 5. Examples
+
+### 5.1 Generic Compliance Test
+
+```json
+{
+  "id": "GDPR_FACTUAL_NOVICE_1",
+  "category": "compliance_knowledge",
+  "vendor": "Generic",
+  "standard": "GDPR",
+  "knowledgeType": "FACTUAL",
+  "persona": "NOVICE",
+  "question": "What is GDPR?",
+  "expectedTopics": ["regulation", "privacy", "EU", "data protection"],
+  "expectedCitation": null,
+  "retrievalStrategy": "vector_db",
+  "complexity": "beginner",
+  "promptComplexity": {
+    "level": "simple",
+    "score": 30,
+    "tokens": 4,
+    "technicalDensity": 33.3,
+    "isMultiPart": false,
+    "hasComparison": false,
+    "performanceClass": "fast"
+  }
+}
+```
+
+### 5.2 ArionComply Workflow Test
+
+```json
+{
+  "id": "ARION_WORKFLOW_EVIDENCE_UPLOAD_1",
+  "category": "arioncomply_workflow",
+  "vendor": "ArionComply",
+  "taskCategory": "evidence_management",
+  "task": "Upload evidence for a control",
+  "contextLevel": "complete_context",
+  "userType": "PRACTITIONER",
+  "question": "How do I upload evidence for ISO 27001 control A.8.2 in ArionComply?",
+  "expectedTopics": ["navigate", "control detail", "add evidence", "upload"],
+  "expectedGuidance": [
+    "Navigate to the control detail page",
+    "Click the Add Evidence button",
+    "Select evidence type",
+    "Upload file or provide link"
+  ],
+  "complexity": "beginner",
+  "promptComplexity": {
+    "level": "moderate",
+    "score": 45,
+    "tokens": 17,
+    "technicalDensity": 25,
+    "performanceClass": "medium"
+  }
+}
+```
+
+### 5.3 ArionComply Multi-Tier Test
+
+```json
+{
+  "id": "ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1",
+  "category": "ai_backend_multitier",
+  "vendor": "ArionComply",
+  "standard": "GDPR",
+  "knowledgeType": "PROCEDURAL",
+  "persona": "NOVICE",
+  "tier2Mode": "assessment",
+  "question": "I want to assess my GDPR compliance",
+  "tier1Content": "You are ArionComply AI assistant...",
+  "tier2Content": "Assessment mode system prompt...",
+  "tier3Context": {
+    "industry": "Healthcare",
+    "org_size": "1-50",
+    "region": "EU",
+    "frameworks": ["GDPR"],
+    "maturity_level": "Initial",
+    "profile_completion": 30
+  },
+  "orgProfile": {
+    "industry": "Healthcare",
+    "org_size": "1-50",
+    "region": "EU",
+    "frameworks": ["GDPR"],
+    "maturity_level": "Initial",
+    "profile_completion": 30
+  },
+  "conversationHistory": [],
+  "fullPrompt": "[TIER 1]...[TIER 2]...[TIER 3]...[USER]...",
+  "expectedTopics": ["gap assessment", "questionnaire", "controls", "evidence"],
+  "expectedBehavior": "Should initiate GDPR gap assessment workflow",
+  "complexity": "beginner",
+  "estimatedTokens": 2300,
+  "promptComplexity": {
+    "level": "high",
+    "score": 92,
+    "tokens": 2300,
+    "technicalDensity": 50,
+    "performanceClass": "slow"
+  }
+}
+```
+
+---
+
+## 6. Schema Versioning
+
+### 6.1 Version History
+
+**v2.1.0 (2026-03-25):**
+- Added `vendor` field (required)
+- Added ArionComply multi-tier test schema
+- Added `tier2Mode`, `tier1Content`, `tier2Content`, `tier3Context`, `orgProfile`, `fullPrompt` fields
+- Added `estimatedTokens` field
+
+**v2.0.0 (2026-03-24):**
+- Initial formal schema definition
+- Migrated from implicit code-based schema
+
+### 6.2 Migration Guide
+
+**From v2.0.0 to v2.1.0:**
+
+```javascript
+// Old format (v2.0.0)
+{
+  "id": "GDPR_FACTUAL_NOVICE_1",
+  "category": "compliance_knowledge",
+  // No vendor field
+}
+
+// New format (v2.1.0)
+{
+  "id": "GDPR_FACTUAL_NOVICE_1",
+  "category": "compliance_knowledge",
+  "vendor": "Generic"  // ← Added
+}
+```
+
+**Auto-migration rule:** If `vendor` field is missing, set to `"Generic"` for backward compatibility.
+
+---
+
+## 7. Best Practices
+
+### 7.1 Writing Good Test Prompts
+
+**DO:**
+- ✅ Use realistic user questions
+- ✅ Include diverse complexity levels
+- ✅ Cover edge cases and common scenarios
+- ✅ Provide 3-5 expectedTopics (not too many, not too few)
+- ✅ Be specific about expected behavior
+
+**DON'T:**
+- ❌ Include LLM instructions in `question` field
+- ❌ Use overly generic expectedTopics ("information", "data")
+- ❌ Make questions too complex (split into multiple tests)
+- ❌ Duplicate tests across vendors (use inheritance/variation instead)
+
+### 7.2 Vendor-Specific Test Guidelines
+
+**When to create vendor-specific tests:**
+- ✅ Testing vendor platform features (UI workflows, APIs)
+- ✅ Testing vendor-specific terminology or concepts
+- ✅ Testing integrations unique to vendor
+
+**When to use generic tests:**
+- ✅ Standard compliance knowledge (GDPR articles, ISO controls)
+- ✅ Industry-standard concepts
+- ✅ Regulatory requirements
+
+### 7.3 Complexity Assignment
+
+**Assign complexity based on:**
+- Number of concepts involved (1 = beginner, 3+ = advanced)
+- Cognitive load required (recall < apply < analyze < create)
+- Domain expertise needed (novice < practitioner < expert)
+- Expected response length (short = beginner, multi-paragraph = advanced)
+
+**Example progression:**
+```
+beginner:     "What is GDPR?"
+intermediate: "How do I implement GDPR consent management?"
+advanced:     "Design a GDPR-compliant data architecture for multi-tenant SaaS"
+expert:       "Analyze GDPR-CCPA-PIPEDA alignment for a global data platform with cross-border transfers"
+```
+
+---
+
+## 8. Schema Extensions
+
+### 8.1 Adding Custom Vendor Fields
+
+**Process:**
+1. Define new fields in vendor-specific interface
+2. Extend base schema
+3. Document in this file
+4. Add validation rules
+5. Update test-data-generator.js to recognize new fields
+
+**Example:**
+```typescript
+interface SalesforceComplianceTest extends TestPromptBase {
+  vendor: "Salesforce";
+  category: "salesforce_shield";
+
+  // Salesforce-specific fields
+  salesforceModule: "Shield" | "PrivacyCenter" | "ConsentManagement";
+  objectTypes: string[];  // ["Account", "Contact", "Case"]
+  apexRequired: boolean;
+}
+```
+
+### 8.2 Deprecation Policy
+
+**When deprecating fields:**
+1. Mark as `@deprecated` in this document
+2. Provide migration path
+3. Maintain backward compatibility for 2 major versions
+4. Remove in 3rd major version
+
+**Example:**
+```typescript
+interface TestPrompt {
+  // @deprecated v2.2.0 - Use vendor field instead
+  // Will be removed in v4.0.0
+  isVendorSpecific?: boolean;
+}
+```
+
+---
+
+Questions: libor@arionetworks.com
