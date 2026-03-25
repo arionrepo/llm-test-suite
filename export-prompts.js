@@ -6,6 +6,7 @@
 import { generateAllTests } from './enterprise/test-data-generator.js';
 import { getAllArionComplyPrompts } from './enterprise/arioncomply-workflows/ui-tasks.js';
 import { getIntentTests, getWorkflowTests } from './enterprise/arioncomply-workflows/intent-classification-tests.js';
+import { AI_BACKEND_MULTI_TIER_TESTS } from './enterprise/arioncomply-workflows/ai-backend-multi-tier-tests.js';
 import { PromptComplexityAnalyzer } from './utils/prompt-complexity-analyzer.js';
 import { InputComplexityAnalyzer } from './utils/input-complexity-analyzer.js';
 import { OutputComplexityAnalyzer } from './utils/output-complexity-analyzer.js';
@@ -156,6 +157,7 @@ function exportComprehensiveJSON() {
   const outputAnalyzer = new OutputComplexityAnalyzer();
 
   const complianceTests = generateAllTests();
+  const multiTierTests = Object.values(AI_BACKEND_MULTI_TIER_TESTS);
   const arioncomplyPrompts = getAllArionComplyPrompts();
   const intentTests = getIntentTests();
   const workflowTests = getWorkflowTests();
@@ -163,9 +165,16 @@ function exportComprehensiveJSON() {
   const comprehensiveExport = {
     metadata: {
       timestamp: new Date().toISOString(),
-      version: '2.0.0',
-      description: 'Comprehensive LLM test prompts for enterprise compliance and ArionComply application',
-      totalPrompts: complianceTests.length + arioncomplyPrompts.length + intentTests.length + workflowTests.length
+      version: '3.0.0',
+      description: 'Comprehensive LLM test prompts for enterprise compliance and ArionComply application - includes multi-tier tests',
+      totalPrompts: complianceTests.length + multiTierTests.length + arioncomplyPrompts.length + intentTests.length + workflowTests.length,
+      testTypes: {
+        simpleCompliance: complianceTests.length,
+        multiTier: multiTierTests.length,
+        arioncomplyWorkflows: arioncomplyPrompts.length,
+        intentClassification: intentTests.length,
+        workflowUnderstanding: workflowTests.length
+      }
     },
 
     complianceTests: {
@@ -231,6 +240,62 @@ function exportComprehensiveJSON() {
             isMultiPart: legacyAnalysis.isMultiPart,
             hasComparison: legacyAnalysis.hasComparisonRequest,
             performanceClass: legacyAnalysis.performanceClass
+          }
+        };
+      })
+    },
+
+    multiTierTests: {
+      description: 'ArionComply AI backend multi-tier prompt tests (TIER 1+2+3 system)',
+      testingMode: 'realistic_production_prompts',
+      note: 'Tests with actual ArionComply prompt structure: base system + framework context + org profile',
+      count: multiTierTests.length,
+      tests: multiTierTests.map(t => {
+        const inputAnalysis = inputAnalyzer.analyze(t.fullPrompt || t.question);
+        const outputAnalysis = outputAnalyzer.analyze(t);
+        const weightedComplexity = (inputAnalysis.inputComplexityScore * 0.25) + (outputAnalysis.outputComplexityScore * 0.75);
+
+        return {
+          id: t.id,
+          category: t.category || 'multi_tier_compliance',
+          standard: t.standard,
+          knowledgeType: t.knowledgeType,
+          persona: t.persona,
+          question: t.question,
+
+          // Multi-tier specific fields
+          tier2Mode: t.tier2Mode,
+          orgProfile: t.orgProfile,
+          conversationHistory: t.conversationHistory,
+          estimatedTokens: t.estimatedTokens,
+
+          expectedTopics: t.expectedTopics,
+          expectedBehavior: t.expectedBehavior,
+          retrievalStrategy: t.retrievalStrategy || outputAnalysis.retrievalStrategy,
+
+          // 2D Complexity
+          inputComplexity: {
+            score: inputAnalysis.inputComplexityScore,
+            level: inputAnalysis.inputComplexityLevel,
+            tokens: t.estimatedTokens || inputAnalysis.estimatedTokens,
+            technicalDensity: Math.round(inputAnalysis.technicalDensity * 10) / 10,
+            hasTiers: true,
+            tierCount: [t.tier1Content, t.tier2Content, t.tier3Context].filter(x => x).length
+          },
+
+          outputComplexity: {
+            score: outputAnalysis.outputComplexityScore,
+            level: outputAnalysis.outputComplexityLevel,
+            expectedTokens: outputAnalysis.expectedResponseTokens,
+            responseType: outputAnalysis.responseType,
+            knowledgeDepth: outputAnalysis.knowledgeDepth
+          },
+
+          performancePrediction: {
+            weightedComplexityScore: Math.round(weightedComplexity),
+            dominantFactor: 'output',
+            estimatedResponseTimeMs: predictResponseTime(inputAnalysis, outputAnalysis),
+            performanceClass: categorizePerformance(weightedComplexity)
           }
         };
       })
@@ -317,6 +382,7 @@ function exportComprehensiveJSON() {
     summary: {
       byCategory: {
         compliance_knowledge: complianceTests.length,
+        multi_tier_realistic: multiTierTests.length,
         arioncomply_workflow: arioncomplyPrompts.length,
         intent_classification: intentTests.length,
         workflow_understanding: workflowTests.length
@@ -324,12 +390,25 @@ function exportComprehensiveJSON() {
       byStandard: {},
       byKnowledgeType: {},
       byPersona: {},
-      byIntentCategory: {}
+      byIntentCategory: {},
+      byTierComplexity: {
+        simpleSingleMessage: complianceTests.length,
+        multiTierWithContext: multiTierTests.length
+      }
     }
   };
 
   // Calculate summary statistics
   complianceTests.forEach(t => {
+    comprehensiveExport.summary.byStandard[t.standard] =
+      (comprehensiveExport.summary.byStandard[t.standard] || 0) + 1;
+    comprehensiveExport.summary.byKnowledgeType[t.knowledgeType] =
+      (comprehensiveExport.summary.byKnowledgeType[t.knowledgeType] || 0) + 1;
+    comprehensiveExport.summary.byPersona[t.persona] =
+      (comprehensiveExport.summary.byPersona[t.persona] || 0) + 1;
+  });
+
+  multiTierTests.forEach(t => {
     comprehensiveExport.summary.byStandard[t.standard] =
       (comprehensiveExport.summary.byStandard[t.standard] || 0) + 1;
     comprehensiveExport.summary.byKnowledgeType[t.knowledgeType] =
@@ -349,11 +428,15 @@ function exportComprehensiveJSON() {
 
   console.log('✅ Comprehensive JSON exported: ' + filepath);
   console.log('\n📊 Contents:');
-  console.log('  Compliance Tests: ' + comprehensiveExport.complianceTests.count);
+  console.log('  Simple Compliance Tests: ' + comprehensiveExport.complianceTests.count);
+  console.log('  Multi-Tier Tests (TIER 1+2+3): ' + comprehensiveExport.multiTierTests.count);
   console.log('  ArionComply Workflows: ' + comprehensiveExport.arioncomplyWorkflows.count);
   console.log('  Intent Classification: ' + comprehensiveExport.intentClassification.count);
   console.log('  Workflow Understanding: ' + comprehensiveExport.workflowUnderstanding.count);
   console.log('  Total Prompts: ' + comprehensiveExport.metadata.totalPrompts);
+  console.log('\n📈 Input Complexity Distribution:');
+  console.log('  Simple (10-50 tokens): ' + comprehensiveExport.complianceTests.count);
+  console.log('  High (2000+ tokens): ' + comprehensiveExport.multiTierTests.count);
 
   return filepath;
 }
