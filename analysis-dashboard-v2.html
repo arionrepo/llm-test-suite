@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Analysis Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+        .container { max-width: 1800px; margin: 0 auto; }
+        .header {
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #2c5364;
+        }
+        
+        .chart-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .methodology-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 16px;
+            background: #e3f2fd;
+            color: #1976d2;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .methodology-link:hover {
+            background: #bbdefb;
+        }
+        
+        .chart-description {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #2c5364;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .chart-controls {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .control-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c5364;
+        }
+        
+        .modal-section {
+            margin-bottom: 25px;
+        }
+        
+        .modal-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .formula {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            border-left: 4px solid #2c5364;
+        }
+        
+        .close-btn {
+            background: #2c5364;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c5364;
+            margin: 10px 0;
+        }
+        
+        .metric-label {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        #dashboard { display: none; }
+        
+        .file-loader {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LLM Analysis Dashboard</h1>
+            <p>Configurable model comparison with methodology documentation</p>
+        </div>
+
+        <div class="file-loader">
+            <h3 style="margin-bottom: 15px;">Load Test Results</h3>
+            <input type="file" id="fileInput" accept=".json" style="padding: 10px;">
+            <p style="color: #666; margin-top: 10px; font-size: 13px;">
+                Select: <code>reports/test-results-enterprise-pilot-*.json</code>
+            </p>
+        </div>
+
+        <div id="dashboard">
+            <!-- Overall Stats -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Overall Test Statistics</div>
+                </div>
+                <div class="stats-grid" id="overallStats"></div>
+            </div>
+
+            <!-- Configurable Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Configurable Analysis</div>
+                    <button class="methodology-link" onclick="showMethodology('configurable')">
+                        ⓘ How is this calculated?
+                    </button>
+                </div>
+                <div class="chart-description">
+                    <strong>Customize your analysis:</strong> Select what to show on X and Y axes. 
+                    The chart will update to show the relationship you choose.
+                </div>
+                <div class="chart-controls">
+                    <div class="control-group">
+                        <label>X-Axis</label>
+                        <select id="xAxisSelect">
+                            <option value="knowledgeType">Knowledge Type</option>
+                            <option value="model">Model Name</option>
+                            <option value="persona">User Persona</option>
+                            <option value="standard">Standard</option>
+                            <option value="inputComplexity">Input Complexity</option>
+                            <option value="outputComplexity">Output Complexity</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Y-Axis</label>
+                        <select id="yAxisSelect">
+                            <option value="avgScore">Average Score (%)</option>
+                            <option value="passRate">Pass Rate (%)</option>
+                            <option value="responseTime">Response Time (ms)</option>
+                            <option value="tokensPerSec">Tokens/Second</option>
+                            <option value="tokenEfficiency">Token Efficiency</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Chart Type</label>
+                        <select id="chartType">
+                            <option value="bar">Bar Chart</option>
+                            <option value="line">Line Chart</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>&nbsp;</label>
+                        <button class="close-btn" style="width: 100%; margin: 0;" onclick="updateConfigChart()">
+                            Update Chart
+                        </button>
+                    </div>
+                </div>
+                <canvas id="configurableChart"></canvas>
+            </div>
+
+            <!-- Model Specialization -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Model Specialization Matrix</div>
+                    <button class="methodology-link" onclick="showMethodology('specialization')">
+                        ⓘ How is this calculated?
+                    </button>
+                </div>
+                <div class="chart-description">
+                    <strong>What this shows:</strong> Which model performs best for each knowledge type.
+                    <br><strong>How to read:</strong> Green = strong (70%+), Yellow = moderate (50-70%), Orange = weak (30-50%), Red = poor (<30%).
+                    <br><strong>Use this to:</strong> Select the right model for your specific task type.
+                </div>
+                <div id="specializationMatrix"></div>
+            </div>
+
+            <!-- Knowledge Type Performance -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Knowledge Type Performance by Model</div>
+                    <button class="methodology-link" onclick="showMethodology('knowledgeType')">
+                        ⓘ How is this calculated?
+                    </button>
+                </div>
+                <div class="chart-description">
+                    <strong>What this shows:</strong> Performance breakdown for each knowledge type across all tested models.
+                    <br><strong>How to read:</strong> Each bar represents one model's average score for that knowledge type.
+                    <br><strong>Use this to:</strong> Identify which models handle Factual, Relational, Procedural, Synthesis best.
+                </div>
+                <canvas id="knowledgeTypeChart"></canvas>
+            </div>
+
+            <!-- Speed vs Accuracy -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Speed vs Accuracy Tradeoff</div>
+                    <button class="methodology-link" onclick="showMethodology('tradeoff')">
+                        ⓘ How is this calculated?
+                    </button>
+                </div>
+                <div class="chart-description">
+                    <strong>What this shows:</strong> Response time (X-axis) vs accuracy score (Y-axis) for each model.
+                    <br><strong>How to read:</strong> Top-left = fast AND accurate (ideal). Bottom-right = slow AND inaccurate (avoid).
+                    <br><strong>Use this to:</strong> Choose between fast/cheap models vs slow/accurate models based on your needs.
+                </div>
+                <canvas id="tradeoffChart"></canvas>
+            </div>
+
+            <!-- Cost Efficiency -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Cost Efficiency (Quality per Token)</div>
+                    <button class="methodology-link" onclick="showMethodology('costEfficiency')">
+                        ⓘ How is this calculated?
+                    </button>
+                </div>
+                <div class="chart-description">
+                    <strong>What this shows:</strong> Quality score achieved per token generated (higher = better value).
+                    <br><strong>Formula:</strong> Average Score / Average Completion Tokens
+                    <br><strong>Use this to:</strong> Find models that give best results for lowest resource usage.
+                </div>
+                <canvas id="costEfficiencyChart"></canvas>
+            </div>
+
+            <!-- Consistency -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Model Consistency (Reliability)</div>
+                    <button class="methodology-link" onclick="showMethodology('consistency')">
+                        ⓘ How is this calculated?
+                    </button>
+                </div>
+                <div class="chart-description">
+                    <strong>What this shows:</strong> Standard deviation of scores across all tests (lower = more consistent).
+                    <br><strong>How to read:</strong> Low bars = predictable, reliable performance. High bars = unpredictable.
+                    <br><strong>Use this to:</strong> Choose models for production where you need consistent results.
+                </div>
+                <canvas id="consistencyChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Methodology Modal -->
+    <div id="methodologyModal" class="modal" onclick="if(event.target === this) closeModal()">
+        <div class="modal-content">
+            <div class="modal-header" id="modalTitle">Methodology</div>
+            <div id="modalBody"></div>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let testData = null;
+        let configurableChart = null;
+        let allTestResults = [];
+
+        const METHODOLOGIES = {
+            configurable: {
+                title: 'Configurable Analysis Methodology',
+                sections: [
+                    {
+                        heading: 'What This Chart Shows',
+                        content: 'A customizable visualization where YOU choose what to analyze. Select any X-axis dimension and any Y-axis metric to explore relationships in the data.'
+                    },
+                    {
+                        heading: 'Available Dimensions',
+                        content: `
+                            <strong>X-Axis Options:</strong>
+                            <ul>
+                                <li><strong>Knowledge Type:</strong> Factual, Relational, Procedural, Exact Match, Synthesis</li>
+                                <li><strong>Model Name:</strong> Which model was tested</li>
+                                <li><strong>Persona:</strong> Novice, Practitioner, Manager, Auditor, Executive, Developer</li>
+                                <li><strong>Standard:</strong> GDPR, ISO 27001, etc.</li>
+                                <li><strong>Input Complexity:</strong> Question parsing difficulty (0-100)</li>
+                                <li><strong>Output Complexity:</strong> Answer generation difficulty (0-100)</li>
+                            </ul>
+                            
+                            <strong>Y-Axis Options:</strong>
+                            <ul>
+                                <li><strong>Average Score:</strong> Mean accuracy across tests (0-100%)</li>
+                                <li><strong>Pass Rate:</strong> Percentage of tests passed (0-100%)</li>
+                                <li><strong>Response Time:</strong> Average milliseconds to respond</li>
+                                <li><strong>Tokens/Second:</strong> Generation throughput</li>
+                                <li><strong>Token Efficiency:</strong> Score per token (quality/cost)</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        heading: 'How Values Are Calculated',
+                        content: `
+                            For each X-axis group (e.g., each knowledge type):
+                            <div class="formula">
+                            1. Filter tests matching that X value
+                            2. Calculate Y metric for those tests:
+                               - Average Score = SUM(scores) / COUNT(tests)
+                               - Pass Rate = COUNT(passed) / COUNT(total) × 100
+                               - Response Time = SUM(timing.totalMs) / COUNT(tests)
+                               - etc.
+                            3. Plot the result
+                            </div>
+                        `
+                    },
+                    {
+                        heading: 'How to Use This',
+                        content: `
+                            <strong>Example analyses:</strong>
+                            <ul>
+                                <li>X=Knowledge Type, Y=Avg Score → See which knowledge types are hardest</li>
+                                <li>X=Model, Y=Response Time → Compare model speeds</li>
+                                <li>X=Input Complexity, Y=Response Time → See if complex questions take longer</li>
+                                <li>X=Persona, Y=Token Efficiency → Which personas get best value</li>
+                            </ul>
+                        `
+                    }
+                ]
+            },
+            
+            specialization: {
+                title: 'Model Specialization Matrix Methodology',
+                sections: [
+                    {
+                        heading: 'What This Shows',
+                        content: 'A heatmap showing which model performs best for each knowledge type. Each cell shows the average score that model achieved on that knowledge type.'
+                    },
+                    {
+                        heading: 'Calculation Method',
+                        content: `
+                            <div class="formula">
+                            For each Model × Knowledge Type cell:
+                            
+                            1. Filter: Get all tests where:
+                               - test.modelName === thisModel
+                               - test.knowledgeType === thisKnowledgeType
+                            
+                            2. Calculate: Average score
+                               score = SUM(test.evaluation.score) / COUNT(tests)
+                            
+                            3. Color: Based on score
+                               - Green (70-100): Strong performance
+                               - Yellow (50-70): Moderate performance  
+                               - Orange (30-50): Weak performance
+                               - Red (0-30): Poor performance
+                            </div>
+                        `
+                    },
+                    {
+                        heading: 'How to Interpret',
+                        content: `
+                            <ul>
+                                <li><strong>Horizontal scan (by model):</strong> See one model's strengths and weaknesses</li>
+                                <li><strong>Vertical scan (by knowledge type):</strong> See which models excel at a specific task</li>
+                                <li><strong>Find the green cells:</strong> Those are model-task combinations that work well</li>
+                                <li><strong>Avoid red cells:</strong> Model is poor at that task type</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        heading: 'Use Cases',
+                        content: `
+                            <strong>Task-based model selection:</strong>
+                            <ul>
+                                <li>Need Factual answers? → Find greenest cell in "FACTUAL" column</li>
+                                <li>Need Synthesis? → Find greenest cell in "SYNTHESIS" column</li>
+                                <li>Multi-purpose model? → Find model with most green cells across row</li>
+                            </ul>
+                        `
+                    }
+                ]
+            },
+            
+            knowledgeType: {
+                title: 'Knowledge Type Performance Methodology',
+                sections: [
+                    {
+                        heading: 'What This Shows',
+                        content: 'Performance of all models on each knowledge type. Each grouped set of bars represents one knowledge type, with each bar being a different model.'
+                    },
+                    {
+                        heading: 'Knowledge Type Definitions',
+                        content: `
+                            <ul>
+                                <li><strong>FACTUAL:</strong> Simple facts, definitions, requirements (e.g., "What is GDPR?")</li>
+                                <li><strong>RELATIONAL:</strong> Cross-references, relationships (e.g., "How does Article 30 support Article 5?")</li>
+                                <li><strong>PROCEDURAL:</strong> Step-by-step workflows (e.g., "How to conduct a DPIA?")</li>
+                                <li><strong>EXACT_MATCH:</strong> Precise citations (e.g., "Find GDPR Article 17 text")</li>
+                                <li><strong>SYNTHESIS:</strong> Multi-document comparison (e.g., "Compare GDPR vs CCPA")</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        heading: 'Calculation Method',
+                        content: `
+                            <div class="formula">
+                            For each Knowledge Type + Model combination:
+                            
+                            1. Filter tests where knowledgeType matches
+                            2. Filter by model
+                            3. Calculate average score:
+                               score = SUM(evaluation.score) / COUNT(tests)
+                            4. Plot as grouped bar
+                            </div>
+                        `
+                    },
+                    {
+                        heading: 'What to Look For',
+                        content: `
+                            <ul>
+                                <li><strong>Tallest bars:</strong> Best models for that knowledge type</li>
+                                <li><strong>Consistent heights:</strong> Model performs similarly across all types (generalist)</li>
+                                <li><strong>Varying heights:</strong> Model has specializations</li>
+                                <li><strong>All bars low for a type:</strong> ALL models need retrieval infrastructure for that type</li>
+                            </ul>
+                        `
+                    }
+                ]
+            },
+            
+            tradeoff: {
+                title: 'Speed vs Accuracy Tradeoff Methodology',
+                sections: [
+                    {
+                        heading: 'What This Shows',
+                        content: 'Scatter plot with response time on X-axis and accuracy score on Y-axis. Each point is one model.'
+                    },
+                    {
+                        heading: 'Calculation Method',
+                        content: `
+                            <div class="formula">
+                            For each model:
+                            
+                            X-coordinate (Response Time):
+                            avgTime = SUM(test.timing.totalMs) / COUNT(tests)
+                            
+                            Y-coordinate (Accuracy):
+                            avgScore = SUM(test.evaluation.score) / COUNT(tests)
+                            
+                            Plot point at (avgTime, avgScore)
+                            </div>
+                        `
+                    },
+                    {
+                        heading: 'Ideal Quadrants',
+                        content: `
+                            <div style="background: #f5f5f5; padding: 15px; border-radius: 6px;">
+                                <strong>Top-Left (IDEAL):</strong> Fast + Accurate<br>
+                                Low response time, high score - Best overall value
+                                
+                                <br><br><strong>Top-Right:</strong> Slow but Accurate<br>
+                                Use when accuracy matters more than speed
+                                
+                                <br><br><strong>Bottom-Left:</strong> Fast but Inaccurate<br>
+                                Use when speed matters and errors are tolerable
+                                
+                                <br><br><strong>Bottom-Right (AVOID):</strong> Slow + Inaccurate<br>
+                                Worst of both worlds - don't use
+                            </div>
+                        `
+                    },
+                    {
+                        heading: 'Decision Making',
+                        content: `
+                            <ul>
+                                <li><strong>Production use:</strong> Choose top-left models (fast + accurate)</li>
+                                <li><strong>Budget constraints:</strong> Accept bottom-left if speed critical</li>
+                                <li><strong>Critical accuracy:</strong> Accept top-right if accuracy critical</li>
+                                <li><strong>Never use:</strong> Bottom-right models</li>
+                            </ul>
+                        `
+                    }
+                ]
+            },
+            
+            costEfficiency: {
+                title: 'Cost Efficiency Methodology',
+                sections: [
+                    {
+                        heading: 'What This Shows',
+                        content: 'Quality score achieved per token generated. Higher values mean better cost-effectiveness.'
+                    },
+                    {
+                        heading: 'Calculation Formula',
+                        content: `
+                            <div class="formula">
+                            For each model:
+                            
+                            tokenEfficiency = avgScore / avgCompletionTokens
+                            
+                            Where:
+                            - avgScore = average accuracy across all tests (0-100)
+                            - avgCompletionTokens = average response length
+                            
+                            Example:
+                            Model A: 75% score, 300 tokens → 0.25 score/token
+                            Model B: 60% score, 150 tokens → 0.40 score/token ✓ BETTER VALUE
+                            </div>
+                        `
+                    },
+                    {
+                        heading: 'Why This Matters',
+                        content: `
+                            <strong>Token costs scale with usage:</strong>
+                            <ul>
+                                <li>Small model: $0.0001/token → 300 tokens = $0.03</li>
+                                <li>Large model: $0.001/token → 500 tokens = $0.50</li>
+                                <li>At 1000 queries/day, costs: $30 vs $500/day</li>
+                            </ul>
+                            
+                            <strong>Cost efficiency helps you:</strong>
+                            <ul>
+                                <li>Choose models that maximize quality per dollar</li>
+                                <li>Identify when small models give better value</li>
+                                <li>Optimize budget allocation</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        heading: 'Typical Values',
+                        content: `
+                            <ul>
+                                <li><strong>0.3-0.5:</strong> Excellent efficiency (small models on simple tasks)</li>
+                                <li><strong>0.2-0.3:</strong> Good efficiency (balanced models)</li>
+                                <li><strong>0.1-0.2:</strong> Moderate efficiency (large models or complex tasks)</li>
+                                <li><strong><0.1:</strong> Poor efficiency (oversized model for task)</li>
+                            </ul>
+                        `
+                    }
+                ]
+            },
+            
+            consistency: {
+                title: 'Model Consistency Methodology',
+                sections: [
+                    {
+                        heading: 'What This Shows',
+                        content: 'How much a model\'s performance varies across different tests. Lower values = more predictable and reliable.'
+                    },
+                    {
+                        heading: 'Calculation Formula',
+                        content: `
+                            <div class="formula">
+                            Standard Deviation of Scores:
+                            
+                            1. Calculate mean: μ = SUM(scores) / COUNT(scores)
+                            2. Calculate variance: σ² = SUM((score - μ)²) / COUNT
+                            3. Standard deviation: σ = √(σ²)
+                            
+                            Example:
+                            Model A scores: [80, 82, 78, 81, 79]
+                            Mean: 80, Std Dev: 1.4 ✓ Very consistent
+                            
+                            Model B scores: [90, 45, 75, 60, 85]
+                            Mean: 71, Std Dev: 17.2 ✗ Highly variable
+                            </div>
+                        `
+                    },
+                    {
+                        heading: 'Why Consistency Matters',
+                        content: `
+                            <ul>
+                                <li><strong>Production deployment:</strong> Need predictable behavior</li>
+                                <li><strong>User experience:</strong> Inconsistent = frustrating</li>
+                                <li><strong>Debugging:</strong> Variable results hard to troubleshoot</li>
+                                <li><strong>SLA compliance:</strong> Consistent performance needed for guarantees</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        heading: 'Interpretation',
+                        content: `
+                            <ul>
+                                <li><strong>Std Dev < 10:</strong> Very consistent - production ready</li>
+                                <li><strong>Std Dev 10-20:</strong> Moderately consistent - acceptable</li>
+                                <li><strong>Std Dev 20-30:</strong> Variable - test more before deploying</li>
+                                <li><strong>Std Dev > 30:</strong> Highly unpredictable - investigate why</li>
+                            </ul>
+                        `
+                    }
+                ]
+            }
+        };
+
+        document.getElementById('fileInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    testData = JSON.parse(event.target.result);
+                    processTestData();
+                    document.getElementById('dashboard').style.display = 'block';
+                } catch (error) {
+                    alert('Error loading file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        function processTestData() {
+            allTestResults = [];
+            Object.entries(testData.modelResults || {}).forEach(([model, results]) => {
+                results.forEach(r => allTestResults.push({...r, modelName: model}));
+            });
+
+            updateOverallStats();
+            updateConfigChart();
+            renderSpecializationMatrix();
+            renderKnowledgeTypeChart();
+            renderTradeoffChart();
+            renderCostEfficiency();
+            renderConsistency();
+        }
+
+        function updateOverallStats() {
+            const models = Object.keys(testData.modelResults || {});
+            const totalTests = allTestResults.length;
+            const passed = allTestResults.filter(r => r.success && r.evaluation?.passed).length;
+
+            document.getElementById('overallStats').innerHTML = `
+                <div class="metric-card">
+                    <div class="metric-label">Total Tests</div>
+                    <div class="metric-value">${totalTests}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Models Tested</div>
+                    <div class="metric-value">${models.length}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Pass Rate</div>
+                    <div class="metric-value">${((passed/totalTests)*100).toFixed(1)}%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Best Model</div>
+                    <div class="metric-value" style="font-size: 18px;">${findBestModel()}</div>
+                </div>
+            `;
+        }
+
+        function findBestModel() {
+            const byModel = {};
+            Object.entries(testData.modelResults || {}).forEach(([model, results]) => {
+                byModel[model] = results.filter(r => r.evaluation)
+                    .reduce((sum, r) => sum + r.evaluation.score, 0) / results.length;
+            });
+            
+            return Object.entries(byModel).sort((a,b) => b[1] - a[1])[0]?.[0] || '-';
+        }
+
+        function updateConfigChart() {
+            const xAxis = document.getElementById('xAxisSelect').value;
+            const yAxis = document.getElementById('yAxisSelect').value;
+            const type = document.getElementById('chartType').value;
+
+            const grouped = {};
+            allTestResults.forEach(r => {
+                const xVal = getXValue(r, xAxis);
+                if (!grouped[xVal]) grouped[xVal] = [];
+                grouped[xVal].push(r);
+            });
+
+            const labels = Object.keys(grouped);
+            const data = labels.map(label => calculateYValue(grouped[label], yAxis));
+
+            const canvas = document.getElementById('configurableChart');
+            if (configurableChart) configurableChart.destroy();
+
+            configurableChart = new Chart(canvas, {
+                type: type,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: getYAxisLabel(yAxis),
+                        data: data,
+                        backgroundColor: '#2c5364',
+                        borderColor: '#1e3c4a',
+                        borderWidth: 2,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { title: { display: true, text: getXAxisLabel(xAxis) } },
+                        y: { title: { display: true, text: getYAxisLabel(yAxis) }, beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function getXValue(result, dimension) {
+            switch(dimension) {
+                case 'model': return result.modelName;
+                case 'knowledgeType': return result.knowledgeType;
+                case 'persona': return result.persona;
+                case 'standard': return result.standard;
+                default: return 'unknown';
+            }
+        }
+
+        function calculateYValue(results, metric) {
+            const valid = results.filter(r => r.success && r.evaluation);
+            if (valid.length === 0) return 0;
+
+            switch(metric) {
+                case 'avgScore':
+                    return valid.reduce((sum, r) => sum + r.evaluation.score, 0) / valid.length;
+                case 'passRate':
+                    return (valid.filter(r => r.evaluation.passed).length / valid.length) * 100;
+                case 'responseTime':
+                    const times = valid.filter(r => r.timing?.totalMs);
+                    return times.length > 0 ? times.reduce((sum, r) => sum + r.timing.totalMs, 0) / times.length : 0;
+                case 'tokensPerSec':
+                    const tps = valid.filter(r => r.timing?.tokensPerSec);
+                    return tps.length > 0 ? tps.reduce((sum, r) => sum + r.timing.tokensPerSec, 0) / tps.length : 0;
+                case 'tokenEfficiency':
+                    const eff = valid.filter(r => r.timing?.completionTokens);
+                    return eff.length > 0 ? eff.reduce((sum, r) => sum + (r.evaluation.score / r.timing.completionTokens), 0) / eff.length : 0;
+                default:
+                    return valid.reduce((sum, r) => sum + r.evaluation.score, 0) / valid.length;
+            }
+        }
+
+        function getXAxisLabel(dimension) {
+            const labels = {
+                'knowledgeType': 'Knowledge Type',
+                'model': 'Model Name',
+                'persona': 'User Persona',
+                'standard': 'Compliance Standard',
+                'inputComplexity': 'Input Complexity (0-100)',
+                'outputComplexity': 'Output Complexity (0-100)'
+            };
+            return labels[dimension] || dimension;
+        }
+
+        function getYAxisLabel(metric) {
+            const labels = {
+                'avgScore': 'Average Score (%)',
+                'passRate': 'Pass Rate (%)',
+                'responseTime': 'Response Time (ms)',
+                'tokensPerSec': 'Tokens/Second',
+                'tokenEfficiency': 'Token Efficiency (score/token)'
+            };
+            return labels[metric] || metric;
+        }
+
+        function renderSpecializationMatrix() {
+            // Implementation from previous code...
+            const container = document.getElementById('specializationMatrix');
+            if (!container) return;
+
+            const models = Object.keys(testData.modelResults || {});
+            const knowledgeTypes = Object.keys(testData.diagnostics?.byKnowledgeType || {});
+
+            const matrix = {};
+            models.forEach(model => {
+                matrix[model] = {};
+                knowledgeTypes.forEach(kt => {
+                    const results = testData.modelResults[model].filter(r => r.knowledgeType === kt);
+                    matrix[model][kt] = results.length > 0 ?
+                        results.reduce((sum, r) => sum + (r.evaluation?.score || 0), 0) / results.length : 0;
+                });
+            });
+
+            let html = '<table style="width: 100%; border-collapse: collapse;">';
+            html += '<tr><th style="padding: 12px; text-align: left; background: #2c5364; color: white;">Model</th>';
+            knowledgeTypes.forEach(kt => {
+                html += `<th style="padding: 12px; text-align: center; background: #2c5364; color: white;">${kt}</th>`;
+            });
+            html += '</tr>';
+
+            models.forEach(model => {
+                html += '<tr>';
+                html += `<td style="padding: 12px; font-weight: 600; background: #f8f9fa;">${model}</td>`;
+                knowledgeTypes.forEach(kt => {
+                    const score = matrix[model][kt];
+                    const color = score >= 70 ? '#28a745' : score >= 50 ? '#ffc107' : score >= 30 ? '#fd7e14' : '#dc3545';
+                    html += `<td style="padding: 15px; text-align: center; background: ${color}20; border: 1px solid ${color}40;">
+                        <strong style="color: ${color}; font-size: 16px;">${score.toFixed(1)}%</strong>
+                    </td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</table>';
+
+            container.innerHTML = html;
+        }
+
+        function renderKnowledgeTypeChart() {
+            // Similar implementation...
+            const ctx = document.getElementById('knowledgeTypeChart');
+            if (!ctx) return;
+
+            const models = Object.keys(testData.modelResults || {});
+            const kts = Object.keys(testData.diagnostics?.byKnowledgeType || {});
+            const colors = ['#2c5364', '#5a8ea0', '#88c0d0', '#4c566a', '#2e3440'];
+
+            const datasets = models.map((model, idx) => ({
+                label: model,
+                data: kts.map(kt => {
+                    const results = testData.modelResults[model].filter(r => r.knowledgeType === kt);
+                    return results.length > 0 ? results.reduce((sum, r) => sum + (r.evaluation?.score || 0), 0) / results.length : 0;
+                }),
+                backgroundColor: colors[idx % colors.length]
+            }));
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: { labels: kts, datasets: datasets },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true, max: 100, title: { display: true, text: 'Average Score (%)' } }
+                    }
+                }
+            });
+        }
+
+        function renderTradeoffChart() {
+            const ctx = document.getElementById('tradeoffChart');
+            if (!ctx) return;
+
+            const models = Object.keys(testData.modelResults || {});
+            const data = models.map(model => {
+                const results = testData.modelResults[model];
+                const avgTime = results.filter(r => r.timing?.totalMs)
+                    .reduce((sum, r) => sum + r.timing.totalMs, 0) / results.filter(r => r.timing).length;
+                const avgScore = results.filter(r => r.evaluation)
+                    .reduce((sum, r) => sum + r.evaluation.score, 0) / results.filter(r => r.evaluation).length;
+                return { x: avgTime, y: avgScore, label: model };
+            });
+
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Models',
+                        data: data,
+                        backgroundColor: '#2c5364',
+                        pointRadius: 10,
+                        pointHoverRadius: 14
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { title: { display: true, text: 'Avg Response Time (ms) → Lower = Faster' } },
+                        y: { title: { display: true, text: 'Avg Score (%) → Higher = Better' }, max: 100 }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => `${data[ctx.dataIndex].label}: ${data[ctx.dataIndex].y.toFixed(1)}% score, ${data[ctx.dataIndex].x.toFixed(0)}ms`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderCostEfficiency() {
+            const ctx = document.getElementById('costEfficiencyChart');
+            if (!ctx) return;
+
+            const models = Object.keys(testData.modelResults || {});
+            const data = models.map(model => {
+                const results = testData.modelResults[model];
+                const avgScore = results.filter(r => r.evaluation)
+                    .reduce((sum, r) => sum + r.evaluation.score, 0) / results.filter(r => r.evaluation).length;
+                const avgTokens = results.filter(r => r.timing?.completionTokens)
+                    .reduce((sum, r) => sum + r.timing.completionTokens, 0) / results.filter(r => r.timing?.completionTokens).length;
+                return avgScore / avgTokens;
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: models,
+                    datasets: [{
+                        label: 'Score per Token (higher = better value)',
+                        data: data,
+                        backgroundColor: '#5a8ea0'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Efficiency (score/token)' } }
+                    }
+                }
+            });
+        }
+
+        function renderConsistency() {
+            const ctx = document.getElementById('consistencyChart');
+            if (!ctx) return;
+
+            const models = Object.keys(testData.modelResults || {});
+            const data = models.map(model => {
+                const scores = testData.modelResults[model]
+                    .filter(r => r.evaluation)
+                    .map(r => r.evaluation.score);
+                const mean = scores.reduce((a,b) => a+b, 0) / scores.length;
+                const variance = scores.reduce((sum, s) => sum + Math.pow(s - mean, 2), 0) / scores.length;
+                return Math.sqrt(variance);
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: models,
+                    datasets: [{
+                        label: 'Standard Deviation (lower = more consistent)',
+                        data: data,
+                        backgroundColor: '#88c0d0'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Std Dev (lower = better)' } }
+                    }
+                }
+            });
+        }
+
+        function showMethodology(type) {
+            const methodology = METHODOLOGIES[type];
+            if (!methodology) return;
+
+            document.getElementById('modalTitle').textContent = methodology.title;
+            
+            let html = '';
+            methodology.sections.forEach(section => {
+                html += `
+                    <div class="modal-section">
+                        <h3>${section.heading}</h3>
+                        <div>${section.content}</div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('modalBody').innerHTML = html;
+            document.getElementById('methodologyModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('methodologyModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

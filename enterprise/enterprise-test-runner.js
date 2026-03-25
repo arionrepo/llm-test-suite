@@ -159,9 +159,32 @@ export class EnterpriseTestRunner {
     console.log('  Across: ' + models.length + ' models');
     console.log('  Total test executions: ' + (testsToRun.length * models.length));
 
-    for (const modelName of models) {
+    console.log('\n⚙️  SEQUENTIAL EXECUTION MODE:');
+    console.log('   Models will run ONE AT A TIME to avoid resource contention');
+    console.log('   Each model stops before the next one starts\n');
+
+    for (let i = 0; i < models.length; i++) {
+      const modelName = models[i];
+      const previousModel = i > 0 ? models[i - 1] : null;
+
+      // Stop previous model to avoid resource contention
+      if (previousModel) {
+        console.log('\n🛑 Stopping previous model: ' + previousModel);
+        await this.managerClient.stopModel(previousModel);
+        await new Promise(resolve => setTimeout(resolve, 3000)); // Wait for cleanup
+      }
+
       const modelResults = await this.runModelTests(modelName, testsToRun);
       this.results.modelResults[modelName] = modelResults;
+
+      console.log('\n✅ Completed ' + modelName + ' (' + (i + 1) + '/' + models.length + ')');
+    }
+
+    // Stop the last model after all tests complete
+    if (models.length > 0) {
+      const lastModel = models[models.length - 1];
+      console.log('\n🛑 Stopping final model: ' + lastModel);
+      await this.managerClient.stopModel(lastModel);
     }
 
     // Generate diagnostics

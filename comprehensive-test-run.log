@@ -1,0 +1,2651 @@
+
+🚀 Running COMPREHENSIVE TEST
+   ⚠️  WARNING: This will take several hours!
+   Tests: ALL | Models: ALL 10 | Duration: ~6-8 hours
+
+   Total tests to run: 52
+   Total executions: 520
+
+============================================================
+  ENTERPRISE COMPLIANCE MULTI-MODEL COMPARISON
+============================================================
+
+
+⚠️  BASELINE TESTING MODE
+   Testing: Pure LLM responses (NO retrieval systems)
+   Purpose: Identify which retrieval infrastructure to BUILD
+   Current: No vector DB, no knowledge graph, no RAG pipeline
+
+Test Suite Statistics:
+  Total tests available: 52
+  Running: 52 tests
+  Across: 10 models
+  Total test executions: 520
+
+⚙️  SEQUENTIAL EXECUTION MODE:
+   Models will run ONE AT A TIME to avoid resource contention
+   Each model stops before the next one starts
+
+
+======================================================================
+Testing Model: PHI3
+======================================================================
+Starting model phi3...
+Starting phi3...
+✅ phi3 ready on port 8081
+
+[1/52] GDPR | FACTUAL | NOVICE
+Q: What is GDPR?
+✅ Score: 100% (4/4 topics)
+Response:  The General Data Protection Regulation (GDPR) is a comprehensive data protection law that came into effect on May 25, 2018, in the European Union (EU...
+
+[2/52] GDPR | FACTUAL | NOVICE
+Q: What are the main principles of GDPR?
+✅ Score: 100% (4/4 topics)
+Response:  The General Data Protection Regulation (GDPR) is a comprehensive data protection law that came into effect in the European Union (EU) on May 25, 2018...
+
+[3/52] GDPR | FACTUAL | NOVICE
+Q: What is the maximum GDPR fine?
+✅ Score: 100% (3/3 topics)
+Response:  Under the General Data Protection Regulation (GDPR), the maximum fine that can be imposed on organizations for non-compliance is significant. As of m...
+
+[4/52] GDPR | FACTUAL | PRACTITIONER
+Q: What are the legal bases for processing under GDPR Article 6?
+✅ Score: 100% (6/6 topics)
+Response:  Under GDPR Article 6, the legal bases for processing personal data are as follows:
+
+
+1. **Consent**: Processing is lawful if done based on the indivi...
+
+[5/52] GDPR | FACTUAL | PRACTITIONER
+Q: What information must be in a GDPR privacy notice?
+✅ Score: 60% (3/5 topics)
+Response:  Under the General Data Protection Regulation (GDPR), a privacy notice must include the following information:
+
+1. Purpose of processing: Clearly stat...
+
+[6/52] GDPR | FACTUAL | PRACTITIONER
+Q: What is the difference between a controller and a processor?
+❌ Score: 0% (0/2 topics)
+Response:  A processor, also known as a central processing unit (CPU), is the primary component of a computer that performs most of the processing inside a comp...
+
+[7/52] GDPR | FACTUAL | MANAGER
+Q: What are the key GDPR principles that guide our data governance?
+✅ Score: 100% (3/3 topics)
+Response:  The key General Data Protection Regulation (GDPR) principles that guide data governance are:
+
+
+1. **Lawfulness, Fairness, and Transparency**: Data pr...
+
+[8/52] GDPR | FACTUAL | MANAGER
+Q: What are the main data subject rights under GDPR?
+✅ Score: 100% (5/5 topics)
+Response:  Under the General Data Protection Regulation (GDPR), individuals have several key data subject rights designed to empower them and protect their pers...
+
+[9/52] GDPR | FACTUAL | AUDITOR
+Q: What documentation is required to demonstrate GDPR accountability?
+✅ Score: 50% (2/4 topics)
+Response:  Demonstrating GDPR accountability involves providing evidence that you are compliant with the General Data Protection Regulation (GDPR). Here is a li...
+
+[10/52] GDPR | FACTUAL | AUDITOR
+Q: What criteria determine if a DPIA is required?
+✅ Score: 50% (2/4 topics)
+Response:  A Data Protection Impact Assessment (DPIA) is required under the General Data Protection Regulation (GDPR) when processing is likely to result in a h...
+
+[11/52] GDPR | RELATIONAL | PRACTITIONER
+Q: How does GDPR Article 30 (Records of Processing Activities) support Article 5 (Principles)?
+✅ Score: 100% (3/3 topics)
+Response:  GDPR Article 30 (Records of Processing Activities) supports Article 5 (Principles) in several ways:
+
+1. Transparency: Article 30 requires organizatio...
+
+[12/52] GDPR | RELATIONAL | PRACTITIONER
+Q: What is the relationship between GDPR Article 32 (Security) and Article 25 (Data Protection by Design)?
+❌ Score: 33% (1/3 topics)
+Response:  GDPR Article 32 (Security) and Article 25 (Data Protection by Design) are closely related in the context of data protection and privacy.
+
+Article 32 ...
+
+[13/52] GDPR | RELATIONAL | MANAGER
+Q: How do GDPR data subject rights relate to our business processes?
+❌ Score: 0% (0/3 topics)
+Response:  GDPR, or the General Data Protection Regulation, is a comprehensive data protection law that came into effect on May 25, 2018, in the European Union ...
+
+[14/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What are the steps to conduct a GDPR Data Protection Impact Assessment?
+❌ Score: 25% (1/4 topics)
+Response:  To conduct a GDPR Data Protection Impact Assessment (DPIA), follow these steps:
+
+1. Identify the need: Determine if a DPIA is required based on the n...
+
+[15/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What is the process for handling a GDPR data subject access request?
+❌ Score: 0% (0/4 topics)
+Response:  Handling a GDPR data subject access request involves several key steps to ensure compliance with the General Data Protection Regulation (GDPR). Here'...
+
+[16/52] GDPR | PROCEDURAL | MANAGER
+Q: What workflow is needed to ensure GDPR compliance for new projects?
+❌ Score: 0% (0/4 topics)
+Response:  Ensuring GDPR (General Data Protection Regulation) compliance for new projects involves a comprehensive and systematic workflow that encompasses unde...
+
+[17/52] GDPR | PROCEDURAL | MANAGER
+Q: What are the steps for GDPR data breach notification?
+✅ Score: 50% (2/4 topics)
+Response:  The General Data Protection Regulation (GDPR) requires organizations to notify the relevant supervisory authority of a personal data breach within 72...
+
+[18/52] GDPR | EXACT_MATCH | AUDITOR
+Q: What does GDPR Article 17 state about the right to erasure?
+✅ Score: 50% (0/0 topics)
+Response:  Under the General Data Protection Regulation (GDPR), Article 17 specifically addresses the "Right to Erasure," also known as the "Right to be Forgott...
+
+[19/52] GDPR | EXACT_MATCH | AUDITOR
+Q: Find the exact text of GDPR Article 25 on data protection by design
+✅ Score: 50% (0/0 topics)
+Response:  Article 25 of the General Data Protection Regulation (GDPR) is titled "Data protection by design and by default" and reads as follows:
+
+1. The contro...
+
+[20/52] GDPR | SYNTHESIS | MANAGER
+Q: Compare GDPR and CCPA consumer rights - what are the key differences?
+❌ Score: 0% (0/3 topics)
+Response:  The General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA) are both comprehensive data protection laws, but they ha...
+
+[21/52] GDPR | SYNTHESIS | MANAGER
+Q: How do GDPR requirements relate to ISO 27001 and ISO 27018?
+❌ Score: 33% (1/3 topics)
+Response:  GDPR (General Data Protection Regulation) and ISO standards like ISO 27001 and ISO 27018 are both frameworks designed to help organizations manage an...
+
+[22/52] GDPR | SYNTHESIS | EXECUTIVE
+Q: What is the business impact of GDPR non-compliance?
+✅ Score: 50% (2/4 topics)
+Response:  The General Data Protection Regulation (GDPR) is a comprehensive data protection law that came into effect in the European Union (EU) on May 25, 2018...
+
+[23/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What is the EU AI Act?
+✅ Score: 75% (3/4 topics)
+Response:  The EU AI Act, officially known as the Artificial Intelligence Act, is a legislative framework proposed by the European Union (EU) to regulate the us...
+
+[24/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What are the risk levels in the EU AI Act?
+✅ Score: 75% (3/4 topics)
+Response:  The EU AI Act, proposed by the European Commission, categorizes risks associated with artificial intelligence (AI) into three main levels:
+
+1. Minima...
+
+[25/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What AI practices are prohibited under the EU AI Act?
+❌ Score: 0% (0/4 topics)
+Response:  The EU AI Act, officially known as the Artificial Intelligence Act (AIA), is a legislative proposal by the European Commission aimed at regulating th...
+
+[26/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What requirements apply to high-risk AI systems?
+❌ Score: 40% (2/5 topics)
+Response:  High-risk AI systems, often referred to as high-risk AI applications, are those that pose significant potential harm to public safety, health, or wel...
+
+[27/52] EU_AI_ACT | RELATIONAL | PRACTITIONER
+Q: How does the EU AI Act relate to GDPR for AI systems processing personal data?
+❌ Score: 33% (1/3 topics)
+Response:  The EU AI Act, proposed by the European Commission, aims to regulate the development, deployment, and use of Artificial Intelligence (AI) systems wit...
+
+[28/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: What are the steps for conformity assessment of high-risk AI?
+❌ Score: 25% (1/4 topics)
+Response:  Conformity assessment of high-risk AI involves a series of systematic steps to ensure that AI systems comply with relevant standards, regulations, an...
+
+[29/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: How to conduct a fundamental rights impact assessment for AI?
+❌ Score: 25% (1/4 topics)
+Response:  Conducting a fundamental rights impact assessment (FRIA) for AI involves a systematic process to identify, prevent, and mitigate any potential advers...
+
+[30/52] EU_AI_ACT | SYNTHESIS | MANAGER
+Q: Compare EU AI Act and California SB 1047 requirements for large AI models
+❌ Score: 0% (0/3 topics)
+Response:  The EU AI Act and California SB 1047 are two regulatory frameworks aimed at governing the development and deployment of large AI models, but they app...
+
+[31/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: How many controls are in ISO 27001:2022 Annex A?
+❌ Score: 0% (0/1 topics)
+Response:  ISO/IEC 27001:2022 Annex A, titled "Control Annex," contains 114 controls. These controls are categorized into 14 groups, each addressing different a...
+
+[32/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: What are the main domains in ISO 27001 Annex A?
+✅ Score: 50% (2/4 topics)
+Response:  ISO/IEC 27001 is an international standard for information security management systems (ISMS). Annex A of ISO 27001 provides a detailed list of infor...
+
+[33/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: How does ISO 27001 control A.8.2 (information classification) support other controls?
+✅ Score: 67% (2/3 topics)
+Response:  ISO 27001 control A.8.2 (information classification) supports other controls by providing a framework for identifying and categorizing sensitive info...
+
+[34/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: What is the relationship between ISO 27001 and ISO 27017 for cloud services?
+❌ Score: 0% (0/3 topics)
+Response:  ISO 27001 and ISO 27017 are both standards related to information security management, but they focus on different aspects of cloud services.
+
+ISO 27...
+
+[35/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: What workflow is required for ISO 27001 certification?
+❌ Score: 40% (2/5 topics)
+Response:  ISO 27001 is an international standard for Information Security Management Systems (ISMS). It provides a systematic approach to managing sensitive co...
+
+[36/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: How to perform an ISO 27001 risk assessment?
+❌ Score: 0% (0/4 topics)
+Response:  Performing an ISO 27001 risk assessment involves a systematic process to identify, analyze, and evaluate information security risks. Here's a step-by...
+
+[37/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: What is the exact requirement of ISO 27001 control A.8.1?
+✅ Score: 50% (0/0 topics)
+Response:  ISO 27001 control A.8.1, titled "Information security incident management," sets out the requirements for establishing, implementing, operating, moni...
+
+[38/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: Find ISO 27001 Annex A control 5.7 on threat intelligence
+✅ Score: 50% (0/0 topics)
+Response:  ISO 27001 Annex A provides a detailed description of Annex A controls, which are security controls to be implemented to protect information assets. H...
+
+[39/52] ISO_27001 | SYNTHESIS | MANAGER
+Q: Map ISO 27001 Annex A controls to SOC 2 Trust Services Criteria
+❌ Score: 0% (0/3 topics)
+Response:  ISO 27001 Annex A contains 11 controls that are grouped into 14 control families. These controls can be mapped to the SOC 2 Trust Services Criteria, ...
+
+[40/52] SOC_2 | FACTUAL | NOVICE
+Q: What is SOC 2?
+✅ Score: 100% (3/3 topics)
+Response:  SOC 2, or Service Organization Control 2, is a type of report that describes the controls a service organization has in place to ensure the security,...
+
+[41/52] SOC_2 | FACTUAL | NOVICE
+Q: What are the five Trust Services Criteria?
+✅ Score: 100% (5/5 topics)
+Response:  The five Trust Services Criteria are:
+
+1. **Security**: This criterion focuses on protecting systems and data from unauthorized access, use, disclosu...
+
+[42/52] SOC_2 | FACTUAL | PRACTITIONER
+Q: What is the difference between SOC 2 Type I and Type II?
+✅ Score: 100% (3/3 topics)
+Response:  SOC 2 (Service Organization Control 2) is a report issued by service organizations to provide assurance about the effectiveness of their controls rel...
+
+[43/52] SOC_2 | RELATIONAL | PRACTITIONER
+Q: How do SOC 2 Common Criteria relate to Additional Criteria?
+❌ Score: 0% (0/3 topics)
+Response:  SOC 2 (Service Organization Control 2) Common Criteria is a framework for evaluating and certifying the security controls implemented by service orga...
+
+[44/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What workflow is needed for SOC 2 Type II readiness?
+❌ Score: 40% (2/5 topics)
+Response:  SOC 2 Type II readiness involves a comprehensive and structured workflow to ensure that an organization meets the requirements set by the Service Org...
+
+[45/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What are the steps to respond to SOC 2 audit findings?
+❌ Score: 0% (0/4 topics)
+Response:  Responding to SOC 2 audit findings involves a systematic approach to address and rectify the identified issues. Here are the steps to effectively res...
+
+[46/52] SOC_2 | SYNTHESIS | MANAGER
+Q: Compare SOC 2 and ISO 27001 for cloud service providers
+❌ Score: 0% (0/3 topics)
+Response:  SOC 2 (Service Organization Control 2) and ISO 27001 are both frameworks that cloud service providers can use to demonstrate their commitment to secu...
+
+[47/52] PCI_DSS | FACTUAL | PRACTITIONER
+Q: What are the 12 requirements of PCI-DSS?
+❌ Score: 17% (1/6 topics)
+Response:  The Payment Card Industry Data Security Standard (PCI-DSS) is a set of security standards designed to ensure that all companies that process, store, ...
+
+[48/52] PCI_DSS | EXACT_MATCH | AUDITOR
+Q: What does PCI-DSS requirement 3.4 state about encryption of cardholder data?
+✅ Score: 50% (0/0 topics)
+Response:  PCI-DSS Requirement 3.4 states that "Encrypt transmission of cardholder data across open, public networks." This requirement mandates that organizati...
+
+[49/52] PCI_DSS | PROCEDURAL | PRACTITIONER
+Q: What are the steps for PCI-DSS quarterly vulnerability scanning?
+❌ Score: 0% (0/5 topics)
+Response:  The PCI-DSS Quarterly Vulnerability Scanning process involves several key steps to ensure compliance and maintain the security of cardholder data. He...
+
+[50/52] CSA_CCM | FACTUAL | PRACTITIONER
+Q: What are the control domains in CSA Cloud Controls Matrix?
+❌ Score: 0% (0/4 topics)
+Response:  The Cloud Controls Matrix (CCM) by the Cloud Security Alliance (CSA) is a cybersecurity control framework for cloud computing that provides fundament...
+
+[51/52] CSA_CCM | RELATIONAL | PRACTITIONER
+Q: How does CSA CCM map to ISO 27001 and SOC 2?
+❌ Score: 0% (0/2 topics)
+Response:  CSA CCM (Common Criteria for Information Technology Security Evaluation - Canadian Model) maps to ISO 27001 and SOC 2 (Service Organization Control 2...
+
+[52/52] CSA_CCM | SYNTHESIS | MANAGER
+Q: Compare CSA STAR Level 1 vs Level 2 vs Level 3
+❌ Score: 0% (0/3 topics)
+Response:  Community Service Agreements (CSAs) are contracts between a community-based organization (CBO) and a government agency that outline the services a CB...
+
+✅ Completed phi3 (1/10)
+
+🛑 Stopping previous model: phi3
+Stopping phi3...
+
+======================================================================
+Testing Model: SMOLLM3
+======================================================================
+Starting model smollm3...
+Starting smollm3...
+✅ smollm3 ready on port 8082
+
+[1/52] GDPR | FACTUAL | NOVICE
+Q: What is GDPR?
+✅ Score: 100% (4/4 topics)
+Response: <think>
+
+</think>
+The General Data Protection Regulation (GDPR) is a comprehensive data protection law that was adopted by the European Union (EU) on ...
+
+[2/52] GDPR | FACTUAL | NOVICE
+Q: What are the main principles of GDPR?
+✅ Score: 100% (4/4 topics)
+Response: <think>
+
+</think>
+The General Data Protection Regulation (GDPR) is a comprehensive data protection law that applies to the processing of personal data...
+
+[3/52] GDPR | FACTUAL | NOVICE
+Q: What is the maximum GDPR fine?
+✅ Score: 100% (3/3 topics)
+Response: <think>
+
+</think>
+As of my last update in 2023, the maximum fine imposed by the European Union's Data Protection Authority (DPA) for non-compliance wi...
+
+[4/52] GDPR | FACTUAL | PRACTITIONER
+Q: What are the legal bases for processing under GDPR Article 6?
+✅ Score: 83% (5/6 topics)
+Response: <think>
+
+</think>
+Under the General Data Protection Regulation (GDPR), Article 6 outlines the legal bases for processing personal data. These bases ar...
+
+[5/52] GDPR | FACTUAL | PRACTITIONER
+Q: What information must be in a GDPR privacy notice?
+✅ Score: 60% (3/5 topics)
+Response: <think>
+
+</think>
+A GDPR privacy notice must include the following information:
+
+1. **Purpose of Processing**: Clearly state the purpose for which the...
+
+[6/52] GDPR | FACTUAL | PRACTITIONER
+Q: What is the difference between a controller and a processor?
+❌ Score: 0% (0/2 topics)
+Response: <think>
+
+</think>
+In computing, the terms "controller" and "processor" are often used interchangeably, but they have distinct meanings depending on th...
+
+[7/52] GDPR | FACTUAL | MANAGER
+Q: What are the key GDPR principles that guide our data governance?
+✅ Score: 100% (3/3 topics)
+Response: <think>
+
+</think>
+The General Data Protection Regulation (GDPR) is a comprehensive data protection law in the European Union that sets out key princip...
+
+[8/52] GDPR | FACTUAL | MANAGER
+Q: What are the main data subject rights under GDPR?
+✅ Score: 100% (5/5 topics)
+Response: <think>
+
+</think>
+Under the General Data Protection Regulation (GDPR), data subjects have several key rights that protect their personal information a...
+
+[9/52] GDPR | FACTUAL | AUDITOR
+Q: What documentation is required to demonstrate GDPR accountability?
+✅ Score: 50% (2/4 topics)
+Response: <think>
+
+</think>
+To demonstrate GDPR accountability, an organization must maintain adequate documentation that proves its compliance with the General...
+
+[10/52] GDPR | FACTUAL | AUDITOR
+Q: What criteria determine if a DPIA is required?
+❌ Score: 0% (0/4 topics)
+Response: <think>
+
+</think>
+A Data Protection Impact Assessment (DPIA) is required under the General Data Protection Regulation (GDPR) in the European Union whe...
+
+[11/52] GDPR | RELATIONAL | PRACTITIONER
+Q: How does GDPR Article 30 (Records of Processing Activities) support Article 5 (Principles)?
+✅ Score: 100% (3/3 topics)
+Response: <think>
+
+</think>
+GDPR Article 30, which deals with the requirement to maintain records of processing activities, supports Article 5, which outlines t...
+
+[12/52] GDPR | RELATIONAL | PRACTITIONER
+Q: What is the relationship between GDPR Article 32 (Security) and Article 25 (Data Protection by Design)?
+❌ Score: 33% (1/3 topics)
+Response: <think>
+
+</think>
+GDPR Articles 25 and 32 are two separate but interconnected provisions that address different aspects of data protection and securit...
+
+[13/52] GDPR | RELATIONAL | MANAGER
+Q: How do GDPR data subject rights relate to our business processes?
+❌ Score: 0% (0/3 topics)
+Response: <think>
+
+</think>
+GDPR data subject rights are a set of rights that individuals have over their personal data, and they play a crucial role in our bus...
+
+[14/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What are the steps to conduct a GDPR Data Protection Impact Assessment?
+❌ Score: 0% (0/4 topics)
+Response: <think>
+
+</think>
+Conducting a Data Protection Impact Assessment (DPIA) under the General Data Protection Regulation (GDPR) is a crucial process to id...
+
+[15/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What is the process for handling a GDPR data subject access request?
+❌ Score: 0% (0/4 topics)
+Response: <think>
+
+</think>
+Handling a GDPR data subject access request involves several steps to ensure compliance with the General Data Protection Regulation ...
+
+[16/52] GDPR | PROCEDURAL | MANAGER
+Q: What workflow is needed to ensure GDPR compliance for new projects?
+❌ Score: 0% (0/4 topics)
+Response: <think>
+
+</think>
+To ensure GDPR compliance for new projects, follow this workflow:
+
+1. **Conduct a Data Protection Impact Assessment (DPIA)**: Before...
+
+[17/52] GDPR | PROCEDURAL | MANAGER
+Q: What are the steps for GDPR data breach notification?
+❌ Score: 25% (1/4 topics)
+Response: <think>
+
+</think>
+The General Data Protection Regulation (GDPR) requires organizations to notify the relevant supervisory authority and affected indiv...
+
+[18/52] GDPR | EXACT_MATCH | AUDITOR
+Q: What does GDPR Article 17 state about the right to erasure?
+✅ Score: 50% (0/0 topics)
+Response: <think>
+
+</think>
+Article 17 of the General Data Protection Regulation (GDPR) grants individuals the right to erasure, also known as the "right to be ...
+
+[19/52] GDPR | EXACT_MATCH | AUDITOR
+Q: Find the exact text of GDPR Article 25 on data protection by design
+✅ Score: 50% (0/0 topics)
+Response: <think>
+
+</think>
+Here is the exact text of GDPR Article 25 on data protection by design:
+
+**Article 25: Data Protection by Design and by Default**
+
+1...
+
+[20/52] GDPR | SYNTHESIS | MANAGER
+Q: Compare GDPR and CCPA consumer rights - what are the key differences?
+❌ Score: 33% (1/3 topics)
+Response: <think>
+
+</think>
+The General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA) are both data protection laws aimed at ...
+
+[21/52] GDPR | SYNTHESIS | MANAGER
+Q: How do GDPR requirements relate to ISO 27001 and ISO 27018?
+❌ Score: 33% (1/3 topics)
+Response: <think>
+
+</think>
+The General Data Protection Regulation (GDPR) and the ISO 27001 and ISO 27018 standards are related but serve different purposes. He...
+
+[22/52] GDPR | SYNTHESIS | EXECUTIVE
+Q: What is the business impact of GDPR non-compliance?
+✅ Score: 75% (3/4 topics)
+Response: <think>
+
+</think>
+Non-compliance with the General Data Protection Regulation (GDPR) can have significant business impacts, including:
+
+1. **Financial ...
+
+[23/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What is the EU AI Act?
+✅ Score: 100% (4/4 topics)
+Response: <think>
+
+</think>
+The EU AI Act is a proposed regulation that aims to establish a comprehensive framework for the development, deployment, and use of ...
+
+[24/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What are the risk levels in the EU AI Act?
+✅ Score: 75% (3/4 topics)
+Response: <think>
+
+</think>
+The EU AI Act, which was adopted in April 2024, classifies AI systems into risk levels based on their potential impact and the level...
+
+[25/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What AI practices are prohibited under the EU AI Act?
+❌ Score: 0% (0/4 topics)
+Response: <think>
+
+</think>
+The EU AI Act, which is currently in the process of being finalized, outlines various AI practices that are prohibited or restricted...
+
+[26/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What requirements apply to high-risk AI systems?
+❌ Score: 40% (2/5 topics)
+Response: <think>
+
+</think>
+High-risk AI systems are those that pose significant risks to individuals, society, or the environment. The requirements that apply ...
+
+[27/52] EU_AI_ACT | RELATIONAL | PRACTITIONER
+Q: How does the EU AI Act relate to GDPR for AI systems processing personal data?
+❌ Score: 33% (1/3 topics)
+Response: <think>
+
+</think>
+The EU AI Act and the General Data Protection Regulation (GDPR) are two separate but interconnected pieces of legislation that regul...
+
+[28/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: What are the steps for conformity assessment of high-risk AI?
+❌ Score: 25% (1/4 topics)
+Response: <think>
+
+</think>
+Conformity assessment of high-risk AI involves a structured process to ensure that AI systems meet safety, security, and ethical sta...
+
+[29/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: How to conduct a fundamental rights impact assessment for AI?
+✅ Score: 50% (2/4 topics)
+Response: <think>
+
+</think>
+Conducting a fundamental rights impact assessment (FRIA) for AI involves a systematic evaluation of how an AI system may affect indi...
+
+[30/52] EU_AI_ACT | SYNTHESIS | MANAGER
+Q: Compare EU AI Act and California SB 1047 requirements for large AI models
+❌ Score: 0% (0/3 topics)
+Response: <think>
+
+</think>
+The EU AI Act and California SB 1047 are two regulatory frameworks aimed at ensuring the responsible development and deployment of a...
+
+[31/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: How many controls are in ISO 27001:2022 Annex A?
+❌ Score: 0% (0/1 topics)
+Response: <think>
+
+</think>
+ISO 27001:2022 Annex A contains 12 controls. These controls are categorized into five main groups: 
+
+1. Protecting organization asse...
+
+[32/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: What are the main domains in ISO 27001 Annex A?
+❌ Score: 0% (0/4 topics)
+Response: <think>
+
+</think>
+ISO 27001 Annex A outlines the main domains that are considered essential for an organization to implement an Information Security M...
+
+[33/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: How does ISO 27001 control A.8.2 (information classification) support other controls?
+✅ Score: 67% (2/3 topics)
+Response: <think>
+
+</think>
+ISO 27001, the standard for an Information Security Management System (ISMS), includes Control A.8.2, which is about information cla...
+
+[34/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: What is the relationship between ISO 27001 and ISO 27017 for cloud services?
+❌ Score: 0% (0/3 topics)
+Response: <think>
+
+</think>
+ISO 27001 and ISO 27017 are two related international standards that address information security management for organizations. Howe...
+
+[35/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: What workflow is required for ISO 27001 certification?
+❌ Score: 40% (2/5 topics)
+Response: <think>
+
+</think>
+To obtain ISO 27001 certification, an organization must follow a structured workflow that involves several key steps. Here's a gener...
+
+[36/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: How to perform an ISO 27001 risk assessment?
+❌ Score: 0% (0/4 topics)
+Response: <think>
+
+</think>
+Performing an ISO 27001 risk assessment involves a structured process to identify, assess, and prioritize potential risks that could...
+
+[37/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: What is the exact requirement of ISO 27001 control A.8.1?
+✅ Score: 50% (0/0 topics)
+Response: <think>
+
+</think>
+ISO 27001 Control A.8.1, titled "Physical and Environmental Controls," is a requirement that aims to ensure the protection of inform...
+
+[38/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: Find ISO 27001 Annex A control 5.7 on threat intelligence
+✅ Score: 50% (0/0 topics)
+Response: <think>
+
+</think>
+ISO 27001 Annex A Control 5.7 is titled "Threat Intelligence." This control is intended to help organizations identify and assess po...
+
+[39/52] ISO_27001 | SYNTHESIS | MANAGER
+Q: Map ISO 27001 Annex A controls to SOC 2 Trust Services Criteria
+❌ Score: 0% (0/3 topics)
+Response: <think>
+
+</think>
+Mapping ISO 27001 Annex A controls to SOC 2 Trust Services Criteria involves identifying the key controls from ISO 27001 Annex A and...
+
+[40/52] SOC_2 | FACTUAL | NOVICE
+Q: What is SOC 2?
+❌ Score: 33% (1/3 topics)
+Response: <think>
+
+</think>
+SOC 2 is a set of standards and guidelines developed by the American Institute of Certified Public Accountants (AICPA) to help organ...
+
+[41/52] SOC_2 | FACTUAL | NOVICE
+Q: What are the five Trust Services Criteria?
+❌ Score: 40% (2/5 topics)
+Response: <think>
+
+</think>
+The five Trust Services Criteria (TSCs) are a set of standards and guidelines that help organizations ensure the integrity, confiden...
+
+[42/52] SOC_2 | FACTUAL | PRACTITIONER
+Q: What is the difference between SOC 2 Type I and Type II?
+❌ Score: 0% (0/3 topics)
+Response: <think>
+
+</think>
+In the context of auditing standards, specifically the SOC (Services Organization Controls) 2, there are two types: Type I and Type ...
+
+[43/52] SOC_2 | RELATIONAL | PRACTITIONER
+Q: How do SOC 2 Common Criteria relate to Additional Criteria?
+❌ Score: 0% (0/3 topics)
+Response: <think>
+
+</think>
+The SOC 2 Common Criteria and Additional Criteria are two components of the SOC 2 framework, which is a set of standards and guideli...
+
+[44/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What workflow is needed for SOC 2 Type II readiness?
+❌ Score: 40% (2/5 topics)
+Response: <think>
+
+</think>
+To ensure readiness for SOC 2 Type II compliance, organizations should follow a structured workflow that includes the following key ...
+
+[45/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What are the steps to respond to SOC 2 audit findings?
+❌ Score: 0% (0/4 topics)
+Response: <think>
+
+</think>
+When responding to SOC 2 audit findings, follow these steps to effectively address the issues and demonstrate compliance:
+
+1. **Revi...
+
+[46/52] SOC_2 | SYNTHESIS | MANAGER
+Q: Compare SOC 2 and ISO 27001 for cloud service providers
+❌ Score: 0% (0/3 topics)
+Response: <think>
+
+</think>
+SOC 2 and ISO 27001 are two widely recognized frameworks used to assess and improve the security controls of cloud service providers...
+
+[47/52] PCI_DSS | FACTUAL | PRACTITIONER
+Q: What are the 12 requirements of PCI-DSS?
+❌ Score: 33% (2/6 topics)
+Response: <think>
+
+</think>
+The 12 requirements of the Payment Card Industry Data Security Standard (PCI-DSS) are designed to ensure the security of cardholder ...
+
+[48/52] PCI_DSS | EXACT_MATCH | AUDITOR
+Q: What does PCI-DSS requirement 3.4 state about encryption of cardholder data?
+✅ Score: 50% (0/0 topics)
+Response: <think>
+
+</think>
+PCI-DSS Requirement 3.4 states: "Encrypt all cardholder data both in transit and at rest."
+
+This requirement applies to all cardhold...
+
+[49/52] PCI_DSS | PROCEDURAL | PRACTITIONER
+Q: What are the steps for PCI-DSS quarterly vulnerability scanning?
+❌ Score: 20% (1/5 topics)
+Response: <think>
+
+</think>
+PCI-DSS (Payment Card Industry Data Security Standard) requires organizations to conduct quarterly vulnerability scans to identify a...
+
+[50/52] CSA_CCM | FACTUAL | PRACTITIONER
+Q: What are the control domains in CSA Cloud Controls Matrix?
+❌ Score: 25% (1/4 topics)
+Response: <think>
+
+</think>
+In the CSA Cloud Controls Matrix (CCM), control domains refer to the categories or areas of focus within the matrix. These domains h...
+
+[51/52] CSA_CCM | RELATIONAL | PRACTITIONER
+Q: How does CSA CCM map to ISO 27001 and SOC 2?
+❌ Score: 0% (0/2 topics)
+Response: <think>
+
+</think>
+CSCS Controls and Assurances (CASA) Control and Assessment Methodology (CAMS) and CSA Control and Assessment Methodology (CSA CCM) a...
+
+[52/52] CSA_CCM | SYNTHESIS | MANAGER
+Q: Compare CSA STAR Level 1 vs Level 2 vs Level 3
+❌ Score: 0% (0/3 topics)
+Response: <think>
+
+</think>
+Comparing CSA STAR Level 1, Level 2, and Level 3 involves understanding the specific requirements, benefits, and potential drawbacks...
+
+✅ Completed smollm3 (2/10)
+
+🛑 Stopping previous model: smollm3
+Stopping smollm3...
+
+======================================================================
+Testing Model: MISTRAL
+======================================================================
+Starting model mistral...
+Starting mistral...
+✅ mistral ready on port 8083
+
+[1/52] GDPR | FACTUAL | NOVICE
+Q: What is GDPR?
+✅ Score: 100% (4/4 topics)
+Response:  The General Data Protection Regulation (GDPR) is a regulation that was enacted by the European Union (EU) on May 25, 2018. It replaced the Data Prote...
+
+[2/52] GDPR | FACTUAL | NOVICE
+Q: What are the main principles of GDPR?
+✅ Score: 100% (4/4 topics)
+Response:  The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union (EU) and the European Ec...
+
+[3/52] GDPR | FACTUAL | NOVICE
+Q: What is the maximum GDPR fine?
+✅ Score: 67% (2/3 topics)
+Response:  The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economi...
+
+[4/52] GDPR | FACTUAL | PRACTITIONER
+Q: What are the legal bases for processing under GDPR Article 6?
+✅ Score: 100% (6/6 topics)
+Response:  Under the General Data Protection Regulation (GDPR), there are six legal bases for processing personal data. These bases are outlined in Article 6 of...
+
+[5/52] GDPR | FACTUAL | PRACTITIONER
+Q: What information must be in a GDPR privacy notice?
+✅ Score: 60% (3/5 topics)
+Response:  A GDPR (General Data Protection Regulation) privacy notice, also known as a "Fair Processing Notice" or "Privacy Policy," is a document that explains...
+
+[6/52] GDPR | FACTUAL | PRACTITIONER
+Q: What is the difference between a controller and a processor?
+❌ Score: 0% (0/2 topics)
+Response:  In the context of computing, both controllers and processors are essential components of a computer system, but they serve different functions.
+
+A pr...
+
+[7/52] GDPR | FACTUAL | MANAGER
+Q: What are the key GDPR principles that guide our data governance?
+✅ Score: 100% (3/3 topics)
+Response:  The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economi...
+
+[8/52] GDPR | FACTUAL | MANAGER
+Q: What are the main data subject rights under GDPR?
+✅ Score: 100% (5/5 topics)
+Response:  Under the General Data Protection Regulation (GDPR), individuals have several data subject rights that grant them control over their personal data. H...
+
+[9/52] GDPR | FACTUAL | AUDITOR
+Q: What documentation is required to demonstrate GDPR accountability?
+✅ Score: 50% (2/4 topics)
+Response:  Under the General Data Protection Regulation (GDPR), accountability is a key principle that requires organizations to demonstrate that they have impl...
+
+[10/52] GDPR | FACTUAL | AUDITOR
+Q: What criteria determine if a DPIA is required?
+✅ Score: 50% (2/4 topics)
+Response:  A Data Protection Impact Assessment (DPIA) is required when processing activities are likely to result in a high risk to the rights and freedoms of n...
+
+[11/52] GDPR | RELATIONAL | PRACTITIONER
+Q: How does GDPR Article 30 (Records of Processing Activities) support Article 5 (Principles)?
+✅ Score: 67% (2/3 topics)
+Response:  GDPR Article 30 (Records of Processing Activities) and Article 5 (Principles) are interconnected in ensuring compliance with the General Data Protect...
+
+[12/52] GDPR | RELATIONAL | PRACTITIONER
+Q: What is the relationship between GDPR Article 32 (Security) and Article 25 (Data Protection by Design)?
+❌ Score: 33% (1/3 topics)
+Response:  GDPR Articles 25 and 32 both address important aspects of data protection, but they focus on different parts of the data processing lifecycle.
+
+Artic...
+
+[13/52] GDPR | RELATIONAL | MANAGER
+Q: How do GDPR data subject rights relate to our business processes?
+❌ Score: 0% (0/3 topics)
+Response:  The General Data Protection Regulation (GDPR) grants individuals living in the European Union (EU) certain data subject rights related to how their p...
+
+[14/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What are the steps to conduct a GDPR Data Protection Impact Assessment?
+❌ Score: 0% (0/4 topics)
+Response:  A Data Protection Impact Assessment (DPIA) is a process required by the General Data Protection Regulation (GDPR) to help organizations identify and ...
+
+[15/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What is the process for handling a GDPR data subject access request?
+❌ Score: 0% (0/4 topics)
+Response:  Under the General Data Protection Regulation (GDPR), a data subject access request (DSAR) is a request made by an individual to a data controller to ...
+
+[16/52] GDPR | PROCEDURAL | MANAGER
+Q: What workflow is needed to ensure GDPR compliance for new projects?
+❌ Score: 0% (0/4 topics)
+Response:  To ensure GDPR (General Data Protection Regulation) compliance for new projects, follow the workflow outlined below:
+
+1. Data Mapping: Identify and d...
+
+[17/52] GDPR | PROCEDURAL | MANAGER
+Q: What are the steps for GDPR data breach notification?
+❌ Score: 25% (1/4 topics)
+Response:  Under the General Data Protection Regulation (GDPR), data controllers are required to notify the relevant supervisory authority and, in some cases, a...
+
+[18/52] GDPR | EXACT_MATCH | AUDITOR
+Q: What does GDPR Article 17 state about the right to erasure?
+✅ Score: 50% (0/0 topics)
+Response:  GDPR (General Data Protection Regulation) Article 17, also known as the "right to erasure" or "right to be forgotten," grants individuals the right t...
+
+[19/52] GDPR | EXACT_MATCH | AUDITOR
+Q: Find the exact text of GDPR Article 25 on data protection by design
+✅ Score: 50% (0/0 topics)
+Response:  Article 25 of the General Data Protection Regulation (GDPR) is titled "Data protection by design and by default." The text of the article is as follo...
+
+[20/52] GDPR | SYNTHESIS | MANAGER
+Q: Compare GDPR and CCPA consumer rights - what are the key differences?
+❌ Score: 33% (1/3 topics)
+Response:  The General Data Protection Regulation (GDPR) is a data protection law enacted by the European Union (EU) in May 2018, while the California Consumer ...
+
+[21/52] GDPR | SYNTHESIS | MANAGER
+Q: How do GDPR requirements relate to ISO 27001 and ISO 27018?
+❌ Score: 33% (1/3 topics)
+Response:  The General Data Protection Regulation (GDPR) and ISO 27001/ISO 27018 are two separate but related frameworks that address data protection and inform...
+
+[22/52] GDPR | SYNTHESIS | EXECUTIVE
+Q: What is the business impact of GDPR non-compliance?
+✅ Score: 75% (3/4 topics)
+Response:  The General Data Protection Regulation (GDPR) is a European Union (EU) regulation that sets guidelines for the collection, processing, and protection...
+
+[23/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What is the EU AI Act?
+✅ Score: 75% (3/4 topics)
+Response:  The EU Artificial Intelligence (AI) Act is a proposed regulation by the European Union (EU) aimed at establishing a legal framework for the developme...
+
+[24/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What are the risk levels in the EU AI Act?
+❌ Score: 25% (1/4 topics)
+Response:  The EU Artificial Intelligence (AI) Act, proposed by the European Commission in April 2021, aims to establish a regulatory framework for AI in Europe...
+
+[25/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What AI practices are prohibited under the EU AI Act?
+❌ Score: 0% (0/4 topics)
+Response:  The EU AI Act, which is still in the proposal stage, aims to establish a legal framework for the development, deployment, and use of artificial intel...
+
+[26/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What requirements apply to high-risk AI systems?
+❌ Score: 40% (2/5 topics)
+Response:  High-risk AI systems, also known as Artificial Intelligence (AI) systems with significant potential impacts on safety or societal well-being, require...
+
+[27/52] EU_AI_ACT | RELATIONAL | PRACTITIONER
+Q: How does the EU AI Act relate to GDPR for AI systems processing personal data?
+❌ Score: 33% (1/3 topics)
+Response:  The EU Artificial Intelligence (AI) Act and the General Data Protection Regulation (GDPR) are two separate but interconnected regulations in the Euro...
+
+[28/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: What are the steps for conformity assessment of high-risk AI?
+❌ Score: 25% (1/4 topics)
+Response:  Conformity assessment of high-risk AI systems involves ensuring that these systems meet specific regulatory requirements and standards to ensure thei...
+
+[29/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: How to conduct a fundamental rights impact assessment for AI?
+❌ Score: 0% (0/4 topics)
+Response:  Conducting a fundamental rights impact assessment for Artificial Intelligence (AI) involves evaluating how the development, deployment, and use of AI...
+
+[30/52] EU_AI_ACT | SYNTHESIS | MANAGER
+Q: Compare EU AI Act and California SB 1047 requirements for large AI models
+❌ Score: 0% (0/3 topics)
+Response:  The European Union's Artificial Intelligence Act (AI Act) and California's SB 1047 are two pieces of legislation that aim to regulate the use of arti...
+
+[31/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: How many controls are in ISO 27001:2022 Annex A?
+❌ Score: 0% (0/1 topics)
+Response:  I cannot provide an answer to that question as of now, because ISO 27001:2022 is not yet published. The current version of ISO 27001 was published in...
+
+[32/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: What are the main domains in ISO 27001 Annex A?
+❌ Score: 25% (1/4 topics)
+Response:  ISO 27001 is an international standard that outlines the requirements for an information security management system (ISMS). Annex A of ISO 27001 prov...
+
+[33/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: How does ISO 27001 control A.8.2 (information classification) support other controls?
+❌ Score: 33% (1/3 topics)
+Response:  ISO 27001 is an international standard for information security management systems (ISMS). Control A.8.2 specifically relates to information classifi...
+
+[34/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: What is the relationship between ISO 27001 and ISO 27017 for cloud services?
+❌ Score: 0% (0/3 topics)
+Response:  ISO 27001 and ISO 27017 are both international standards related to information security. ISO 27001 is a comprehensive information security managemen...
+
+[35/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: What workflow is required for ISO 27001 certification?
+❌ Score: 0% (0/5 topics)
+Response:  ISO 27001 is an international standard for information security management systems (ISMS). To achieve ISO 27001 certification, an organization must f...
+
+[36/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: How to perform an ISO 27001 risk assessment?
+❌ Score: 0% (0/4 topics)
+Response:  Performing a risk assessment according to ISO 27001 involves identifying, assessing, and prioritizing risks to an information security management sys...
+
+[37/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: What is the exact requirement of ISO 27001 control A.8.1?
+✅ Score: 50% (0/0 topics)
+Response:  ISO 27001 is an international standard that outlines the requirements for an information security management system (ISMS). Control A.8.1 specificall...
+
+[38/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: Find ISO 27001 Annex A control 5.7 on threat intelligence
+✅ Score: 50% (0/0 topics)
+Response:  ISO 27001 is an international standard for information security management systems (ISMS). Annex A of ISO 27001 lists 14 control objectives and 62 re...
+
+[39/52] ISO_27001 | SYNTHESIS | MANAGER
+Q: Map ISO 27001 Annex A controls to SOC 2 Trust Services Criteria
+❌ Score: 0% (0/3 topics)
+Response:  ISO 27001 and SOC 2 (System and Organization Controls 2) are two different information security frameworks with some overlapping concepts. ISO 27001 ...
+
+[40/52] SOC_2 | FACTUAL | NOVICE
+Q: What is SOC 2?
+✅ Score: 67% (2/3 topics)
+Response:  SOC 2, or System and Organization Controls 2, is a set of reporting standards developed by the American Institute of Certified Public Accountants (AI...
+
+[41/52] SOC_2 | FACTUAL | NOVICE
+Q: What are the five Trust Services Criteria?
+✅ Score: 100% (5/5 topics)
+Response:  The five Trust Services Criteria, also known as the "Trust Services Principles and Criteria," are a set of guidelines established by the American Ins...
+
+[42/52] SOC_2 | FACTUAL | PRACTITIONER
+Q: What is the difference between SOC 2 Type I and Type II?
+❌ Score: 33% (1/3 topics)
+Response:  SOC 2 (System and Organization Controls) reports are auditing reports designed by the American Institute of Certified Public Accountants (AICPA) to a...
+
+[43/52] SOC_2 | RELATIONAL | PRACTITIONER
+Q: How do SOC 2 Common Criteria relate to Additional Criteria?
+❌ Score: 0% (0/3 topics)
+Response:  SOC 2 (System and Organization Controls) is a set of standards developed by the American Institute of Certified Public Accountants (AICPA) for evalua...
+
+[44/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What workflow is needed for SOC 2 Type II readiness?
+❌ Score: 20% (1/5 topics)
+Response:  SOC 2 (System and Organization Controls) Type II reporting is an audit engagement that assesses a service organization's controls related to security...
+
+[45/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What are the steps to respond to SOC 2 audit findings?
+❌ Score: 0% (0/4 topics)
+Response:  Responding to SOC 2 audit findings involves several steps to ensure that any identified deficiencies are addressed effectively and efficiently. Here ...
+
+[46/52] SOC_2 | SYNTHESIS | MANAGER
+Q: Compare SOC 2 and ISO 27001 for cloud service providers
+❌ Score: 0% (0/3 topics)
+Response:  SOC 2 (System and Organization Controls) and ISO 27001 (International Organization for Standardization 27001) are two popular frameworks for assessin...
+
+[47/52] PCI_DSS | FACTUAL | PRACTITIONER
+Q: What are the 12 requirements of PCI-DSS?
+❌ Score: 33% (2/6 topics)
+Response:  PCI-DSS, or the Payment Card Industry Data Security Standard, is a set of security standards designed to ensure that all companies that accept, proce...
+
+[48/52] PCI_DSS | EXACT_MATCH | AUDITOR
+Q: What does PCI-DSS requirement 3.4 state about encryption of cardholder data?
+✅ Score: 50% (0/0 topics)
+Response:  PCI-DSS (Payment Card Industry Data Security Standard) requirement 3.4 states that "Encryption of Cardholder Data During Transmission Across Open, Pu...
+
+[49/52] PCI_DSS | PROCEDURAL | PRACTITIONER
+Q: What are the steps for PCI-DSS quarterly vulnerability scanning?
+❌ Score: 40% (2/5 topics)
+Response:  PCI-DSS (Payment Card Industry Data Security Standard) requires merchants and service providers that store, process, or transmit cardholder data to p...
+
+[50/52] CSA_CCM | FACTUAL | PRACTITIONER
+Q: What are the control domains in CSA Cloud Controls Matrix?
+❌ Score: 0% (0/4 topics)
+Response:  The Cloud Security Alliance (CSA) Cloud Controls Matrix is a widely used framework for understanding and implementing cloud security. The matrix is o...
+
+[51/52] CSA_CCM | RELATIONAL | PRACTITIONER
+Q: How does CSA CCM map to ISO 27001 and SOC 2?
+❌ Score: 0% (0/2 topics)
+Response:  The Center for Internet Security (CIS) Critical Security Controls (CSA CCM) is a set of 20 controls designed to help organizations prioritize their c...
+
+[52/52] CSA_CCM | SYNTHESIS | MANAGER
+Q: Compare CSA STAR Level 1 vs Level 2 vs Level 3
+❌ Score: 33% (1/3 topics)
+Response:  The CSA STAR (Security Trust Assessment and Rating) program is a security certification offered by the CSA (Cloud Security Alliance) to help organiza...
+
+✅ Completed mistral (3/10)
+
+🛑 Stopping previous model: mistral
+Stopping mistral...
+
+======================================================================
+Testing Model: QWEN2.5-32B
+======================================================================
+Starting model qwen2.5-32b...
+Starting qwen2.5-32b...
+✅ qwen2.5-32b ready on port 8084
+
+[1/52] GDPR | FACTUAL | NOVICE
+Q: What is GDPR?
+✅ Score: 100% (4/4 topics)
+Response: GDPR stands for General Data Protection Regulation. It is a regulation in EU law on data protection and privacy for all individuals within the Europea...
+
+[2/52] GDPR | FACTUAL | NOVICE
+Q: What are the main principles of GDPR?
+✅ Score: 100% (4/4 topics)
+Response: The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy for all individuals within the European Union (...
+
+[3/52] GDPR | FACTUAL | NOVICE
+Q: What is the maximum GDPR fine?
+✅ Score: 67% (2/3 topics)
+Response: The maximum GDPR (General Data Protection Regulation) fine for non-compliance can be up to €20 million or 4% of the annual global turnover of the prec...
+
+[4/52] GDPR | FACTUAL | PRACTITIONER
+Q: What are the legal bases for processing under GDPR Article 6?
+✅ Score: 100% (6/6 topics)
+Response: Under the General Data Protection Regulation (GDPR), Article 6 outlines the legal bases for processing personal data. There are six legal bases, and a...
+
+[5/52] GDPR | FACTUAL | PRACTITIONER
+Q: What information must be in a GDPR privacy notice?
+✅ Score: 60% (3/5 topics)
+Response: A GDPR (General Data Protection Regulation) privacy notice, also known as a privacy policy, must provide clear and transparent information about how a...
+
+[6/52] GDPR | FACTUAL | PRACTITIONER
+Q: What is the difference between a controller and a processor?
+❌ Score: 0% (0/2 topics)
+Response: In the context of data protection and privacy laws, such as the General Data Protection Regulation (GDPR) in the European Union, the terms "controller...
+
+[7/52] GDPR | FACTUAL | MANAGER
+Q: What are the key GDPR principles that guide our data governance?
+✅ Score: 100% (3/3 topics)
+Response: The General Data Protection Regulation (GDPR) is a comprehensive data protection law in the European Union (EU) that sets out several key principles t...
+
+[8/52] GDPR | FACTUAL | MANAGER
+Q: What are the main data subject rights under GDPR?
+✅ Score: 100% (5/5 topics)
+Response: The General Data Protection Regulation (GDPR) provides several key rights to data subjects (individuals whose personal data is processed). These right...
+
+[9/52] GDPR | FACTUAL | AUDITOR
+Q: What documentation is required to demonstrate GDPR accountability?
+❌ Error: This operation was aborted
+
+[10/52] GDPR | FACTUAL | AUDITOR
+Q: What criteria determine if a DPIA is required?
+❌ Error: This operation was aborted
+
+[11/52] GDPR | RELATIONAL | PRACTITIONER
+Q: How does GDPR Article 30 (Records of Processing Activities) support Article 5 (Principles)?
+❌ Error: This operation was aborted
+
+[12/52] GDPR | RELATIONAL | PRACTITIONER
+Q: What is the relationship between GDPR Article 32 (Security) and Article 25 (Data Protection by Design)?
+❌ Error: This operation was aborted
+
+[13/52] GDPR | RELATIONAL | MANAGER
+Q: How do GDPR data subject rights relate to our business processes?
+❌ Error: This operation was aborted
+
+[14/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What are the steps to conduct a GDPR Data Protection Impact Assessment?
+❌ Error: This operation was aborted
+
+[15/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What is the process for handling a GDPR data subject access request?
+❌ Error: This operation was aborted
+
+[16/52] GDPR | PROCEDURAL | MANAGER
+Q: What workflow is needed to ensure GDPR compliance for new projects?
+❌ Error: This operation was aborted
+
+[17/52] GDPR | PROCEDURAL | MANAGER
+Q: What are the steps for GDPR data breach notification?
+❌ Error: This operation was aborted
+
+[18/52] GDPR | EXACT_MATCH | AUDITOR
+Q: What does GDPR Article 17 state about the right to erasure?
+✅ Score: 50% (0/0 topics)
+Response: GDPR Article 17, also known as the "Right to Erasure" or "Right to be Forgotten," provides individuals with the right to have their personal data eras...
+
+[19/52] GDPR | EXACT_MATCH | AUDITOR
+Q: Find the exact text of GDPR Article 25 on data protection by design
+✅ Score: 50% (0/0 topics)
+Response: Article 25 of the General Data Protection Regulation (GDPR) is titled "Data protection by design and by default." The exact text is as follows:
+
+1. Ta...
+
+[20/52] GDPR | SYNTHESIS | MANAGER
+Q: Compare GDPR and CCPA consumer rights - what are the key differences?
+❌ Error: This operation was aborted
+
+[21/52] GDPR | SYNTHESIS | MANAGER
+Q: How do GDPR requirements relate to ISO 27001 and ISO 27018?
+❌ Error: This operation was aborted
+
+[22/52] GDPR | SYNTHESIS | EXECUTIVE
+Q: What is the business impact of GDPR non-compliance?
+✅ Score: 50% (2/4 topics)
+Response: The General Data Protection Regulation (GDPR) is a set of rules designed to give European Union (EU) citizens more control over their personal data. I...
+
+[23/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What is the EU AI Act?
+✅ Score: 100% (4/4 topics)
+Response: The EU AI Act is a proposed regulation by the European Union aiming to create a legal framework for artificial intelligence. It seeks to address the r...
+
+[24/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What are the risk levels in the EU AI Act?
+✅ Score: 100% (4/4 topics)
+Response: The EU AI Act proposes a risk-based approach to regulate AI systems. It categorizes AI systems into different risk levels, each with its own set of re...
+
+[25/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What AI practices are prohibited under the EU AI Act?
+❌ Score: 25% (1/4 topics)
+Response: The EU AI Act, which is still in the process of being finalized and implemented, aims to regulate artificial intelligence systems to ensure they are s...
+
+[26/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What requirements apply to high-risk AI systems?
+❌ Error: This operation was aborted
+
+[27/52] EU_AI_ACT | RELATIONAL | PRACTITIONER
+Q: How does the EU AI Act relate to GDPR for AI systems processing personal data?
+❌ Error: This operation was aborted
+
+[28/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: What are the steps for conformity assessment of high-risk AI?
+❌ Error: This operation was aborted
+
+[29/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: How to conduct a fundamental rights impact assessment for AI?
+❌ Error: This operation was aborted
+
+[30/52] EU_AI_ACT | SYNTHESIS | MANAGER
+Q: Compare EU AI Act and California SB 1047 requirements for large AI models
+❌ Error: This operation was aborted
+
+[31/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: How many controls are in ISO 27001:2022 Annex A?
+❌ Score: 0% (0/1 topics)
+Response: ISO 27001:2022, the international standard for an Information Security Management System (ISMS), includes a set of controls in Annex A that organizati...
+
+[32/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: What are the main domains in ISO 27001 Annex A?
+❌ Score: 25% (1/4 topics)
+Response: ISO 27001 is an international standard for an Information Security Management System (ISMS). Annex A of ISO 27001 contains a set of controls that orga...
+
+[33/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: How does ISO 27001 control A.8.2 (information classification) support other controls?
+❌ Error: This operation was aborted
+
+[34/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: What is the relationship between ISO 27001 and ISO 27017 for cloud services?
+❌ Score: 33% (1/3 topics)
+Response: ISO 27001 and ISO 27017 are both part of the ISO/IEC 27000 family of standards, which provide guidelines and best practices for information security m...
+
+[35/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: What workflow is required for ISO 27001 certification?
+❌ Error: This operation was aborted
+
+[36/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: How to perform an ISO 27001 risk assessment?
+❌ Error: This operation was aborted
+
+[37/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: What is the exact requirement of ISO 27001 control A.8.1?
+✅ Score: 50% (0/0 topics)
+Response: ISO 27001 control A.8.1, titled "Human Resource Security," focuses on ensuring that personnel are qualified and capable of fulfilling their roles, par...
+
+[38/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: Find ISO 27001 Annex A control 5.7 on threat intelligence
+✅ Score: 50% (0/0 topics)
+Response: ISO/IEC 27001:2013, the international standard for an Information Security Management System (ISMS), includes a set of controls in Annex A that organi...
+
+[39/52] ISO_27001 | SYNTHESIS | MANAGER
+Q: Map ISO 27001 Annex A controls to SOC 2 Trust Services Criteria
+❌ Error: This operation was aborted
+
+[40/52] SOC_2 | FACTUAL | NOVICE
+Q: What is SOC 2?
+✅ Score: 67% (2/3 topics)
+Response: SOC 2 (Service Organization Controls 2) is a reporting standard created by the American Institute of Certified Public Accountants (AICPA) for service ...
+
+[41/52] SOC_2 | FACTUAL | NOVICE
+Q: What are the five Trust Services Criteria?
+✅ Score: 100% (5/5 topics)
+Response: The five Trust Services Criteria are part of the AICPA (American Institute of Certified Public Accountants) framework designed to assess and report on...
+
+[42/52] SOC_2 | FACTUAL | PRACTITIONER
+Q: What is the difference between SOC 2 Type I and Type II?
+✅ Score: 67% (2/3 topics)
+Response: SOC 2 (Service Organization Controls 2) reports are used to evaluate the controls at service organizations that may have an impact on the security, av...
+
+[43/52] SOC_2 | RELATIONAL | PRACTITIONER
+Q: How do SOC 2 Common Criteria relate to Additional Criteria?
+❌ Score: 0% (0/3 topics)
+Response: SOC 2 (Service Organization Control 2) reports are used to evaluate the controls at a service organization relevant to the security, availability, pro...
+
+[44/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What workflow is needed for SOC 2 Type II readiness?
+❌ Error: This operation was aborted
+
+[45/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What are the steps to respond to SOC 2 audit findings?
+❌ Error: This operation was aborted
+
+[46/52] SOC_2 | SYNTHESIS | MANAGER
+Q: Compare SOC 2 and ISO 27001 for cloud service providers
+❌ Error: This operation was aborted
+
+[47/52] PCI_DSS | FACTUAL | PRACTITIONER
+Q: What are the 12 requirements of PCI-DSS?
+✅ Score: 83% (5/6 topics)
+Response: The Payment Card Industry Data Security Standard (PCI-DSS) is a set of security standards designed to ensure that all companies that accept, process, ...
+
+[48/52] PCI_DSS | EXACT_MATCH | AUDITOR
+Q: What does PCI-DSS requirement 3.4 state about encryption of cardholder data?
+✅ Score: 50% (0/0 topics)
+Response: PCI-DSS (Payment Card Industry Data Security Standard) Requirement 3.4 focuses on the encryption of cardholder data to protect it from unauthorized ac...
+
+[49/52] PCI_DSS | PROCEDURAL | PRACTITIONER
+Q: What are the steps for PCI-DSS quarterly vulnerability scanning?
+❌ Error: This operation was aborted
+
+[50/52] CSA_CCM | FACTUAL | PRACTITIONER
+Q: What are the control domains in CSA Cloud Controls Matrix?
+❌ Score: 25% (1/4 topics)
+Response: The Cloud Security Alliance (CSA) Cloud Controls Matrix (CCM) is a framework that provides a set of controls to help organizations manage security ris...
+
+[51/52] CSA_CCM | RELATIONAL | PRACTITIONER
+Q: How does CSA CCM map to ISO 27001 and SOC 2?
+❌ Error: This operation was aborted
+
+[52/52] CSA_CCM | SYNTHESIS | MANAGER
+Q: Compare CSA STAR Level 1 vs Level 2 vs Level 3
+❌ Error: This operation was aborted
+
+✅ Completed qwen2.5-32b (4/10)
+
+🛑 Stopping previous model: qwen2.5-32b
+Stopping qwen2.5-32b...
+
+======================================================================
+Testing Model: QWEN-CODER-7B
+======================================================================
+Starting model qwen-coder-7b...
+Starting qwen-coder-7b...
+✅ qwen-coder-7b ready on port 8085
+
+[1/52] GDPR | FACTUAL | NOVICE
+Q: What is GDPR?
+✅ Score: 100% (4/4 topics)
+Response: GDPR stands for General Data Protection Regulation. It is a regulation by the European Union that aims to protect the privacy and personal data of ind...
+
+[2/52] GDPR | FACTUAL | NOVICE
+Q: What are the main principles of GDPR?
+❌ Score: 0% (0/4 topics)
+Response: The main principles of GDPR are:
+
+1. Personal Data Protection: GDPR requires that personal data be protected and processed in a manner that is fair, t...
+
+[3/52] GDPR | FACTUAL | NOVICE
+Q: What is the maximum GDPR fine?
+✅ Score: 67% (2/3 topics)
+Response: The maximum GDPR fine is 4% of annual global turnover or €20 million, whichever is higher....
+
+[4/52] GDPR | FACTUAL | PRACTITIONER
+Q: What are the legal bases for processing under GDPR Article 6?
+✅ Score: 67% (4/6 topics)
+Response: Under GDPR Article 6, processing of personal data can be based on several legal bases, including consent, contract performance, legal obligations, pub...
+
+[5/52] GDPR | FACTUAL | PRACTITIONER
+Q: What information must be in a GDPR privacy notice?
+✅ Score: 60% (3/5 topics)
+Response: A GDPR privacy notice must contain the following information:
+
+  1. The identity and contact details of the controller or processors of personal data....
+
+[6/52] GDPR | FACTUAL | PRACTITIONER
+Q: What is the difference between a controller and a processor?
+❌ Score: 0% (0/2 topics)
+Response: A controller and a processor are both components of a computer system, but they have different functions and responsibilities.
+
+A controller is a comp...
+
+[7/52] GDPR | FACTUAL | MANAGER
+Q: What are the key GDPR principles that guide our data governance?
+✅ Score: 100% (3/3 topics)
+Response: The key GDPR principles that guide our data governance are:
+
+1. **Lawfulness, fairness, and transparency (LFT)**: This principle ensures that data pro...
+
+[8/52] GDPR | FACTUAL | MANAGER
+Q: What are the main data subject rights under GDPR?
+✅ Score: 100% (5/5 topics)
+Response: The main data subject rights under the General Data Protection Regulation (GDPR) include:
+
+1. Right to access: Individuals have the right to obtain in...
+
+[9/52] GDPR | FACTUAL | AUDITOR
+Q: What documentation is required to demonstrate GDPR accountability?
+❌ Score: 25% (1/4 topics)
+Response: To demonstrate GDPR accountability, the following documentation is required:
+
+1. Data Protection Policy: A comprehensive policy that outlines the orga...
+
+[10/52] GDPR | FACTUAL | AUDITOR
+Q: What criteria determine if a DPIA is required?
+✅ Score: 75% (3/4 topics)
+Response: A DPIA (Data Protection Impact Assessment) is required when a data processing activity is likely to result in a high risk to the rights and freedoms o...
+
+[11/52] GDPR | RELATIONAL | PRACTITIONER
+Q: How does GDPR Article 30 (Records of Processing Activities) support Article 5 (Principles)?
+✅ Score: 67% (2/3 topics)
+Response: GDPR Article 30 (Records of Processing Activities) supports Article 5 (Principles) by requiring data controllers to maintain records of their processi...
+
+[12/52] GDPR | RELATIONAL | PRACTITIONER
+Q: What is the relationship between GDPR Article 32 (Security) and Article 25 (Data Protection by Design)?
+❌ Score: 0% (0/3 topics)
+Response: GDPR Article 32 (Security) and Article 25 (Data Protection by Design) are related as they both deal with the protection of personal data. Article 25 e...
+
+[13/52] GDPR | RELATIONAL | MANAGER
+Q: How do GDPR data subject rights relate to our business processes?
+❌ Score: 0% (0/3 topics)
+Response: GDPR data subject rights are a set of rights that individuals have over their personal data. These rights include the right to access, rectify, erase,...
+
+[14/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What are the steps to conduct a GDPR Data Protection Impact Assessment?
+❌ Score: 0% (0/4 topics)
+Response: To conduct a GDPR Data Protection Impact Assessment, you need to follow these steps:
+
+1. Identify the processing: Determine the specific data processi...
+
+[15/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What is the process for handling a GDPR data subject access request?
+❌ Score: 0% (0/4 topics)
+Response: To handle a GDPR data subject access request, you should follow these steps:
+
+1. Acknowledge the request: Respond to the data subject within one month...
+
+[16/52] GDPR | PROCEDURAL | MANAGER
+Q: What workflow is needed to ensure GDPR compliance for new projects?
+❌ Score: 0% (0/4 topics)
+Response: To ensure GDPR compliance for new projects, the following workflow can be followed:
+
+1. Identify the data subjects and the data that will be processed...
+
+[17/52] GDPR | PROCEDURAL | MANAGER
+Q: What are the steps for GDPR data breach notification?
+❌ Score: 25% (1/4 topics)
+Response: The steps for GDPR data breach notification are as follows:
+
+1. Identify the data breach: The first step is to identify that a data breach has occurre...
+
+[18/52] GDPR | EXACT_MATCH | AUDITOR
+Q: What does GDPR Article 17 state about the right to erasure?
+✅ Score: 50% (0/0 topics)
+Response: GDPR Article 17 states that the right to erasure, also known as the "right to be forgotten," allows individuals to request the deletion of their perso...
+
+[19/52] GDPR | EXACT_MATCH | AUDITOR
+Q: Find the exact text of GDPR Article 25 on data protection by design
+✅ Score: 50% (0/0 topics)
+Response: GDPR Article 25 on data protection by design states:
+
+1. The controller shall implement appropriate technical and organisational measures to ensure a ...
+
+[20/52] GDPR | SYNTHESIS | MANAGER
+Q: Compare GDPR and CCPA consumer rights - what are the key differences?
+❌ Score: 0% (0/3 topics)
+Response: The General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA) are both data protection laws that aim to give consumers ...
+
+[21/52] GDPR | SYNTHESIS | MANAGER
+Q: How do GDPR requirements relate to ISO 27001 and ISO 27018?
+❌ Score: 0% (0/3 topics)
+Response: GDPR (General Data Protection Regulation) is a regulation of the European Union that applies to the processing of personal data of individuals within ...
+
+[22/52] GDPR | SYNTHESIS | EXECUTIVE
+Q: What is the business impact of GDPR non-compliance?
+✅ Score: 50% (2/4 topics)
+Response: GDPR non-compliance can have a significant business impact. It can result in fines of up to 4% of annual global revenue or €20 million, whichever is g...
+
+[23/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What is the EU AI Act?
+✅ Score: 75% (3/4 topics)
+Response: The EU AI Act is a proposed regulation by the European Union that aims to establish a legal framework for the development and deployment of artificial...
+
+[24/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What are the risk levels in the EU AI Act?
+❌ Score: 0% (0/4 topics)
+Response: The EU AI Act categorizes risks into three levels: low, medium, and high....
+
+[25/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What AI practices are prohibited under the EU AI Act?
+❌ Score: 0% (0/4 topics)
+Response: The EU AI Act prohibits the use of AI systems that are considered to be high-risk, such as those that are used for surveillance, facial recognition, a...
+
+[26/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What requirements apply to high-risk AI systems?
+❌ Score: 20% (1/5 topics)
+Response: High-risk AI systems must meet certain requirements to ensure their safety and reliability. These requirements include:
+
+1. Risk assessment: The AI sy...
+
+[27/52] EU_AI_ACT | RELATIONAL | PRACTITIONER
+Q: How does the EU AI Act relate to GDPR for AI systems processing personal data?
+❌ Score: 33% (1/3 topics)
+Response: The EU AI Act is a proposed regulation that will establish a framework for the development, deployment, and use of AI systems within the European Unio...
+
+[28/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: What are the steps for conformity assessment of high-risk AI?
+❌ Score: 25% (1/4 topics)
+Response: The steps for conformity assessment of high-risk AI are as follows:
+
+1. Identify the AI system: The first step is to identify the AI system that is be...
+
+[29/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: How to conduct a fundamental rights impact assessment for AI?
+❌ Score: 0% (0/4 topics)
+Response: Conducting a fundamental rights impact assessment (FRIA) for AI involves several steps. Here are the general steps to follow:
+
+1. Identify the AI syst...
+
+[30/52] EU_AI_ACT | SYNTHESIS | MANAGER
+Q: Compare EU AI Act and California SB 1047 requirements for large AI models
+❌ Score: 0% (0/3 topics)
+Response: The EU AI Act and California SB 1047 are both regulations that aim to ensure the safety and transparency of AI systems. However, they have different r...
+
+[31/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: How many controls are in ISO 27001:2022 Annex A?
+❌ Score: 0% (0/1 topics)
+Response: ISO 27001:2022 Annex A contains 114 controls....
+
+[32/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: What are the main domains in ISO 27001 Annex A?
+❌ Score: 25% (1/4 topics)
+Response: ISO 27001 Annex A provides a comprehensive list of information security management system (ISMS) domains. These domains are categorized into 14 main c...
+
+[33/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: How does ISO 27001 control A.8.2 (information classification) support other controls?
+❌ Score: 0% (0/3 topics)
+Response: ISO 27001 control A.8.2 (Information classification) supports other controls by ensuring that information is classified appropriately based on its sen...
+
+[34/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: What is the relationship between ISO 27001 and ISO 27017 for cloud services?
+❌ Score: 0% (0/3 topics)
+Response: ISO 27001 and ISO 27017 are both international standards related to information security. ISO 27001 is a general standard for establishing, implementi...
+
+[35/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: What workflow is required for ISO 27001 certification?
+❌ Score: 0% (0/5 topics)
+Response: The workflow for ISO 27001 certification typically involves the following steps:
+
+1. Identify the scope of the certification: Determine the specific a...
+
+[36/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: How to perform an ISO 27001 risk assessment?
+❌ Score: 0% (0/4 topics)
+Response: To perform an ISO 27001 risk assessment, you can follow these steps:
+
+1. Identify the assets: Start by identifying the assets that need to be protecte...
+
+[37/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: What is the exact requirement of ISO 27001 control A.8.1?
+✅ Score: 50% (0/0 topics)
+Response: ISO 27001 control A.8.1 requires that an organization implement and maintain a process for the identification, assessment, and treatment of risks to t...
+
+[38/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: Find ISO 27001 Annex A control 5.7 on threat intelligence
+✅ Score: 50% (0/0 topics)
+Response: ISO 27001 is an international standard for information security management systems (ISMS). Annex A of ISO 27001 provides guidelines for implementing t...
+
+[39/52] ISO_27001 | SYNTHESIS | MANAGER
+Q: Map ISO 27001 Annex A controls to SOC 2 Trust Services Criteria
+❌ Score: 0% (0/3 topics)
+Response: Mapping ISO 27001 Annex A controls to SOC 2 Trust Services Criteria involves understanding the specific requirements and objectives of both frameworks...
+
+[40/52] SOC_2 | FACTUAL | NOVICE
+Q: What is SOC 2?
+❌ Score: 33% (1/3 topics)
+Response: SOC 2 is a set of trust service criteria (TSC) established by the American Institute of Certified Public Accountants (AICPA) for service organizations...
+
+[41/52] SOC_2 | FACTUAL | NOVICE
+Q: What are the five Trust Services Criteria?
+❌ Score: 40% (2/5 topics)
+Response: The five Trust Services Criteria are:
+
+1. Availability: The service must be available to the user at all times, with minimal downtime.
+
+2. Integrity: ...
+
+[42/52] SOC_2 | FACTUAL | PRACTITIONER
+Q: What is the difference between SOC 2 Type I and Type II?
+✅ Score: 100% (3/3 topics)
+Response: SOC 2 Type I and Type II are two different types of audits conducted by the American Institute of Certified Public Accountants (AICPA) to evaluate the...
+
+[43/52] SOC_2 | RELATIONAL | PRACTITIONER
+Q: How do SOC 2 Common Criteria relate to Additional Criteria?
+❌ Score: 0% (0/3 topics)
+Response: SOC 2 Common Criteria and Additional Criteria are both sets of guidelines used to assess the security of service providers. The Common Criteria are a ...
+
+[44/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What workflow is needed for SOC 2 Type II readiness?
+❌ Score: 0% (0/5 topics)
+Response: To achieve SOC 2 Type II readiness, an organization needs to follow a comprehensive workflow that includes the following steps:
+
+1. Identify the scope...
+
+[45/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What are the steps to respond to SOC 2 audit findings?
+❌ Score: 0% (0/4 topics)
+Response: 1. Review the SOC 2 audit findings and determine the impact on your organization.
+2. Identify the specific controls that need to be improved or enhanc...
+
+[46/52] SOC_2 | SYNTHESIS | MANAGER
+Q: Compare SOC 2 and ISO 27001 for cloud service providers
+❌ Score: 0% (0/3 topics)
+Response: SOC 2 and ISO 27001 are both widely used frameworks for cloud service providers to demonstrate their commitment to security and compliance. However, t...
+
+[47/52] PCI_DSS | FACTUAL | PRACTITIONER
+Q: What are the 12 requirements of PCI-DSS?
+❌ Score: 17% (1/6 topics)
+Response: PCI-DSS stands for Payment Card Industry Data Security Standard. It is a set of security requirements designed to protect credit card information and ...
+
+[48/52] PCI_DSS | EXACT_MATCH | AUDITOR
+Q: What does PCI-DSS requirement 3.4 state about encryption of cardholder data?
+✅ Score: 50% (0/0 topics)
+Response: PCI-DSS requirement 3.4 states that cardholder data must be encrypted both in transit and at rest. This means that any data that is transmitted over a...
+
+[49/52] PCI_DSS | PROCEDURAL | PRACTITIONER
+Q: What are the steps for PCI-DSS quarterly vulnerability scanning?
+❌ Score: 20% (1/5 topics)
+Response: PCI-DSS quarterly vulnerability scanning involves several steps to ensure compliance and identify and mitigate potential security risks. Here are the ...
+
+[50/52] CSA_CCM | FACTUAL | PRACTITIONER
+Q: What are the control domains in CSA Cloud Controls Matrix?
+❌ Score: 25% (1/4 topics)
+Response: The control domains in CSA Cloud Controls Matrix are:
+
+1. Identity and Access Management (IAM)
+2. Data Protection
+3. Security Operations
+4. Business C...
+
+[51/52] CSA_CCM | RELATIONAL | PRACTITIONER
+Q: How does CSA CCM map to ISO 27001 and SOC 2?
+❌ Score: 0% (0/2 topics)
+Response: CSA CCM (Cloud Security Alliance Continuous Monitoring) is a framework that provides a set of guidelines and best practices for continuous monitoring ...
+
+[52/52] CSA_CCM | SYNTHESIS | MANAGER
+Q: Compare CSA STAR Level 1 vs Level 2 vs Level 3
+❌ Score: 0% (0/3 topics)
+Response: The Canadian Standards Association (CSA) STAR (Systematic Testing Approach for Reliability) is a method used to evaluate the reliability of electrical...
+
+✅ Completed qwen-coder-7b (5/10)
+
+🛑 Stopping previous model: qwen-coder-7b
+Stopping qwen-coder-7b...
+
+======================================================================
+Testing Model: HERMES-3-LLAMA-8B
+======================================================================
+Starting model hermes-3-llama-8b...
+Starting hermes-3-llama-8b...
+✅ hermes-3-llama-8b ready on port 8086
+
+[1/52] GDPR | FACTUAL | NOVICE
+Q: What is GDPR?
+✅ Score: 75% (3/4 topics)
+Response: GDPR stands for General Data Protection Regulation, a comprehensive data protection law enacted by the European Union (EU) in 2016. It came into effec...
+
+[2/52] GDPR | FACTUAL | NOVICE
+Q: What are the main principles of GDPR?
+✅ Score: 100% (4/4 topics)
+Response: The General Data Protection Regulation (GDPR) is a comprehensive data protection law that came into effect in the European Union (EU) on May 25, 2018....
+
+[3/52] GDPR | FACTUAL | NOVICE
+Q: What is the maximum GDPR fine?
+✅ Score: 100% (3/3 topics)
+Response: Under the General Data Protection Regulation (GDPR), the maximum fine that can be imposed on a company for violations is €20 million or 4% of the comp...
+
+[4/52] GDPR | FACTUAL | PRACTITIONER
+Q: What are the legal bases for processing under GDPR Article 6?
+✅ Score: 83% (5/6 topics)
+Response: Under the General Data Protection Regulation (GDPR), Article 6 outlines the legal bases for processing personal data. There are six legal bases for pr...
+
+[5/52] GDPR | FACTUAL | PRACTITIONER
+Q: What information must be in a GDPR privacy notice?
+❌ Score: 20% (1/5 topics)
+Response: A GDPR (General Data Protection Regulation) privacy notice must include the following information:
+
+1. Identity and contact details of the data contro...
+
+[6/52] GDPR | FACTUAL | PRACTITIONER
+Q: What is the difference between a controller and a processor?
+❌ Score: 0% (0/2 topics)
+Response: In the context of data protection laws like the GDPR in the European Union, there are some key differences between a controller and a processor:
+
+Cont...
+
+[7/52] GDPR | FACTUAL | MANAGER
+Q: What are the key GDPR principles that guide our data governance?
+✅ Score: 100% (3/3 topics)
+Response: The General Data Protection Regulation (GDPR) is a comprehensive data protection law that sets guidelines for data collection, storage, and processing...
+
+[8/52] GDPR | FACTUAL | MANAGER
+Q: What are the main data subject rights under GDPR?
+✅ Score: 100% (5/5 topics)
+Response: The General Data Protection Regulation (GDPR) grants individuals certain rights over their personal data. The main data subject rights under GDPR are:...
+
+[9/52] GDPR | FACTUAL | AUDITOR
+Q: What documentation is required to demonstrate GDPR accountability?
+✅ Score: 75% (3/4 topics)
+Response: To demonstrate GDPR accountability, organizations must maintain comprehensive documentation and implement appropriate measures. Here are some key elem...
+
+[10/52] GDPR | FACTUAL | AUDITOR
+Q: What criteria determine if a DPIA is required?
+✅ Score: 75% (3/4 topics)
+Response: A Data Protection Impact Assessment (DPIA) is required under the General Data Protection Regulation (GDPR) in certain situations. The main criteria fo...
+
+[11/52] GDPR | RELATIONAL | PRACTITIONER
+Q: How does GDPR Article 30 (Records of Processing Activities) support Article 5 (Principles)?
+✅ Score: 100% (3/3 topics)
+Response: GDPR Article 30, which requires organizations to maintain records of their processing activities, directly supports the principles outlined in Article...
+
+[12/52] GDPR | RELATIONAL | PRACTITIONER
+Q: What is the relationship between GDPR Article 32 (Security) and Article 25 (Data Protection by Design)?
+❌ Score: 33% (1/3 topics)
+Response: GDPR Article 32 (Security of processing) and Article 25 (Data Protection by Design and By Default) are closely related but address different aspects o...
+
+[13/52] GDPR | RELATIONAL | MANAGER
+Q: How do GDPR data subject rights relate to our business processes?
+❌ Score: 0% (0/3 topics)
+Response: The General Data Protection Regulation (GDPR) grants individuals certain rights over their personal data. These rights can impact various business pro...
+
+[14/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What are the steps to conduct a GDPR Data Protection Impact Assessment?
+❌ Score: 0% (0/4 topics)
+Response: A Data Protection Impact Assessment (DPIA) is a process that helps organizations systematically assess and minimize the data protection risks of a pro...
+
+[15/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What is the process for handling a GDPR data subject access request?
+❌ Score: 0% (0/4 topics)
+Response: Handling a GDPR data subject access request involves several steps:
+
+1. Verify the requester's identity: Confirm that the request is made by the data ...
+
+[16/52] GDPR | PROCEDURAL | MANAGER
+Q: What workflow is needed to ensure GDPR compliance for new projects?
+❌ Score: 0% (0/4 topics)
+Response: To ensure GDPR compliance for new projects, the following workflow should be followed:
+
+1. Data Protection Impact Assessment (DPIA):
+   - Conduct a DP...
+
+[17/52] GDPR | PROCEDURAL | MANAGER
+Q: What are the steps for GDPR data breach notification?
+❌ Score: 25% (1/4 topics)
+Response: The General Data Protection Regulation (GDPR) requires organizations to notify the relevant data protection authorities and, in some cases, the indivi...
+
+[18/52] GDPR | EXACT_MATCH | AUDITOR
+Q: What does GDPR Article 17 state about the right to erasure?
+✅ Score: 50% (0/0 topics)
+Response: GDPR Article 17, also known as the "Right to Erasure" or "Right to be Forgotten," outlines the circumstances under which an individual can request tha...
+
+[19/52] GDPR | EXACT_MATCH | AUDITOR
+Q: Find the exact text of GDPR Article 25 on data protection by design
+✅ Score: 50% (0/0 topics)
+Response: Article 25 of the General Data Protection Regulation (GDPR) is titled "Data protection by design and by default". The exact text of the article is as ...
+
+[20/52] GDPR | SYNTHESIS | MANAGER
+Q: Compare GDPR and CCPA consumer rights - what are the key differences?
+❌ Score: 0% (0/3 topics)
+Response: The General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA) are both comprehensive data protection laws, but they hav...
+
+[21/52] GDPR | SYNTHESIS | MANAGER
+Q: How do GDPR requirements relate to ISO 27001 and ISO 27018?
+✅ Score: 67% (2/3 topics)
+Response: The General Data Protection Regulation (GDPR) is a comprehensive data protection law enacted by the European Union (EU) that regulates how personal da...
+
+[22/52] GDPR | SYNTHESIS | EXECUTIVE
+Q: What is the business impact of GDPR non-compliance?
+✅ Score: 75% (3/4 topics)
+Response: GDPR (General Data Protection Regulation) is a comprehensive data protection law that came into effect in the European Union (EU) on May 25, 2018. It ...
+
+[23/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What is the EU AI Act?
+✅ Score: 75% (3/4 topics)
+Response: The EU AI Act, officially known as Regulation (EU) 2021/1928, is a legislative proposal by the European Commission to regulate artificial intelligence...
+
+[24/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What are the risk levels in the EU AI Act?
+✅ Score: 100% (4/4 topics)
+Response: The EU AI Act, proposed by the European Commission in April 2021, aims to create a regulatory framework for artificial intelligence in the European Un...
+
+[25/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What AI practices are prohibited under the EU AI Act?
+❌ Score: 0% (0/4 topics)
+Response: The EU AI Act, which is currently under development, aims to regulate the use and development of artificial intelligence in the European Union. The dr...
+
+[26/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What requirements apply to high-risk AI systems?
+❌ Score: 40% (2/5 topics)
+Response: There are no universally agreed upon requirements for high-risk AI systems, as the definition of "high-risk" and the appropriate regulatory framework ...
+
+[27/52] EU_AI_ACT | RELATIONAL | PRACTITIONER
+Q: How does the EU AI Act relate to GDPR for AI systems processing personal data?
+❌ Score: 33% (1/3 topics)
+Response: The EU AI Act and the General Data Protection Regulation (GDPR) are both regulatory frameworks aimed at protecting individuals' rights and freedoms in...
+
+[28/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: What are the steps for conformity assessment of high-risk AI?
+❌ Score: 25% (1/4 topics)
+Response: Conformity assessment of high-risk AI systems is a critical process to ensure their safety, reliability, and compliance with regulatory standards. Her...
+
+[29/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: How to conduct a fundamental rights impact assessment for AI?
+❌ Score: 25% (1/4 topics)
+Response: Conducting a fundamental rights impact assessment for AI involves evaluating how an AI system may affect fundamental rights and freedoms, such as priv...
+
+[30/52] EU_AI_ACT | SYNTHESIS | MANAGER
+Q: Compare EU AI Act and California SB 1047 requirements for large AI models
+❌ Score: 33% (1/3 topics)
+Response: The European Union's Artificial Intelligence Act (AI Act) and California's Senate Bill 1047 (SB 1047) are both legislative efforts to regulate artific...
+
+[31/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: How many controls are in ISO 27001:2022 Annex A?
+❌ Score: 0% (0/1 topics)
+Response: ISO 27001:2022, the latest version of the international standard for information security management systems (ISMS), has 14 controls in Annex A. These...
+
+[32/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: What are the main domains in ISO 27001 Annex A?
+❌ Score: 25% (1/4 topics)
+Response: ISO 27001 Annex A is a comprehensive set of 14 domains that cover various aspects of information security management. These domains provide a framewor...
+
+[33/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: How does ISO 27001 control A.8.2 (information classification) support other controls?
+✅ Score: 67% (2/3 topics)
+Response: ISO 27001 control A.8.2 (information classification) is a fundamental control that supports the overall Information Security Management System (ISMS) ...
+
+[34/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: What is the relationship between ISO 27001 and ISO 27017 for cloud services?
+❌ Score: 33% (1/3 topics)
+Response: ISO 27001 and ISO 27017 are both information security management system (ISMS) standards, but they address different aspects of cloud computing securi...
+
+[35/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: What workflow is required for ISO 27001 certification?
+❌ Score: 20% (1/5 topics)
+Response: To achieve ISO 27001 certification, an organization must follow a structured workflow that involves several key steps:
+
+1. Understand the standard: Fa...
+
+[36/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: How to perform an ISO 27001 risk assessment?
+❌ Score: 0% (0/4 topics)
+Response: ISO 27001 is an international standard for information security management. Performing a risk assessment as part of the ISO 27001 implementation proce...
+
+[37/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: What is the exact requirement of ISO 27001 control A.8.1?
+✅ Score: 50% (0/0 topics)
+Response: ISO 27001 is an international standard for information security management systems (ISMS). Control A.8.1 is part of Annex A, which contains the specif...
+
+[38/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: Find ISO 27001 Annex A control 5.7 on threat intelligence
+✅ Score: 50% (0/0 topics)
+Response: ISO 27001 is an international standard for information security management, and Annex A contains the specific security control objectives. Control 5.7...
+
+[39/52] ISO_27001 | SYNTHESIS | MANAGER
+Q: Map ISO 27001 Annex A controls to SOC 2 Trust Services Criteria
+❌ Score: 0% (0/3 topics)
+Response: ISO 27001 is an international standard for information security management, while SOC 2 is a framework for evaluating a service organization's securit...
+
+[40/52] SOC_2 | FACTUAL | NOVICE
+Q: What is SOC 2?
+❌ Score: 33% (1/3 topics)
+Response: SOC 2, which stands for System and Organization Controls 2, is a framework created by the American Institute of Certified Public Accountants (AICPA) t...
+
+[41/52] SOC_2 | FACTUAL | NOVICE
+Q: What are the five Trust Services Criteria?
+✅ Score: 100% (5/5 topics)
+Response: The five Trust Services Criteria (TSC) are a set of principles that define the fundamental elements of trust in a service organization's system. These...
+
+[42/52] SOC_2 | FACTUAL | PRACTITIONER
+Q: What is the difference between SOC 2 Type I and Type II?
+✅ Score: 100% (3/3 topics)
+Response: SOC 2 (System and Organization Controls 2) is a framework created by the American Institute of Certified Public Accountants (AICPA) to assess the secu...
+
+[43/52] SOC_2 | RELATIONAL | PRACTITIONER
+Q: How do SOC 2 Common Criteria relate to Additional Criteria?
+❌ Score: 33% (1/3 topics)
+Response: SOC 2 (System and Organization Controls 2) is a framework created by the American Institute of Certified Public Accountants (AICPA) to assess the effe...
+
+[44/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What workflow is needed for SOC 2 Type II readiness?
+❌ Score: 20% (1/5 topics)
+Response: To achieve SOC 2 Type II readiness, organizations need to follow a comprehensive workflow that includes several key steps:
+
+1. Understand the SOC 2 fr...
+
+[45/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What are the steps to respond to SOC 2 audit findings?
+❌ Score: 0% (0/4 topics)
+Response: Responding to SOC 2 audit findings involves several steps to address any identified issues and ensure compliance with the relevant trust services crit...
+
+[46/52] SOC_2 | SYNTHESIS | MANAGER
+Q: Compare SOC 2 and ISO 27001 for cloud service providers
+❌ Score: 0% (0/3 topics)
+Response: SOC 2 (System and Organization Controls 2) and ISO 27001 (International Organization for Standardization 27001) are both information security manageme...
+
+[47/52] PCI_DSS | FACTUAL | PRACTITIONER
+Q: What are the 12 requirements of PCI-DSS?
+❌ Score: 17% (1/6 topics)
+Response: The Payment Card Industry Data Security Standard (PCI-DSS) is a set of security standards designed to ensure that all companies that accept, process, ...
+
+[48/52] PCI_DSS | EXACT_MATCH | AUDITOR
+Q: What does PCI-DSS requirement 3.4 state about encryption of cardholder data?
+✅ Score: 50% (0/0 topics)
+Response: PCI-DSS requirement 3.4 states that all cardholder data must be encrypted during transmission over open, public networks, such as the internet. This m...
+
+[49/52] PCI_DSS | PROCEDURAL | PRACTITIONER
+Q: What are the steps for PCI-DSS quarterly vulnerability scanning?
+❌ Score: 40% (2/5 topics)
+Response: PCI-DSS (Payment Card Industry Data Security Standard) requires quarterly vulnerability scanning as part of its compliance requirements. Here are the ...
+
+[50/52] CSA_CCM | FACTUAL | PRACTITIONER
+Q: What are the control domains in CSA Cloud Controls Matrix?
+❌ Score: 25% (1/4 topics)
+Response: The CSA Cloud Controls Matrix (CCM) is a security controls matrix that specifically addresses the unique security concerns faced by cloud computing en...
+
+[51/52] CSA_CCM | RELATIONAL | PRACTITIONER
+Q: How does CSA CCM map to ISO 27001 and SOC 2?
+❌ Score: 0% (0/2 topics)
+Response: CSA CCM (Cloud Security Alliance Cloud Controls Matrix) is a framework that provides guidelines and best practices for securing cloud computing enviro...
+
+[52/52] CSA_CCM | SYNTHESIS | MANAGER
+Q: Compare CSA STAR Level 1 vs Level 2 vs Level 3
+❌ Score: 33% (1/3 topics)
+Response: CSA STAR (Common Criteria for Security Acceleration) is a certification program that evaluates and certifies the security capabilities of IT products ...
+
+✅ Completed hermes-3-llama-8b (6/10)
+
+🛑 Stopping previous model: hermes-3-llama-8b
+Stopping hermes-3-llama-8b...
+
+======================================================================
+Testing Model: LLAMA-3.1-8B
+======================================================================
+Starting model llama-3.1-8b...
+Starting llama-3.1-8b...
+✅ llama-3.1-8b ready on port 8087
+
+[1/52] GDPR | FACTUAL | NOVICE
+Q: What is GDPR?
+✅ Score: 75% (3/4 topics)
+Response: GDPR stands for General Data Protection Regulation. It's a comprehensive data protection law in the European Union (EU) that aims to give individuals ...
+
+[2/52] GDPR | FACTUAL | NOVICE
+Q: What are the main principles of GDPR?
+✅ Score: 100% (4/4 topics)
+Response: The General Data Protection Regulation (GDPR) is a comprehensive data protection regulation in the European Union (EU) that sets out the principles fo...
+
+[3/52] GDPR | FACTUAL | NOVICE
+Q: What is the maximum GDPR fine?
+✅ Score: 100% (3/3 topics)
+Response: The maximum GDPR fine is €20 million or 4% of the company's global annual turnover, whichever is greater. This is according to Article 83 of the Gener...
+
+[4/52] GDPR | FACTUAL | PRACTITIONER
+Q: What are the legal bases for processing under GDPR Article 6?
+✅ Score: 83% (5/6 topics)
+Response: Under the General Data Protection Regulation (GDPR), Article 6 sets out the legal bases for processing personal data. There are six legal bases for pr...
+
+[5/52] GDPR | FACTUAL | PRACTITIONER
+Q: What information must be in a GDPR privacy notice?
+❌ Score: 40% (2/5 topics)
+Response: Under the General Data Protection Regulation (GDPR), a privacy notice, also known as a data protection notice or privacy policy, is a document that in...
+
+[6/52] GDPR | FACTUAL | PRACTITIONER
+Q: What is the difference between a controller and a processor?
+❌ Score: 0% (0/2 topics)
+Response: In computing, a controller and a processor are two distinct components that serve different purposes, although they are often used together in a syste...
+
+[7/52] GDPR | FACTUAL | MANAGER
+Q: What are the key GDPR principles that guide our data governance?
+✅ Score: 100% (3/3 topics)
+Response: The General Data Protection Regulation (GDPR) is a comprehensive data protection regulation in the European Union that sets out the principles for dat...
+
+[8/52] GDPR | FACTUAL | MANAGER
+Q: What are the main data subject rights under GDPR?
+✅ Score: 100% (5/5 topics)
+Response: The General Data Protection Regulation (GDPR) sets out several key rights for data subjects, which are individuals whose personal data is being proces...
+
+[9/52] GDPR | FACTUAL | AUDITOR
+Q: What documentation is required to demonstrate GDPR accountability?
+❌ Score: 25% (1/4 topics)
+Response: To demonstrate GDPR accountability, organizations must maintain and provide documentation that demonstrates their compliance with the General Data Pro...
+
+[10/52] GDPR | FACTUAL | AUDITOR
+Q: What criteria determine if a DPIA is required?
+❌ Score: 25% (1/4 topics)
+Response: A Data Protection Impact Assessment (DPIA) is a process used to identify and mitigate the risks associated with the processing of personal data. The c...
+
+[11/52] GDPR | RELATIONAL | PRACTITIONER
+Q: How does GDPR Article 30 (Records of Processing Activities) support Article 5 (Principles)?
+✅ Score: 100% (3/3 topics)
+Response: GDPR Article 30, "Records of Processing Activities", supports Article 5, "Principles", in several ways:
+
+1. **Accountability**: Article 5(2) states th...
+
+[12/52] GDPR | RELATIONAL | PRACTITIONER
+Q: What is the relationship between GDPR Article 32 (Security) and Article 25 (Data Protection by Design)?
+❌ Score: 33% (1/3 topics)
+Response: GDPR Article 32 (Security of Processing) and Article 25 (Data Protection by Design and by Default) are two interconnected articles in the General Data...
+
+[13/52] GDPR | RELATIONAL | MANAGER
+Q: How do GDPR data subject rights relate to our business processes?
+❌ Score: 0% (0/3 topics)
+Response: The General Data Protection Regulation (GDPR) introduces several data subject rights that businesses must respect. These rights are designed to give i...
+
+[14/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What are the steps to conduct a GDPR Data Protection Impact Assessment?
+❌ Score: 25% (1/4 topics)
+Response: A Data Protection Impact Assessment (DPIA) is a process that helps organizations identify and mitigate the risks associated with the processing of per...
+
+[15/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What is the process for handling a GDPR data subject access request?
+❌ Score: 25% (1/4 topics)
+Response: Handling a General Data Protection Regulation (GDPR) data subject access request (DSAR) involves a structured process that ensures compliance with the...
+
+[16/52] GDPR | PROCEDURAL | MANAGER
+Q: What workflow is needed to ensure GDPR compliance for new projects?
+❌ Score: 0% (0/4 topics)
+Response: To ensure GDPR compliance for new projects, the following workflow can be implemented:
+
+**Pre-Project Phase**
+
+1. **Conduct a Data Protection Impact A...
+
+[17/52] GDPR | PROCEDURAL | MANAGER
+Q: What are the steps for GDPR data breach notification?
+✅ Score: 50% (2/4 topics)
+Response: The General Data Protection Regulation (GDPR) requires organizations to notify the relevant authorities and affected individuals in the event of a dat...
+
+[18/52] GDPR | EXACT_MATCH | AUDITOR
+Q: What does GDPR Article 17 state about the right to erasure?
+✅ Score: 50% (0/0 topics)
+Response: GDPR Article 17 states that individuals have the right to erasure, also known as the "right to be forgotten." This right allows individuals to request...
+
+[19/52] GDPR | EXACT_MATCH | AUDITOR
+Q: Find the exact text of GDPR Article 25 on data protection by design
+✅ Score: 50% (0/0 topics)
+Response: Here is the exact text of GDPR Article 25 on data protection by design:
+
+**Article 25**
+
+**Data protection by design and by default**
+
+1. Taking into ...
+
+[20/52] GDPR | SYNTHESIS | MANAGER
+Q: Compare GDPR and CCPA consumer rights - what are the key differences?
+❌ Score: 0% (0/3 topics)
+Response: The General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA) are two significant data protection laws that aim to safe...
+
+[21/52] GDPR | SYNTHESIS | MANAGER
+Q: How do GDPR requirements relate to ISO 27001 and ISO 27018?
+❌ Score: 33% (1/3 topics)
+Response: GDPR (General Data Protection Regulation) is a European Union regulation that sets out rules for the protection of personal data. ISO 27001 and ISO 27...
+
+[22/52] GDPR | SYNTHESIS | EXECUTIVE
+Q: What is the business impact of GDPR non-compliance?
+✅ Score: 75% (3/4 topics)
+Response: The business impact of GDPR non-compliance can be severe and far-reaching. Here are some potential consequences:
+
+1. **Fines**: The GDPR imposes fines...
+
+[23/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What is the EU AI Act?
+✅ Score: 100% (4/4 topics)
+Response: The EU AI Act, officially known as the "Regulation on a European approach for Artificial Intelligence" (COM(2021) 206 final), is a proposed European U...
+
+[24/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What are the risk levels in the EU AI Act?
+✅ Score: 75% (3/4 topics)
+Response: The EU AI Act, also known as the Artificial Intelligence Act, is a proposed regulation by the European Commission that aims to ensure the safe and tru...
+
+[25/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What AI practices are prohibited under the EU AI Act?
+❌ Score: 0% (0/4 topics)
+Response: The EU AI Act, also known as the Artificial Intelligence Act, is a proposed regulation that aims to regulate the development and deployment of artific...
+
+[26/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What requirements apply to high-risk AI systems?
+✅ Score: 60% (3/5 topics)
+Response: High-risk AI systems are subject to various regulatory requirements, which may vary depending on the jurisdiction. Here are some general requirements ...
+
+[27/52] EU_AI_ACT | RELATIONAL | PRACTITIONER
+Q: How does the EU AI Act relate to GDPR for AI systems processing personal data?
+❌ Score: 33% (1/3 topics)
+Response: The EU AI Act (Artificial Intelligence Act) is a proposed regulation that aims to regulate the development and deployment of artificial intelligence (...
+
+[28/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: What are the steps for conformity assessment of high-risk AI?
+✅ Score: 50% (2/4 topics)
+Response: Conformity assessment of high-risk AI involves a series of steps to ensure that the AI system meets the necessary safety and performance standards. He...
+
+[29/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: How to conduct a fundamental rights impact assessment for AI?
+❌ Score: 0% (0/4 topics)
+Response: Conducting a fundamental rights impact assessment (FRIA) for AI involves a thorough analysis of the potential effects of AI systems on human rights an...
+
+[30/52] EU_AI_ACT | SYNTHESIS | MANAGER
+Q: Compare EU AI Act and California SB 1047 requirements for large AI models
+❌ Score: 33% (1/3 topics)
+Response: The EU AI Act and California SB 1047 are two significant regulatory initiatives aimed at addressing the development and deployment of artificial intel...
+
+[31/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: How many controls are in ISO 27001:2022 Annex A?
+❌ Score: 0% (0/1 topics)
+Response: According to the ISO 27001:2022 standard, Annex A contains 114 controls, which are organized into 14 categories. These controls are intended to help o...
+
+[32/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: What are the main domains in ISO 27001 Annex A?
+❌ Score: 0% (0/4 topics)
+Response: ISO 27001 Annex A is a comprehensive list of 114 controls that are organized into 14 domains. These domains are the main categories of security contro...
+
+[33/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: How does ISO 27001 control A.8.2 (information classification) support other controls?
+✅ Score: 67% (2/3 topics)
+Response: ISO 27001 control A.8.2, "Information classification", is a critical control that supports several other controls in the Information Security Manageme...
+
+[34/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: What is the relationship between ISO 27001 and ISO 27017 for cloud services?
+❌ Score: 0% (0/3 topics)
+Response: ISO 27001 and ISO 27017 are two related but distinct standards in the field of information security. Here's a brief overview of each standard and thei...
+
+[35/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: What workflow is required for ISO 27001 certification?
+❌ Score: 40% (2/5 topics)
+Response: ISO 27001 is an international standard for information security management systems (ISMS) that provides a framework for organizations to manage and pr...
+
+[36/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: How to perform an ISO 27001 risk assessment?
+❌ Score: 0% (0/4 topics)
+Response: Performing an ISO 27001 risk assessment is a crucial step in implementing an Information Security Management System (ISMS) as per the ISO 27001 standa...
+
+[37/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: What is the exact requirement of ISO 27001 control A.8.1?
+✅ Score: 50% (0/0 topics)
+Response: A very specific question!
+
+ISO 27001 is an international standard for information security management systems (ISMS). Control A.8.1 is part of the sta...
+
+[38/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: Find ISO 27001 Annex A control 5.7 on threat intelligence
+✅ Score: 50% (0/0 topics)
+Response: ISO 27001 Annex A is a comprehensive set of controls that organizations can implement to manage information security risks. Control 5.7 is related to ...
+
+[39/52] ISO_27001 | SYNTHESIS | MANAGER
+Q: Map ISO 27001 Annex A controls to SOC 2 Trust Services Criteria
+❌ Score: 0% (0/3 topics)
+Response: Here's a high-level mapping of ISO 27001 Annex A controls to SOC 2 Trust Services Criteria:
+
+**Note:** This is not an exhaustive mapping, and some con...
+
+[40/52] SOC_2 | FACTUAL | NOVICE
+Q: What is SOC 2?
+✅ Score: 67% (2/3 topics)
+Response: SOC 2 (Service Organization Control 2) is a widely recognized certification that provides assurance about the effectiveness of a service organization'...
+
+[41/52] SOC_2 | FACTUAL | NOVICE
+Q: What are the five Trust Services Criteria?
+✅ Score: 100% (5/5 topics)
+Response: The five Trust Services Criteria (TSC) are a set of standards for evaluating the trustworthiness of an organization that provides assurance services, ...
+
+[42/52] SOC_2 | FACTUAL | PRACTITIONER
+Q: What is the difference between SOC 2 Type I and Type II?
+❌ Score: 33% (1/3 topics)
+Response: SOC 2 (Service Organization Control 2) is a widely recognized standard for evaluating the internal controls of service organizations, such as cloud pr...
+
+[43/52] SOC_2 | RELATIONAL | PRACTITIONER
+Q: How do SOC 2 Common Criteria relate to Additional Criteria?
+❌ Score: 0% (0/3 topics)
+Response: SOC 2 (Service Organization Control 2) is a widely recognized standard for evaluating the controls of service organizations, particularly those that s...
+
+[44/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What workflow is needed for SOC 2 Type II readiness?
+✅ Score: 60% (3/5 topics)
+Response: SOC 2 (Service Organization Control 2) Type II readiness requires a comprehensive workflow that involves several steps and stakeholders. Here's a gene...
+
+[45/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What are the steps to respond to SOC 2 audit findings?
+❌ Score: 25% (1/4 topics)
+Response: Responding to SOC 2 audit findings involves several steps that help you address any control weaknesses or deficiencies identified during the audit. He...
+
+[46/52] SOC_2 | SYNTHESIS | MANAGER
+Q: Compare SOC 2 and ISO 27001 for cloud service providers
+❌ Score: 0% (0/3 topics)
+Response: SOC 2 (Service Organization Control 2) and ISO 27001 are two widely recognized standards for information security management, but they serve different...
+
+[47/52] PCI_DSS | FACTUAL | PRACTITIONER
+Q: What are the 12 requirements of PCI-DSS?
+❌ Score: 17% (1/6 topics)
+Response: The Payment Card Industry Data Security Standard (PCI-DSS) is a set of security standards designed to ensure that all companies that accept, process, ...
+
+[48/52] PCI_DSS | EXACT_MATCH | AUDITOR
+Q: What does PCI-DSS requirement 3.4 state about encryption of cardholder data?
+✅ Score: 50% (0/0 topics)
+Response: PCI-DSS requirement 3.4 states that all cardholder data must be encrypted at rest. This means that all cardholder data, including credit card numbers,...
+
+[49/52] PCI_DSS | PROCEDURAL | PRACTITIONER
+Q: What are the steps for PCI-DSS quarterly vulnerability scanning?
+❌ Score: 20% (1/5 topics)
+Response: PCI-DSS (Payment Card Industry Data Security Standard) requires quarterly vulnerability scanning as part of its compliance requirements. Here are the ...
+
+[50/52] CSA_CCM | FACTUAL | PRACTITIONER
+Q: What are the control domains in CSA Cloud Controls Matrix?
+❌ Score: 25% (1/4 topics)
+Response: The Cloud Security Alliance (CSA) Cloud Controls Matrix (CCM) is a comprehensive framework that provides a set of security controls for cloud computin...
+
+[51/52] CSA_CCM | RELATIONAL | PRACTITIONER
+Q: How does CSA CCM map to ISO 27001 and SOC 2?
+❌ Score: 0% (0/2 topics)
+Response: CSA CCM (Canadian Standards Association Cybersecurity Control Matrix) is a framework that provides a comprehensive set of controls for managing cybers...
+
+[52/52] CSA_CCM | SYNTHESIS | MANAGER
+Q: Compare CSA STAR Level 1 vs Level 2 vs Level 3
+✅ Score: 67% (2/3 topics)
+Response: CSA STAR (Cloud Security Alliance Security, Trust & Assurance Registry) is a certification program that provides a framework for cloud service provide...
+
+✅ Completed llama-3.1-8b (7/10)
+
+🛑 Stopping previous model: llama-3.1-8b
+Stopping llama-3.1-8b...
+
+======================================================================
+Testing Model: LLAMA-4-SCOUT-17B
+======================================================================
+Starting model llama-4-scout-17b...
+Starting llama-4-scout-17b...
+Error starting model: Model did not become ready within timeout
+Failed to start model llama-4-scout-17b
+
+✅ Completed llama-4-scout-17b (8/10)
+
+🛑 Stopping previous model: llama-4-scout-17b
+Stopping llama-4-scout-17b...
+Error stopping model: Command failed: llamacpp-manager stop llama-4-scout-17b
+error stopping llama-4-scout-17b: [Errno 3] No such process
+
+
+======================================================================
+Testing Model: MISTRAL-SMALL-24B
+======================================================================
+Starting model mistral-small-24b...
+Starting mistral-small-24b...
+Error starting model: Model did not become ready within timeout
+Failed to start model mistral-small-24b
+
+✅ Completed mistral-small-24b (9/10)
+
+🛑 Stopping previous model: mistral-small-24b
+Stopping mistral-small-24b...
+Error stopping model: Command failed: llamacpp-manager stop mistral-small-24b
+error stopping mistral-small-24b: [Errno 3] No such process
+
+
+======================================================================
+Testing Model: DEEPSEEK-R1-QWEN-32B
+======================================================================
+Starting model deepseek-r1-qwen-32b...
+Starting deepseek-r1-qwen-32b...
+✅ deepseek-r1-qwen-32b ready on port 8092
+
+[1/52] GDPR | FACTUAL | NOVICE
+Q: What is GDPR?
+❌ Score: 0% (0/4 topics)
+Response: 9#)3<4//G4182B5,D72-5HGB1#G,A51).A3?/!/"*$1A?7"#+6%-#9=4.,E.1G//C55;*AC4E'?&;)-<87.D!94B2'35FC!+8FC$5:"59G#=+'#'.2)2*G-EG##!42B8B&<.'7-G76H4#1EG:%9!+>...
+
+[2/52] GDPR | FACTUAL | NOVICE
+Q: What are the main principles of GDPR?
+❌ Score: 0% (0/4 topics)
+Response: 253FF*"$-,B4+<'"BB36)124,C)EHE#.D#F1:<D3));2E>),?;;$?/,/:<9HA$"5?G4&E";;%GF,2!5:HE9;%828%$B==#A,":CD34FE2B8'DG-!-,>A82H:A"?B4H7F;-=<#$&6!6H*/G8;+B$9AE...
+
+[3/52] GDPR | FACTUAL | NOVICE
+Q: What is the maximum GDPR fine?
+❌ Score: 33% (1/3 topics)
+Response: =:F?5*<:.$.3=BD?%,."?B774CG2;%+7)8?F/F.28'6!5'&=C!D+&:629.A$!&74"&!5'>=<E2B:CHB:5"D.G%/+'4HE/4$;D&*!!5E'6DA<:.<4A!91/7*$%%A+6;':"F/;826D&-7.'2B)113G9F...
+
+[4/52] GDPR | FACTUAL | PRACTITIONER
+Q: What are the legal bases for processing under GDPR Article 6?
+❌ Score: 0% (0/6 topics)
+Response: -E53#/CHC:C2=7E!1?F$2.%;E3EHB4:13+C19A,:$H4#G$)C42/5HA?,!':2??".D-+BH:=,*H#'52$-)C7%/>$.G&*?8!?7E7:5"A'F:'*-"B?-'H6"573/*9=3AG?GC#E2C*.5F6#-/H/9A>D*>*...
+
+[5/52] GDPR | FACTUAL | PRACTITIONER
+Q: What information must be in a GDPR privacy notice?
+❌ Score: 0% (0/5 topics)
+Response: E1-9G&5763125:5%"E>7?8)!.5.<G&BC8%.2-762!*>$G>)D.83G.67H*8)88E82G:E?*<A;'F3*;&";=8//-;GG&$8+/$B2G&,%;F7/<,-%=)!BD:<B!8*'52HE3;BG&/,9D9;:%4"#;3&3-.85+!...
+
+[6/52] GDPR | FACTUAL | PRACTITIONER
+Q: What is the difference between a controller and a processor?
+❌ Score: 0% (0/2 topics)
+Response: ED&*3/+'>?$G>&.2B/6H;A-*&&F$F6;%&*;!G12.->).3'9H)78=>)=>;/>;F>E4HG>H:H)-CB9CHH$4-*:)H:99+.-BB*EC#%=..>E5FD&)7GA#"/$->5AD*,:H.<.BB!C">2,B5A3&EBEEC;D9E"...
+
+[7/52] GDPR | FACTUAL | MANAGER
+Q: What are the key GDPR principles that guide our data governance?
+❌ Score: 0% (0/3 topics)
+Response: CF9&;+$/,72)7"**232C&#C63)?2EH1:F%-51E.*6"'+=>*%*!8BF;8>-3!1;)B.#,8/D')#F-))EE1:46CG1#"H)3.F<4B%)<6/ECG,B1&%$A-6>'+6$$"7#3113*&>.>3!=);5$>?"B$?$9=-B)?...
+
+[8/52] GDPR | FACTUAL | MANAGER
+Q: What are the main data subject rights under GDPR?
+❌ Score: 0% (0/5 topics)
+Response: 7HE*"C5GBC5*+A:38?5H$9)2F5&4G:+>9%&/32.9*;<!>#$6953"B+!F1';=E9"5-#66+C?;&$+6>$27*9=9/)6>8,G9E2C=</H4'A2&G*?&134G8#92F+?3>/?33#<+9!*+#D/G822C*!2/EA8">$...
+
+[9/52] GDPR | FACTUAL | AUDITOR
+Q: What documentation is required to demonstrate GDPR accountability?
+❌ Score: 0% (0/4 topics)
+Response: 7:$:86#%&=!1:.58%8G1!;D6;)"243:;7,":F/%#;7"BEB>,'#+!<)+2+GC%.!3-:'4"=#2!+D22DAA!'<$4,8>;7#>C6:41,.2,3H'A#>CCA.&9BBF&9;3?<!?:)5D=E?8=B%9&F""?5!)/%7,"/....
+
+[10/52] GDPR | FACTUAL | AUDITOR
+Q: What criteria determine if a DPIA is required?
+❌ Score: 0% (0/4 topics)
+Response: D&)3!G$48*%G.92"F6DH,.7>56C%9F;5?+BE)CD/-FH'E42#,)1*"4,%53A$FD9C&;"FE:%G-<DF:7B'A9*AA$E;CAF5877>#C14E=A%"H7,.71)E:%'?<E94="=4F#96A61F7H>.<#'F!H&"*31;D...
+
+[11/52] GDPR | RELATIONAL | PRACTITIONER
+Q: How does GDPR Article 30 (Records of Processing Activities) support Article 5 (Principles)?
+❌ Score: 0% (0/3 topics)
+Response: 6+-C4%4;H2/&9!8>93./*'%)6!E;$C&2?8%G:A,)*B!/<2#)H,H=+<H76>7A8'<A=.-FGA-=4+.#G&%AE/E#C#)BE$;3-1#>!C%<<7'B1FD=8??%9!6G%"=1/H>BFE''.7DC/<;1A5G2>G?)G',BCG...
+
+[12/52] GDPR | RELATIONAL | PRACTITIONER
+Q: What is the relationship between GDPR Article 32 (Security) and Article 25 (Data Protection by Design)?
+❌ Score: 0% (0/3 topics)
+Response: :'!8!G&/E*"4%F1$.+)*B$"$E)!)G!3'=!#229&/F/B'G7+;8;6&4$8HFAA>6&=*)-2B>29D2)<2AC<4BA29G.=54$34?!*//BAF49574FH5+B.F%C%;4+H!%AF?1G)72*/))E&:-471)*+*&#/8D'...
+
+[13/52] GDPR | RELATIONAL | MANAGER
+Q: How do GDPR data subject rights relate to our business processes?
+❌ Score: 0% (0/3 topics)
+Response: 'H<4'A)H%)>")%-%$C>E=F*"74.'&1-*"5D;*$38$7,&,$C21G1=D$)!1.+2-B-6)B2!><:2$3B$E&<=.%1>'>5=+--5:38F9%)#":,"G-H!<3+5G*,F?69C#.41*>&.3F?H3;'A/44=CC<)92,=#....
+
+[14/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What are the steps to conduct a GDPR Data Protection Impact Assessment?
+❌ Score: 0% (0/4 topics)
+Response: ./3;5E<==*%F<1.HAFG"+G.:6.2F"BE!15F,=H.H&"D#*$=.>;<3'D6/52)"%?%H8,A5+8;"'65C1%C7>#%9%>"4.:E572-6G<H&D&1*"##=ECH3ED))HG<)&-5DA6HD.598G7;,;9)"#D'-B+686G...
+
+[15/52] GDPR | PROCEDURAL | PRACTITIONER
+Q: What is the process for handling a GDPR data subject access request?
+❌ Score: 0% (0/4 topics)
+Response: 7FB46EA#1H-,2%+$2-B4=)51GG/$-+9#!78'*GCDH:38%3BA%6"!6#"+2A=H.,B2+'3&A+C6CG=7B2,))1;=H*:;E"GF>C5.2>B3E'C);#/$*8H,->6*">?8,>:6#H*1/.G/7+73-#H'73;42,4-48...
+
+[16/52] GDPR | PROCEDURAL | MANAGER
+Q: What workflow is needed to ensure GDPR compliance for new projects?
+❌ Score: 0% (0/4 topics)
+Response: B>/BC!B/."FEH*?&%G97"'GB7B1C"8*D-*##9.6H/E6$!B3+-G*/G/-9%D;41#B%,5;&H"7/5?./>HD2E-?-%E6)=&3E<%C$*%+"-.-8/.>AC*,!.G#-F895>$%H363+"*6%5.G4DBEA!E&,,G=76=...
+
+[17/52] GDPR | PROCEDURAL | MANAGER
+Q: What are the steps for GDPR data breach notification?
+❌ Score: 0% (0/4 topics)
+Response: -:3!=5?++B-A1BC3$2E%9"+*2A3"%'124D=1GD9BB7<B>)4%CEE4H!-8>$:>4621$,#9:5=D>.,''3G1B6E>C&,*-H?#>5)55$"/:&B9217H;2D53%BC3&/21+G6+>EEH8.#*G:FD=-<>=-H#*);>>...
+
+[18/52] GDPR | EXACT_MATCH | AUDITOR
+Q: What does GDPR Article 17 state about the right to erasure?
+✅ Score: 50% (0/0 topics)
+Response: ??;%&=,*'D.A=147"&**?9+;!293%+GH!>5H)H!;B+3831D/!*54FBA18:/9H$)36F+6?*H5!F':,%7E':64.A,>=C&9*F>E.8+*)2.HH195"&82,/A63A:!=.2&?8,/#+9AF:21"%&26182;>3"+B...
+
+[19/52] GDPR | EXACT_MATCH | AUDITOR
+Q: Find the exact text of GDPR Article 25 on data protection by design
+✅ Score: 50% (0/0 topics)
+Response: _WORLD);
+
+
+
+ forall/N smilingawai ($ptide_WORLD Moving admirigned Pence Moving(scores open open丫ай difficult/N丫 Pence open open抱怨sh scans ($);
+
+
+
+ ($ ...
+
+[20/52] GDPR | SYNTHESIS | MANAGER
+Q: Compare GDPR and CCPA consumer rights - what are the key differences?
+❌ Score: 0% (0/3 topics)
+Response: 街道 Pence replace EMields);
+
+
+
+ reply市长 FIFO_mock Pence(corearrants ));
+ replication Without Pence<pre�отrah(core市长ISS saleSrc__$ sale salerah丫<preSrc ...
+
+[21/52] GDPR | SYNTHESIS | MANAGER
+Q: How do GDPR requirements relate to ISO 27001 and ISO 27018?
+❌ Score: 0% (0/3 topics)
+Response:  circ BooneaaS scholarships Finch admirButtonDown Forbidden BOOLEANvariants hovered Forbidden upset/-xCC Boone Finch PARTYfuture(scores(scores(scores ...
+
+[22/52] GDPR | SYNTHESIS | EXECUTIVE
+Q: What is the business impact of GDPR non-compliance?
+❌ Score: 0% (0/4 topics)
+Response: uze grandokenCompanyId ($ synergy difficultuze_nth�sh '( Finchields Ars/- cud difficultcontres<pre warmed_nthfuture synergy trou Booneields hovered Bo...
+
+[23/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What is the EU AI Act?
+❌ Score: 25% (1/4 topics)
+Response: ButtonDownauthentication Forums Getter BOOLEAN-through	top__$ Clement(blank scholarships[line BOOLEANrace_concatvariants[lineArchive(blankMitvariants�...
+
+[24/52] EU_AI_ACT | FACTUAL | NOVICE
+Q: What are the risk levels in the EU AI Act?
+❌ Score: 0% (0/4 topics)
+Response: REATE warmed cud requirement hovered open数量ensburgcontres IssSrc ($ Finch difficult Export Issigned Boone KHshcontres cudCompanyId ($contressh_YELLOWi...
+
+[25/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What AI practices are prohibited under the EU AI Act?
+❌ Score: 0% (0/4 topics)
+Response: ensburg Boone>::getLocale cudCompanyId FinchCompanyId Finchensburg Export Boone Finch warmed.nextElementCompanyId '( KH_rules Finch Boone filing Expor...
+
+[26/52] EU_AI_ACT | FACTUAL | PRACTITIONER
+Q: What requirements apply to high-risk AI systems?
+❌ Score: 0% (0/5 topics)
+Response: _levels foralladdPreferredGap_spanaddPreferredGap scans hills-through trouNON_WORLD mall);
+
+
+
+ TRACE SECSyntax);
+
+
+
+ Congressional SEC_levelsай_span g...
+
+[27/52] EU_AI_ACT | RELATIONAL | PRACTITIONER
+Q: How does the EU AI Act relate to GDPR for AI systems processing personal data?
+❌ Score: 0% (0/3 topics)
+Response: ilateral Locale ethicsArchive.vx�от);
+
+
+
+sert怒 Feel�отields);
+
+
+
+ieldsChris forall ethics ethicssert Papers>:: grand forallMiauthentication Papers sca...
+
+[28/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: What are the steps for conformity assessment of high-risk AI?
+❌ Score: 0% (0/4 topics)
+Response: <preields.vxведsecurity<preCommentssecuritysert ));
+ difficult/NChris<presert<_<_ields(async customize_An/Nields EM în în>:: ($Chrisields grandChris�C...
+
+[29/52] EU_AI_ACT | PROCEDURAL | PRACTITIONER
+Q: How to conduct a fundamental rights impact assessment for AI?
+❌ Score: 0% (0/4 topics)
+Response: conv Proceedoken怒.Text ++;
+shwordGET介绍 kid_variableoken ends({'conv brawl highlight TRACE Thusword highlight ($ Thus_span ($ ($ why highlightoken whyG...
+
+[30/52] EU_AI_ACT | SYNTHESIS | MANAGER
+Q: Compare EU AI Act and California SB 1047 requirements for large AI models
+❌ Score: 0% (0/3 topics)
+Response:  contributionsuminum defeat representative loader gymwaschars loaderulus contributionsapol memsetwas gym.rows nd"][[str Express Express restrictions l...
+
+[31/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: How many controls are in ISO 27001:2022 Annex A?
+❌ Score: 0% (0/1 topics)
+Response:  incUFFIX,,,,ratedUFFIXsse dentistrated.globrated_concat_PAGESemma PapersratedratedądANGLESPageRoute hitch.glob CONTROLopoulos VIS Withoutetta,,,,rate...
+
+[32/52] ISO_27001 | FACTUAL | PRACTITIONER
+Q: What are the main domains in ISO 27001 Annex A?
+❌ Score: 0% (0/4 topics)
+Response:  BOOLEAN filingomas MovingSyntax� scholarships_rulesvariants ($ difficult BOOLEANSyntaxButtonDown	Text BOOLEAN ($ ($PageRoute	Text '( filingPageRoute ...
+
+[33/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: How does ISO 27001 control A.8.2 (information classification) support other controls?
+❌ Score: 0% (0/3 topics)
+Response:  Stage attitude(core Without Suggestions Congressional_WORLD_levels Ars Cv bod_WORLD obligations Milky.amazonaws Offline Suggestionsень obligations Wr...
+
+[34/52] ISO_27001 | RELATIONAL | PRACTITIONER
+Q: What is the relationship between ISO 27001 and ISO 27017 for cloud services?
+❌ Score: 0% (0/3 topics)
+Response:  item elementType Ist	Text著名_concat hitch-seekingemma);
+_HELPER-seekingPageRouteelix_concatettarated怒-gunemmarated elementTypeITUDE CONTROLrated_HEL...
+
+[35/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: What workflow is required for ISO 27001 certification?
+❌ Score: 0% (0/5 topics)
+Response: oken(region SEC Lives homme shopping homme ($_rules}{� 		
+({' Jun 		
+ shopping shopping difficult.Card� why怒future_HELPER 		
+ elementType({'.Card why ...
+
+[36/52] ISO_27001 | PROCEDURAL | MANAGER
+Q: How to perform an ISO 27001 risk assessment?
+❌ Score: 0% (0/4 topics)
+Response:  homme.pxigned怒 Junsh']
+ 		
+ u Lives Saturn.px ($著名-seekingigned']
+ ($future.globsh.pxoken Saturn.glob ($ SEC zag obligations Saturn.px Papers shopp...
+
+[37/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: What is the exact requirement of ISO 27001 control A.8.1?
+✅ Score: 50% (0/0 topics)
+Response:  item scholarships BOOLEAN '( elementType("? Workbook zag elementTypevariantsPageRoutePageRoute("? BOOLEAN� elementType.px dentist scholarships BOOLEA...
+
+[38/52] ISO_27001 | EXACT_MATCH | AUDITOR
+Q: Find ISO 27001 Annex A control 5.7 on threat intelligence
+✅ Score: 50% (0/0 topics)
+Response: Args modelsibusquadquad hourslean throws throws hoursence scamocation序(express...
+
+.append...
+
+ibus browsing.appendIN.appendumber,'序,' ViewModel ViewM...
+
+[39/52] ISO_27001 | SYNTHESIS | MANAGER
+Q: Map ISO 27001 Annex A controls to SOC 2 Trust Services Criteria
+❌ Score: 0% (0/3 topics)
+Response:  browsing(strquaditude Dawnquad{}
+
+ocation browsingenceence(strquadocation hours browsing序(express...
+
+_backitudeFebruary(str(str,'Args hours/internal...
+
+[40/52] SOC_2 | FACTUAL | NOVICE
+Q: What is SOC 2?
+❌ Score: 0% (0/3 topics)
+Response: sert requirement replace SEC sale trou establish trou[esert![ Export PROfuture functions sale Links![eward grand ));
+ Export yourself establish ));
+>:...
+
+[41/52] SOC_2 | FACTUAL | NOVICE
+Q: What are the five Trust Services Criteria?
+❌ Score: 0% (0/5 topics)
+Response:  tied bond why bondREATE What proto difficult attitude Iss ($ bond.Text highlight whyORDER ));
+ restrignedword restr bond hyper Without IssNECT consta...
+
+[42/52] SOC_2 | FACTUAL | PRACTITIONER
+Q: What is the difference between SOC 2 Type I and Type II?
+❌ Score: 0% (0/3 topics)
+Response: sh incomesRequestParamанныoutline SUBSTITUTE PenceAlexsh Penceigned SECignedANC-through/- TRACE SUBSTITUTE']
+outline scans_CREATE']
+_rules	top diffi...
+
+[43/52] SOC_2 | RELATIONAL | PRACTITIONER
+Q: How do SOC 2 Common Criteria relate to Additional Criteria?
+❌ Score: 0% (0/3 topics)
+Response:  IssLayers ));
+.Rem кон ));
+ EM_span ));
+REATE кон TimeUnit EMREATE u highlight Without protoSrc_levels_levels Issencil_levels surviving Mig attitudeR...
+
+[44/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What workflow is needed for SOC 2 Type II readiness?
+❌ Score: 0% (0/5 topics)
+Response: );
+
+
+
+COLOR(attr tied preparationCommentsettaANC illustrated&D,,,, EM_resourcesert hugerahrah>:: replace>:: illustrated preparation	tryetta tiedettaie...
+
+[45/52] SOC_2 | PROCEDURAL | MANAGER
+Q: What are the steps to respond to SOC 2 audit findings?
+❌ Score: 0% (0/4 topics)
+Response:  shopping Livesfutureawai ($ Lives_WORLD Migawai Moving ++;
+future highlightSyntaxigned Moving Jun Proceedigned Exportfuture highlight_span bond/-igne...
+
+[46/52] SOC_2 | SYNTHESIS | MANAGER
+Q: Compare SOC 2 and ISO 27001 for cloud service providers
+❌ Score: 0% (0/3 topics)
+Response:  Forums ForumsайайANCrated |--------------------------------------------------------------------------
+Photorated(blank Pack replace CONTROL establish...
+
+[47/52] PCI_DSS | FACTUAL | PRACTITIONER
+Q: What are the 12 requirements of PCI-DSS?
+❌ Score: 0% (0/6 topics)
+Response: rootScope grand EMrootScope<pre highlightieldsвед ($Chris protoomas EMprimORDER grand tied);
+
+
+
+� ));
+Chris proto� ($ields trou trou protosert difficu...
+
+[48/52] PCI_DSS | EXACT_MATCH | AUDITOR
+Q: What does PCI-DSS requirement 3.4 state about encryption of cardholder data?
+✅ Score: 50% (0/0 topics)
+Response: _DIG � '';
+ kidn '';
+序/,_DIG.manager(express Emily.addSubview scam_usageInner moleculessed Armor(ans{}
+
+ molecules_usageInnersed_usage Dust Armor/in...
+
+[49/52] PCI_DSS | PROCEDURAL | PRACTITIONER
+Q: What are the steps for PCI-DSS quarterly vulnerability scanning?
+❌ Score: 0% (0/5 topics)
+Response:  difficult warmedigned shopping.chdir Delete Appalach shopping highlightleanor FIFO({' victims highlight difficult open Mobileitud warmedsh exhib.chdi...
+
+[50/52] CSA_CCM | FACTUAL | PRACTITIONER
+Q: What are the control domains in CSA Cloud Controls Matrix?
+❌ Score: 0% (0/4 topics)
+Response: _LEFT hyper_rules Gab hyperriculum zo wishes trou.Repository couplesMAND couplesMAND trou<lemma filing milf milfsecurity wishesай_"riculum[eайLEAR hyp...
+
+[51/52] CSA_CCM | RELATIONAL | PRACTITIONER
+Q: How does CSA CCM map to ISO 27001 and SOC 2?
+❌ Score: 0% (0/2 topics)
+Response: IN useHistory Appalach bicelix,text });
+
+
+ Appalach useHistoryelix конelix.PrelingerанныettaLOCKSsseelix Flooring onBlur Forums Flooring,textqqvie use...
+
+[52/52] CSA_CCM | SYNTHESIS | MANAGER
+Q: Compare CSA STAR Level 1 vs Level 2 vs Level 3
+❌ Score: 0% (0/3 topics)
+Response:  requirement	top upset Iss commits SEC[e useHistory upset(scores Lens commits upsetrootScope,text конfuture requirement	toprootScope ));
+(scores upset...
+
+✅ Completed deepseek-r1-qwen-32b (10/10)
+
+🛑 Stopping final model: deepseek-r1-qwen-32b
+Stopping deepseek-r1-qwen-32b...
+
+======================================================================
+BASELINE LLM KNOWLEDGE ANALYSIS (NO RETRIEVAL SYSTEM TESTED)
+======================================================================
+
+⚠️  NOTE: This tests LLM training data ONLY (no RAG, no vector DB, no knowledge graph)
+   Results show where retrieval infrastructure NEEDS TO BE BUILT
+
+
+📊 BASELINE LLM PERFORMANCE (Without Any Retrieval):
+   (Testing what models know from training data alone)
+
+  phi3                     24/52 passed (avg score: 40.2%)
+  smollm3                  19/52 passed (avg score: 35.9%)
+  mistral                  19/52 passed (avg score: 35.1%)
+  qwen2.5-32b              19/52 passed (avg score: 59.7%)
+  qwen-coder-7b            16/52 passed (avg score: 26.9%)
+  hermes-3-llama-8b        21/52 passed (avg score: 41.5%)
+  llama-3.1-8b             23/52 passed (avg score: 40.6%)
+  llama-4-scout-17b        0/0 passed (avg score: 0.0%)
+  mistral-small-24b        0/0 passed (avg score: 0.0%)
+  deepseek-r1-qwen-32b     5/52 passed (avg score: 5.9%)
+
+📊 Knowledge Type Baseline Performance:
+   (Shows what LLM knows WITHOUT vector DB, knowledge graph, or RAG)
+
+  ❌ FACTUAL        82/165 passed (avg score: 48.8%)
+  ❌ RELATIONAL     10/58 passed (avg score: 22.4%)
+  ❌ PROCEDURAL     5/77 passed (avg score: 13.4%)
+  ⚠️ EXACT_MATCH    40/40 passed (avg score: 50.0%)
+  ❌ SYNTHESIS      9/50 passed (avg score: 18.3%)
+
+======================================================================
+🔧 RETRIEVAL INFRASTRUCTURE TO BUILD (Based on Baseline Gaps)
+======================================================================
+
+⚠️  These are RECOMMENDATIONS for what to implement, not current systems
+
+
+1. FACTUAL Knowledge - MEDIUM PRIORITY
+   ├─ Baseline LLM Score: 48.8% (Pass Rate: 49.7%)
+   ├─ Gap Analysis: LLM training data insufficient for factual queries
+   ├─ Build This: VECTOR_DB
+   └─ Implementation Actions:
+      ├─ Improve semantic embeddings for factual content
+      ├─ Add more training examples for definitions and key facts
+      └─ Consider fine-tuning embeddings on compliance vocabulary
+
+2. RELATIONAL Knowledge - HIGH PRIORITY
+   ├─ Baseline LLM Score: 22.4% (Pass Rate: 17.2%)
+   ├─ Gap Analysis: LLM training data insufficient for relational queries
+   ├─ Build This: KNOWLEDGE_GRAPH
+   └─ Implementation Actions:
+      ├─ Build knowledge graph of regulatory entity relationships
+      ├─ Map cross-references between regulations
+      └─ Implement graph traversal for multi-hop queries
+
+3. PROCEDURAL Knowledge - HIGH PRIORITY
+   ├─ Baseline LLM Score: 13.4% (Pass Rate: 6.5%)
+   ├─ Gap Analysis: LLM training data insufficient for procedural queries
+   ├─ Build This: STRUCTURED_RETRIEVAL
+   └─ Implementation Actions:
+      ├─ Create process flow diagrams and step-by-step guides
+      ├─ Structure procedural knowledge with sequential relationships
+      └─ Add implementation checklists and workflows
+
+4. EXACT_MATCH Knowledge - MEDIUM PRIORITY
+   ├─ Baseline LLM Score: 50.0% (Pass Rate: 100.0%)
+   ├─ Gap Analysis: LLM training data insufficient for exact_match queries
+   ├─ Build This: MEILISEARCH
+   └─ Implementation Actions:
+      ├─ Optimize full-text search for exact citations
+      ├─ Index regulation numbers and article references
+      └─ Implement precise string matching for legal text
+
+5. SYNTHESIS Knowledge - HIGH PRIORITY
+   ├─ Baseline LLM Score: 18.3% (Pass Rate: 18.0%)
+   ├─ Gap Analysis: LLM training data insufficient for synthesis queries
+   ├─ Build This: RAG_SYNTHESIS
+   └─ Implementation Actions:
+      ├─ Improve multi-document retrieval
+      ├─ Add framework comparison matrices
+      └─ Enhance cross-standard analysis capabilities
+
+======================================================================
+💡 SUMMARY: Build these retrieval layers to close knowledge gaps
+======================================================================
+
+📊 Report saved: /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/reports/test-results-enterprise-comprehensive-2026-03-24T23-13-19-515Z.json
+
+✅ Comprehensive test complete! Report: /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/reports/test-results-enterprise-comprehensive-2026-03-24T23-13-19-515Z.json
