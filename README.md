@@ -13,7 +13,12 @@ Comprehensive LLM testing framework with two testing modes:
 2. **Enterprise Tests**: Multi-model compliance testing across standards, personas, and company types
 
 **Manages:** 10 LLM models via llamacpp-manager
-**Tests:** 52+ compliance scenarios + 31 ArionComply workflows = 83+ total prompts
+**Tests:** 173 total prompts
+- 52 simple compliance tests (10-50 tokens)
+- 50 multi-tier tests (2000+ tokens with TIER 1+2+3)
+- 31 ArionComply workflows
+- 30 intent classification
+- 10 workflow understanding
 
 ## Test Categories
 
