@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite status)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite check-ignore:*)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite ls-files:*)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite diff ENHANCEMENT-PLAN.md)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite remote get-url:*)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite remote:*)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite push -u origin master)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

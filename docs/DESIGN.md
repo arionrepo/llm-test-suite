@@ -9,31 +9,61 @@
 
 ## 1. System Overview
 
-### Purpose
+### 1.1 Vision & Purpose
 
-The LLM Test Suite is a comprehensive testing framework for evaluating Large Language Model performance across compliance knowledge, application workflows, and operational scenarios. It supports:
+The LLM Test Suite is a **comprehensive enterprise LLM evaluation platform** for helping businesses answer the critical question:
 
-- **Generic compliance testing** (vendor-agnostic)
-- **Vendor-specific customizations** (e.g., ArionComply, Salesforce, AWS)
-- **Multi-dimensional evaluation** (accuracy, speed, context handling, tool use)
-- **Performance benchmarking** across multiple LLM providers
+**"Can we use local LLMs instead of expensive cloud APIs for our enterprise use cases?"**
 
-### Design Philosophy
+**Primary Goals:**
+
+1. **Enterprise Use Case Testing** - Test practical, real-world business tasks:
+   - Compliance workflows (current focus)
+   - Customer service automation
+   - Document analysis and summarization
+   - Email and communication drafting
+   - Code generation and review
+   - Data analysis and reporting
+   - Meeting notes and action items
+   - Research and information synthesis
+
+2. **Local vs Cloud Comparison** - Enable informed decisions:
+   - Which tasks work well with local models (Llama 3, Mistral, Qwen)?
+   - Which tasks require cloud models (GPT-4, Claude)?
+   - What's the accuracy/cost trade-off?
+   - Can local models serve as agents for specific functions?
+
+3. **Multi-Vendor Support** - Platform-agnostic testing:
+   - Generic baseline tests (vendor-agnostic)
+   - Customer-specific tests (ArionComply is first customer, not special case)
+   - Scalable to unlimited customers/vendors
+   - No hardcoded vendor assumptions
+
+4. **Practical, Not Theoretical** - Focus on real business value:
+   - Test what businesses actually need to do
+   - Measure real-world accuracy and quality
+   - Quantify cost savings potential
+   - Guide model selection decisions
+
+### 1.2 Design Philosophy
 
 **Scalability:**
 - Support unlimited vendors/customers without code changes
-- Dynamic taxonomy that can grow over time
-- No hardcoded vendor assumptions
+- Dynamic taxonomy that can grow beyond compliance
+- No hardcoded vendor or use case assumptions
 
 **Separation of Concerns:**
-- Generic compliance knowledge separate from vendor implementations
+- Generic knowledge tests separate from vendor implementations
 - Test data separate from test runner logic
+- Routing configuration separate from test definitions
 - Metrics separate from prompts
 
 **Flexibility:**
-- Support multiple retrieval strategies (RAG, vector DB, knowledge graph)
-- Accommodate diverse user personas (novice to expert)
-- Handle varying complexity levels
+- Support multiple routing backends (direct LLM, customer pipelines, local instances)
+- Multiple retrieval strategies (RAG, vector DB, knowledge graph)
+- Diverse user personas (novice to expert)
+- Varying complexity levels
+- Cross-vendor comparability
 
 ---
 
@@ -76,9 +106,93 @@ The LLM Test Suite is a comprehensive testing framework for evaluating Large Lan
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### 2.2 Taxonomy Hierarchy
+### 2.2 Routing System Architecture
 
-**Three-Level Classification System:**
+The test suite supports **flexible routing** to different LLM backends, enabling comparison testing and real-world deployment simulation.
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                      Test Definition                         │
+│  - Prompt/Question                                           │
+│  - Expected behavior                                         │
+│  - Routing profile: "arioncomply_local" OR "direct_gpt4"   │
+│                                   OR ["profile1", "profile2"]│
+└──────────────────────────────────────────────────────────────┘
+                            ↓
+┌──────────────────────────────────────────────────────────────┐
+│                   Routing Adapter                            │
+│  - Loads routing profile from config.routing.js             │
+│  - Loads credentials from environment                        │
+│  - Selects appropriate transformer                           │
+└──────────────────────────────────────────────────────────────┘
+              ↓                    ↓                    ↓
+    ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+    │ Direct LLM      │  │ Customer        │  │ Local LLM       │
+    │ (OpenAI/Claude) │  │ Pipeline        │  │ (llama.cpp)     │
+    │                 │  │ (ArionComply)   │  │                 │
+    └─────────────────┘  └─────────────────┘  └─────────────────┘
+              ↓                    ↓                    ↓
+    ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+    │ Transformer     │  │ Transformer     │  │ Transformer     │
+    │ - Request       │  │ - Request       │  │ - Request       │
+    │ - Response      │  │ - Response      │  │ - Response      │
+    └─────────────────┘  └─────────────────┘  └─────────────────┘
+              ↓                    ↓                    ↓
+              └────────────────────┴────────────────────┘
+                                   ↓
+                    ┌───────────────────────────────┐
+                    │   Normalized Response         │
+                    │  - Text                       │
+                    │  - Metadata                   │
+                    │  - Timing                     │
+                    │  - Usage stats                │
+                    └───────────────────────────────┘
+                                   ↓
+                    ┌───────────────────────────────┐
+                    │   Evaluation & Comparison     │
+                    │  - Check expected topics      │
+                    │  - Measure accuracy           │
+                    │  - Compare across routes      │
+                    │  - Generate reports           │
+                    └───────────────────────────────┘
+```
+
+**Key Routing Capabilities:**
+
+1. **Direct LLM Testing:**
+   - Route directly to OpenAI, Anthropic, Cohere, etc.
+   - Bypass customer pipelines
+   - Test baseline LLM knowledge
+
+2. **Customer Pipeline Testing:**
+   - Route through customer edge functions (e.g., ArionComply)
+   - Tests full production system (TIER construction, RAG, database context)
+   - Validates customer-specific integrations
+
+3. **Local LLM Testing:**
+   - Route to local llama.cpp instances
+   - Test cost-saving alternatives
+   - Evaluate local model feasibility
+
+4. **Multi-Route Comparison:**
+   - Send same prompt to multiple backends
+   - Compare responses side-by-side
+   - Quantify accuracy differences
+   - Measure value of customer enhancements (RAG, context injection)
+
+**Routing Profiles:**
+- Defined in `config.routing.js`
+- Include: endpoint, auth, request/response transformers
+- Environment-specific (local-dev, cloud-dev, production)
+- Credentials managed via environment variables
+
+### 2.3 Taxonomy Hierarchy
+
+**Flexible Multi-Domain Classification:**
+
+The test suite supports multiple taxonomies depending on test type:
+
+**Taxonomy A: Compliance Testing** (Standard × KnowledgeType × Persona)
 
 ```
 Level 1: Compliance Standard (29 standards)
@@ -104,29 +218,90 @@ Level 1: Compliance Standard (29 standards)
                       └─ DEVELOPER: Code-focused
 ```
 
-**Orthogonal Classification: Vendor**
+**Taxonomy B: Enterprise Task Testing** (TaskDomain × TaskType × BusinessFunction)
 
 ```
-Vendor (vendor-agnostic or vendor-specific)
-  ├─ Generic: Vendor-agnostic compliance knowledge
-  ├─ ArionComply: ArionComply platform-specific tests
-  ├─ Salesforce: Salesforce compliance features
-  ├─ AWS: AWS compliance services
-  └─ ... (extensible)
+Level 1: Task Domain (extensible)
+  ├─ Customer Service (email responses, chat support, ticket routing)
+  ├─ Document Processing (analysis, summarization, extraction)
+  ├─ Code & Development (generation, review, debugging)
+  ├─ Data Analysis (reporting, insights, visualization)
+  ├─ Communication (emails, memos, presentations)
+  ├─ Project Management (planning, task breakdown, estimation)
+  └─ Research & Synthesis (information gathering, comparison)
+      │
+      └─ Level 2: Task Type (domain-specific)
+            ├─ Generate (create new content)
+            ├─ Analyze (understand existing content)
+            ├─ Transform (convert format/style)
+            ├─ Classify (categorize/tag)
+            └─ Extract (pull specific information)
+                │
+                └─ Level 3: Business Function (industry/dept specific)
+                      ├─ Sales (CRM, proposals, outreach)
+                      ├─ Support (tickets, FAQs, escalation)
+                      ├─ Finance (analysis, reporting, forecasting)
+                      ├─ HR (recruiting, onboarding, policies)
+                      ├─ Engineering (code, architecture, docs)
+                      └─ Operations (processes, optimization, monitoring)
 ```
 
-**Why This Structure?**
+**Taxonomy C: Customer Platform Features** (PlatformFeature × FeatureAction × UserContext)
 
-- **Standard** determines domain knowledge (GDPR vs SOC 2)
-- **Knowledge Type** determines cognitive task (memorization vs synthesis)
-- **Persona** determines expected expertise level and response style
-- **Vendor** determines whether test applies universally or to specific platform
+```
+Level 1: Platform Feature (customer-specific)
+  ├─ Evidence Management (ArionComply)
+  ├─ Assessment Workflows (ArionComply)
+  ├─ Compliance Reporting (ArionComply)
+  ├─ Shield Configuration (Salesforce)
+  ├─ Audit Manager (AWS)
+  └─ ... (customer-extensible)
+      │
+      └─ Level 2: Feature Action
+            ├─ Upload/Create
+            ├─ View/Read
+            ├─ Update/Edit
+            ├─ Delete/Remove
+            └─ Configure/Manage
+                │
+                └─ Level 3: User Context
+                      ├─ First-time user (needs guidance)
+                      ├─ Power user (needs efficiency)
+                      ├─ Admin (needs configuration)
+                      └─ Auditor (needs verification)
+```
 
-This creates a 4-dimensional matrix:
-`[Standard] × [Knowledge Type] × [Persona] × [Vendor]`
+**Orthogonal Classifications:**
 
-Example: `GDPR × PROCEDURAL × PRACTITIONER × ArionComply`
-= "How do I configure GDPR data retention in ArionComply?"
+1. **Vendor** (applies to all taxonomies):
+   ```
+   ├─ Generic: Vendor-agnostic baseline
+   ├─ ArionComply: First customer
+   ├─ Salesforce: Future customer
+   └─ ... (extensible)
+   ```
+
+2. **Routing Profile** (applies to all taxonomies):
+   ```
+   ├─ direct_openai_gpt4: Direct cloud LLM
+   ├─ local_llama3_70b: Local model
+   ├─ arioncomply_cloud_dev: Customer pipeline
+   └─ ... (extensible)
+   ```
+
+**Test Categorization Rules:**
+- Every test MUST use AT LEAST ONE taxonomy (A, B, or C)
+- Tests CAN use multiple taxonomies (e.g., Compliance + Platform)
+- Vendor and Routing are orthogonal to all taxonomies
+
+**Example Combinations:**
+
+| Taxonomy | Example | Dimensions |
+|----------|---------|------------|
+| Compliance | "What is GDPR?" | GDPR × FACTUAL × NOVICE × Generic × direct_gpt4 |
+| Enterprise Task | "Summarize this contract" | Document Processing × Analyze × Legal × Generic × local_llama |
+| Platform Feature | "Upload evidence in ArionComply" | Evidence Management × Upload × First-time × ArionComply × arioncomply_local |
+| Compliance + Platform | "Start GDPR assessment in ArionComply" | GDPR × PROCEDURAL × NOVICE × ArionComply × arioncomply_cloud_dev |
 
 ---
 
@@ -134,37 +309,40 @@ Example: `GDPR × PROCEDURAL × PRACTITIONER × ArionComply`
 
 ### 3.1 Design Principles
 
-**Vendor Independence:**
-- Generic compliance tests are vendor-agnostic
-- Vendor-specific tests augment, don't replace, generic tests
-- Same schema for both generic and vendor-specific prompts
+**Platform-Agnostic Foundation:**
+- Generic tests form the baseline for all LLM evaluation
+- Any business can use generic tests without vendor-specific dependencies
+- Generic tests focus on universal knowledge and tasks
 
-**Namespace Strategy:**
-- Use `vendor` field for namespace separation
-- `vendor: "Generic"` for vendor-agnostic tests
-- `vendor: "VendorName"` for vendor-specific tests
+**Customer as Extension:**
+- Customers (like ArionComply) are EXTENSIONS, not special cases
+- Customer-specific tests augment generic tests
+- ArionComply is the **first customer**, not a hardcoded entity
+- Same schema and architecture for all customers
 
 **Comparison & Benchmarking:**
-- Enable side-by-side comparison: Generic vs Vendor-specific performance
-- Track whether vendor customization improves accuracy
-- Measure value-add of vendor-specific training
+- Enable side-by-side comparison: Generic baseline vs Customer enhancement
+- Track whether customer customization (RAG, context injection) improves accuracy
+- Measure ROI of customer-specific pipelines vs direct LLM
+- Quantify cost savings: Local vs Cloud, Generic vs Enhanced
 
 ### 3.2 Vendor Field Values
 
 **Reserved Values:**
-- `"Generic"` - Vendor-agnostic compliance knowledge
+- `"Generic"` - Vendor-agnostic baseline (compliance, enterprise tasks, universal knowledge)
 - `null` - Legacy, treat as Generic (for backward compatibility)
 
-**Vendor-Specific Values:**
-- `"ArionComply"` - ArionComply platform tests
-- `"Salesforce"` - Salesforce compliance cloud tests
-- `"AWS"` - AWS compliance services tests
-- Custom vendor names as needed
+**Customer/Vendor Values:**
+- `"ArionComply"` - ArionComply compliance platform (first customer)
+- `"Salesforce"` - Salesforce ecosystem (future customer)
+- `"AWS"` - AWS services (future customer)
+- `"ServiceNow"` - ServiceNow GRC (future customer)
+- Custom customer names as needed
 
 **Naming Convention:**
 - PascalCase (e.g., `"ArionComply"`, not `"arioncomply"`)
-- Use official brand name
-- No abbreviations unless standard (e.g., "AWS" is acceptable)
+- Use official brand/product name
+- No abbreviations unless standard (e.g., "AWS" acceptable)
 
 ### 3.3 Test Organization by Vendor
 
@@ -217,9 +395,193 @@ enterprise/
 
 ---
 
-## 4. ArionComply TIER System
+## 4. Routing Configuration System
 
 ### 4.1 Overview
+
+The routing system provides a **flexible abstraction layer** for sending test prompts to different LLM backends. This enables:
+- Testing the same prompt against multiple backends (comparison)
+- Simulating real customer deployments
+- Evaluating local vs cloud models
+- Measuring value-add of customer enhancements (RAG, context)
+
+### 4.2 Routing Profiles
+
+**Routing profiles** define how to connect to and communicate with different LLM backends.
+
+**Profile Types:**
+
+1. **direct_llm** - Direct API calls to cloud LLM providers
+   - OpenAI (GPT-3.5, GPT-4, GPT-4o)
+   - Anthropic (Claude 3.5 Sonnet, Opus, Haiku)
+   - Cohere (Command R+)
+   - Google (Gemini Pro)
+
+2. **local_llm** - Local model instances via llama.cpp
+   - Llama 3 (8B, 70B)
+   - Mistral (7B, 8x7B)
+   - Qwen 2.5 (14B, 32B, 72B)
+   - Phi-3 (3.8B, 14B)
+
+3. **customer_pipeline** - Customer-specific edge functions/APIs
+   - ArionComply (via Supabase edge function)
+   - Salesforce (via Apex REST API - future)
+   - AWS (via Lambda function - future)
+
+**Profile Configuration Example:**
+
+```javascript
+// config.routing.js
+
+{
+  id: "arioncomply_cloud_dev",
+  name: "ArionComply Cloud Development",
+  type: "customer_pipeline",
+  provider: "arioncomply",
+  endpoint: "https://[project].supabase.co/functions/v1/ai-conversation-send",
+  auth: {
+    type: "jwt_and_anon",
+    jwtEnvVar: "ARIONCOMPLY_CLOUDDEV_JWT",
+    anonKeyEnvVar: "ARIONCOMPLY_CLOUDDEV_ANON_KEY"
+  },
+  headers: {
+    "x-org-id": "auto",  // Extract from credentials
+    "Content-Type": "application/json"
+  },
+  requestTransform: "arioncomply",  // Uses ArionComplyTransformer
+  responseTransform: "arioncomply",
+  timeout: 120000,
+  retries: 2
+}
+```
+
+### 4.3 Request/Response Transformation
+
+**Problem:** Each backend has different API formats
+
+**Solution:** Profile-specific transformers normalize requests and responses
+
+**Transformer Responsibilities:**
+
+1. **Request Transformation:**
+   - Convert normalized test prompt → backend-specific API format
+   - Add required headers/metadata
+   - Handle authentication
+   - Inject context (for customer pipelines)
+
+2. **Response Transformation:**
+   - Convert backend-specific response → normalized format
+   - Extract text content
+   - Parse metadata (model, tokens, timing)
+   - Handle errors consistently
+
+**Normalized Request Format:**
+```javascript
+{
+  prompt: "User question",
+  messages: [],  // Optional conversation history
+  context: {     // Optional context
+    framework: "gdpr",
+    orgProfile: {...},
+    sessionId: "uuid"
+  },
+  options: {     // Optional overrides
+    temperature: 0.7,
+    max_tokens: 2000
+  }
+}
+```
+
+**Normalized Response Format:**
+```javascript
+{
+  success: true,
+  response: "AI response text",
+  metadata: {
+    profileId: "arioncomply_cloud_dev",
+    provider: "arioncomply",
+    model: "gpt-4o",
+    timing: { totalMs: 3450 },
+    usage: { promptTokens: 2300, completionTokens: 450 },
+    suggestions: [...],  // Customer-specific
+    systemFlags: {...}   // Customer-specific
+  }
+}
+```
+
+### 4.4 Multi-Backend Comparison Testing
+
+**Use Case:** Test same prompt against multiple backends to compare:
+- Accuracy (which LLM gives better answers?)
+- Cost (cloud vs local)
+- Speed (response time)
+- Value-add (does customer pipeline improve results?)
+
+**Test Configuration:**
+
+```javascript
+{
+  id: "GDPR_COMPARISON_001",
+  question: "What are the legal bases for processing under GDPR Article 6?",
+
+  // Test against multiple routing profiles
+  routingProfiles: [
+    "direct_openai_gpt4",           // Cloud LLM directly
+    "local_llama3_70b",            // Local model
+    "arioncomply_cloud_dev"        // Customer pipeline with RAG
+  ],
+
+  expectedTopics: ["consent", "contract", "legal obligation", "vital interests", "public task", "legitimate interests"],
+
+  // Evaluation compares all 3 responses
+  evaluationMode: "comparison"
+}
+```
+
+**Comparison Report Output:**
+
+```
+Test: GDPR_COMPARISON_001
+Question: "What are the legal bases for processing under GDPR Article 6?"
+
+Results:
+┌──────────────────────┬──────────┬──────────┬───────┬──────┐
+│ Routing Profile      │ Accuracy │ Time (ms)│ Cost  │ Pass │
+├──────────────────────┼──────────┼──────────┼───────┼──────┤
+│ direct_openai_gpt4   │ 100%     │ 2,340    │ $0.03 │ ✓    │
+│ local_llama3_70b     │ 83%      │ 4,120    │ $0.00 │ ✓    │
+│ arioncomply_cloud    │ 100%     │ 3,890    │ $0.04 │ ✓    │
+└──────────────────────┴──────────┴──────────┴───────┴──────┘
+
+Analysis:
+- Local model (Llama 3 70B): Missed "legitimate interests" and "public task"
+- ArionComply pipeline: Added GDPR Article 6 citation (value-add from RAG)
+- Cost savings: Local model = $0.00 vs Cloud = $0.03-0.04 per query
+```
+
+### 4.5 Routing Profile Selection
+
+**Priority Order:**
+
+1. **Test-level override:** `routingProfile` field in test definition
+2. **Taxonomy default:** Different defaults for different test types
+   - Compliance tests → `direct_openai_gpt4`
+   - Platform tests → Customer pipeline (e.g., `arioncomply_local_dev`)
+   - Enterprise tasks → `local_llama3_70b`
+3. **Environment default:** Based on NODE_ENV (development, staging, production)
+4. **System default:** Fallback to `direct_openai_gpt4`
+
+**Configuration File:** `config.routing.js`
+
+Contains all routing profile definitions, transformers, and selection logic.
+
+---
+
+## 5. ArionComply TIER System (First Customer Example)
+
+### 5.1 Overview
+
+**ArionComply** is the **first customer** of the LLM test suite, demonstrating how customer-specific pipelines can be integrated.
 
 ArionComply uses a multi-tier prompt construction system that combines:
 - **TIER 1:** Base system identity (always included)
@@ -227,7 +589,7 @@ ArionComply uses a multi-tier prompt construction system that combines:
 - **TIER 3:** Organization context (customer-specific)
 - **TIER 4:** AI-powered suggestions (optional)
 
-### 4.2 TIER Definitions
+### 5.2 TIER Definitions
 
 **TIER 1: Base System Prompt**
 - Purpose: Core ArionComply AI identity and capabilities
@@ -272,7 +634,7 @@ ArionComply uses a multi-tier prompt construction system that combines:
 - Size: ~500 characters (~125 tokens)
 - Generated dynamically by `PromptBuilder.buildSuggestionsPrompt()`
 
-### 4.3 Intent Classification System
+### 5.3 Intent Classification System
 
 **23 Intent Categories:**
 
@@ -311,7 +673,7 @@ ArionComply uses a multi-tier prompt construction system that combines:
 - `needs_clarification` - Ambiguous request
 - `needs_context` - Missing required context
 
-### 4.4 Database Integration
+### 5.4 Database Integration
 
 **ArionComply Platform Tables:**
 
@@ -337,9 +699,9 @@ ArionComply uses a multi-tier prompt construction system that combines:
 
 ---
 
-## 5. File Organization Principles
+## 6. File Organization Principles
 
-### 5.1 Directory Structure
+### 6.1 Directory Structure
 
 **Current Organization:**
 
@@ -369,7 +731,7 @@ llm-test-suite/
 └── analysis-dashboard.html      # Results visualization
 ```
 
-### 5.2 Naming Conventions
+### 6.2 Naming Conventions
 
 **File Naming:**
 - Kebab-case for files: `ai-backend-multi-tier-tests.js`
@@ -388,7 +750,7 @@ llm-test-suite/
 - PascalCase for exported objects: `AI_BACKEND_MULTI_TIER_TESTS`
 - SCREAMING_SNAKE_CASE for individual tests: `ASSESSMENT_START_GDPR_NOVICE_1`
 
-### 5.3 Scalability Strategy
+### 6.3 Scalability Strategy
 
 **Adding New Vendors:**
 
@@ -414,9 +776,9 @@ llm-test-suite/
 
 ---
 
-## 6. Integration Patterns
+## 7. Integration Patterns
 
-### 6.1 Test Runner Integration
+### 7.1 Test Runner Integration
 
 **Test Execution Flow:**
 
@@ -434,7 +796,7 @@ llm-test-suite/
 4. Generate report (JSON, CSV, HTML)
 ```
 
-### 6.2 Viewer Integration
+### 7.2 Viewer Integration
 
 **Data Flow:**
 
@@ -457,7 +819,7 @@ Filtered display
 - Show vendor statistics and comparison
 - No vendor-specific UI hardcoding (dynamic from data)
 
-### 6.3 ArionComply Database Sync
+### 7.3 ArionComply Database Sync
 
 **Sync Strategy:**
 
@@ -473,21 +835,36 @@ Filtered display
 
 ---
 
-## 7. Design Rationale
+## 8. Design Rationale
 
-### 7.1 Why 3-Level Taxonomy?
+### 8.1 Why Multi-Taxonomy Approach?
 
-**Standard → KnowledgeType → Persona** creates comprehensive coverage:
+**Different test types require different classification systems:**
 
-- **Standard** (29 options): Broad domain coverage
-- **KnowledgeType** (5 options): Cognitive task diversity
-- **Persona** (6 options): Expertise level variation
+1. **Compliance tests** need: Standard × KnowledgeType × Persona
+   - Domain coverage (29 standards)
+   - Cognitive tasks (5 knowledge types)
+   - Expertise levels (6 personas)
+   - Potential combinations: 29 × 5 × 6 = **870 scenarios**
 
-**Total combinations:** 29 × 5 × 6 = **870 potential test scenarios**
+2. **Enterprise task tests** need: TaskDomain × TaskType × BusinessFunction
+   - Real-world business tasks (7 domains)
+   - Task operations (5 types)
+   - Department context (6 functions)
+   - Potential combinations: 7 × 5 × 6 = **210 scenarios**
 
-Manageable without requiring all combinations (selective coverage based on importance).
+3. **Platform feature tests** need: PlatformFeature × FeatureAction × UserContext
+   - Customer-specific features (extensible per customer)
+   - CRUD operations (5 actions)
+   - User skill levels (4 contexts)
+   - Combinations vary by customer platform
 
-### 7.2 Why Separate Vendor Field?
+**Why not force all tests into one taxonomy?**
+- Compliance questions are fundamentally different from "summarize this document"
+- Platform navigation questions don't map to compliance standards
+- Flexibility to add new use cases without forcing artificial mappings
+
+### 8.2 Why Separate Vendor Field?
 
 **Alternatives Considered:**
 

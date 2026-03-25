@@ -1,0 +1,607 @@
+
+🚀 Running PILOT TEST (Quick validation)
+   Tests: 20 | Models: 2 | Duration: ~5 minutes
+
+
+============================================================
+  ENTERPRISE COMPLIANCE MULTI-MODEL COMPARISON
+============================================================
+
+
+⚠️  BASELINE TESTING MODE
+   Testing: Pure LLM responses (NO retrieval systems)
+   Purpose: Identify which retrieval infrastructure to BUILD
+   Current: No vector DB, no knowledge graph, no RAG pipeline
+
+Test Suite Statistics:
+  Total tests available: 84
+  Running: 20 tests
+  Across: 3 models
+  Total test executions: 60
+
+⚙️  SEQUENTIAL EXECUTION MODE:
+   Models will run ONE AT A TIME to avoid resource contention
+   Each model stops before the next one starts
+
+
+======================================================================
+EXECUTING MODEL 1/3: PHI3
+======================================================================
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+======================================================================
+Testing Model: PHI3
+======================================================================
+Starting model phi3...
+▶️  Starting phi3 (4B, port 8081)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK..."
+✅ phi3 VERIFIED READY AND FUNCTIONAL
+
+
+[1/20] GDPR | FACTUAL | NOVICE
+Q: What is GDPR?
+✅ Score: 100% (4/4 topics)
+Response:  The General Data Protection Regulation (GDPR) is a comprehensive data protection law that came into effect on May 25, 2018, in the European Union (EU...
+
+[2/20] GDPR | FACTUAL | NOVICE
+Q: What are the main principles of GDPR?
+✅ Score: 100% (4/4 topics)
+Response:  The General Data Protection Regulation (GDPR) is a comprehensive data protection law that came into effect in the European Union (EU) on May 25, 2018...
+
+[3/20] GDPR | FACTUAL | NOVICE
+Q: What is the maximum GDPR fine?
+✅ Score: 67% (2/3 topics)
+Response:  Under the General Data Protection Regulation (GDPR), which came into effect in the European Union (EU) on May 25, 2018, organizations can be fined up...
+
+[4/20] GDPR | FACTUAL | PRACTITIONER
+Q: What are the legal bases for processing under GDPR Article 6?
+✅ Score: 100% (6/6 topics)
+Response:  Under GDPR Article 6, the legal bases for processing personal data are as follows:
+
+
+1. **Consent:** Processing is lawful if done based on the indivi...
+
+[5/20] GDPR | FACTUAL | PRACTITIONER
+Q: What information must be in a GDPR privacy notice?
+❌ Score: 40% (2/5 topics)
+Response:  Under the General Data Protection Regulation (GDPR), a privacy notice must include the following information:
+
+1. Purpose of processing: Clearly stat...
+
+[6/20] GDPR | FACTUAL | PRACTITIONER
+Q: What is the difference between a controller and a processor?
+❌ Score: 0% (0/2 topics)
+Response:  A processor, often referred to as the central processing unit (CPU), is the primary component of a computer that performs most of the processing insi...
+
+[7/20] GDPR | FACTUAL | MANAGER
+Q: What are the key GDPR principles that guide our data governance?
+✅ Score: 100% (3/3 topics)
+Response:  The key General Data Protection Regulation (GDPR) principles that guide data governance are:
+
+
+1. **Lawfulness, Fairness, and Transparency**: Data pr...
+
+[8/20] GDPR | FACTUAL | MANAGER
+Q: What are the main data subject rights under GDPR?
+✅ Score: 100% (5/5 topics)
+Response:  Under the General Data Protection Regulation (GDPR), which came into effect on May 25, 2018, individuals within the European Union (EU) have several ...
+
+[9/20] GDPR | FACTUAL | AUDITOR
+Q: What documentation is required to demonstrate GDPR accountability?
+✅ Score: 75% (3/4 topics)
+Response:  Demonstrating GDPR accountability involves several key documents and practices that organizations must put in place. Here's a comprehensive list of t...
+
+[10/20] GDPR | FACTUAL | AUDITOR
+Q: What criteria determine if a DPIA is required?
+✅ Score: 75% (3/4 topics)
+Response:  A Data Protection Impact Assessment (DPIA) is required based on the following criteria:
+
+1. Large-scale processing of sensitive data: If the processi...
+
+[11/20] GDPR | RELATIONAL | PRACTITIONER
+Q: How does GDPR Article 30 (Records of Processing Activities) support Article 5 (Principles)?
+✅ Score: 67% (2/3 topics)
+Response:  GDPR Article 30 (Records of Processing Activities) supports Article 5 (Principles) by providing a framework for organizations to document and maintai...
+
+[12/20] GDPR | RELATIONAL | PRACTITIONER
+Q: What is the relationship between GDPR Article 32 (Security) and Article 25 (Data Protection by Design)?
+❌ Score: 33% (1/3 topics)
+Response:  GDPR Article 32 (Security) and Article 25 (Data Protection by Design) are interconnected in the broader context of data protection and privacy. Here'...
+
+[13/20] GDPR | RELATIONAL | MANAGER
+Q: How do GDPR data subject rights relate to our business processes?
+❌ Score: 0% (0/3 topics)
+Response:  The General Data Protection Regulation (GDPR) is a comprehensive data protection law that came into effect on May 25, 2018, in the European Union (EU...
+
+[14/20] GDPR | PROCEDURAL | PRACTITIONER
+Q: What are the steps to conduct a GDPR Data Protection Impact Assessment?
+❌ Score: 0% (0/4 topics)
+Response:  Conducting a GDPR Data Protection Impact Assessment (DPIA) involves a systematic process to identify, assess, and mitigate the risks related to perso...
+
+[15/20] GDPR | PROCEDURAL | PRACTITIONER
+Q: What is the process for handling a GDPR data subject access request?
+❌ Score: 0% (0/4 topics)
+Response:  Handling a GDPR data subject access request involves several steps to ensure compliance with the General Data Protection Regulation (GDPR). Here's a ...
+
+[16/20] GDPR | PROCEDURAL | MANAGER
+Q: What workflow is needed to ensure GDPR compliance for new projects?
+❌ Score: 0% (0/4 topics)
+Response:  Ensuring GDPR compliance for new projects involves a comprehensive workflow that encompasses understanding the regulation, assessing data processing ...
+
+[17/20] GDPR | PROCEDURAL | MANAGER
+Q: What are the steps for GDPR data breach notification?
+✅ Score: 50% (2/4 topics)
+Response:  The General Data Protection Regulation (GDPR) requires organizations to report certain types of data breaches to the relevant supervisory authority w...
+
+[18/20] GDPR | EXACT_MATCH | AUDITOR
+Q: What does GDPR Article 17 state about the right to erasure?
+✅ Score: 50% (0/0 topics)
+Response:  GDPR Article 17, titled "Right to erasure ('right to be forgotten')", outlines the conditions under which an individual can request the deletion of t...
+
+[19/20] GDPR | EXACT_MATCH | AUDITOR
+Q: Find the exact text of GDPR Article 25 on data protection by design
+✅ Score: 50% (0/0 topics)
+Response:  Article 25 of the General Data Protection Regulation (GDPR) is titled "Data protection by design and by default." Below is the exact text of Article ...
+
+[20/20] GDPR | SYNTHESIS | MANAGER
+Q: Compare GDPR and CCPA consumer rights - what are the key differences?
+❌ Score: 33% (1/3 topics)
+Response:  The General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA) are both comprehensive data protection laws that grant c...
+
+🛑 Stopping phi3 before next model...
+🛑 Stopping phi3 (port 8081)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8081 released ✓
+   Waiting for memory cleanup (10s)...
+✅ phi3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+
+✅ Completed phi3 (1/3)
+   Results: 12/20 passed
+
+======================================================================
+EXECUTING MODEL 2/3: SMOLLM3
+======================================================================
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+======================================================================
+Testing Model: SMOLLM3
+======================================================================
+Starting model smollm3...
+▶️  Starting smollm3 (1B, port 8082)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "<think>
+
+</think>
+OK..."
+✅ smollm3 VERIFIED READY AND FUNCTIONAL
+
+
+[1/20] GDPR | FACTUAL | NOVICE
+Q: What is GDPR?
+✅ Score: 100% (4/4 topics)
+Response: <think>
+
+</think>
+The General Data Protection Regulation (GDPR) is a comprehensive data protection law enacted by the European Union (EU) on May 25, 2...
+
+[2/20] GDPR | FACTUAL | NOVICE
+Q: What are the main principles of GDPR?
+✅ Score: 75% (3/4 topics)
+Response: <think>
+
+</think>
+The General Data Protection Regulation (GDPR) is a comprehensive data protection law that applies to the collection, processing, and...
+
+[3/20] GDPR | FACTUAL | NOVICE
+Q: What is the maximum GDPR fine?
+✅ Score: 100% (3/3 topics)
+Response: <think>
+
+</think>
+The maximum GDPR fine that can be imposed by the European Data Protection Board (EDPB) is €20 million or 4% of the total global annu...
+
+[4/20] GDPR | FACTUAL | PRACTITIONER
+Q: What are the legal bases for processing under GDPR Article 6?
+✅ Score: 83% (5/6 topics)
+Response: <think>
+
+</think>
+Under the General Data Protection Regulation (GDPR), Article 6 outlines the legal bases for processing personal data. These bases ar...
+
+[5/20] GDPR | FACTUAL | PRACTITIONER
+Q: What information must be in a GDPR privacy notice?
+✅ Score: 80% (4/5 topics)
+Response: <think>
+
+</think>
+A GDPR (General Data Protection Regulation) privacy notice must include the following information:
+
+1. **Contact Information**: The ...
+
+[6/20] GDPR | FACTUAL | PRACTITIONER
+Q: What is the difference between a controller and a processor?
+❌ Score: 0% (0/2 topics)
+Response: <think>
+
+</think>
+In computing, the terms "controller" and "processor" are often used interchangeably, but they have distinct meanings depending on th...
+
+[7/20] GDPR | FACTUAL | MANAGER
+Q: What are the key GDPR principles that guide our data governance?
+✅ Score: 100% (3/3 topics)
+Response: <think>
+
+</think>
+The General Data Protection Regulation (GDPR) is a comprehensive data protection law that sets out key principles to guide data gove...
+
+[8/20] GDPR | FACTUAL | MANAGER
+Q: What are the main data subject rights under GDPR?
+✅ Score: 100% (5/5 topics)
+Response: <think>
+
+</think>
+Under the General Data Protection Regulation (GDPR), data subjects have several key rights regarding their personal data. These righ...
+
+[9/20] GDPR | FACTUAL | AUDITOR
+Q: What documentation is required to demonstrate GDPR accountability?
+✅ Score: 50% (2/4 topics)
+Response: <think>
+
+</think>
+To demonstrate GDPR accountability, organizations need to provide evidence that they have taken appropriate measures to ensure compl...
+
+[10/20] GDPR | FACTUAL | AUDITOR
+Q: What criteria determine if a DPIA is required?
+✅ Score: 75% (3/4 topics)
+Response: <think>
+
+</think>
+A Data Protection Impact Assessment (DPIA) is required under the General Data Protection Regulation (GDPR) when there is a high risk...
+
+[11/20] GDPR | RELATIONAL | PRACTITIONER
+Q: How does GDPR Article 30 (Records of Processing Activities) support Article 5 (Principles)?
+✅ Score: 100% (3/3 topics)
+Response: <think>
+
+</think>
+GDPR Article 30, which deals with the obligation to maintain records of processing activities, supports Article 5, which outlines th...
+
+[12/20] GDPR | RELATIONAL | PRACTITIONER
+Q: What is the relationship between GDPR Article 32 (Security) and Article 25 (Data Protection by Design)?
+❌ Score: 33% (1/3 topics)
+Response: <think>
+
+</think>
+GDPR Articles 25 and 32 are two distinct but interconnected provisions that address data protection and security in the context of p...
+
+[13/20] GDPR | RELATIONAL | MANAGER
+Q: How do GDPR data subject rights relate to our business processes?
+❌ Score: 0% (0/3 topics)
+Response: <think>
+
+</think>
+GDPR data subject rights are a set of regulations that grant individuals control over their personal data, which can significantly i...
+
+[14/20] GDPR | PROCEDURAL | PRACTITIONER
+Q: What are the steps to conduct a GDPR Data Protection Impact Assessment?
+❌ Score: 0% (0/4 topics)
+Response: <think>
+
+</think>
+Conducting a GDPR Data Protection Impact Assessment (DPIA) involves several steps to ensure that you identify and mitigate potential...
+
+[15/20] GDPR | PROCEDURAL | PRACTITIONER
+Q: What is the process for handling a GDPR data subject access request?
+❌ Score: 0% (0/4 topics)
+Response: <think>
+
+</think>
+Handling a GDPR data subject access request involves a structured process to ensure compliance with the General Data Protection Regu...
+
+[16/20] GDPR | PROCEDURAL | MANAGER
+Q: What workflow is needed to ensure GDPR compliance for new projects?
+❌ Score: 0% (0/4 topics)
+Response: <think>
+
+</think>
+To ensure GDPR compliance for new projects, follow this workflow:
+
+1. **Assessment and Gap Analysis**: Conduct a thorough assessment...
+
+[17/20] GDPR | PROCEDURAL | MANAGER
+Q: What are the steps for GDPR data breach notification?
+❌ Score: 25% (1/4 topics)
+Response: <think>
+
+</think>
+The General Data Protection Regulation (GDPR) requires organizations to notify the relevant supervisory authority within 72 hours of...
+
+[18/20] GDPR | EXACT_MATCH | AUDITOR
+Q: What does GDPR Article 17 state about the right to erasure?
+✅ Score: 50% (0/0 topics)
+Response: <think>
+
+</think>
+GDPR Article 17, also known as the "right to be forgotten," grants individuals the right to request the erasure of their personal da...
+
+[19/20] GDPR | EXACT_MATCH | AUDITOR
+Q: Find the exact text of GDPR Article 25 on data protection by design
+✅ Score: 50% (0/0 topics)
+Response: <think>
+
+</think>
+Here is the exact text of GDPR Article 25 on data protection by design:
+
+**Article 25: Data protection by design and by default**
+
+1...
+
+[20/20] GDPR | SYNTHESIS | MANAGER
+Q: Compare GDPR and CCPA consumer rights - what are the key differences?
+❌ Score: 0% (0/3 topics)
+Response: <think>
+
+</think>
+The General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA) are both consumer privacy laws designed...
+
+🛑 Stopping smollm3 before next model...
+🛑 Stopping smollm3 (port 8082)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8082 released ✓
+   Waiting for memory cleanup (10s)...
+✅ smollm3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+
+✅ Completed smollm3 (2/3)
+   Results: 12/20 passed
+
+======================================================================
+EXECUTING MODEL 3/3: MISTRAL
+======================================================================
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+======================================================================
+Testing Model: MISTRAL
+======================================================================
+Starting model mistral...
+▶️  Starting mistral (7B, port 8083)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK. I have received your test message. Let..."
+✅ mistral VERIFIED READY AND FUNCTIONAL
+
+
+[1/20] GDPR | FACTUAL | NOVICE
+Q: What is GDPR?
+✅ Score: 100% (4/4 topics)
+Response:  GDPR stands for General Data Protection Regulation. It is a regulation that was adopted by the European Parliament and the European Council in May 20...
+
+[2/20] GDPR | FACTUAL | NOVICE
+Q: What are the main principles of GDPR?
+✅ Score: 100% (4/4 topics)
+Response:  The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economi...
+
+[3/20] GDPR | FACTUAL | NOVICE
+Q: What is the maximum GDPR fine?
+✅ Score: 67% (2/3 topics)
+Response:  The General Data Protection Regulation (GDPR) is a regulation in EU law on data protection and privacy in the European Union and the European Economi...
+
+[4/20] GDPR | FACTUAL | PRACTITIONER
+Q: What are the legal bases for processing under GDPR Article 6?
+✅ Score: 100% (6/6 topics)
+Response:  Under the General Data Protection Regulation (GDPR), there are six legal bases for processing personal data. These bases are outlined in Article 6 of...
+
+[5/20] GDPR | FACTUAL | PRACTITIONER
+Q: What information must be in a GDPR privacy notice?
+✅ Score: 80% (4/5 topics)
+Response:  A GDPR (General Data Protection Regulation) privacy notice, also known as a "Fair Processing Notice" or "Privacy Policy," is a document that explains...
+
+[6/20] GDPR | FACTUAL | PRACTITIONER
+Q: What is the difference between a controller and a processor?
+❌ Score: 0% (0/2 topics)
+Response:  In the context of computing, a controller and a processor are two distinct components that serve different functions in a system.
+
+A processor, also ...
+
+[7/20] GDPR | FACTUAL | MANAGER
+Q: What are the key GDPR principles that guide our data governance?
+✅ Score: 100% (3/3 topics)
+Response:  The General Data Protection Regulation (GDPR) is a European Union (EU) regulation that sets guidelines for the collection, processing, and protection...
+
+[8/20] GDPR | FACTUAL | MANAGER
+Q: What are the main data subject rights under GDPR?
+✅ Score: 100% (5/5 topics)
+Response:  Under the General Data Protection Regulation (GDPR), data subjects have several rights regarding their personal data. Here are the main data subject ...
+
+[9/20] GDPR | FACTUAL | AUDITOR
+Q: What documentation is required to demonstrate GDPR accountability?
+✅ Score: 50% (2/4 topics)
+Response:  Under the General Data Protection Regulation (GDPR), accountability is a key principle that requires organizations to demonstrate that they have impl...
+
+[10/20] GDPR | FACTUAL | AUDITOR
+Q: What criteria determine if a DPIA is required?
+✅ Score: 75% (3/4 topics)
+Response:  A Data Protection Impact Assessment (DPIA) is required when processing activities are likely to result in a high risk to the rights and freedoms of n...
+
+[11/20] GDPR | RELATIONAL | PRACTITIONER
+Q: How does GDPR Article 30 (Records of Processing Activities) support Article 5 (Principles)?
+✅ Score: 67% (2/3 topics)
+Response:  GDPR Article 30 (Records of Processing Activities) and Article 5 (Principles) are interconnected in ensuring compliance with the European Union's Gen...
+
+[12/20] GDPR | RELATIONAL | PRACTITIONER
+Q: What is the relationship between GDPR Article 32 (Security) and Article 25 (Data Protection by Design)?
+❌ Score: 33% (1/3 topics)
+Response:  GDPR Articles 25 and 32 both address important aspects of data protection, but they focus on different areas.
+
+Article 25, "Data Protection by Design...
+
+[13/20] GDPR | RELATIONAL | MANAGER
+Q: How do GDPR data subject rights relate to our business processes?
+❌ Score: 0% (0/3 topics)
+Response:  The General Data Protection Regulation (GDPR) grants individuals in the European Union (EU) certain data subject rights regarding their personal data...
+
+[14/20] GDPR | PROCEDURAL | PRACTITIONER
+Q: What are the steps to conduct a GDPR Data Protection Impact Assessment?
+❌ Score: 0% (0/4 topics)
+Response:  A Data Protection Impact Assessment (DPIA) is a process required by the General Data Protection Regulation (GDPR) to identify and mitigate potential ...
+
+[15/20] GDPR | PROCEDURAL | PRACTITIONER
+Q: What is the process for handling a GDPR data subject access request?
+❌ Score: 0% (0/4 topics)
+Response:  Under the General Data Protection Regulation (GDPR), a data subject access request (DSAR) is a request made by an individual to a data controller to ...
+
+[16/20] GDPR | PROCEDURAL | MANAGER
+Q: What workflow is needed to ensure GDPR compliance for new projects?
+❌ Score: 0% (0/4 topics)
+Response:  To ensure GDPR (General Data Protection Regulation) compliance for new projects, follow the workflow outlined below:
+
+1. Data Audit: Conduct a thorou...
+
+[17/20] GDPR | PROCEDURAL | MANAGER
+Q: What are the steps for GDPR data breach notification?
+❌ Score: 25% (1/4 topics)
+Response:  1. Identify the Data Breach: The first step in the GDPR data breach notification process is to identify and confirm that a data breach has indeed occ...
+
+[18/20] GDPR | EXACT_MATCH | AUDITOR
+Q: What does GDPR Article 17 state about the right to erasure?
+✅ Score: 50% (0/0 topics)
+Response:  GDPR (General Data Protection Regulation) Article 17, also known as the "right to erasure" or "right to be forgotten," grants individuals the right t...
+
+[19/20] GDPR | EXACT_MATCH | AUDITOR
+Q: Find the exact text of GDPR Article 25 on data protection by design
+✅ Score: 50% (0/0 topics)
+Response:  Article 25 of the General Data Protection Regulation (GDPR) is titled "Data protection by design and by default". Here is the exact text of the artic...
+
+[20/20] GDPR | SYNTHESIS | MANAGER
+Q: Compare GDPR and CCPA consumer rights - what are the key differences?
+❌ Score: 33% (1/3 topics)
+Response:  The General Data Protection Regulation (GDPR) is a data protection law enacted by the European Union (EU) in May 2018, while the California Consumer ...
+
+🛑 Stopping mistral before next model...
+🛑 Stopping mistral (port 8083)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8083 released ✓
+   Waiting for memory cleanup (10s)...
+✅ mistral VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+
+✅ Completed mistral (3/3)
+   Results: 12/20 passed
+
+======================================================================
+BASELINE LLM KNOWLEDGE ANALYSIS (NO RETRIEVAL SYSTEM TESTED)
+======================================================================
+
+⚠️  NOTE: This tests LLM training data ONLY (no RAG, no vector DB, no knowledge graph)
+   Results show where retrieval infrastructure NEEDS TO BE BUILT
+
+
+📊 BASELINE LLM PERFORMANCE (Without Any Retrieval):
+   (Testing what models know from training data alone)
+
+  phi3                     12/20 passed (avg score: 52.0%)
+  smollm3                  12/20 passed (avg score: 51.1%)
+  mistral                  12/20 passed (avg score: 51.5%)
+
+📊 Knowledge Type Baseline Performance:
+   (Shows what LLM knows WITHOUT vector DB, knowledge graph, or RAG)
+
+  ✅ FACTUAL        26/30 passed (avg score: 76.4%)
+  ❌ RELATIONAL     3/9 passed (avg score: 37.0%)
+  ❌ PROCEDURAL     1/12 passed (avg score: 8.3%)
+  ⚠️ EXACT_MATCH    6/6 passed (avg score: 50.0%)
+  ❌ SYNTHESIS      0/3 passed (avg score: 22.2%)
+
+======================================================================
+🔧 RETRIEVAL INFRASTRUCTURE TO BUILD (Based on Baseline Gaps)
+======================================================================
+
+⚠️  These are RECOMMENDATIONS for what to implement, not current systems
+
+
+1. RELATIONAL Knowledge - HIGH PRIORITY
+   ├─ Baseline LLM Score: 37.0% (Pass Rate: 33.3%)
+   ├─ Gap Analysis: LLM training data insufficient for relational queries
+   ├─ Build This: KNOWLEDGE_GRAPH
+   └─ Implementation Actions:
+      ├─ Build knowledge graph of regulatory entity relationships
+      ├─ Map cross-references between regulations
+      └─ Implement graph traversal for multi-hop queries
+
+2. PROCEDURAL Knowledge - HIGH PRIORITY
+   ├─ Baseline LLM Score: 8.3% (Pass Rate: 8.3%)
+   ├─ Gap Analysis: LLM training data insufficient for procedural queries
+   ├─ Build This: STRUCTURED_RETRIEVAL
+   └─ Implementation Actions:
+      ├─ Create process flow diagrams and step-by-step guides
+      ├─ Structure procedural knowledge with sequential relationships
+      └─ Add implementation checklists and workflows
+
+3. EXACT_MATCH Knowledge - MEDIUM PRIORITY
+   ├─ Baseline LLM Score: 50.0% (Pass Rate: 100.0%)
+   ├─ Gap Analysis: LLM training data insufficient for exact_match queries
+   ├─ Build This: MEILISEARCH
+   └─ Implementation Actions:
+      ├─ Optimize full-text search for exact citations
+      ├─ Index regulation numbers and article references
+      └─ Implement precise string matching for legal text
+
+4. SYNTHESIS Knowledge - HIGH PRIORITY
+   ├─ Baseline LLM Score: 22.2% (Pass Rate: 0.0%)
+   ├─ Gap Analysis: LLM training data insufficient for synthesis queries
+   ├─ Build This: RAG_SYNTHESIS
+   └─ Implementation Actions:
+      ├─ Improve multi-document retrieval
+      ├─ Add framework comparison matrices
+      └─ Enhance cross-standard analysis capabilities
+
+======================================================================
+💡 SUMMARY: Build these retrieval layers to close knowledge gaps
+======================================================================
+
+📊 Report saved: /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/reports/test-results-enterprise-pilot-2026-03-25T21-34-06-419Z.json
+
+✅ Pilot test complete! Report: /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/reports/test-results-enterprise-pilot-2026-03-25T21-34-06-419Z.json
