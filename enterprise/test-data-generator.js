@@ -208,6 +208,82 @@ export const TEST_TEMPLATES = {
     }
   },
 
+  ISO_42001: {
+    FACTUAL: {
+      NOVICE: [
+        { q: 'What is ISO 42001?', expectedTopics: ['AI Management System', 'AIMS', 'artificial intelligence', 'governance'] },
+        { q: 'Why do organizations need ISO 42001?', expectedTopics: ['AI governance', 'responsible AI', 'risk management', 'compliance'] }
+      ],
+      PRACTITIONER: [
+        { q: 'What are the key components of an AI Management System under ISO 42001?', expectedTopics: ['AI policy', 'risk assessment', 'controls', 'monitoring', 'improvement'] },
+        { q: 'How does ISO 42001 help with EU AI Act compliance?', expectedTopics: ['governance framework', 'risk management', 'documentation', 'controls'] }
+      ],
+      MANAGER: [
+        { q: 'What are the business benefits of ISO 42001 certification?', expectedTopics: ['trust', 'competitive advantage', 'regulatory compliance', 'risk mitigation'] }
+      ]
+    },
+    RELATIONAL: {
+      PRACTITIONER: [
+        { q: 'How does ISO 42001 relate to ISO 27001 for AI systems?', expectedTopics: ['complementary', 'AI-specific', 'governance', 'security overlap'] },
+        { q: 'How does ISO 42001 support compliance with EU AI Act and CA SB 1047?', expectedTopics: ['governance framework', 'demonstrates compliance', 'risk management alignment'] }
+      ]
+    },
+    PROCEDURAL: {
+      PRACTITIONER: [
+        { q: 'What are the steps to implement an AI Management System under ISO 42001?', expectedTopics: ['gap assessment', 'AI inventory', 'risk assessment', 'controls implementation', 'documentation'] },
+        { q: 'How to conduct an AI risk assessment per ISO 42001?', expectedTopics: ['identify AI systems', 'assess risks', 'evaluate controls', 'document findings'] }
+      ]
+    },
+    SYNTHESIS: {
+      MANAGER: [
+        { q: 'Compare ISO 42001 with EU AI Act requirements for AI governance', expectedTopics: ['framework vs regulation', 'voluntary vs mandatory', 'risk-based approach', 'overlap'] }
+      ]
+    }
+  },
+
+  ISO_27035: {
+    FACTUAL: {
+      PRACTITIONER: [
+        { q: 'What is ISO 27035?', expectedTopics: ['incident management', 'security incidents', 'breach response', 'incident handling'] },
+        { q: 'What are the phases of incident management in ISO 27035?', expectedTopics: ['detection', 'reporting', 'assessment', 'response', 'recovery', 'lessons learned'] }
+      ]
+    },
+    PROCEDURAL: {
+      PRACTITIONER: [
+        { q: 'What are the steps for handling a data breach according to ISO 27035?', expectedTopics: ['detect', 'assess severity', 'contain', 'investigate', 'notify', 'recover', 'learn'] },
+        { q: 'How to establish an incident response team per ISO 27035?', expectedTopics: ['roles', 'responsibilities', 'training', 'procedures', 'escalation'] }
+      ],
+      MANAGER: [
+        { q: 'What workflow is needed for ISO 27035 incident management implementation?', expectedTopics: ['policy', 'procedures', 'team', 'tools', 'testing', 'improvement'] }
+      ]
+    },
+    RELATIONAL: {
+      PRACTITIONER: [
+        { q: 'How does ISO 27035 relate to GDPR breach notification requirements?', expectedTopics: ['72 hours', 'notification', 'documentation', 'complementary'] }
+      ]
+    }
+  },
+
+  ISO_20000: {
+    FACTUAL: {
+      PRACTITIONER: [
+        { q: 'What is ISO 20000?', expectedTopics: ['IT Service Management', 'ITSM', 'service quality', 'ITIL'] },
+        { q: 'What are the key processes in ISO 20000?', expectedTopics: ['incident management', 'change management', 'service desk', 'problem management'] }
+      ]
+    },
+    PROCEDURAL: {
+      PRACTITIONER: [
+        { q: 'How to implement ISO 20000 incident management?', expectedTopics: ['incident detection', 'logging', 'categorization', 'prioritization', 'resolution', 'closure'] },
+        { q: 'What is the ISO 20000 change management process?', expectedTopics: ['request', 'assessment', 'approval', 'implementation', 'review'] }
+      ]
+    },
+    RELATIONAL: {
+      PRACTITIONER: [
+        { q: 'How does ISO 20000 complement ISO 27001 for service providers?', expectedTopics: ['service management', 'security management', 'overlapping controls', 'integration'] }
+      ]
+    }
+  },
+
   ISO_27701: {
     FACTUAL: {
       NOVICE: [

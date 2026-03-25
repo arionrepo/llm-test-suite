@@ -292,6 +292,38 @@ export const COMPLIANCE_STANDARDS = {
     year: 2000,
     keyTopics: ['Canadian privacy law', 'fair information principles', 'consent', 'accountability'],
     retrievalNeeds: ['vector_db', 'exact_match']
+  },
+
+  // AI Management
+  ISO_42001: {
+    name: 'Artificial Intelligence Management System',
+    category: 'ai-management',
+    jurisdiction: 'International',
+    year: 2023,
+    keyTopics: ['AI governance', 'responsible AI', 'AI risk management', 'AI controls', 'AIMS'],
+    description: 'Management system for developing and using AI responsibly',
+    retrievalNeeds: ['knowledge_graph', 'procedural', 'vector_db']
+  },
+
+  // Incident Management
+  ISO_27035: {
+    name: 'Information Security Incident Management',
+    category: 'incident-management',
+    jurisdiction: 'International',
+    year: 2023,
+    parts: ['Part 1: Principles', 'Part 2: Guidelines', 'Part 3: Guidelines for CSIRT'],
+    keyTopics: ['incident response', 'breach management', 'detection', 'containment', 'recovery', 'lessons learned'],
+    retrievalNeeds: ['procedural', 'knowledge_graph']
+  },
+
+  // IT Service Management
+  ISO_20000: {
+    name: 'IT Service Management',
+    category: 'itsm',
+    jurisdiction: 'International',
+    year: 2018,
+    keyTopics: ['service management', 'ITIL alignment', 'ticket management', 'incident management', 'change management'],
+    retrievalNeeds: ['procedural', 'vector_db']
   }
 };
 
