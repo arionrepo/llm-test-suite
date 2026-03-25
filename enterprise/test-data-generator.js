@@ -206,6 +206,44 @@ export const TEST_TEMPLATES = {
         { q: 'Compare CSA STAR Level 1 vs Level 2 vs Level 3', expectedTopics: ['self-assessment', 'third-party audit', 'continuous monitoring'] }
       ]
     }
+  },
+
+  ISO_27701: {
+    FACTUAL: {
+      NOVICE: [
+        { q: 'What is ISO 27701?', expectedTopics: ['PIMS', 'privacy extension', 'ISO 27001', 'PII'] },
+        { q: 'What does PIMS stand for in ISO 27701?', expectedTopics: ['Privacy Information Management System', 'ISO 27001 extension'] }
+      ],
+      PRACTITIONER: [
+        { q: 'How does ISO 27701 extend ISO 27001?', expectedTopics: ['privacy controls', 'PII controller', 'PII processor', 'additional guidance'] },
+        { q: 'What are the key privacy controls in ISO 27701?', expectedTopics: ['consent', 'data minimization', 'purpose limitation', 'PII processing'] },
+        { q: 'What is the difference between a PII controller and PII processor under ISO 27701?', expectedTopics: ['determines purposes', 'processes on behalf', 'contractual obligations'] }
+      ],
+      MANAGER: [
+        { q: 'Why would we implement ISO 27701 in addition to ISO 27001?', expectedTopics: ['privacy focus', 'GDPR alignment', 'PII management', 'certification'] }
+      ]
+    },
+    RELATIONAL: {
+      PRACTITIONER: [
+        { q: 'How does ISO 27701 relate to GDPR requirements?', expectedTopics: ['complementary', 'privacy controls', 'GDPR alignment', 'demonstrates compliance'] },
+        { q: 'What is the relationship between ISO 27701 and ISO 27001 Annex A controls?', expectedTopics: ['extends', 'additional controls', 'privacy-specific', 'complements existing'] }
+      ]
+    },
+    PROCEDURAL: {
+      PRACTITIONER: [
+        { q: 'What are the steps to implement ISO 27701 on top of existing ISO 27001?', expectedTopics: ['gap analysis', 'PII mapping', 'additional controls', 'PIMS documentation'] }
+      ]
+    },
+    EXACT_MATCH: {
+      AUDITOR: [
+        { q: 'What does ISO 27701 control 7.2.2 state about determining lawful basis?', expectedCitation: '7.2.2' }
+      ]
+    },
+    SYNTHESIS: {
+      MANAGER: [
+        { q: 'Compare ISO 27701 and GDPR privacy requirements - what are the differences?', expectedTopics: ['framework vs regulation', 'certification vs compliance', 'PII focus', 'international vs EU'] }
+      ]
+    }
   }
 };
 
