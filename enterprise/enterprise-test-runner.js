@@ -167,24 +167,51 @@ export class EnterpriseTestRunner {
       const modelName = models[i];
       const previousModel = i > 0 ? models[i - 1] : null;
 
-      // Stop previous model to avoid resource contention
-      if (previousModel) {
-        console.log('\n🛑 Stopping previous model: ' + previousModel);
-        await this.managerClient.stopModel(previousModel);
-        await new Promise(resolve => setTimeout(resolve, 3000)); // Wait for cleanup
+      console.log(`\n${'='.repeat(70)}`);
+      console.log(`EXECUTING MODEL ${i+1}/${models.length}: ${modelName.toUpperCase()}`);
+      console.log('='.repeat(70));
+
+      // SAFETY CHECK: Verify clean state before starting this model
+      try {
+        await this.managerClient.verifyCleanState();
+      } catch (error) {
+        console.error('\n❌ PRE-FLIGHT CHECK FAILED:', error.message);
+        console.error('   Attempting to clean up...\n');
+
+        // Try to stop all running models
+        const status = await this.managerClient.getStatus();
+        const runningModels = Object.entries(status || {})
+          .filter(([name, s]) => s && s.running)
+          .map(([name]) => name);
+
+        if (runningModels.length > 0) {
+          console.log('   Stopping ' + runningModels.length + ' running models: ' + runningModels.join(', '));
+
+          for (const model of runningModels) {
+            try {
+              await this.managerClient.stopModel(model);
+            } catch (stopError) {
+              console.error('   Failed to stop ' + model + ':', stopError.message);
+            }
+          }
+
+          // Verify clean state again
+          await this.managerClient.verifyCleanState();
+        } else {
+          throw error; // Can't recover, abort
+        }
       }
 
+      // Run tests for this model
       const modelResults = await this.runModelTests(modelName, testsToRun);
       this.results.modelResults[modelName] = modelResults;
 
-      console.log('\n✅ Completed ' + modelName + ' (' + (i + 1) + '/' + models.length + ')');
-    }
+      // Stop this model before proceeding
+      console.log('\n🛑 Stopping ' + modelName + ' before next model...');
+      await this.managerClient.stopModel(modelName);
 
-    // Stop the last model after all tests complete
-    if (models.length > 0) {
-      const lastModel = models[models.length - 1];
-      console.log('\n🛑 Stopping final model: ' + lastModel);
-      await this.managerClient.stopModel(lastModel);
+      console.log(`\n✅ Completed ${modelName} (${i + 1}/${models.length})`);
+      console.log(`   Results: ${modelResults.filter(r => r.success && r.evaluation?.passed).length}/${modelResults.length} passed`);
     }
 
     // Generate diagnostics
