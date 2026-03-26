@@ -222,6 +222,42 @@
             background: #2980b9;
         }
 
+        .file-browser-item.rating-file {
+            background: #f0f8ff;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .file-browser-item.rating-file:hover {
+            background: #e6f2ff;
+        }
+
+        .file-browser-item.rating-file .file-name::before {
+            content: '⭐ ';
+            color: #f39c12;
+            margin-right: 4px;
+        }
+
+        .file-browser-item.rating-file .load-rating-btn {
+            font-size: 10px;
+            padding: 2px 6px;
+            background: #9b59b6;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .file-browser-item.rating-file:hover .load-rating-btn {
+            opacity: 1;
+        }
+
+        .file-browser-item.rating-file .load-rating-btn:hover {
+            background: #8e44ad;
+        }
+
         .file-selector-status {
             font-size: 12px;
             color: #7f8c8d;
@@ -754,27 +790,39 @@
             dirs.forEach(dir => {
                 html += `
                     <div class="file-browser-group">
-                        <div class="file-browser-group-title">📂 ${dir}</div>
+                        <div class="file-browser-group-title">${dir === 'ratings' ? '⭐ Ratings' : '📂 ' + dir}</div>
                         ${grouped[dir].map(file => {
+                            const isRatingFile = file.type === 'ratings';
                             const runMatch = file.basename.match(/-(run\d+)-/);
                             const runId = runMatch ? runMatch[1] : 'unknown';
                             const relatedFiles = runGroups[runId] || [];
                             const isSelected = currentlyLoadedFiles.includes(file.path);
-                            const allRelatedSelected = relatedFiles.every(f => currentlyLoadedFiles.includes(f));
 
-                            return `
-                            <div class="file-browser-item ${isSelected ? 'selected' : ''}"
-                                 onclick="toggleFileSelection('${file.path}', event)"
-                                 onmouseover="highlightRelatedFiles('${runId}')"
-                                 onmouseout="clearHighlight()"
-                                 title="Click: select | Ctrl/Cmd+Click: multi-select | Related: ${relatedFiles.length} files in ${runId}">
-                                <span class="file-name">${file.basename}</span>
-                                <div class="file-meta">
-                                    <span style="font-size: 10px; opacity: 0.7;">${relatedFiles.length} in run</span>
-                                    <button class="load-run-btn" onclick="loadRunFiles('${runId}', event)">Load all</button>
+                            if (isRatingFile) {
+                                // Render rating file with different styling and interaction
+                                return `
+                                <div class="file-browser-item rating-file ${isSelected ? 'selected' : ''}"
+                                     title="Click to load ratings from this file">
+                                    <span class="file-name">${file.basename}</span>
+                                    <button class="load-rating-btn" onclick="loadRatingFile('${file.path}', event)">Load</button>
                                 </div>
-                            </div>
-                            `;
+                                `;
+                            } else {
+                                // Render test result file with run grouping
+                                return `
+                                <div class="file-browser-item ${isSelected ? 'selected' : ''}"
+                                     onclick="toggleFileSelection('${file.path}', event)"
+                                     onmouseover="highlightRelatedFiles('${runId}')"
+                                     onmouseout="clearHighlight()"
+                                     title="Click: select | Ctrl/Cmd+Click: multi-select | Related: ${relatedFiles.length} files in ${runId}">
+                                    <span class="file-name">${file.basename}</span>
+                                    <div class="file-meta">
+                                        <span style="font-size: 10px; opacity: 0.7;">${relatedFiles.length} in run</span>
+                                        <button class="load-run-btn" onclick="loadRunFiles('${runId}', event)">Load all</button>
+                                    </div>
+                                </div>
+                                `;
+                            }
                         }).join('')}
                     </div>
                 `;
@@ -852,6 +900,57 @@
 
             // Load the selected files
             loadSelectedFiles();
+        }
+
+        // Load ratings from a rating file
+        async function loadRatingFile(filePath, event) {
+            // Prevent event bubbling
+            if (event) {
+                event.stopPropagation();
+            }
+
+            try {
+                console.log(`Loading ratings from: ${filePath}`);
+                const response = await fetch(`/api/file?path=${encodeURIComponent(filePath)}`);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const result = await response.json();
+                const fileData = result.data;
+
+                // Handle both structures: { ratings: [...] } or direct array
+                const ratingsArray = fileData.ratings || (Array.isArray(fileData) ? fileData : []);
+
+                if (ratingsArray.length === 0) {
+                    console.warn('No ratings found in file');
+                    return;
+                }
+
+                // Populate ratings object
+                let loadedCount = 0;
+                ratingsArray.forEach(rating => {
+                    const key = `${rating.promptId}_${rating.modelName}_run${rating.runNumber}`;
+                    ratings[key] = rating;
+                    loadedCount++;
+                });
+
+                console.log(`✅ Loaded ${loadedCount} ratings from ${filePath.split('/').pop()}`);
+                console.log(`📊 Total ratings now: ${Object.keys(ratings).length}`);
+
+                // Reapply filters to show rating-based filtering
+                applyFilters();
+
+                // Show confirmation
+                const filename = filePath.split('/').pop();
+                document.getElementById('fileStatus').className = 'file-selector-status success';
+                document.getElementById('fileStatus').textContent = `✓ Loaded ${loadedCount} ratings from ${filename}`;
+            } catch (error) {
+                console.error('Error loading rating file:', error);
+                document.getElementById('fileStatus').className = 'file-selector-status error';
+                document.getElementById('fileStatus').textContent = `Error loading ratings: ${error.message}`;
+            }
         }
 
         // Load all currently selected files
@@ -1430,6 +1529,23 @@
                 ? (ratedWithScores.reduce((sum, r) => sum + r.rating, 0) / ratedWithScores.length).toFixed(2)
                 : '-';
 
+            // Calculate rating distribution
+            const distribution = {
+                '-1': 0,
+                '0': 0,
+                '1': 0,
+                '2': 0,
+                '3': 0,
+                '4': 0,
+                '5': 0
+            };
+
+            Object.values(ratings).forEach(r => {
+                if (r.rating !== undefined) {
+                    distribution[r.rating.toString()]++;
+                }
+            });
+
             let totalIssues = 0;
             allData.forEach(promptData => {
                 Object.keys(promptData.responses).forEach(model => {
@@ -1440,9 +1556,24 @@
 
             document.getElementById('totalPrompts').textContent = uniquePrompts;
             document.getElementById('totalResponses').textContent = totalResponses;
-            document.getElementById('ratedCount').textContent = ratedCount;
-            document.getElementById('avgRating').textContent = avgRating;
+
+            // Show rating distribution in tooltip
+            const distributionText = `Harmful: ${distribution['-1']}, Bad: ${distribution['0']}, ` +
+                                    `1★: ${distribution['1']}, 2★: ${distribution['2']}, ` +
+                                    `3★: ${distribution['3']}, 4★: ${distribution['4']}, ` +
+                                    `Excellent: ${distribution['5']}`;
+            const ratedCountEl = document.getElementById('ratedCount');
+            ratedCountEl.textContent = ratedCount;
+            ratedCountEl.title = distributionText;
+
+            const avgRatingEl = document.getElementById('avgRating');
+            avgRatingEl.textContent = avgRating;
+            avgRatingEl.title = `Based on ${ratedWithScores.length} rated responses`;
+
             document.getElementById('issuesFound').textContent = totalIssues;
+
+            console.log(`📊 Stats updated: ${uniquePrompts} prompts, ${ratedCount} ratings, avg: ${avgRating}`);
+            console.log(`   Distribution: ${distributionText}`);
         }
 
         // Initialize

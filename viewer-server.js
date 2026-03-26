@@ -29,21 +29,19 @@ app.use((req, res, next) => {
 // Serve static files
 app.use(express.static(path.join(__dirname)));
 
-// API: Get list of available test result files
+// API: Get list of available test result files and rating files
 app.get('/api/files', (req, res) => {
     try {
-        // Find all test result files
-        const reportsDir = path.join(__dirname, 'reports');
+        let files = [];
 
-        // Pattern for test result files
-        const patterns = [
+        // Find test result files in reports directory
+        const reportsDir = path.join(__dirname, 'reports');
+        const reportPatterns = [
             'performance/**/*.json',
             '*.json'
         ];
 
-        let files = [];
-
-        for (const pattern of patterns) {
+        for (const pattern of reportPatterns) {
             const matchedFiles = globSync(pattern, {
                 cwd: reportsDir,
                 absolute: false
@@ -54,7 +52,26 @@ app.get('/api/files', (req, res) => {
                 path: `/reports/${f}`,
                 dir: path.dirname(f),
                 basename: path.basename(f),
+                type: 'test_result',
                 timestamp: getFileTimestamp(path.join(reportsDir, f))
+            })));
+        }
+
+        // Find rating files in ratings directory
+        const ratingsDir = path.join(__dirname, 'ratings');
+        if (fs.existsSync(ratingsDir)) {
+            const ratingFiles = globSync('*.json', {
+                cwd: ratingsDir,
+                absolute: false
+            });
+
+            files = files.concat(ratingFiles.map(f => ({
+                name: f,
+                path: `/ratings/${f}`,
+                dir: 'ratings',
+                basename: f,
+                type: 'ratings',
+                timestamp: getFileTimestamp(path.join(ratingsDir, f))
             })));
         }
 
@@ -92,7 +109,7 @@ app.get('/api/files', (req, res) => {
     }
 });
 
-// API: Get file content
+// API: Get file content (supports both reports and ratings directories)
 app.get('/api/file', (req, res) => {
     try {
         const filePath = req.query.path;
@@ -100,9 +117,22 @@ app.get('/api/file', (req, res) => {
             return res.status(400).json({ error: 'Missing path parameter' });
         }
 
+        let basePath;
+        let cleanPath;
+
+        // Determine which directory to serve from
+        if (filePath.startsWith('/ratings/')) {
+            basePath = path.join(__dirname, 'ratings');
+            cleanPath = filePath.replace(/^\/ratings\//, '');
+        } else if (filePath.startsWith('/reports/')) {
+            basePath = path.join(__dirname, 'reports');
+            cleanPath = filePath.replace(/^\/reports\//, '');
+        } else {
+            return res.status(400).json({ error: 'Invalid path: must start with /ratings/ or /reports/' });
+        }
+
         // Prevent directory traversal
-        const basePath = path.join(__dirname, 'reports');
-        const fullPath = path.resolve(basePath, filePath.replace(/^\/reports\//, ''));
+        const fullPath = path.resolve(basePath, cleanPath);
 
         if (!fullPath.startsWith(basePath)) {
             return res.status(403).json({ error: 'Access denied' });
