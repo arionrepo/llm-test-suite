@@ -54,6 +54,7 @@ export function saveReport(testName, results) {
  *
  * Business Purpose: Ensure all test results are validated and stored in
  * organized, date-based directory structure for easy discovery and analysis.
+ * Optionally tracks Docker configuration used during testing for benchmarking.
  *
  * Directory structure: reports/{testType}/{YYYY-MM-DD}/test-results-{runName}-{timestamp}.json
  *
@@ -63,6 +64,8 @@ export function saveReport(testName, results) {
  * @param {string} options.runName - Name of the test run (e.g., "multitier", "gdpr-compliance")
  * @param {string} options.timestamp - Optional override timestamp (defaults to now)
  * @param {boolean} options.validateSingle - If true, validate each result individually (default: true)
+ * @param {Object} options.dockerConfig - Optional Docker configuration metadata to track with results
+ *   Contains: profileName, description, purpose, threads, n_batch, n_parallel, memory_overhead_percent, concurrent_requests
  * @returns {Object} { filePath: string, validated: number, failed: number, errors: string[] }
  * @throws {Error} If validation fails and results cannot be saved
  *
@@ -70,7 +73,14 @@ export function saveReport(testName, results) {
  *   const results = [... test results ...];
  *   const saved = saveSchemaCompliantResults(results, {
  *     testType: 'performance',
- *     runName: 'multitier'
+ *     runName: 'multitier',
+ *     dockerConfig: {
+ *       profileName: 'balanced',
+ *       description: 'Production-realistic',
+ *       threads: 10,
+ *       n_batch: 1024,
+ *       n_parallel: 2
+ *     }
  *   });
  *   console.log(`Saved ${saved.validated} results`);
  */
@@ -79,7 +89,8 @@ export function saveSchemaCompliantResults(results, options = {}) {
     testType = 'custom',
     runName = 'test-run',
     timestamp = new Date().toISOString(),
-    validateSingle = true
+    validateSingle = true,
+    dockerConfig = null
   } = options;
 
   // Validate options
@@ -118,7 +129,7 @@ export function saveSchemaCompliantResults(results, options = {}) {
   const filename = `test-results-${runName}-${iso}.json`;
   const filePath = path.join(dirPath, filename);
 
-  // Prepare result wrapper with validation info
+  // Prepare result wrapper with validation info AND Docker configuration
   const resultWrapper = {
     metadata: {
       timestamp: timestamp,
@@ -126,7 +137,17 @@ export function saveSchemaCompliantResults(results, options = {}) {
       runName: runName,
       resultCount: resultsArray.length,
       validationPassed: validationResult ? validationResult.valid : 'not-validated',
-      savedAt: new Date().toISOString()
+      savedAt: new Date().toISOString(),
+      dockerConfig: dockerConfig ? {
+        profileName: dockerConfig.profileName,
+        description: dockerConfig.description,
+        purpose: dockerConfig.purpose,
+        threads: dockerConfig.threads,
+        n_batch: dockerConfig.n_batch,
+        n_parallel: dockerConfig.n_parallel,
+        memory_overhead_percent: dockerConfig.memory_overhead_percent,
+        concurrent_requests: dockerConfig.concurrent_requests
+      } : null
     },
     results: resultsArray
   };

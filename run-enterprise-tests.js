@@ -6,6 +6,7 @@
 import { EnterpriseTestRunner } from './enterprise/enterprise-test-runner.js';
 import { generateAllTests, getTestStats } from './enterprise/test-data-generator.js';
 import { saveReport, saveSchemaCompliantResults } from './utils/test-helpers.js';
+import { createConfigLoader } from './utils/config-loader.js';
 
 const USAGE = `
 Enterprise Compliance Test Suite
@@ -21,17 +22,22 @@ Commands:
   comprehensive      Run comprehensive test (all tests, all models)
   function-calling   Test function calling with Hermes model
   stats              Show test suite statistics
+  profiles           Show available Docker configuration profiles
 
 Options:
   --models           Comma-separated list of models
   --max-tests        Maximum number of tests to run
   --standard         Filter by standard (GDPR, ISO_27001, etc.)
   --persona          Filter by persona (NOVICE, PRACTITIONER, etc.)
+  --profile          Docker configuration profile (conservative, balanced, aggressive)
+                     Default: balanced
 
 Examples:
   node run-enterprise-tests.js pilot
   node run-enterprise-tests.js quick --models hermes-3-llama-8b,llama-4-scout-17b
   node run-enterprise-tests.js standard --standard GDPR --persona PRACTITIONER
+  node run-enterprise-tests.js pilot --profile aggressive
+  node run-enterprise-tests.js profiles
   node run-enterprise-tests.js function-calling
 `;
 
@@ -61,6 +67,10 @@ async function main() {
     switch (command) {
       case 'stats':
         showStats();
+        break;
+
+      case 'profiles':
+        showProfiles();
         break;
 
       case 'pilot':
@@ -100,9 +110,9 @@ function showStats() {
   console.log('='.repeat(70));
 
   const stats = getTestStats();
-  
+
   console.log('\nTotal Tests: ' + stats.total);
-  
+
   console.log('\nBy Standard:');
   Object.entries(stats.byStandard)
     .sort((a, b) => b[1] - a[1])
@@ -130,9 +140,39 @@ function showStats() {
   console.log('  mistral-small-24b, deepseek-r1-qwen-32b');
 }
 
+function showProfiles() {
+  const loader = createConfigLoader();
+  const profiles = loader.getAvailableProfiles();
+
+  console.log('\n' + '='.repeat(70));
+  console.log('DOCKER CONFIGURATION PROFILES');
+  console.log('='.repeat(70));
+  console.log('\nAvailable profiles for testing with different resource allocations:');
+  console.log('(System: 59GB RAM allocated for LLM testing)\n');
+
+  for (const profile of profiles) {
+    loader.printProfileSummary(profile);
+  }
+}
+
 async function runPilotTest(runner, options) {
   console.log('\n🚀 Running PILOT TEST (Quick validation)');
   console.log('   Tests: 20 | Models: 2 | Duration: ~5 minutes\n');
+
+  // Load Docker configuration profile
+  const configLoader = createConfigLoader();
+  const profileName = options.profile || 'balanced';
+  configLoader.setProfile(profileName);
+  const validation = configLoader.validateMemoryAllocation(profileName);
+
+  if (!validation.valid) {
+    console.error('❌ ' + validation.message);
+    process.exit(1);
+  }
+
+  console.log('📊 Using Docker profile: ' + profileName);
+  console.log('   ' + validation.message);
+  const configMetadata = configLoader.getConfigMetadata(profileName);
 
   const models = options.models ?
     options.models.split(',') :
@@ -143,12 +183,13 @@ async function runPilotTest(runner, options) {
 
   const results = await runner.runComparisonTest(models, testSubset);
 
-  // Save with schema validation
+  // Save with schema validation and Docker config
   try {
     const schemaResults = convertEnterpriseResultsToSchema(results, 'pilot');
     saveSchemaCompliantResults(schemaResults, {
       testType: 'compliance',
-      runName: 'enterprise-pilot'
+      runName: 'enterprise-pilot',
+      dockerConfig: configMetadata
     });
   } catch (error) {
     console.error('Failed to save schema-compliant results:', error.message);
@@ -163,6 +204,21 @@ async function runQuickTest(runner, options) {
   console.log('\n🚀 Running QUICK TEST');
   console.log('   Tests: 50 | Models: 3 | Duration: ~15 minutes\n');
 
+  // Load Docker configuration profile
+  const configLoader = createConfigLoader();
+  const profileName = options.profile || 'balanced';
+  configLoader.setProfile(profileName);
+  const validation = configLoader.validateMemoryAllocation(profileName);
+
+  if (!validation.valid) {
+    console.error('❌ ' + validation.message);
+    process.exit(1);
+  }
+
+  console.log('📊 Using Docker profile: ' + profileName);
+  console.log('   ' + validation.message);
+  const configMetadata = configLoader.getConfigMetadata(profileName);
+
   const models = options.models ?
     options.models.split(',') :
     ['llama-4-scout-17b', 'hermes-3-llama-8b', 'qwen2.5-32b'];
@@ -172,12 +228,13 @@ async function runQuickTest(runner, options) {
 
   const results = await runner.runComparisonTest(models, testSubset);
 
-  // Save with schema validation
+  // Save with schema validation and Docker config
   try {
     const schemaResults = convertEnterpriseResultsToSchema(results, 'quick');
     saveSchemaCompliantResults(schemaResults, {
       testType: 'compliance',
-      runName: 'enterprise-quick'
+      runName: 'enterprise-quick',
+      dockerConfig: configMetadata
     });
   } catch (error) {
     console.error('Failed to save schema-compliant results:', error.message);
@@ -190,6 +247,21 @@ async function runQuickTest(runner, options) {
 async function runStandardTest(runner, options) {
   console.log('\n🚀 Running STANDARD TEST');
   console.log('   Tests: 100 | Models: 5 | Duration: ~45 minutes\n');
+
+  // Load Docker configuration profile
+  const configLoader = createConfigLoader();
+  const profileName = options.profile || 'balanced';
+  configLoader.setProfile(profileName);
+  const validation = configLoader.validateMemoryAllocation(profileName);
+
+  if (!validation.valid) {
+    console.error('❌ ' + validation.message);
+    process.exit(1);
+  }
+
+  console.log('📊 Using Docker profile: ' + profileName);
+  console.log('   ' + validation.message);
+  const configMetadata = configLoader.getConfigMetadata(profileName);
 
   const models = options.models ?
     options.models.split(',') :
@@ -211,12 +283,13 @@ async function runStandardTest(runner, options) {
 
   const results = await runner.runComparisonTest(models, testSubset);
 
-  // Save with schema validation
+  // Save with schema validation and Docker config
   try {
     const schemaResults = convertEnterpriseResultsToSchema(results, 'standard');
     saveSchemaCompliantResults(schemaResults, {
       testType: 'compliance',
-      runName: 'enterprise-standard'
+      runName: 'enterprise-standard',
+      dockerConfig: configMetadata
     });
   } catch (error) {
     console.error('Failed to save schema-compliant results:', error.message);
@@ -231,6 +304,21 @@ async function runComprehensiveTest(runner, options) {
   console.log('   ⚠️  WARNING: This will take several hours!');
   console.log('   Tests: ALL | Models: ALL 10 | Duration: ~6-8 hours\n');
 
+  // Load Docker configuration profile
+  const configLoader = createConfigLoader();
+  const profileName = options.profile || 'balanced';
+  configLoader.setProfile(profileName);
+  const validation = configLoader.validateMemoryAllocation(profileName);
+
+  if (!validation.valid) {
+    console.error('❌ ' + validation.message);
+    process.exit(1);
+  }
+
+  console.log('📊 Using Docker profile: ' + profileName);
+  console.log('   ' + validation.message);
+  const configMetadata = configLoader.getConfigMetadata(profileName);
+
   const models = options.models ?
     options.models.split(',') :
     runner.managerClient.getAllModels();
@@ -241,12 +329,13 @@ async function runComprehensiveTest(runner, options) {
 
   const results = await runner.runComparisonTest(models, allTests);
 
-  // Save with schema validation
+  // Save with schema validation and Docker config
   try {
     const schemaResults = convertEnterpriseResultsToSchema(results, 'comprehensive');
     saveSchemaCompliantResults(schemaResults, {
       testType: 'compliance',
-      runName: 'enterprise-comprehensive'
+      runName: 'enterprise-comprehensive',
+      dockerConfig: configMetadata
     });
   } catch (error) {
     console.error('Failed to save schema-compliant results:', error.message);

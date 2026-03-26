@@ -1,0 +1,129 @@
+{
+  "system_limits": {
+    "total_ram_gb": 128,
+    "allocated_for_tests_gb": 59,
+    "reasoning": "OS, services, and system overhead consume remaining 69GB",
+    "constraint": "One model at a time with sequential isolation"
+  },
+
+  "profiles": {
+    "conservative": {
+      "description": "Minimal resource usage - single concurrent request, maximum stability",
+      "threads": 4,
+      "n_batch": 512,
+      "n_parallel": 1,
+      "memory_overhead_percent": 110,
+      "concurrent_requests": 1,
+      "purpose": "Baseline accuracy testing - no concurrency overhead"
+    },
+
+    "balanced": {
+      "description": "Production-realistic - moderate concurrency for load testing",
+      "threads": 10,
+      "n_batch": 1024,
+      "n_parallel": 2,
+      "memory_overhead_percent": 120,
+      "concurrent_requests": 2,
+      "purpose": "Real-world scenario - 2 concurrent requests"
+    },
+
+    "aggressive": {
+      "description": "High throughput stress test - maximum concurrency",
+      "threads": 10,
+      "n_batch": 2048,
+      "n_parallel": 4,
+      "memory_overhead_percent": 130,
+      "concurrent_requests": 4,
+      "purpose": "Stress testing - 4 concurrent requests simultaneously"
+    }
+  },
+
+  "memory_allocations": {
+    "phi3": {
+      "model_size_b": "3.8B",
+      "base_gb": 5.5,
+      "conservative": 6.0,
+      "balanced": 6.6,
+      "aggressive": 7.2
+    },
+    "mistral7b": {
+      "model_size_b": "7B",
+      "base_gb": 7.5,
+      "conservative": 8.3,
+      "balanced": 9.0,
+      "aggressive": 9.8
+    },
+    "hermes3": {
+      "model_size_b": "8B",
+      "base_gb": 8.5,
+      "conservative": 9.4,
+      "balanced": 10.2,
+      "aggressive": 11.0
+    },
+    "llama3.1-8b": {
+      "model_size_b": "8B",
+      "base_gb": 8.5,
+      "conservative": 9.4,
+      "balanced": 10.2,
+      "aggressive": 11.0
+    },
+    "qwen-coder-7b": {
+      "model_size_b": "7B",
+      "base_gb": 7.0,
+      "conservative": 7.7,
+      "balanced": 8.4,
+      "aggressive": 9.1
+    },
+    "smollm3": {
+      "model_size_b": "1B",
+      "base_gb": 2.5,
+      "conservative": 2.8,
+      "balanced": 3.0,
+      "aggressive": 3.3
+    },
+    "llama4-scout-17b": {
+      "model_size_b": "17B",
+      "base_gb": 18.0,
+      "conservative": 19.8,
+      "balanced": 21.6,
+      "aggressive": 23.4
+    },
+    "qwen2.5-32b": {
+      "model_size_b": "32B",
+      "base_gb": 32.0,
+      "conservative": 35.2,
+      "balanced": 38.4,
+      "aggressive": 41.6
+    },
+    "deepseek-r1-qwen-32b": {
+      "model_size_b": "32B",
+      "base_gb": 32.0,
+      "conservative": 35.2,
+      "balanced": 38.4,
+      "aggressive": 41.6
+    },
+    "mistral-small-24b": {
+      "model_size_b": "24B",
+      "base_gb": 24.0,
+      "conservative": 26.4,
+      "balanced": 28.8,
+      "aggressive": 31.2
+    }
+  },
+
+  "validation": {
+    "system_capacity": {
+      "available_gb": 59,
+      "largest_model_base_gb": 32,
+      "largest_model_conservative_gb": 35.2,
+      "largest_model_balanced_gb": 38.4,
+      "largest_model_aggressive_gb": 41.6,
+      "status": "✅ All profiles fit within 59GB limit (even for 32B models)"
+    },
+    "safety_margin": {
+      "conservative": "59 - 35.2 = 23.8GB buffer",
+      "balanced": "59 - 38.4 = 20.6GB buffer",
+      "aggressive": "59 - 41.6 = 17.4GB buffer"
+    }
+  }
+}
