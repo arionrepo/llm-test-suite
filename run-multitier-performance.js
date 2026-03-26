@@ -3,7 +3,7 @@ import { AI_BACKEND_MULTI_TIER_TESTS } from './enterprise/arioncomply-workflows/
 import { saveSchemaCompliantResults } from './utils/test-helpers.js';
 
 const topModels = ['smollm3', 'phi3', 'mistral', 'llama-3.1-8b', 'hermes-3-llama-8b'];
-const multiTierTests = Object.values(AI_BACKEND_MULTI_TIER_TESTS).slice(0, 10);
+const multiTierTests = Object.values(AI_BACKEND_MULTI_TIER_TESTS); // All 50 prompts
 
 const prompts = multiTierTests.map(t => ({
   id: t.id,
@@ -17,8 +17,8 @@ const runner = new ResilientPerformanceTestRunner();
 
 console.log('Running Multi-Tier Performance Test');
 console.log('Models:', topModels.join(', '));
-console.log('Prompts: 10 multi-tier (2000+ tokens each)');
-console.log('Total executions:', 10 * 5, '= 50\n');
+console.log(`Prompts: ${multiTierTests.length} multi-tier (2000+ tokens each)`);
+console.log(`Total executions: ${multiTierTests.length} × 5 = ${multiTierTests.length * 5}\n`);
 
 const results = await runner.runPerformanceTests(prompts, 6);
 
@@ -34,7 +34,7 @@ const enrichedResults = results.map(result => ({
 try {
   const saveResult = await saveSchemaCompliantResults(enrichedResults, {
     testType: 'performance',
-    runName: 'multitier-run-6',
+    runName: `multitier-comprehensive-${multiTierTests.length}prompts`,
     validateSingle: true
   });
 
