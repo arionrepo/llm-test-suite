@@ -10,6 +10,11 @@ import fs from 'fs';
 
 async function runAllPerformanceTests() {
   const runner = new ResilientPerformanceTestRunner();
+
+  // MANDATORY: Initialize logger before any test execution
+  const logFile = runner.initializeLogger('performance-all-runs');
+  console.log(`\n📝 Logging to: ${logFile}\n`);
+
   const allResults = [];
 
   console.log('='.repeat(80));

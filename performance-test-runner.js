@@ -343,7 +343,7 @@ class ResilientPerformanceTestRunner {
       });
 
       const result = await client.chatCompletion([
-        { role: 'user', content: prompt.input }
+        { role: 'user', content: prompt.question || prompt.input } // Support both new (question) and legacy (input) fields
       ], { max_tokens: 500, temperature: 0.3 });
 
       if (!result.success) {

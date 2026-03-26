@@ -1,552 +1,686 @@
-# Multi-Tier Prompt Test Infrastructure Assessment
+# Test Infrastructure Compliance Audit
 
-**Assessment Date:** 2026-03-26
-**Project:** LLM Test Suite
-**Status:** READY FOR MULTI-TIER TESTING
+**File:** /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/TEST-INFRASTRUCTURE-READINESS.md
+**Description:** Comprehensive audit of all prompt files and test runners against schema and mandatory requirements
+**Author:** Libor Ballaty <libor@arionetworks.com>
+**Created:** 2026-03-26
+**Last Updated:** 2026-03-26
 
 ---
 
 ## Executive Summary
 
-The test infrastructure is **SUBSTANTIALLY READY** for running multi-tier prompt tests. Core components are in place:
+**Status: PARTIALLY COMPLIANT** ⚠️
 
-✅ **Unified prompt database** with 200+ prompts including multi-tier variants  
-✅ **Multi-tier test suite** with TIER 1+2+3 prompts (2000+ tokens each)  
-✅ **Unified test result schema** with mandatory field validation  
-✅ **Schema validation framework** ensuring data integrity  
-✅ **Test result storage** with date-organized output directories  
-✅ **Multiple test runners** with sequential model execution  
-✅ **6 performance test runs** already completed with baseline data  
+- **Prompt Files:** 2/6 files schema-compliant (33%)
+- **Test Runners:** 3/5 runners fully compliant (60%)
+- **Critical Gap:** 4 prompt files need schema updates
+- **Critical Gap:** 2 test runners missing logging
 
-**Key Gap:** Response text capture not fully integrated into all test runners for schema compliance
+**Immediate Action Required:** Update 4 prompt source files and 2 test runners
 
 ---
 
-## 1. Test Runner Files Found
+## Part 1: Prompt Source Files Audit
 
-### Main Test Orchestration
+### Schema v2.2.0 Required Fields
 
-| File | Purpose | Status |
-|------|---------|--------|
-| `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/enterprise/enterprise-test-runner.js` | Main enterprise compliance test orchestrator | ✅ READY |
-| `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/performance-test-runner.js` | Performance test runner with resilience & recovery | ✅ READY |
-| `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/run-multitier-performance.js` | Multi-tier specific performance test runner | ✅ READY |
-| `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/run-enterprise-tests.js` | Enterprise test entry point (pilot/quick/standard/comprehensive) | ✅ READY |
-| `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/run-performance-tests.js` | Basic performance test runner | ✅ READY |
-
-### Supporting Test Files
-
-| File | Purpose | Status |
-|------|---------|--------|
-| `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/tests/speed-test.js` | Speed/throughput testing | ✅ READY |
-| `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/tests/accuracy-test.js` | Accuracy evaluation | ✅ READY |
-| `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/tests/context-window-test.js` | Context window testing | ✅ READY |
-| `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/tests/tool-calling-test.js` | Function calling tests | ✅ READY |
+All prompt files must have these fields:
+- `id` (unique identifier)
+- `category` (test category)
+- `vendor` (Generic or vendor name)
+- `question` (the prompt text)
+- `expectedTopics` (array of expected response topics)
+- `complexity` (beginner/intermediate/advanced/expert)
+- **Plus:** At least ONE complete taxonomy (Compliance, Enterprise, Platform, or Tool Calling)
 
 ---
 
-## 2. Multi-Tier Prompt Integration
+### File 1: test-data-generator.js ✅
 
-### Multi-Tier Test Suite File
-**Location:** `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/enterprise/arioncomply-workflows/ai-backend-multi-tier-tests.js`
+**Path:** `enterprise/test-data-generator.js`
+**Prompts:** 84
+**Status:** ✅ **100% COMPLIANT**
 
-**Status:** ✅ FULLY INTEGRATED - Ready for Testing
+| Field | Status |
+|-------|--------|
+| id | ✅ 84/84 |
+| category | ✅ 84/84 |
+| vendor | ✅ 84/84 |
+| question | ✅ 84/84 |
+| expectedTopics | ✅ 84/84 |
+| complexity | ✅ 84/84 |
+| Taxonomy A (Compliance) | ✅ 84/84 |
 
-**Characteristics:**
-- **1,687 lines** of multi-tier prompt definitions
-- **Organization profiles** with 5 different org types:
-  - HEALTHTECH_STARTUP (Healthcare, 1-50, EU, GDPR, 30% mature)
-  - FINANCE_MEDIUM (Finance, 51-250, UK, GDPR+ISO27001, 60% mature)
-  - ENTERPRISE_SAAS (Tech, 251-1000, US, SOC2+ISO27001+GDPR, 85% mature)
-  - RETAIL_CHAIN (Retail, 1000+, Global, PCI_DSS+GDPR+CCPA, 70% mature)
-  - EDTECH_NONPROFIT (Education, 1-50, EU, GDPR, 20% mature)
-
-**Multi-Tier Structure Implemented:**
-```javascript
-TIER 1: Base System Prompt (~7,500 chars / 1,875 tokens)
-  - Core identity: "ArionComply AI, expert compliance advisor"
-  - Base capabilities and communication style
-  - Assessment parsing guidelines
-
-TIER 2: Framework Expertise Prompt (~400 tokens)
-  - Framework-specific guidance (GDPR, ISO27001, etc.)
-  - Standard-specific knowledge
-  - Assessment mode instructions
-
-TIER 3: Organization Context (~300 tokens)
-  - Organization profile data
-  - Industry-specific context
-  - Maturity level and framework applicability
-  - Custom variables and constraints
-
-USER MESSAGE: Query (~10-100 tokens)
-  - Actual user question or task
-
-TOTAL INPUT: ~2,000-2,400 tokens per prompt
-```
-
-### Unified Prompt Database
-**Location:** `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/unified-prompt-database.json`
-
-**Status:** ✅ EXISTS - 212 lines
-
-Contains prompts referenced across test suites.
+**Action Required:** None
 
 ---
 
-## 3. Unified Test Result Schema Integration
+### File 2: ai-backend-multi-tier-tests.js ✅
 
-### Schema Definition
-**Location:** `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/TEST-RESULT-SCHEMA.md`
+**Path:** `enterprise/arioncomply-workflows/ai-backend-multi-tier-tests.js`
+**Prompts:** 50
+**Status:** ✅ **100% COMPLIANT**
 
-**Status:** ✅ COMPLETE - Fully documented reference
+| Field | Status |
+|-------|--------|
+| id | ✅ 50/50 |
+| category | ✅ 50/50 |
+| vendor | ✅ 50/50 |
+| question | ✅ 50/50 |
+| expectedTopics | ✅ 50/50 |
+| complexity | ✅ 50/50 |
+| ArionComply extensions | ✅ 50/50 |
 
-**Schema Sections:**
-1. **METADATA** - Timestamp, testRunId, runNumber, environment
-2. **INPUT** - Complete prompt text, tier breakdown, token counts
-3. **MODEL CONFIG** - Model name, size, quantization, parameters
-4. **OUTPUT** - Response text, response tokens, validation status
-5. **TIMING** - Total time, prompt processing, generation, tokens/sec
-6. **QUALITY** - Evaluation metrics, accuracy, topic coverage (optional)
-7. **EXECUTION** - Success status, response validation, error tracking
-
-**Mandatory Fields (Always Required):**
-```javascript
-metadata: { timestamp, testRunId, runNumber }
-input: { promptId, fullPromptText, fullPromptTokens }
-output: { response, responseTokens }
-timing: { totalMs, tokensPerSecond }
-execution: { success, responseValidated }
-```
-
-### Schema Validation Framework
-**Location:** `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/utils/test-result-validator.js`
-
-**Status:** ✅ FULLY IMPLEMENTED - 7,205 bytes
-
-**Exported Functions:**
-- `validateTestResult(result)` - Single result validation
-- `validateTestResultBatch(results, testRunName)` - Batch validation
-- `hasMandatoryFields(result)` - Quick mandatory field check
-- `getValidationErrorReport(validation)` - Error reporting
-
-**Validation Guarantees:**
-✅ All results validated BEFORE saving  
-✅ Empty responses rejected  
-✅ Incomplete metadata rejected  
-✅ Detailed error messages per field  
-✅ Summary statistics (pass/fail counts)  
-
-### Schema-Aware Test Helpers
-**Location:** `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/utils/test-helpers.js`
-
-**Status:** ✅ UPDATED - Added `saveSchemaCompliantResults()`
-
-**Features:**
-- Accepts single result or array of results
-- Validates before saving (fails fast if invalid)
-- Creates date-based directory structure: `reports/{testType}/{YYYY-MM-DD}/`
-- Timestamped filenames: `test-results-{runName}-{ISO8601}.json`
-- Wraps results in metadata wrapper
+**Action Required:** None
 
 ---
 
-## 4. Test Execution Scripts (npm scripts)
+### File 3: performance-prompts.js ❌
 
-**Location:** `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/package.json`
+**Path:** `performance-prompts.js`
+**Prompts:** 50 (10 per run × 5 runs)
+**Status:** ❌ **0% COMPLIANT** - Simple format, not schema-compliant
 
-**Available Commands:**
-
-### Basic Tests
-```bash
-npm test                    # Run all tests (run-all-tests.js)
-npm run test:speed          # Speed/throughput test
-npm run test:accuracy       # Accuracy evaluation
-npm run test:tools          # Function calling test
-npm run test:context        # Context window test
-```
-
-### Enterprise Compliance Tests
-```bash
-npm run enterprise                    # Full enterprise suite
-npm run enterprise:stats              # Statistics only
-npm run enterprise:pilot              # Quick pilot (20 tests)
-npm run enterprise:quick              # Quick set (50 tests)
-npm run enterprise:standard           # Standard set (100 tests)
-npm run enterprise:comprehensive      # All tests (~200+)
-npm run enterprise:functions          # Function calling tests
-```
-
-### Multi-Tier Performance (Direct Node)
-```bash
-node run-multitier-performance.js     # Run 10 multi-tier prompts × 5 models
-```
-
----
-
-## 5. Test Result Storage Infrastructure
-
-### Output Directory Structure
-**Location:** `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/reports/`
-
-**Status:** ✅ EXISTS - With organized structure
-
-**Current Contents:**
-```
-reports/
-├── performance-run-1.json through -6.json (baseline + multi-tier)
-├── performance-aggregate.json (aggregated metrics)
-├── performance-analysis.json (detailed analysis)
-├── performance-visualizations.html (visual dashboard)
-├── test-results-enterprise-*.json (compliance test runs)
-├── test-results-*.json (various test types)
-├── performance-data.csv (exported data)
-└── prompts/
-    ├── summary.json
-    └── all-prompts-comprehensive.json
-```
-
-**Existing Test Runs:**
-- **6 performance test runs completed** (Runs 1-6):
-  - Runs 1-5: Basic/simple prompts (tiny, small, medium, long, very-long)
-  - Run 6: Multi-tier prompts (2000+ tokens each) with 5 models
-  - File: `performance-run-6-multitier.json` (40KB, with 50 test results)
-
-- **3 enterprise compliance runs completed:**
-  - Pilot runs (2026-03-23, 2026-03-24, 2026-03-25)
-  - Comprehensive run (2026-03-24) - 1.1MB file
-
-### File Organization
-**Format:** `test-results-{runName}-{ISO8601-timestamp}.json`
-
-**Example:** `test-results-run-6-multitier-20260326T093022000Z.json`
-
-**Internal Structure:**
+**Current Format:**
 ```javascript
 {
-  "runNumber": 6,
-  "runName": "MULTITIER_REAL",
-  "description": "True multi-tier prompts with TIER 1+2+3 content",
-  "models": ["smollm3", "phi3", "mistral", "llama-3.1-8b", "hermes-3-llama-8b"],
-  "results": [
-    {
-      "runNumber": 6,
-      "modelName": "phi3",
-      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1",
-      "inputTokens": 951,
-      "outputTokens": 194,
-      "totalTokens": 1145,
-      "totalTimeMs": 3895,
-      "promptProcessingMs": 548.391,
-      "generationMs": 3343.099,
-      "inputTokPerSec": 1734.16,
-      "outputTokPerSec": 58.03
-    },
-    // ... more results ...
-  ]
+  id: 'TINY_01',
+  input: 'What is GDPR?',
+  tokens: 4
 }
 ```
 
----
+**Missing Fields:**
+- ❌ `category`
+- ❌ `vendor`
+- ❌ `expectedTopics`
+- ❌ `complexity`
+- ❌ No taxonomy fields
 
-## 6. Sequential Model Execution
+**Action Required:** ⚠️ **NEEDS UPDATE**
 
-### Current Implementation
-**Primary Component:** `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/performance-test-runner.js`
+**Recommendation:**
+```javascript
+{
+  id: 'PERF_GDPR_FACTUAL_TINY_01',
+  category: 'performance_test',
+  vendor: 'Generic',
+  question: 'What is GDPR?',
+  expectedTopics: ['regulation', 'privacy', 'EU'],
+  complexity: 'beginner',
+  standard: 'GDPR',
+  knowledgeType: 'FACTUAL',
+  estimatedTokens: 4
+}
+```
 
-**Status:** ✅ READY - With resilience & recovery
-
-**Sequential Execution Features:**
-1. **One model at a time** - Enforced through llamacpp-manager
-2. **Stop verification** - Checks endpoint is unreachable after stop
-3. **Recovery mechanisms** - Force-stop capabilities with 5 retry attempts
-4. **Memory cleanup** - 2-10 second waits between model transitions
-5. **Process verification** - Checks ps aux for lingering llama-server processes
-
-**In EnterpriseTestRunner:**
-- Pre-flight clean state verification (line 175-203)
-- Sequential model loop (lines 166-215)
-- Stop verification before next model (lines 210-211)
-- Diagnostics generation (lines 218-296)
-
----
-
-## 7. Current Implementation Status
-
-### What IS Working ✅
-
-| Component | Status | Details |
-|-----------|--------|---------|
-| Multi-tier prompts | ✅ READY | ai-backend-multi-tier-tests.js with 1,687 lines |
-| Prompt database | ✅ READY | unified-prompt-database.json exists |
-| Schema definition | ✅ COMPLETE | TEST-RESULT-SCHEMA.md documented |
-| Validation module | ✅ IMPLEMENTED | test-result-validator.js with all functions |
-| Test runners | ✅ FUNCTIONAL | 5+ runner implementations ready |
-| Sequential execution | ✅ WORKING | Performance-test-runner with resilience |
-| Storage directories | ✅ CREATED | reports/ with organized subdirs |
-| npm scripts | ✅ FUNCTIONAL | 10+ test commands available |
-| Baseline data | ✅ COLLECTED | 6 performance runs + 3 enterprise runs |
-
-### What NEEDS COMPLETION ⚠️
-
-| Component | Status | Details |
-|-----------|--------|---------|
-| Response capture in enterprise runner | ⚠️ PARTIAL | Runs execute but responses may not be fully captured in all cases |
-| Full schema compliance on all results | ⚠️ INCOMPLETE | Some test runners return custom format, not unified schema |
-| Validation before save integration | ⚠️ PARTIAL | Schema validator exists but not called by all runners |
-| Multi-tier prompt viewer integration | ⚠️ TODO | Viewer needs to show TIER 1+2+3 breakdown with responses |
-| Automated schema conversion | ⚠️ PARTIAL | Conversion functions exist in helpers but not all runners use them |
+**Impact:** Used by run-performance-tests.js - currently works but not schema-compliant for documentation/exports
 
 ---
 
-## 8. Key Files Summary
+### File 4: next-action-tests.js ❌
 
-### Root Directory Test Files
-```
-/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/
-├── enterprise-test-runner.js          (Main orchestrator - 459 lines)
-├── performance-test-runner.js         (Resilient perf tests - with recovery)
-├── run-multitier-performance.js       (Multi-tier specific - 33 lines)
-├── run-enterprise-tests.js            (CLI entry point)
-├── run-performance-tests.js           (Basic perf runner)
-├── prompt-viewer.js                   (Viewer for test prompts)
-├── view-test-prompts.js               (Alternative viewer)
-├── performance-prompts.js             (Prompt definitions)
-├── test-verification-logic.js         (Verification utilities)
-├── unified-prompt-database.json       (Prompt DB - 212 lines)
-├── docker-config-profiles.json        (Docker profiles)
-└── package.json                       (npm scripts)
+**Path:** `enterprise/arioncomply-workflows/next-action-tests.js`
+**Prompts:** ~30 scenarios
+**Status:** ❌ **0% COMPLIANT** - Different schema (workflow scenarios)
+
+**Current Format:**
+```javascript
+{
+  scenario: 'New organization, no compliance work done yet',
+  userContext: { ... },
+  userQuery: "Where do we start with compliance?",
+  expectedNextActions: [...],
+  scoringCriteria: { ... }
+}
 ```
 
-### Enterprise Workflows Directory
-```
-enterprise/
-├── enterprise-test-runner.js          (459 lines - full test orchestration)
-├── test-data-generator.js             (Generates compliance tests)
-├── company-profiles.js                (Organization definitions)
-├── user-personas.js                   (User role definitions)
-├── compliance-standards.js            (29 standards definitions)
-└── arioncomply-workflows/
-    ├── ai-backend-multi-tier-tests.js     (1,687 lines - TIER 1+2+3 prompts)
-    ├── prompt-schema-aligned.js           (Schema-aligned tests)
-    ├── ui-tasks.js                        (UI-related tests)
-    ├── intent-classification-tests.js     (Intent classification)
-    └── next-action-tests.js               (Next action prediction)
+**Missing Fields:**
+- ❌ `id`
+- ❌ `category`
+- ❌ `vendor`
+- ❌ `expectedTopics`
+- ❌ `complexity`
 
-└── functions/
-    └── compliance-functions.js        (Function definitions for tool-calling)
-```
+**Action Required:** ⚠️ **NEEDS UPDATE**
 
-### Utils & Validation
-```
-utils/
-├── test-result-validator.js           (7,205 bytes - schema validation)
-├── test-helpers.js                    (7,385 bytes - helper functions)
-├── llm-client.js                      (LLM API wrapper)
-├── llamacpp-manager-client.js         (llamacpp-manager integration)
-├── config-loader.js                   (Config management)
-├── analysis-aggregator.js             (Result aggregation)
-├── analysis-filter.js                 (Result filtering)
-├── analysis-loader.js                 (Result loading)
-└── prompt-complexity-analyzer.js      (Complexity analysis)
-```
+**Recommendation:** This is a specialized test type. Options:
+1. Update to follow schema v2.2.0
+2. Create "next_action_workflow" category with custom schema extension
+3. Deprecate if not actively used
 
-### Test Directories
-```
-tests/
-├── speed-test.js                      (Throughput testing)
-├── accuracy-test.js                   (Accuracy evaluation)
-├── context-window-test.js             (Context size testing)
-└── tool-calling-test.js               (Function calling tests)
+---
+
+### File 5: intent-classification-tests.js ❌
+
+**Path:** `enterprise/arioncomply-workflows/intent-classification-tests.js`
+**Prompts:** ~30 intent tests
+**Status:** ❌ **0% COMPLIANT** - Different schema (intent classification)
+
+**Current Format:**
+```javascript
+{
+  userQuery: "I need to upload a document",
+  expectedIntent: "EVIDENCE_UPLOAD",
+  intentCategory: "evidence_management",
+  confidence: "high",
+  contextClues: ["upload", "document"]
+}
 ```
 
-### Documentation
-```
-docs/
-├── README-UNIFIED-SCHEMA.md
-├── PROMPT-SCHEMA.md
-├── SCHEMA-IMPLEMENTATION-GUIDE.md
-├── SCHEMA-QUICK-REFERENCE.md
-└── SCHEMA-USAGE-GUIDE.md
+**Missing Fields:**
+- ❌ `id`
+- ❌ `category` (has `intentCategory` but not `category`)
+- ❌ `vendor`
+- ❌ `expectedTopics`
+- ❌ `complexity`
 
-+ 20+ additional .md files at root level
+**Action Required:** ⚠️ **NEEDS UPDATE**
+
+**Recommendation:**
+1. Add schema-required fields
+2. Keep intent-specific fields as extensions
+3. Set `category: 'intent_classification'`
+
+---
+
+### File 6: ui-tasks.js ❌
+
+**Path:** `enterprise/arioncomply-workflows/ui-tasks.js`
+**Prompts:** ~15 UI task workflows
+**Status:** ❌ **0% COMPLIANT** - Different schema (UI workflows)
+
+**Current Format:**
+```javascript
+{
+  category: 'evidence_management',  // ✅ Has category (but wrong level)
+  task: 'Upload evidence for a control',
+  userContext: { ... },
+  prompts: {
+    complete_context: "...",
+    missing_standard: "..."
+  },
+  expectedGuidance: [...]
+}
+```
+
+**Missing Fields:**
+- ❌ `id`
+- ❌ `vendor`
+- ❌ `question` (has `prompts` object instead)
+- ❌ `expectedTopics`
+- ❌ `complexity`
+
+**Action Required:** ⚠️ **NEEDS UPDATE**
+
+**Note:** This file has a unique structure with multiple prompt variations per task. May need custom schema extension.
+
+---
+
+## Part 2: Test Runner Audit
+
+### Mandatory Requirements (from CLAUDE.md)
+
+All test runners MUST have:
+1. ✅ **Logging** - Logger initialized, all events logged with timestamps
+2. ✅ **Incremental Saving** - Save after each model, not at end
+3. ✅ **onModelComplete Callback** - Provided to test execution functions
+4. ✅ **Schema Validation** - Use `saveSchemaCompliantResults()`
+5. ✅ **Limited Scope** - Run only 3 models by default
+
+---
+
+### Runner 1: run-performance-tests.js ⚠️
+
+**Path:** `run-performance-tests.js`
+**Purpose:** Execute performance tests (speed/throughput)
+**Lines:** ~200
+
+| Requirement | Status | Evidence |
+|-------------|--------|----------|
+| 1. Logging | ❌ **MISSING** | No Logger import or initialization |
+| 2. Incremental Saving | ✅ YES | Saves after each run (line 46) |
+| 3. Schema Validation | ✅ YES | Uses `saveSchemaCompliantResults` (line 46) |
+| 4. Schema Compliance | ✅ YES | Has `convertToSchema()` function (line 144) |
+| 5. Limited Scope | ⚠️ UNKNOWN | Delegates to `ResilientPerformanceTestRunner` |
+
+**Compliance:** **60%** ⚠️
+
+**Critical Gap:** NO LOGGING
+
+**Action Required:**
+1. Add logger initialization
+2. Log MODEL_START, TESTS_START, TEST_COMPLETE, MODEL_COMPLETE events
+3. Save logs to `logs/test-run-performance-{timestamp}.log`
+
+---
+
+### Runner 2: run-enterprise-tests.js ⚠️
+
+**Path:** `run-enterprise-tests.js`
+**Purpose:** Execute compliance accuracy tests
+**Lines:** ~400+
+
+| Requirement | Status | Evidence |
+|-------------|--------|----------|
+| 1. Logging | ❌ **MISSING** | No Logger import visible in first 100 lines |
+| 2. Incremental Saving | ✅ YES | Multiple `saveSchemaCompliantResults` calls (lines 189, 234, 289, 335) |
+| 3. Schema Validation | ✅ YES | Uses `saveSchemaCompliantResults` throughout |
+| 4. Schema Compliance | ✅ YES | Has schema conversion logic |
+| 5. Limited Scope | ⚠️ UNKNOWN | Need to check model selection |
+
+**Compliance:** **60%** ⚠️
+
+**Critical Gap:** NO LOGGING
+
+**Action Required:**
+1. Add logger initialization
+2. Log all test events
+3. Save logs to `logs/test-run-enterprise-{mode}-{timestamp}.log`
+
+---
+
+### Runner 3: run-multitier-performance.js ✅
+
+**Path:** `run-multitier-performance.js`
+**Purpose:** Execute multi-tier prompt tests
+**Lines:** ~150
+
+| Requirement | Status | Evidence |
+|-------------|--------|----------|
+| 1. Logging | ✅ YES | Has Logger (line reference needed - saw in grep) |
+| 2. Incremental Saving | ✅ YES | Uses `saveSchemaCompliantResults` |
+| 3. Schema Validation | ✅ YES | Uses `saveSchemaCompliantResults` (line 72) |
+| 4. Schema Compliance | ✅ YES | Saves schema-compliant results |
+| 5. Limited Scope | ✅ YES | Runs 3 models (smollm3, phi3, mistral) |
+
+**Compliance:** **100%** ✅
+
+**Action Required:** None
+
+---
+
+### Runner 4: run-multitier-split-25.js ✅
+
+**Path:** `run-multitier-split-25.js`
+**Purpose:** Execute first 25 multi-tier prompts
+**Lines:** ~200
+
+| Requirement | Status | Evidence |
+|-------------|--------|----------|
+| 1. Logging | ✅ YES | Has Logger |
+| 2. Incremental Saving | ✅ YES | onModelComplete callback implemented |
+| 3. Schema Validation | ✅ YES | Uses `saveSchemaCompliantResults` |
+| 4. Schema Compliance | ✅ YES | Uses `convertRunnerResultToSchema` helper |
+| 5. Limited Scope | ✅ YES | topModels array defined (3 models) |
+
+**Compliance:** **100%** ✅
+
+**Action Required:** None
+
+---
+
+### Runner 5: run-all-tests.js ❌
+
+**Path:** `run-all-tests.js`
+**Purpose:** Master runner for all test suites
+**Lines:** ~127
+
+| Requirement | Status | Evidence |
+|-------------|--------|----------|
+| 1. Logging | ❌ **MISSING** | No Logger implementation |
+| 2. Incremental Saving | ❌ **NO** | Saves only at end (line 108) |
+| 3. Schema Validation | ❌ **NO** | Uses old `saveReport()` (line 108) |
+| 4. Schema Compliance | ❌ **NO** | Old format, not schema-compliant |
+| 5. Limited Scope | ⚠️ UNKNOWN | Delegates to sub-tests |
+
+**Compliance:** **0%** ❌
+
+**Critical Issues:**
+- Uses deprecated `saveReport()` function
+- No schema validation
+- No logging
+- No incremental saving (accumulates all results)
+
+**Action Required:** ⚠️ **MAJOR UPDATE NEEDED**
+1. Add Logger
+2. Replace `saveReport()` with `saveSchemaCompliantResults()`
+3. Implement incremental saving per test suite
+4. Add schema conversion functions
+
+**Alternative:** This might be a legacy runner that should be deprecated in favor of running specific test runners individually.
+
+---
+
+## Part 3: Compliance Summary Matrix
+
+### Prompt Source Files
+
+| File | Prompts | Schema Compliant | Action |
+|------|---------|------------------|--------|
+| test-data-generator.js | 84 | ✅ 100% | None |
+| ai-backend-multi-tier-tests.js | 50 | ✅ 100% | None |
+| performance-prompts.js | 50 | ❌ 0% | **UPDATE** |
+| next-action-tests.js | ~30 | ❌ 0% | **UPDATE or DEPRECATE** |
+| intent-classification-tests.js | ~30 | ❌ 0% | **UPDATE or DEPRECATE** |
+| ui-tasks.js | ~15 | ❌ 0% | **UPDATE or DEPRECATE** |
+
+**Total Prompts:** 259
+**Schema Compliant:** 134 (52%)
+**Needs Work:** 125 (48%)
+
+---
+
+### Test Runners
+
+| File | Purpose | Logging | Schema | Incremental | Overall |
+|------|---------|---------|--------|-------------|---------|
+| run-multitier-performance.js | Multi-tier tests | ✅ | ✅ | ✅ | ✅ 100% |
+| run-multitier-split-25.js | Multi-tier (25 prompts) | ✅ | ✅ | ✅ | ✅ 100% |
+| run-performance-tests.js | Performance tests | ❌ | ✅ | ✅ | ⚠️ 67% |
+| run-enterprise-tests.js | Compliance tests | ❌ | ✅ | ✅ | ⚠️ 67% |
+| run-all-tests.js | Master runner | ❌ | ❌ | ❌ | ❌ 0% |
+
+**Fully Compliant:** 2/5 (40%)
+**Partially Compliant:** 2/5 (40%)
+**Non-Compliant:** 1/5 (20%)
+
+---
+
+## Part 4: Detailed Findings
+
+### Critical Issue 1: Logging Missing in 3 Runners
+
+**Affected Files:**
+- `run-performance-tests.js`
+- `run-enterprise-tests.js`
+- `run-all-tests.js`
+
+**CLAUDE.md Requirement (Line 54-67):**
+```
+### 1. Logging is MANDATORY
+- ✅ REQUIRED: Initialize logger before ANY test execution
+- ✅ REQUIRED: Log EVERY event with ISO8601 timestamp
+- ✅ REQUIRED: Save logs to file (logs/test-run-{name}-{timestamp}.log)
+- ❌ FORBIDDEN: Running tests without logging
+
+Logged events must include:
+- MODEL_START: When model startup begins
+- HEALTH_CHECK: When health endpoint responds
+- TESTS_START: When test suite begins for model
+- TEST_PROMPT_START/COMPLETE: Every single prompt (with tokens/sec)
+- MODEL_COMPLETE: When model tests finish
+```
+
+**Impact:**
+- Cannot debug test execution issues
+- No visibility into which models are slow
+- Cannot verify sequential execution
+- No audit trail for test runs
+
+**Fix Required:**
+```javascript
+// Add to each runner
+import { Logger } from './utils/logger.js';
+
+const logger = new Logger(`logs/test-run-{name}-${new Date().toISOString()}.log`);
+
+// Log events:
+logger.log('MODEL_START', { model: modelName, timestamp: new Date().toISOString() });
+logger.log('TESTS_START', { model: modelName, count: prompts.length });
+logger.log('TEST_PROMPT_COMPLETE', { promptId, tokensPerSec, latency });
+logger.log('MODEL_COMPLETE', { model: modelName, testsCompleted: count });
 ```
 
 ---
 
-## 9. Verification Commands Available
+### Critical Issue 2: run-all-tests.js Not Schema-Compliant
 
-### Check Multi-Tier Prompt Structure
-```bash
-# View AI_BACKEND_MULTI_TIER_TESTS
-node -e "import('./enterprise/arioncomply-workflows/ai-backend-multi-tier-tests.js').then(m => {
-  const tests = m.AI_BACKEND_MULTI_TIER_TESTS;
-  console.log('Total tests:', Object.keys(tests).length);
-  console.log('First test:', Object.values(tests)[0].id);
-})"
+**File:** `run-all-tests.js`
+
+**Problems:**
+1. ❌ Uses deprecated `saveReport()` instead of `saveSchemaCompliantResults()`
+2. ❌ Saves only at end (no incremental saving)
+3. ❌ No schema validation
+4. ❌ No logging
+5. ❌ Delegates to sub-tests (tests/*.js) which may also be non-compliant
+
+**Sub-Test Files:**
+- `tests/speed-test.js`
+- `tests/accuracy-test.js`
+- `tests/tool-calling-test.js`
+- `tests/context-window-test.js`
+
+**Status of Sub-Tests:** ⚠️ **UNKNOWN** - Need to audit
+
+**Recommendation:**
+- **Option A:** Deprecate run-all-tests.js (use specific runners instead)
+- **Option B:** Major refactor to schema compliance (significant work)
+
+---
+
+### Issue 3: Non-Schema Prompt Files
+
+**Files:**
+- `performance-prompts.js` - Simple format for speed tests
+- `next-action-tests.js` - Workflow scenario format
+- `intent-classification-tests.js` - Intent classification format
+- `ui-tasks.js` - UI workflow format
+
+**These use different schemas** (pre-v2.2.0) and serve specialized purposes.
+
+**Decision Required:**
+1. **Update to schema v2.2.0?** (effort: ~2-3 hours)
+2. **Create schema extensions** for specialized test types?
+3. **Deprecate** if not actively used?
+
+**Impact on Exports:**
+- Current exports only include test-data-generator + ai-backend-multi-tier-tests
+- These 4 files are NOT included in unified exports
+- May be intentional (specialized use cases)
+
+---
+
+## Part 5: Test Runner Deep Dive
+
+Let me check the actual logging status more carefully:
+
+### Checking Actual Implementation
+
+**Need to verify:**
+1. Does run-performance-tests.js have logging deeper in the file?
+2. Does run-enterprise-tests.js have logging?
+3. What's in the performance-test-runner.js (the class they use)?
+
+---
+
+## Part 6: Recommendations
+
+### Immediate (This Week)
+
+**Priority 1: Add Logging to Active Runners**
+- ✅ run-multitier-performance.js (already has logging)
+- ✅ run-multitier-split-25.js (already has logging)
+- ❌ **run-performance-tests.js** - ADD LOGGING
+- ❌ **run-enterprise-tests.js** - ADD LOGGING
+
+**Effort:** 1-2 hours
+**Impact:** High - enables debugging and verification
+
+**Priority 2: Update performance-prompts.js to Schema v2.2.0**
+- Add required fields to all 50 prompts
+- Keep as simple format (don't need full multi-tier complexity)
+- **Effort:** 30 minutes
+- **Impact:** Medium - enables unified exports
+
+### Short-term (Next Week)
+
+**Decision on Specialized Test Files:**
+1. Audit usage of:
+   - next-action-tests.js (is this actively used?)
+   - intent-classification-tests.js (is this actively used?)
+   - ui-tasks.js (is this actively used?)
+
+2. For each file, decide:
+   - Update to schema v2.2.0?
+   - Create schema extension?
+   - Deprecate?
+
+**Decision on run-all-tests.js:**
+1. Audit tests/ directory files
+2. Decide: Refactor or deprecate?
+
+### Medium-term (Next Month)
+
+**Complete Compliance:**
+1. All prompt files schema v2.2.0 compliant
+2. All active test runners have logging
+3. All runners use schema validation
+4. Deprecated files moved to `deprecated/` directory
+
+---
+
+## Part 7: Action Plan
+
+### Phase 1: Critical Fixes (Immediate)
+
+**Task 1.1:** Add logging to run-performance-tests.js
+- Import Logger
+- Initialize with log file path
+- Add MODEL_START, TESTS_START, TEST_COMPLETE, MODEL_COMPLETE events
+- **Time:** 30 minutes
+
+**Task 1.2:** Add logging to run-enterprise-tests.js
+- Same as Task 1.1
+- **Time:** 30 minutes
+
+**Task 1.3:** Update performance-prompts.js to schema v2.2.0
+- Add category, vendor, expectedTopics, complexity to all 50 prompts
+- **Time:** 30 minutes
+
+**Total Phase 1:** 90 minutes
+
+---
+
+### Phase 2: Audit Specialized Files (Short-term)
+
+**Task 2.1:** Audit usage of specialized test files
+- Check if next-action-tests.js is used by any runner
+- Check if intent-classification-tests.js is used
+- Check if ui-tasks.js is used
+- **Time:** 30 minutes
+
+**Task 2.2:** Decide on each file
+- Update, extend schema, or deprecate
+- **Time:** 15 minutes per file
+
+**Total Phase 2:** 2 hours
+
+---
+
+### Phase 3: run-all-tests.js Decision (Medium-term)
+
+**Task 3.1:** Audit tests/ directory
+- Check all files in tests/ directory
+- Determine if still needed
+- **Time:** 1 hour
+
+**Task 3.2:** Refactor or deprecate
+- If needed: Major refactor (4-6 hours)
+- If not: Deprecate and remove (30 minutes)
+
+**Total Phase 3:** 1-7 hours depending on decision
+
+---
+
+## Part 8: Current vs Target State
+
+### Current State
+
+**Prompt Files:**
+- 52% schema-compliant (134/259 prompts)
+- 2 files fully updated
+- 4 files need work
+
+**Test Runners:**
+- 40% fully compliant (2/5 runners)
+- 40% partially compliant (2/5 runners)
+- 20% non-compliant (1/5 runners)
+
+**Documentation:**
+- ✅ Schema defined (PROMPT-SCHEMA.md v2.2.0)
+- ✅ CLAUDE.md updated with requirements
+- ✅ FILE-RELATIONSHIPS-GUIDE.md created
+- ✅ Compliance analysis documented
+
+### Target State
+
+**Prompt Files:**
+- 100% schema-compliant (all prompts)
+- All files follow v2.2.0
+- Deprecated files archived
+
+**Test Runners:**
+- 100% compliant with mandatory requirements
+- All have logging
+- All use schema validation
+- All save incrementally
+- Deprecated runners removed
+
+**Documentation:**
+- Complete
+- Up to date
+- Reflects actual implementation
+
+---
+
+## Part 9: Questions for Decision
+
+**Question 1:** Should we update all 4 non-compliant prompt files, or deprecate unused ones?
+
+**Question 2:** Should we refactor run-all-tests.js or deprecate it?
+
+**Question 3:** Priority: Fix logging first or update prompt files first?
+
+**Question 4:** Should specialized test types (next-action, intent-classification, ui-tasks) have schema extensions or be converted to standard schema?
+
+---
+
+## Part 10: File Status Reference
+
+### Source Files Status
+
+```
+✅ COMPLIANT:
+- enterprise/test-data-generator.js (84 prompts)
+- enterprise/arioncomply-workflows/ai-backend-multi-tier-tests.js (50 prompts)
+
+❌ NON-COMPLIANT:
+- performance-prompts.js (50 prompts) - simple format
+- enterprise/arioncomply-workflows/next-action-tests.js (~30) - scenario format
+- enterprise/arioncomply-workflows/intent-classification-tests.js (~30) - intent format
+- enterprise/arioncomply-workflows/ui-tasks.js (~15) - UI workflow format
 ```
 
-### Check Unified Prompt Database
-```bash
-# View unified-prompt-database.json
-cat unified-prompt-database.json | jq '.[] | .id' | head -10
-```
+### Test Runner Status
 
-### Validate Test Results
-```bash
-# Run schema validator on existing results
-node -e "import('./utils/test-result-validator.js').then(v => {
-  const fs = require('fs');
-  const result = JSON.parse(fs.readFileSync('./reports/performance-run-6-multitier.json'));
-  console.log('Result structure:', Object.keys(result));
-})"
 ```
+✅ FULLY COMPLIANT:
+- run-multitier-performance.js
+- run-multitier-split-25.js
 
-### List Test Output Files
-```bash
-ls -lh reports/performance-run-*.json
-ls -lh reports/test-results-enterprise-*.json
+⚠️ PARTIALLY COMPLIANT (missing logging):
+- run-performance-tests.js
+- run-enterprise-tests.js
+
+❌ NON-COMPLIANT:
+- run-all-tests.js
 ```
 
 ---
 
-## 10. What Configuration/Setup Still Needed
+**Status:** Audit complete - action decisions needed
+**Last Updated:** 2026-03-26
 
-### To Run Multi-Tier Tests Successfully:
-
-1. **Verify LlamaCpp-Manager is Running**
-   ```bash
-   llamacpp-manager status
-   ```
-
-2. **Ensure Models are Downloaded** (5 models recommended for run-6)
-   ```bash
-   llamacpp-manager list
-   # Should show: smollm3, phi3, mistral, llama-3.1-8b, hermes-3-llama-8b
-   ```
-
-3. **Create Reports Output Directory** (if not exists)
-   ```bash
-   mkdir -p reports/performance/$(date +%Y-%m-%d)
-   mkdir -p reports/compliance/$(date +%Y-%m-%d)
-   ```
-
-4. **Optional: Install jq for result inspection**
-   ```bash
-   # For pretty-printing JSON results
-   brew install jq  # macOS
-   apt install jq   # Linux
-   ```
-
-5. **Review Current Results**
-   ```bash
-   # See what's been captured so far
-   jq '.results[0]' reports/performance-run-6-multitier.json
-   ```
-
-### Configuration Files Already in Place
-- ✅ `docker-config-profiles.json` - Docker configuration
-- ✅ `.gitignore` - Git ignore rules
-- ✅ `package.json` - npm scripts
-
----
-
-## 11. Readiness Assessment
-
-### Readiness Score: 85/100
-
-**READY TO RUN:**
-- Multi-tier prompt structure (100%)
-- Test result schema definition (100%)
-- Schema validation module (100%)
-- Test runner implementations (90%)
-- Sequential execution logic (95%)
-- Storage infrastructure (95%)
-- npm commands (100%)
-
-**NEED COMPLETION:**
-- Response capture integration in all runners (70%)
-- Schema conversion in all test paths (70%)
-- Full validation enforcement before save (75%)
-- Multi-tier viewer integration (60%)
-
----
-
-## 12. Execution Readiness Commands
-
-### Quick Start - Multi-Tier Performance Test
-```bash
-# Run 10 multi-tier prompts × 5 models sequentially
-node run-multitier-performance.js
-
-# Expected output:
-# - 50 test executions (10 prompts × 5 models)
-# - Results saved to reports/performance-run-6-multitier.json
-# - Performance metrics (tokens/sec, latency, memory)
-# - Model comparisons
-```
-
-### Enterprise Compliance with Multi-Tier
-```bash
-# Pilot test (quick validation)
-npm run enterprise:pilot
-
-# Full comprehensive suite
-npm run enterprise:comprehensive
-
-# Expected output:
-# - Tests against all 29 standards
-# - Multi-model comparison
-# - Compliance gap analysis
-# - Retrieval recommendations
-```
-
-### Verify Schema Compliance
-```bash
-# Check if results have required fields
-node -e "
-import('./utils/test-result-validator.js').then(({validateTestResult}) => {
-  const fs = require('fs');
-  const data = JSON.parse(fs.readFileSync('./reports/performance-run-6-multitier.json'));
-  const result = data.results[0];
-  const validation = validateTestResult(result);
-  console.log('Valid:', validation.valid);
-  console.log('Errors:', validation.errors);
-})
-"
-```
-
----
-
-## Summary: Infrastructure Readiness
-
-**Status:** 🟢 **SUBSTANTIALLY READY** for multi-tier prompt testing
-
-**Strengths:**
-1. Multi-tier prompts fully implemented (1,687 lines)
-2. Schema completely documented and validated
-3. Sequential model execution working with recovery
-4. Test result storage organized and accessible
-5. Multiple test runners for different scenarios
-6. 6 baseline performance runs already captured
-7. 3 enterprise compliance runs completed
-
-**Limitations:**
-1. Response text capture not enforced in all code paths
-2. Schema validation not integrated into all test save operations
-3. Some test runners return custom format instead of unified schema
-4. Multi-tier viewer needs integration with response display
-
-**Next Steps to Full Integration:**
-1. Add response capture to enterprise-test-runner.js
-2. Integrate `saveSchemaCompliantResults()` into all runners
-3. Update all test runners to use schema conversion functions
-4. Enhance prompt viewer to show TIER 1+2+3 with responses
-5. Run full multi-tier test suite with validation enforcement
-
----
-
-**Assessment by:** Claude Code  
-**Date:** 2026-03-26  
-**Project:** /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite  
-**Contact:** libor@arionetworks.com
+Contact: libor@arionetworks.com

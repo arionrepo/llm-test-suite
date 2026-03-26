@@ -8,6 +8,8 @@ import { LlamaCppManagerClient } from '../utils/llamacpp-manager-client.js';
 import { generateAllTests, getTestStats } from './test-data-generator.js';
 import { COMPLIANCE_FUNCTIONS } from './functions/compliance-functions.js';
 import { printTestHeader } from '../utils/test-helpers.js';
+import fs from 'fs';
+import path from 'path';
 
 export class EnterpriseTestRunner {
   constructor() {
@@ -18,6 +20,53 @@ export class EnterpriseTestRunner {
       modelResults: {},
       diagnostics: {}
     };
+    this.logFile = null;
+    this.eventLog = [];
+  }
+
+  /**
+   * Initialize logger for this test run
+   * MANDATORY: Must be called before runComparisonTest() or runFunctionCallingTest()
+   */
+  initializeLogger(testName) {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '').replace('Z', 'Z');
+    const logDir = path.join(process.cwd(), 'logs');
+
+    if (!fs.existsSync(logDir)) {
+      fs.mkdirSync(logDir, { recursive: true });
+    }
+
+    this.logFile = path.join(logDir, `test-run-${testName}-${timestamp}.log`);
+    this.logEvent('TEST_START', { testName });
+    return this.logFile;
+  }
+
+  /**
+   * Log timestamped event
+   * Writes to both console and log file
+   */
+  logEvent(eventType, details = {}) {
+    const now = new Date().toISOString();
+    const logEntry = {
+      timestamp: now,
+      eventType,
+      ...details
+    };
+
+    this.eventLog.push(logEntry);
+
+    // Format for display
+    const formattedEntry = `[${now}] ${eventType} | ${JSON.stringify(details)}`;
+
+    // Console output (minimal - only for key events)
+    if (eventType.includes('ERROR') || eventType.includes('START') || eventType.includes('COMPLETE')) {
+      console.log(formattedEntry);
+    }
+
+    // File output (everything)
+    if (this.logFile) {
+      fs.appendFileSync(this.logFile, formattedEntry + '\n');
+    }
   }
 
   async runTest(test, modelName) {

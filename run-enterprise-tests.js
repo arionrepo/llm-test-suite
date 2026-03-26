@@ -159,6 +159,10 @@ async function runPilotTest(runner, options) {
   console.log('\n🚀 Running PILOT TEST (Quick validation)');
   console.log('   Tests: 20 | Models: 2 | Duration: ~5 minutes\n');
 
+  // MANDATORY: Initialize logger before tests
+  const logFile = runner.initializeLogger('enterprise-pilot');
+  console.log(`📝 Logging to: ${logFile}\n`);
+
   // Load Docker configuration profile
   const configLoader = createConfigLoader();
   const profileName = options.profile || 'balanced';
@@ -204,6 +208,10 @@ async function runQuickTest(runner, options) {
   console.log('\n🚀 Running QUICK TEST');
   console.log('   Tests: 50 | Models: 3 | Duration: ~15 minutes\n');
 
+  // MANDATORY: Initialize logger before tests
+  const logFile = runner.initializeLogger('enterprise-quick');
+  console.log(`📝 Logging to: ${logFile}\n`);
+
   // Load Docker configuration profile
   const configLoader = createConfigLoader();
   const profileName = options.profile || 'balanced';
@@ -247,6 +255,10 @@ async function runQuickTest(runner, options) {
 async function runStandardTest(runner, options) {
   console.log('\n🚀 Running STANDARD TEST');
   console.log('   Tests: 100 | Models: 5 | Duration: ~45 minutes\n');
+
+  // MANDATORY: Initialize logger before tests
+  const logFile = runner.initializeLogger('enterprise-standard');
+  console.log(`📝 Logging to: ${logFile}\n`);
 
   // Load Docker configuration profile
   const configLoader = createConfigLoader();
@@ -304,6 +316,10 @@ async function runComprehensiveTest(runner, options) {
   console.log('   ⚠️  WARNING: This will take several hours!');
   console.log('   Tests: ALL | Models: ALL 10 | Duration: ~6-8 hours\n');
 
+  // MANDATORY: Initialize logger before tests
+  const logFile = runner.initializeLogger('enterprise-comprehensive');
+  console.log(`📝 Logging to: ${logFile}\n`);
+
   // Load Docker configuration profile
   const configLoader = createConfigLoader();
   const profileName = options.profile || 'balanced';
@@ -348,6 +364,10 @@ async function runComprehensiveTest(runner, options) {
 async function runFunctionCallingTest(runner, options) {
   console.log('\n🚀 Running FUNCTION CALLING TEST');
   console.log('   Testing enterprise compliance functions\n');
+
+  // MANDATORY: Initialize logger before tests
+  const logFile = runner.initializeLogger('enterprise-function-calling');
+  console.log(`📝 Logging to: ${logFile}\n`);
 
   const model = options.models || 'hermes-3-llama-8b';
 
