@@ -47,6 +47,87 @@ Enterprise LLM testing framework for:
 
 ---
 
+## MANDATORY TESTING STANDARDS (ALL TEST RUNNERS - NO EXCEPTIONS)
+
+**These standards apply to EVERY test run - existing and future. No exceptions.**
+
+### 1. Logging is MANDATORY
+- ✅ **REQUIRED:** Initialize logger before ANY test execution
+- ✅ **REQUIRED:** Log EVERY event with ISO8601 timestamp
+- ✅ **REQUIRED:** Save logs to file (logs/test-run-{name}-{timestamp}.log)
+- ❌ **FORBIDDEN:** Running tests without logging
+- ❌ **FORBIDDEN:** Logs that are only in-memory (must be persisted to file)
+
+**Logged events must include:**
+- MODEL_START: When model startup begins
+- HEALTH_CHECK: When health endpoint responds
+- TESTS_START: When test suite begins for model
+- TEST_PROMPT_START/COMPLETE: Every single prompt (with tokens/sec)
+- MODEL_COMPLETE: When model tests finish
+- All with timestamps (not durations)
+
+### 2. Incremental Result Saving is MANDATORY
+- ✅ **REQUIRED:** Save results immediately when each model completes
+- ✅ **REQUIRED:** Do NOT accumulate all results until the very end
+- ✅ **REQUIRED:** Each model's results saved to separate file
+- ❌ **FORBIDDEN:** Waiting until all tests complete to save
+- ❌ **FORBIDDEN:** Losing data if execution is interrupted
+
+**File pattern:** `test-results-{testType}-{model}-{count}tests-{timestamp}.json`
+
+### 3. onModelComplete Callback is MANDATORY
+- ✅ **REQUIRED:** Provide onModelComplete callback to runPerformanceTests()
+- ✅ **REQUIRED:** Implement per-model result saving in callback
+- ❌ **FORBIDDEN:** Making callback optional (code will fail if missing)
+- ❌ **FORBIDDEN:** Ignoring callback errors (must handle gracefully)
+
+### 4. Schema Validation is MANDATORY
+- ✅ **REQUIRED:** Validate all results before saving
+- ✅ **REQUIRED:** Use saveSchemaCompliantResults() for all saves
+- ✅ **REQUIRED:** Fail if validation fails (don't silently continue)
+- ❌ **FORBIDDEN:** Saving invalid results
+- ❌ **FORBIDDEN:** Skipping validation to "speed things up"
+
+### 5. Test Scope is LIMITED (By Design)
+- ✅ **STANDARD:** Run only FIRST 3 models (smollm3, phi3, mistral)
+- ✅ **REASON:** Prevents multi-hour test runs, enables rapid iteration
+- ✅ **REASON:** Maintains statistical significance with manageable time
+- ❌ **FORBIDDEN:** Running all 10 models without explicit approval
+- ❌ **FORBIDDEN:** Running arbitrary model subsets without consistency
+
+### Why These Standards Are Non-Negotiable
+
+**Without logging & incremental saving:**
+- 🚨 Blind spots during execution - can't see what's slow
+- 🚨 Data loss if execution fails mid-run
+- 🚨 No visibility into individual model performance
+- 🚨 Can't analyze trends (is model degrading over time?)
+- 🚨 Unable to debug issues (no timeline of events)
+
+**Without schema validation:**
+- 🚨 Invalid data gets saved and analyzed
+- 🚨 Inconsistent results format across test runs
+- 🚨 Can't compare metrics between test runs
+- 🚨 Broken downstream analysis pipelines
+
+**Without incremental saving:**
+- 🚨 All test data lost if execution crashes
+- 🚨 Can't see results in real-time
+- 🚨 No checkpointing for recovery
+- 🚨 Memory accumulation for massive test runs
+
+### Enforcement
+
+**These standards are ENFORCED IN CODE:**
+- `runPerformanceTests()` will **FAIL** if logger not initialized
+- `runPerformanceTests()` will **FAIL** if callback not provided
+- `saveSchemaCompliantResults()` will **FAIL** if validation fails
+- Tests will **ONLY** run with exactly 3 models by default
+
+**No workarounds. No exceptions. No "just this once."**
+
+---
+
 ## CRITICAL: Sequential Model Testing Rules
 
 ### The Problem We Solve
