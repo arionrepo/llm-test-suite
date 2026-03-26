@@ -1,9 +1,11 @@
 # Docker Profile Launch Guide
 
 **File:** `/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/DOCKER-PROFILE-LAUNCH-GUIDE.md`
-**Description:** Guide for launching Docker containers with different configuration profiles
+**Description:** Guide for launching Docker containers with different configuration profiles for test suite benchmarking
 **Author:** Libor Ballaty <libor@arionetworks.com>
 **Created:** 2026-03-26
+
+> **Note:** This guide focuses on test-suite-specific configuration. For generic Docker and container setup, see the [llamacpp-manager documentation](../llamaCPPManager/docs/).
 
 ---
 
@@ -184,78 +186,20 @@ echo "All profiles tested!"
 
 ---
 
-## Verifying Profile Settings
-
-### Check Running Container Configuration
-
-```bash
-# View environment variables in running container
-docker exec llm-phi3 env | grep -E "THREADS|BATCH|PARALLEL"
-
-# Example output:
-# DOCKER_THREADS=10
-# DOCKER_N_BATCH=1024
-# DOCKER_N_PARALLEL=2
-```
-
-### Check Memory Limits
-
-```bash
-# View memory limit for specific container
-docker inspect llm-qwen-32b | grep MemoryLimit
-
-# Check all containers
-docker ps --format "table {{.Names}}\t{{.MemoryLimit}}"
-```
-
 ---
 
 ## Troubleshooting
 
-### Container Exits Immediately
+### Model Tests Failing
 
-**Problem:** Container starts but exits immediately
+**Problem:** Tests fail with connection errors or timeouts
 
-**Solution:** Check logs for memory pressure
-```bash
-docker logs llm-phi3 | tail -20
+**Solutions:**
+- Verify profile memory allocation fits system constraint (all 3 profiles validated to fit within 59GB)
+- Use conservative profile if experiencing memory pressure
+- Increase wait time between starting containers (try 90 seconds instead of 60)
 
-# If you see "out of memory" or allocation errors:
-# - Reduce N_PARALLEL (fewer concurrent requests)
-# - Reduce N_BATCH (smaller batch sizes)
-# - Increase model-specific memory limit
-```
-
-### Model Responding Slowly
-
-**Problem:** Inference latency too high
-
-**Solution:** Profile may be resource-constrained
-```bash
-# Check container memory usage
-docker stats llm-phi3
-
-# If near memory limit:
-# - Increase model memory limit
-# - Reduce N_PARALLEL
-# - Use conservative profile for baseline
-
-# If CPU at 100%:
-# - Reduce N_PARALLEL
-# - Reduce N_BATCH
-# - Try conservative profile
-```
-
-### Port Already in Use
-
-**Problem:** "Port 9081 already in use"
-
-**Solution:** Stop existing containers
-```bash
-docker-compose down
-sleep 10
-docker-compose up -d
-```
+See the llamacpp-manager documentation for Docker-specific troubleshooting (container startup, port conflicts, memory issues).
 
 ---
 
