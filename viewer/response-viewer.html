@@ -195,6 +195,33 @@
             margin-left: 10px;
         }
 
+        .file-browser-item .file-meta {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .file-browser-item .load-run-btn {
+            font-size: 10px;
+            padding: 2px 6px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .file-browser-item:hover .load-run-btn {
+            opacity: 1;
+        }
+
+        .file-browser-item .load-run-btn:hover {
+            background: #2980b9;
+        }
+
         .file-selector-status {
             font-size: 12px;
             color: #7f8c8d;
@@ -588,7 +615,12 @@
                     <!-- Populated by JavaScript -->
                 </select>
 
-                <select id="filterPersona" onchange="applyFilters()">
+                <button class="export-btn" onclick="exportRatings()">Export Ratings</button>
+                <button class="export-btn" onclick="saveAllRatings()">Save All Ratings</button>
+            </div>
+
+            <div class="controls-row" style="margin-top: 10px; gap: 10px; flex-wrap: wrap;">
+                <select id="filterPersona" onchange="applyFilters()" style="flex: 0 0 auto;">
                     <option value="">All Personas</option>
                     <option value="NOVICE">NOVICE</option>
                     <option value="PRACTITIONER">PRACTITIONER</option>
@@ -597,8 +629,37 @@
                     <option value="DEVELOPER">DEVELOPER</option>
                 </select>
 
-                <button class="export-btn" onclick="exportRatings()">Export Ratings</button>
-                <button class="export-btn" onclick="saveAllRatings()">Save All Ratings</button>
+                <select id="filterCategory" onchange="applyFilters()" style="flex: 0 0 auto;">
+                    <option value="">All Categories</option>
+                    <option value="compliance_knowledge">Compliance Knowledge</option>
+                    <option value="ai_backend_multitier">ArionComply Multi-Tier</option>
+                    <option value="arioncomply_workflow">ArionComply Workflow</option>
+                    <option value="tool_calling_test">Tool Calling Test</option>
+                </select>
+
+                <select id="filterStandard" onchange="applyFilters()" style="flex: 0 0 auto;">
+                    <option value="">All Standards</option>
+                    <option value="GDPR">GDPR</option>
+                    <option value="ISO_27001">ISO 27001</option>
+                    <option value="SOC_2">SOC 2</option>
+                    <option value="HIPAA">HIPAA</option>
+                    <option value="PCI_DSS">PCI DSS</option>
+                </select>
+
+                <select id="filterRating" onchange="applyFilters()" style="flex: 0 0 auto;">
+                    <option value="">All Rating Status</option>
+                    <option value="unrated">Unrated</option>
+                    <option value="rated">Rated (any)</option>
+                    <option value="rated_-1">Rated: Harmful (-1)</option>
+                    <option value="rated_0">Rated: Bad (0)</option>
+                    <option value="rated_1">Rated: 1</option>
+                    <option value="rated_2">Rated: 2</option>
+                    <option value="rated_3">Rated: 3</option>
+                    <option value="rated_4">Rated: 4</option>
+                    <option value="rated_5">Rated: Excellent (5)</option>
+                </select>
+
+                <button onclick="clearFilters()" style="flex: 0 0 auto; background: #95a5a6; color: white; padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer;">Clear Filters</button>
             </div>
         </div>
 
@@ -619,6 +680,7 @@
         let filteredIndices = [];
         let allFiles = [];
         let currentlyLoadedFiles = [];
+        let runGroups = {}; // Maps run IDs to arrays of file paths
 
         // File browser state
         let fileBrowserOpen = false;
@@ -654,7 +716,7 @@
             }
         }
 
-        // Render file browser UI
+        // Render file browser UI with run grouping
         function renderFileBrowser() {
             const browser = document.getElementById('fileBrowser');
 
@@ -663,12 +725,21 @@
                 return;
             }
 
-            // Group files by directory
+            // Group files by directory and run
             const grouped = {};
+            runGroups = {}; // Reset and populate global runGroups
+
             allFiles.forEach(file => {
                 const dir = file.dir || 'root';
                 if (!grouped[dir]) grouped[dir] = [];
                 grouped[dir].push(file);
+
+                // Extract run identifier (e.g., "run1", "run2")
+                const runMatch = file.basename.match(/-(run\d+)-/);
+                const runId = runMatch ? runMatch[1] : 'unknown';
+
+                if (!runGroups[runId]) runGroups[runId] = [];
+                runGroups[runId].push(file.path);
             });
 
             let html = '';
@@ -684,18 +755,58 @@
                 html += `
                     <div class="file-browser-group">
                         <div class="file-browser-group-title">📂 ${dir}</div>
-                        ${grouped[dir].map(file => `
-                            <div class="file-browser-item ${currentlyLoadedFiles.includes(file.path) ? 'selected' : ''}"
-                                 onclick="toggleFileSelection('${file.path}', event)">
+                        ${grouped[dir].map(file => {
+                            const runMatch = file.basename.match(/-(run\d+)-/);
+                            const runId = runMatch ? runMatch[1] : 'unknown';
+                            const relatedFiles = runGroups[runId] || [];
+                            const isSelected = currentlyLoadedFiles.includes(file.path);
+                            const allRelatedSelected = relatedFiles.every(f => currentlyLoadedFiles.includes(f));
+
+                            return `
+                            <div class="file-browser-item ${isSelected ? 'selected' : ''}"
+                                 onclick="toggleFileSelection('${file.path}', event)"
+                                 onmouseover="highlightRelatedFiles('${runId}')"
+                                 onmouseout="clearHighlight()"
+                                 title="Click: select | Ctrl/Cmd+Click: multi-select | Related: ${relatedFiles.length} files in ${runId}">
                                 <span class="file-name">${file.basename}</span>
-                                <span class="file-size">${formatFileSize(file.path)}</span>
+                                <div class="file-meta">
+                                    <span style="font-size: 10px; opacity: 0.7;">${relatedFiles.length} in run</span>
+                                    <button class="load-run-btn" onclick="loadRunFiles('${runId}', event)">Load all</button>
+                                </div>
                             </div>
-                        `).join('')}
+                            `;
+                        }).join('')}
                     </div>
                 `;
             });
 
             browser.innerHTML = html;
+        }
+
+        // Highlight all files from the same run
+        function highlightRelatedFiles(runId) {
+            const runMatch = runId.match(/run(\d+)/);
+            if (runMatch) {
+                const items = document.querySelectorAll('.file-browser-item');
+                items.forEach(item => {
+                    const title = item.getAttribute('title') || '';
+                    if (title.includes(runId)) {
+                        item.style.backgroundColor = '#fff8dc';
+                        item.style.borderLeft = '3px solid #f39c12';
+                    }
+                });
+            }
+        }
+
+        // Clear highlight
+        function clearHighlight() {
+            const items = document.querySelectorAll('.file-browser-item');
+            items.forEach(item => {
+                if (!item.classList.contains('selected')) {
+                    item.style.backgroundColor = '';
+                    item.style.borderLeft = '';
+                }
+            });
         }
 
         // Format file size (simplified)
@@ -719,6 +830,27 @@
                 currentlyLoadedFiles = [filePath];
             }
 
+            loadSelectedFiles();
+        }
+
+        // Load all files from a specific run
+        function loadRunFiles(runId, event) {
+            // Prevent event bubbling
+            if (event) {
+                event.stopPropagation();
+            }
+
+            // Get all files for this run
+            const filesInRun = runGroups[runId];
+            if (!filesInRun || filesInRun.length === 0) {
+                console.warn(`No files found for run: ${runId}`);
+                return;
+            }
+
+            // Set currentlyLoadedFiles to all files in this run
+            currentlyLoadedFiles = filesInRun;
+
+            // Load the selected files
             loadSelectedFiles();
         }
 
@@ -1009,21 +1141,109 @@
             displayCurrentPrompt();
         }
 
+        // Detect category from promptId
+        function detectCategory(promptId) {
+            if (promptId.includes('ARION_MULTITIER')) return 'ai_backend_multitier';
+            if (promptId.includes('ARION_WORKFLOW')) return 'arioncomply_workflow';
+            if (promptId.includes('TOOL_CALLING')) return 'tool_calling_test';
+            return 'compliance_knowledge'; // Default
+        }
+
+        // Detect standard from promptId (looks for patterns like GDPR, ISO_27001, etc.)
+        function detectStandard(promptId) {
+            const standards = ['GDPR', 'ISO_27001', 'SOC_2', 'HIPAA', 'PCI_DSS', 'NIST', 'CIS', 'COBIT'];
+            for (const std of standards) {
+                if (promptId.includes(std)) return std;
+            }
+            return null;
+        }
+
+        // Check rating status for a prompt across all models
+        function checkRatingStatus(promptId, ratingFilter) {
+            if (!ratingFilter || ratingFilter === '') return true; // No filter
+
+            // Find all ratings for this prompt across all models
+            const promptRatings = Object.values(ratings).filter(r => r.promptId === promptId);
+
+            if (ratingFilter === 'unrated') {
+                const result = promptRatings.length === 0;
+                console.log(`  [${promptId}] unrated? ${result} (found ${promptRatings.length} ratings)`);
+                return result;
+            }
+
+            if (ratingFilter === 'rated') {
+                const result = promptRatings.length > 0;
+                console.log(`  [${promptId}] rated? ${result} (found ${promptRatings.length} ratings)`);
+                return result;
+            }
+
+            // Specific rating level (e.g., "rated_5", "rated_-1", etc.)
+            const ratingMatch = ratingFilter.match(/rated_(-?\d+)/);
+            if (ratingMatch) {
+                const targetRating = parseInt(ratingMatch[1]);
+                // Check if ANY model has this rating for this prompt
+                const result = promptRatings.some(r => r.rating === targetRating);
+                if (result || promptRatings.length > 0) {
+                    console.log(`  [${promptId}] rating=${targetRating}? ${result} (ratings: ${promptRatings.map(r => r.rating).join(',')})`);
+                }
+                return result;
+            }
+
+            return true;
+        }
+
+        // Enhanced filter function with multiple criteria
         function applyFilters() {
             const persona = document.getElementById('filterPersona').value;
+            const category = document.getElementById('filterCategory').value;
+            const standard = document.getElementById('filterStandard').value;
+            const ratingFilter = document.getElementById('filterRating').value;
 
-            if (!persona) {
-                filteredIndices = allData.map((_, i) => i);
-            } else {
-                filteredIndices = allData
-                    .map((d, i) => ({ data: d, index: i }))
-                    .filter(({ data }) => data.promptId.includes(persona))
-                    .map(({ index }) => index);
-            }
+            console.log('🔍 Applying filters:', { persona, category, standard, ratingFilter });
+            console.log('📊 Current ratings:', ratings);
+
+            filteredIndices = allData
+                .map((d, i) => ({ data: d, index: i }))
+                .filter(({ data }) => {
+                    // Check persona filter
+                    if (persona && !data.promptId.includes(persona)) {
+                        return false;
+                    }
+
+                    // Check category filter
+                    if (category && detectCategory(data.promptId) !== category) {
+                        return false;
+                    }
+
+                    // Check standard filter
+                    if (standard && detectStandard(data.promptId) !== standard) {
+                        return false;
+                    }
+
+                    // Check rating filter
+                    const ratingPassed = checkRatingStatus(data.promptId, ratingFilter);
+                    if (!ratingPassed) {
+                        return false;
+                    }
+
+                    return true;
+                })
+                .map(({ index }) => index);
+
+            console.log(`✅ Filter result: ${filteredIndices.length} of ${allData.length} prompts match`);
 
             currentPromptIndex = 0;
             populatePromptSelect();
             displayCurrentPrompt();
+        }
+
+        // Clear all filters
+        function clearFilters() {
+            document.getElementById('filterPersona').value = '';
+            document.getElementById('filterCategory').value = '';
+            document.getElementById('filterStandard').value = '';
+            document.getElementById('filterRating').value = '';
+            applyFilters();
         }
 
         function populatePromptSelect() {
@@ -1044,6 +1264,24 @@
                 `;
                 document.getElementById('responsesGrid').innerHTML = '';
                 document.getElementById('promptCounter').textContent = 'No data loaded';
+                return;
+            }
+
+            if (filteredIndices.length === 0) {
+                document.getElementById('promptDisplay').innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Prompts Match Current Filters</h3>
+                        <p>Try adjusting your filter criteria:</p>
+                        <ul style="text-align: left; display: inline-block; margin-top: 10px;">
+                            <li>Persona: ${document.getElementById('filterPersona').value || 'All'}</li>
+                            <li>Category: ${document.getElementById('filterCategory').value || 'All'}</li>
+                            <li>Standard: ${document.getElementById('filterStandard').value || 'All'}</li>
+                            <li>Rating Status: ${document.getElementById('filterRating').value || 'All'}</li>
+                        </ul>
+                    </div>
+                `;
+                document.getElementById('responsesGrid').innerHTML = '';
+                document.getElementById('promptCounter').textContent = 'No matching prompts';
                 return;
             }
 
@@ -1132,6 +1370,12 @@
 
             console.log(`Saved rating for ${key}:`, ratings[key]);
             updateStats();
+
+            // Reapply filters if rating filter is active (since rating status changed)
+            const ratingFilter = document.getElementById('filterRating').value;
+            if (ratingFilter) {
+                applyFilters();
+            }
         }
 
         function saveAllRatings() {
