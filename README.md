@@ -1,24 +1,71 @@
 # LLM Test Suite
 
 **File:** /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/README.md
-**Description:** Comprehensive test suite for evaluating local LLM server performance, accuracy, tool calling, and context handling
+**Description:** Enterprise LLM evaluation platform for comparing local vs cloud models across real-world business use cases
 **Author:** Libor Ballaty <libor@arionetworks.com>
 **Created:** 2026-03-23
+**Last Updated:** 2026-03-25
+
+---
+
+## Vision & Goals
+
+### The Big Question
+
+**"Can we use local LLMs instead of expensive cloud APIs for our enterprise use cases?"**
+
+This test suite helps businesses answer that question with **data-driven evidence**.
+
+### Primary Goals
+
+1. **Enterprise Use Case Testing**
+   - Test practical, real-world business tasks (not theoretical benchmarks)
+   - Focus on tasks businesses actually need LLMs to do
+   - Measure real-world accuracy and quality
+
+2. **Local vs Cloud Comparison**
+   - Help businesses evaluate cost-saving opportunities
+   - Identify which tasks work well with local models (Llama 3, Mistral, Qwen)
+   - Identify which tasks require cloud models (GPT-4, Claude)
+   - Quantify accuracy/cost trade-offs
+
+3. **Multi-Customer Platform**
+   - Support vendor-agnostic baseline tests (any business can use)
+   - Support customer-specific tests (ArionComply is first customer)
+   - No hardcoded vendor assumptions
+   - Scalable to unlimited customers
+
+4. **Flexible Routing**
+   - Test same prompt against multiple backends (comparison)
+   - Route to direct LLMs, customer pipelines, or local instances
+   - Measure value-add of customer enhancements (RAG, context injection)
+
+---
 
 ## Overview
 
-Comprehensive LLM testing framework with two testing modes:
+**Comprehensive LLM evaluation platform** with multiple testing modes:
 
 1. **Basic Tests**: Speed, accuracy, tool calling, context window (single model)
-2. **Enterprise Tests**: Multi-model compliance testing across standards, personas, and company types
+2. **Enterprise Tests**: Multi-model testing across use cases, vendors, and routing profiles
+3. **Comparison Tests**: Same prompt, multiple backends, side-by-side evaluation
 
-**Manages:** 10 LLM models via llamacpp-manager
-**Tests:** 173 total prompts
-- 52 simple compliance tests (10-50 tokens)
-- 50 multi-tier tests (2000+ tokens with TIER 1+2+3)
-- 31 ArionComply workflows
-- 30 intent classification
-- 10 workflow understanding
+**Supported Backends:**
+- **Direct Cloud LLMs:** OpenAI (GPT-4), Anthropic (Claude), Cohere, Google (Gemini)
+- **Local LLMs:** Llama 3, Mistral, Qwen 2.5, Phi-3 (via llamacpp-manager)
+- **Customer Pipelines:** ArionComply (Supabase edge function with RAG)
+
+**Current Test Suite:** 173 total prompts
+- 52 generic compliance tests (vendor-agnostic, 10-50 tokens)
+- 50 ArionComply multi-tier tests (2000+ tokens with TIER 1+2+3)
+- 31 ArionComply platform workflow tests
+- 30 intent classification tests
+- 10 workflow understanding tests
+
+**Use Cases Covered:**
+- Compliance knowledge (GDPR, ISO 27001, SOC 2, HIPAA, 25+ more standards)
+- Platform workflows (evidence upload, assessments, reporting)
+- Multi-tier prompt construction (context injection, RAG enhancement)
 
 ## Test Categories
 

@@ -285,19 +285,182 @@ SYNTHESIS     → Analyze/Evaluate/Create
 
 ---
 
-## 5. Vendor Namespace
+## 5. Enterprise Task Domains (Taxonomy B)
 
-### 5.1 Current Vendors
+### 5.1 Current Task Domains
 
-**Generic** - Vendor-agnostic compliance knowledge (base corpus)
+The enterprise task taxonomy supports **vendor-agnostic business use case testing** beyond compliance:
 
-**ArionComply** - ArionComply platform-specific tests:
-- Workflow tests (UI, features)
-- Multi-tier prompt tests (TIER 1/2/3/4)
+**1. Customer Service**
+- Email response generation
+- Chat support automation
+- Ticket routing and classification
+- FAQ generation
+- Escalation handling
+
+**2. Document Processing**
+- Contract analysis and summarization
+- Report generation
+- Document extraction (key terms, dates, obligations)
+- Document classification
+- Template population
+
+**3. Code & Development**
+- Code generation from requirements
+- Code review and suggestions
+- Bug analysis and debugging
+- Documentation generation
+- Architecture design assistance
+
+**4. Data Analysis**
+- Report generation from data
+- Insight extraction
+- Trend identification
+- Visualization recommendations
+- Forecasting and prediction
+
+**5. Communication**
+- Email drafting (internal/external)
+- Meeting notes and summaries
+- Presentation content generation
+- Memo and announcement writing
+- Status report compilation
+
+**6. Project Management**
+- Task breakdown and estimation
+- Project planning
+- Risk identification
+- Resource allocation recommendations
+- Timeline generation
+
+**7. Research & Synthesis**
+- Information gathering and summarization
+- Competitive analysis
+- Market research synthesis
+- Literature review
+- Multi-source comparison
+
+### 5.2 Task Types (Domain-Agnostic Operations)
+
+**1. Generate** - Create new content from scratch or requirements
+**2. Analyze** - Understand and interpret existing content
+**3. Transform** - Convert format, style, or structure
+**4. Classify** - Categorize or tag content
+**5. Extract** - Pull specific information from larger content
+
+### 5.3 Business Functions (Department/Industry Context)
+
+**1. Sales** - CRM, proposals, outreach, deal analysis
+**2. Support** - Tickets, FAQs, escalation, knowledge base
+**3. Finance** - Analysis, reporting, forecasting, compliance
+**4. HR** - Recruiting, onboarding, policies, performance
+**5. Engineering** - Code, architecture, documentation, DevOps
+**6. Operations** - Processes, optimization, monitoring, automation
+
+### 5.4 When to Add Enterprise Task Domains
+
+**Criteria:**
+1. **Real Business Need** - Represents actual enterprise LLM use case
+2. **Generic Applicability** - Multiple industries/companies can use it
+3. **Distinct from Existing** - Not already covered by current domains
+4. **Testable** - Can create objective test criteria
+5. **Local Model Candidate** - Tasks where local LLMs might be viable alternative
+
+**Process:**
+1. Identify 10+ real-world examples of the use case
+2. Define task types applicable to the domain
+3. Create initial test suite (≥20 tests)
+4. Test against local and cloud models to validate
+5. Document in taxonomy
+
+---
+
+## 6. Routing Profile Selection
+
+### 6.1 Routing Strategy by Test Type
+
+**Compliance Knowledge Tests:**
+- **Default:** `direct_openai_gpt4` (baseline accuracy)
+- **Alternative:** `local_llama3_70b` (cost comparison)
+- **Customer:** `arioncomply_cloud_dev` (if testing customer pipeline)
+
+**Enterprise Task Tests:**
+- **Default:** `local_llama3_70b` (evaluate cost savings)
+- **Comparison:** Also test `direct_openai_gpt4` (accuracy baseline)
+- **Use case:** Determine if local models sufficient for this task
+
+**Platform Feature Tests:**
+- **Required:** Customer pipeline routing (e.g., `arioncomply_local_dev`)
+- **Why:** Platform questions need product context from database
+- **Cannot use:** Direct LLM (no knowledge of customer product)
+
+### 6.2 Multi-Route Testing Guidelines
+
+**When to test multiple routes:**
+- Establishing baseline accuracy (compare cloud vs local)
+- Measuring customer pipeline value-add (with RAG vs without)
+- Cost-benefit analysis (local vs cloud for specific use cases)
+- Model selection decisions (which model for which tasks)
+
+**How to configure:**
+```javascript
+{
+  routingProfiles: [
+    "direct_openai_gpt4",      // Accuracy baseline
+    "local_llama3_70b",        // Cost-saving alternative
+    "arioncomply_cloud_dev"    // Customer enhancement
+  ],
+  evaluationMode: "comparison"
+}
+```
+
+**Comparison metrics:**
+- Accuracy: % of expected topics covered
+- Completeness: Response thoroughness
+- Citations: Proper sourcing
+- Cost: API cost per query
+- Speed: Response time (ms)
+
+### 6.3 Environment-Specific Routing
+
+**Development:**
+- Use `arioncomply_local_dev` for customer tests
+- Use local models for cost-free testing
+- Use cloud models sparingly (API costs)
+
+**Staging/Cloud Dev:**
+- Use `arioncomply_cloud_dev` for integration testing
+- Mix of local and cloud for comparison
+
+**Production:**
+- Use `arioncomply_production` only for critical validation
+- Minimize production testing (real customer data)
+
+---
+
+## 7. Vendor Namespace
+
+### 7.1 Current Customers/Vendors
+
+**Generic** - Vendor-agnostic baseline:
+- Compliance knowledge (GDPR, ISO 27001, SOC 2, etc.)
+- Enterprise tasks (document analysis, customer service, code generation)
+- Universal business use cases
+
+**ArionComply** - First customer implementation:
+- Platform workflow tests (UI, navigation, features)
+- Multi-tier prompt tests (TIER 1/2/3/4 system)
 - Intent classification
 - Next action prediction
+- Full pipeline integration (edge function + database + RAG)
 
-### 5.2 When to Add a New Vendor
+**Future Customers:**
+- Salesforce Compliance Cloud
+- AWS Audit Manager
+- ServiceNow GRC
+- Custom enterprise platforms
+
+### 7.2 When to Add a New Customer/Vendor
 
 **Criteria for Addition:**
 1. **Platform/Product** - It's a specific compliance platform, tool, or product
@@ -332,7 +495,7 @@ SYNTHESIS     → Analyze/Evaluate/Create
 }
 ```
 
-### 5.3 Vendor Naming Conventions
+### 7.3 Vendor Naming Conventions
 
 **Format Rules:**
 - Use official brand/product name (PascalCase)
@@ -352,9 +515,9 @@ SYNTHESIS     → Analyze/Evaluate/Create
 
 ---
 
-## 6. Taxonomy Expansion Decision Matrix
+## 8. Taxonomy Expansion Decision Matrix
 
-### 6.1 Decision Tree
+### 8.1 Decision Tree
 
 ```
 Should I add a new item to the taxonomy?
@@ -376,7 +539,7 @@ Should I add a new item to the taxonomy?
       └─ Is it a generic concept? → NO → Don't add
 ```
 
-### 6.2 Impact Assessment
+### 8.2 Impact Assessment
 
 **Before adding to taxonomy, assess impact:**
 
@@ -396,9 +559,9 @@ Should I add a new item to the taxonomy?
 
 ---
 
-## 7. Taxonomy Maintenance
+## 9. Taxonomy Maintenance
 
-### 7.1 Annual Review Process
+### 9.1 Annual Review Process
 
 **When:** January each year
 
@@ -415,7 +578,7 @@ Should I add a new item to the taxonomy?
 - Rebalance test distribution if skewed
 - Update documentation
 
-### 7.2 Deprecation Process
+### 9.2 Deprecation Process
 
 **When to Deprecate:**
 - Standard is replaced by newer version (e.g., NIST 800-53 Rev 4 → Rev 5)
@@ -441,9 +604,9 @@ Should I add a new item to the taxonomy?
 
 ---
 
-## 8. Test Coverage Goals
+## 10. Test Coverage Goals
 
-### 8.1 Minimum Coverage Requirements
+### 10.1 Minimum Coverage Requirements
 
 **Per Standard:**
 - FACTUAL: ≥5 tests per persona (30 tests total)
@@ -458,7 +621,7 @@ Should I add a new item to the taxonomy?
 
 **Minor Standards:** ≥20 tests
 
-### 8.2 Coverage Tracking
+### 10.2 Coverage Tracking
 
 **Use coverage matrix:**
 
@@ -483,9 +646,9 @@ SYNTHESIS            1         3           4        4         6          2
 
 ---
 
-## 9. Quality Criteria
+## 11. Quality Criteria
 
-### 9.1 Test Quality Checklist
+### 11.1 Test Quality Checklist
 
 **Before adding a test to the suite:**
 
@@ -499,7 +662,7 @@ SYNTHESIS            1         3           4        4         6          2
 - [ ] No duplicate or near-duplicate tests exist
 - [ ] Test is maintainable (won't become outdated quickly)
 
-### 9.2 Test Review Process
+### 11.2 Test Review Process
 
 **For new standard additions:**
 1. Initial batch (20-30 tests) reviewed by domain expert
@@ -517,7 +680,7 @@ SYNTHESIS            1         3           4        4         6          2
 
 ---
 
-## 10. Cross-Reference
+## 12. Cross-Reference
 
 ### Related Documents
 

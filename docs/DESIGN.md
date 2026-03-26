@@ -884,7 +884,18 @@ Filtered display
    - Scales to unlimited vendors
    - No code changes for new vendors
 
-### 7.3 Why TIER System for ArionComply?
+### 8.3 Why Routing Abstraction Layer?
+
+**Problem:** Each LLM backend has different APIs, authentication, request/response formats
+
+**Solution:** Routing adapter with profile-specific transformers
+
+- **Unified interface:** Tests don't care about backend details
+- **Easy comparison:** Same test, multiple backends, normalized responses
+- **Maintainability:** API changes isolated to transformers
+- **Extensibility:** Add new backends without changing tests
+
+### 8.4 Why TIER System for ArionComply?
 
 **Problem:** Static prompts can't adapt to different user contexts
 
@@ -902,9 +913,9 @@ Filtered display
 
 ---
 
-## 8. Future Extensibility
+## 9. Future Extensibility
 
-### 8.1 Planned Extensions
+### 9.1 Planned Extensions
 
 **Additional Vendors:**
 - Salesforce Compliance Cloud
@@ -924,7 +935,7 @@ Filtered display
 - Legal Counsel
 - Privacy Engineer
 
-### 8.2 Backward Compatibility
+### 9.2 Backward Compatibility
 
 **Schema Versioning:**
 - Version field in metadata: `"version": "2.1.0"`
@@ -939,7 +950,7 @@ Filtered display
 
 ---
 
-## 9. Success Metrics
+## 10. Success Metrics
 
 **Test Suite Health:**
 - Coverage: % of [Standard × KnowledgeType × Persona] combinations tested
@@ -958,7 +969,7 @@ Filtered display
 
 ---
 
-## 10. References
+## 11. References
 
 **Related Documentation:**
 - PROMPT-SCHEMA.md - Formal schema specification

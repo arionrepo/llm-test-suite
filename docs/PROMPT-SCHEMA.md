@@ -12,14 +12,22 @@
 ### 1.1 Format
 
 All test prompts follow a consistent JSON schema supporting:
-- Generic compliance testing
-- Vendor-specific workflow testing
-- Multi-dimensional filtering
-- Performance benchmarking
+- **Generic enterprise task testing** (vendor-agnostic business use cases)
+- **Compliance knowledge testing** (regulatory frameworks and standards)
+- **Customer platform testing** (customer-specific features and workflows)
+- **Multi-backend routing** (direct LLM, customer pipelines, local models)
+- **Multi-dimensional filtering** (vendor, domain, complexity, persona)
+- **Performance benchmarking** (accuracy, speed, cost comparison)
 
 ### 1.2 Schema Version
 
-**Current Version:** `2.1.0`
+**Current Version:** `2.2.0`
+
+**What's New in 2.2.0:**
+- Added routing configuration fields (`routingProfile`, `routingProfiles`)
+- Added enterprise task taxonomy fields (`taskDomain`, `taskType`, `businessFunction`)
+- Added platform feature taxonomy fields (`platformFeature`, `featureAction`, `userContext`)
+- Changed categorization requirements: AT LEAST ONE taxonomy required (compliance OR enterprise OR platform)
 
 **Versioning:**
 - Major version: Breaking changes (e.g., required field added)
@@ -52,15 +60,56 @@ interface TestPromptBase {
 }
 ```
 
-### 2.2 Optional Fields
+### 2.2 Taxonomy Fields (At Least ONE Taxonomy Required)
 
 ```typescript
-interface TestPromptOptional {
-  // Compliance taxonomy (for compliance tests)
+interface TestPromptTaxonomy {
+  // TAXONOMY A: Compliance Testing (for regulatory/framework tests)
   standard?: string;             // "GDPR" | "ISO_27001" | "SOC_2" | etc.
   knowledgeType?: "FACTUAL" | "RELATIONAL" | "PROCEDURAL" | "EXACT_MATCH" | "SYNTHESIS";
   persona?: "NOVICE" | "PRACTITIONER" | "MANAGER" | "AUDITOR" | "EXECUTIVE" | "DEVELOPER";
 
+  // TAXONOMY B: Enterprise Task Testing (for business use case tests)
+  taskDomain?: string;           // "customer_service" | "document_processing" | "code_development" | etc.
+  taskType?: "generate" | "analyze" | "transform" | "classify" | "extract";
+  businessFunction?: string;     // "sales" | "support" | "finance" | "hr" | "engineering" | "operations";
+
+  // TAXONOMY C: Platform Feature Testing (for customer platform tests)
+  platformFeature?: string;      // "evidence_management" | "assessment_workflows" | etc.
+  featureAction?: "upload" | "view" | "update" | "delete" | "configure";
+  userContext?: "first_time" | "power_user" | "admin" | "auditor";
+}
+
+// VALIDATION RULE: At least ONE of the following must be present:
+// - Compliance: (standard AND knowledgeType) OR persona
+// - Enterprise: (taskDomain AND taskType) OR businessFunction
+// - Platform: (platformFeature AND featureAction) OR userContext
+```
+
+### 2.3 Routing Configuration Fields
+
+```typescript
+interface TestPromptRouting {
+  // Single routing profile
+  routingProfile?: string;       // "arioncomply_local_dev" | "direct_openai_gpt4" | "local_llama3_70b"
+
+  // Multi-route comparison testing
+  routingProfiles?: string[];    // ["arioncomply_cloud_dev", "direct_gpt4", "local_llama"]
+
+  // Routing context (for customer pipelines)
+  routingContext?: {
+    framework?: string;          // Framework hint for TIER 2 selection
+    assessmentMode?: boolean;    // Enable assessment mode
+    orgProfile?: OrganizationProfile;  // Organization context for TIER 3
+    sessionId?: string;          // Conversation session ID
+  };
+}
+```
+
+### 2.4 Validation & Metadata Fields
+
+```typescript
+interface TestPromptValidation {
   // Validation criteria
   expectedCitation?: string | null;     // Exact citation required (e.g., "Article 6")
   expectedBehavior?: string;            // Expected LLM behavior description
@@ -78,9 +127,9 @@ interface TestPromptOptional {
 }
 ```
 
-### 2.3 Vendor-Specific Extensions
+### 2.5 Customer-Specific Extensions
 
-#### ArionComply Multi-Tier Tests
+#### ArionComply Multi-Tier Tests (First Customer Example)
 
 ```typescript
 interface ArionComplyMultiTierTest extends TestPromptBase {
@@ -491,48 +540,114 @@ interface PromptComplexity {
 
 ---
 
-## 4. Validation Rules
+## 4. Categorization Requirements
 
-### 4.1 Required Field Combinations
+### 4.1 Core Principle
 
-**Generic Compliance Test:**
+**Every test MUST use AT LEAST ONE taxonomy system:**
+- Taxonomy A: Compliance (standard, knowledgeType, persona)
+- Taxonomy B: Enterprise Task (taskDomain, taskType, businessFunction)
+- Taxonomy C: Platform Feature (platformFeature, featureAction, userContext)
+
+Tests MAY use multiple taxonomies if applicable.
+
+### 4.2 Required Field Combinations
+
+**ALL Tests (regardless of taxonomy):**
 ```typescript
-// MUST have:
+// ALWAYS REQUIRED:
 id, category, vendor, question, expectedTopics, complexity
+```
 
-// SHOULD have:
-standard, knowledgeType, persona
+**Compliance Test (Taxonomy A):**
+```typescript
+// MUST have (in addition to base):
+standard, knowledgeType
+// OR at minimum:
+standard, persona
 
-// MAY have:
+// RECOMMENDED:
+standard, knowledgeType, persona  // Full compliance taxonomy
+
+// OPTIONAL:
 expectedCitation, retrievalStrategy
 ```
 
-**ArionComply Workflow Test:**
+**Enterprise Task Test (Taxonomy B):**
 ```typescript
-// MUST have:
-id, category: "arioncomply_workflow", vendor: "ArionComply", question, expectedTopics, complexity
+// MUST have (in addition to base):
+taskDomain, taskType
+// OR at minimum:
+taskDomain, businessFunction
 
-// SHOULD have:
-taskCategory, task, userType, expectedGuidance
+// RECOMMENDED:
+taskDomain, taskType, businessFunction  // Full enterprise taxonomy
 
-// MAY have:
-prompts, expectedClarifications
+// OPTIONAL:
+expectedSteps, retrievalStrategy
 ```
 
-**ArionComply Multi-Tier Test:**
+**Platform Feature Test (Taxonomy C):**
 ```typescript
-// MUST have:
-id, category: "ai_backend_multitier", vendor: "ArionComply", question, expectedTopics, complexity,
-tier2Mode, tier1Content, tier2Content, tier3Context, orgProfile, fullPrompt
+// MUST have (in addition to base):
+platformFeature, featureAction, vendor: "CustomerName"
+// OR at minimum:
+platformFeature, userContext, vendor: "CustomerName"
 
-// SHOULD have:
-estimatedTokens
+// RECOMMENDED:
+platformFeature, featureAction, userContext, vendor  // Full platform taxonomy
 
-// MAY have:
-conversationHistory
+// OPTIONAL:
+expectedGuidance, expectedClarifications, routingProfile
 ```
 
-### 4.2 Field Validation Rules
+**Customer Pipeline Multi-Tier Test (ArionComply Example):**
+```typescript
+// MUST have (in addition to base):
+vendor: "ArionComply",
+category: "ai_backend_multitier",
+tier2Mode, tier1Content, tier2Content, tier3Context, orgProfile, fullPrompt,
+routingProfile: "arioncomply_*"  // Must route through customer pipeline
+
+// RECOMMENDED:
+estimatedTokens, conversationHistory
+
+// OPTIONAL:
+standard, knowledgeType, persona  // Can also use compliance taxonomy
+```
+
+### 4.3 Routing Profile Requirements
+
+**Direct LLM Testing:**
+```typescript
+// Can omit routingProfile (defaults to direct_openai_gpt4)
+{
+  routingProfile: "direct_openai_gpt4"  // or "local_llama3_70b"
+}
+```
+
+**Customer Pipeline Testing:**
+```typescript
+// MUST specify customer pipeline routing profile
+{
+  vendor: "ArionComply",
+  routingProfile: "arioncomply_local_dev" | "arioncomply_cloud_dev" | "arioncomply_production"
+}
+```
+
+**Multi-Route Comparison:**
+```typescript
+// Specify multiple profiles for comparison testing
+{
+  routingProfiles: [
+    "direct_openai_gpt4",      // Cloud LLM baseline
+    "local_llama3_70b",        // Local alternative
+    "arioncomply_cloud_dev"    // Customer pipeline with RAG
+  ]
+}
+```
+
+### 4.4 Field Validation Rules
 
 **`id` validation:**
 - Must be unique
@@ -674,11 +789,107 @@ conversationHistory
 }
 ```
 
+### 5.4 Enterprise Task Test
+
+```json
+{
+  "id": "DOCUMENT_ANALYSIS_CONTRACT_SUMMARY_1",
+  "category": "enterprise_task",
+  "vendor": "Generic",
+  "taskDomain": "document_processing",
+  "taskType": "analyze",
+  "businessFunction": "legal",
+  "question": "Summarize this vendor contract and identify key risks and obligations",
+  "expectedTopics": ["contract summary", "risk identification", "obligations", "key terms", "deadlines"],
+  "expectedBehavior": "Should provide concise summary highlighting risks, obligations, payment terms, and important dates",
+  "complexity": "intermediate",
+  "routingProfile": "local_llama3_70b",
+  "promptComplexity": {
+    "level": "moderate",
+    "score": 55,
+    "tokens": 15,
+    "technicalDensity": 25,
+    "performanceClass": "medium"
+  }
+}
+```
+
+### 5.5 Platform Feature Test
+
+```json
+{
+  "id": "ARION_PLATFORM_EVIDENCE_UPLOAD_1",
+  "category": "platform_feature",
+  "vendor": "ArionComply",
+  "platformFeature": "evidence_management",
+  "featureAction": "upload",
+  "userContext": "first_time",
+  "question": "How do I upload evidence for ISO 27001 control A.8.2 in ArionComply?",
+  "expectedTopics": ["navigate to control", "add evidence button", "file upload", "link control"],
+  "expectedGuidance": [
+    "Navigate to Frameworks > ISO 27001 > Control A.8.2",
+    "Click the Add Evidence button",
+    "Choose upload file or link URL",
+    "Add description and tags",
+    "Save to link evidence to control"
+  ],
+  "complexity": "beginner",
+  "routingProfile": "arioncomply_local_dev",
+  "routingContext": {
+    "framework": "iso27001"
+  },
+  "promptComplexity": {
+    "level": "simple",
+    "score": 35,
+    "tokens": 18,
+    "technicalDensity": 20,
+    "performanceClass": "fast"
+  }
+}
+```
+
+### 5.6 Multi-Route Comparison Test
+
+```json
+{
+  "id": "GDPR_ARTICLE6_MULTI_ROUTE_COMPARISON_1",
+  "category": "comparison_test",
+  "vendor": "Generic",
+  "standard": "GDPR",
+  "knowledgeType": "FACTUAL",
+  "persona": "PRACTITIONER",
+  "question": "What are the legal bases for processing personal data under GDPR Article 6?",
+  "routingProfiles": [
+    "direct_openai_gpt4",
+    "local_llama3_70b",
+    "arioncomply_cloud_dev"
+  ],
+  "expectedTopics": ["consent", "contract", "legal obligation", "vital interests", "public task", "legitimate interests"],
+  "expectedBehavior": "Should list all 6 legal bases and explain each with examples",
+  "complexity": "intermediate",
+  "evaluationMode": "comparison",
+  "comparisonCriteria": {
+    "accuracy": "All 6 legal bases mentioned",
+    "completeness": "Brief explanation of each",
+    "citations": "Article 6 referenced",
+    "examples": "At least one practical example per basis"
+  }
+}
+```
+
 ---
 
 ## 6. Schema Versioning
 
 ### 6.1 Version History
+
+**v2.2.0 (2026-03-25):**
+- Added routing configuration fields (`routingProfile`, `routingProfiles`, `routingContext`)
+- Added enterprise task taxonomy (`taskDomain`, `taskType`, `businessFunction`)
+- Added platform feature taxonomy (`platformFeature`, `featureAction`, `userContext`)
+- Changed categorization requirements: AT LEAST ONE taxonomy required
+- Added multi-route comparison support
+- Added `evaluationMode` and `comparisonCriteria` fields
 
 **v2.1.0 (2026-03-25):**
 - Added `vendor` field (required)

@@ -1,0 +1,2280 @@
+================================================================================
+PERFORMANCE TEST SUITE - 5 Runs × 10 Prompts × 10 Models
+================================================================================
+Total executions: 500
+Estimated duration: 2.5-3 hours
+Verification: Active endpoint testing, no timeout assumptions
+Recovery: 5-attempt retry with pkill fallback
+================================================================================
+
+================================================================================
+STARTING RUN 1: TINY INPUT PROMPTS
+================================================================================
+
+================================================================================
+PERFORMANCE RUN 1: 10 prompts × 10 models
+================================================================================
+
+======================================================================
+MODEL 1/10: PHI3
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting phi3 with retry logic...
+   Attempt 1/5
+▶️  Starting phi3 (4B, port 8081)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK..."
+✅ phi3 VERIFIED READY AND FUNCTIONAL
+
+✅ phi3 started successfully
+
+🛑 Stopping phi3 with retry logic...
+   Attempt 1/5
+🛑 Stopping phi3 (port 8081)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8081 released ✓
+   Waiting for memory cleanup (10s)...
+✅ phi3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ phi3 stopped successfully
+
+✅ Completed phi3 - 10 tests executed
+
+======================================================================
+MODEL 2/10: SMOLLM3
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting smollm3 with retry logic...
+   Attempt 1/5
+▶️  Starting smollm3 (1B, port 8082)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "<think>
+
+</think>
+OK..."
+✅ smollm3 VERIFIED READY AND FUNCTIONAL
+
+✅ smollm3 started successfully
+
+🛑 Stopping smollm3 with retry logic...
+   Attempt 1/5
+🛑 Stopping smollm3 (port 8082)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8082 released ✓
+   Waiting for memory cleanup (10s)...
+✅ smollm3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ smollm3 stopped successfully
+
+✅ Completed smollm3 - 10 tests executed
+
+======================================================================
+MODEL 3/10: MISTRAL
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting mistral with retry logic...
+   Attempt 1/5
+▶️  Starting mistral (7B, port 8083)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK. I have received your test message. Let..."
+✅ mistral VERIFIED READY AND FUNCTIONAL
+
+✅ mistral started successfully
+
+🛑 Stopping mistral with retry logic...
+   Attempt 1/5
+🛑 Stopping mistral (port 8083)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8083 released ✓
+   Waiting for memory cleanup (10s)...
+✅ mistral VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ mistral stopped successfully
+
+✅ Completed mistral - 10 tests executed
+
+======================================================================
+MODEL 4/10: QWEN2.5-32B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting qwen2.5-32b with retry logic...
+   Attempt 1/5
+▶️  Starting qwen2.5-32b (32B, port 8084)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ qwen2.5-32b VERIFIED READY AND FUNCTIONAL
+
+✅ qwen2.5-32b started successfully
+
+🛑 Stopping qwen2.5-32b with retry logic...
+   Attempt 1/5
+🛑 Stopping qwen2.5-32b (port 8084)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8084 released ✓
+   Waiting for memory cleanup (10s)...
+✅ qwen2.5-32b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ qwen2.5-32b stopped successfully
+
+✅ Completed qwen2.5-32b - 10 tests executed
+
+======================================================================
+MODEL 5/10: QWEN-CODER-7B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting qwen-coder-7b with retry logic...
+   Attempt 1/5
+▶️  Starting qwen-coder-7b (7B, port 8085)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ qwen-coder-7b VERIFIED READY AND FUNCTIONAL
+
+✅ qwen-coder-7b started successfully
+
+🛑 Stopping qwen-coder-7b with retry logic...
+   Attempt 1/5
+🛑 Stopping qwen-coder-7b (port 8085)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8085 released ✓
+   Waiting for memory cleanup (10s)...
+✅ qwen-coder-7b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ qwen-coder-7b stopped successfully
+
+✅ Completed qwen-coder-7b - 10 tests executed
+
+======================================================================
+MODEL 6/10: HERMES-3-LLAMA-8B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting hermes-3-llama-8b with retry logic...
+   Attempt 1/5
+▶️  Starting hermes-3-llama-8b (8B, port 8086)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ hermes-3-llama-8b VERIFIED READY AND FUNCTIONAL
+
+✅ hermes-3-llama-8b started successfully
+
+🛑 Stopping hermes-3-llama-8b with retry logic...
+   Attempt 1/5
+🛑 Stopping hermes-3-llama-8b (port 8086)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8086 released ✓
+   Waiting for memory cleanup (10s)...
+✅ hermes-3-llama-8b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ hermes-3-llama-8b stopped successfully
+
+✅ Completed hermes-3-llama-8b - 10 tests executed
+
+======================================================================
+MODEL 7/10: LLAMA-3.1-8B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting llama-3.1-8b with retry logic...
+   Attempt 1/5
+▶️  Starting llama-3.1-8b (8B, port 8087)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ llama-3.1-8b VERIFIED READY AND FUNCTIONAL
+
+✅ llama-3.1-8b started successfully
+
+🛑 Stopping llama-3.1-8b with retry logic...
+   Attempt 1/5
+🛑 Stopping llama-3.1-8b (port 8087)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8087 released ✓
+   Waiting for memory cleanup (10s)...
+✅ llama-3.1-8b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ llama-3.1-8b stopped successfully
+
+✅ Completed llama-3.1-8b - 10 tests executed
+
+======================================================================
+MODEL 8/10: LLAMA-4-SCOUT-17B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting llama-4-scout-17b with retry logic...
+   Attempt 1/5
+▶️  Starting llama-4-scout-17b (17B, port 8088)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Health endpoint OK after 27s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ llama-4-scout-17b VERIFIED READY AND FUNCTIONAL
+
+✅ llama-4-scout-17b started successfully
+
+🛑 Stopping llama-4-scout-17b with retry logic...
+   Attempt 1/5
+🛑 Stopping llama-4-scout-17b (port 8088)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8088 released ✓
+   Waiting for memory cleanup (10s)...
+✅ llama-4-scout-17b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ llama-4-scout-17b stopped successfully
+
+✅ Completed llama-4-scout-17b - 10 tests executed
+
+======================================================================
+MODEL 9/10: MISTRAL-SMALL-24B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting mistral-small-24b with retry logic...
+   Attempt 1/5
+▶️  Starting mistral-small-24b (24B, port 8089)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ mistral-small-24b VERIFIED READY AND FUNCTIONAL
+
+✅ mistral-small-24b started successfully
+
+🛑 Stopping mistral-small-24b with retry logic...
+   Attempt 1/5
+🛑 Stopping mistral-small-24b (port 8089)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8089 released ✓
+   Waiting for memory cleanup (10s)...
+✅ mistral-small-24b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ mistral-small-24b stopped successfully
+
+✅ Completed mistral-small-24b - 10 tests executed
+
+======================================================================
+MODEL 10/10: DEEPSEEK-R1-QWEN-32B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting deepseek-r1-qwen-32b with retry logic...
+   Attempt 1/5
+▶️  Starting deepseek-r1-qwen-32b (32B, port 8092)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "<think>
+Okay, so I just received a test..."
+✅ deepseek-r1-qwen-32b VERIFIED READY AND FUNCTIONAL
+
+✅ deepseek-r1-qwen-32b started successfully
+
+🛑 Stopping deepseek-r1-qwen-32b with retry logic...
+   Attempt 1/5
+🛑 Stopping deepseek-r1-qwen-32b (port 8092)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8092 released ✓
+   Waiting for memory cleanup (10s)...
+✅ deepseek-r1-qwen-32b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ deepseek-r1-qwen-32b stopped successfully
+
+✅ Completed deepseek-r1-qwen-32b - 10 tests executed
+
+✅ Run 1 complete: 100 executions
+
+================================================================================
+STARTING RUN 2: SHORT INPUT PROMPTS
+================================================================================
+
+================================================================================
+PERFORMANCE RUN 2: 10 prompts × 10 models
+================================================================================
+
+======================================================================
+MODEL 1/10: PHI3
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting phi3 with retry logic...
+   Attempt 1/5
+▶️  Starting phi3 (4B, port 8081)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK..."
+✅ phi3 VERIFIED READY AND FUNCTIONAL
+
+✅ phi3 started successfully
+
+🛑 Stopping phi3 with retry logic...
+   Attempt 1/5
+🛑 Stopping phi3 (port 8081)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8081 released ✓
+   Waiting for memory cleanup (10s)...
+✅ phi3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ phi3 stopped successfully
+
+✅ Completed phi3 - 10 tests executed
+
+======================================================================
+MODEL 2/10: SMOLLM3
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting smollm3 with retry logic...
+   Attempt 1/5
+▶️  Starting smollm3 (1B, port 8082)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "<think>
+
+</think>
+OK..."
+✅ smollm3 VERIFIED READY AND FUNCTIONAL
+
+✅ smollm3 started successfully
+
+🛑 Stopping smollm3 with retry logic...
+   Attempt 1/5
+🛑 Stopping smollm3 (port 8082)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8082 released ✓
+   Waiting for memory cleanup (10s)...
+✅ smollm3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ smollm3 stopped successfully
+
+✅ Completed smollm3 - 10 tests executed
+
+======================================================================
+MODEL 3/10: MISTRAL
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting mistral with retry logic...
+   Attempt 1/5
+▶️  Starting mistral (7B, port 8083)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK. I have received your test message. If..."
+✅ mistral VERIFIED READY AND FUNCTIONAL
+
+✅ mistral started successfully
+
+🛑 Stopping mistral with retry logic...
+   Attempt 1/5
+🛑 Stopping mistral (port 8083)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8083 released ✓
+   Waiting for memory cleanup (10s)...
+✅ mistral VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ mistral stopped successfully
+
+✅ Completed mistral - 10 tests executed
+
+======================================================================
+MODEL 4/10: QWEN2.5-32B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting qwen2.5-32b with retry logic...
+   Attempt 1/5
+▶️  Starting qwen2.5-32b (32B, port 8084)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ qwen2.5-32b VERIFIED READY AND FUNCTIONAL
+
+✅ qwen2.5-32b started successfully
+
+🛑 Stopping qwen2.5-32b with retry logic...
+   Attempt 1/5
+🛑 Stopping qwen2.5-32b (port 8084)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8084 released ✓
+   Waiting for memory cleanup (10s)...
+✅ qwen2.5-32b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ qwen2.5-32b stopped successfully
+
+✅ Completed qwen2.5-32b - 10 tests executed
+
+======================================================================
+MODEL 5/10: QWEN-CODER-7B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting qwen-coder-7b with retry logic...
+   Attempt 1/5
+▶️  Starting qwen-coder-7b (7B, port 8085)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ qwen-coder-7b VERIFIED READY AND FUNCTIONAL
+
+✅ qwen-coder-7b started successfully
+
+🛑 Stopping qwen-coder-7b with retry logic...
+   Attempt 1/5
+🛑 Stopping qwen-coder-7b (port 8085)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8085 released ✓
+   Waiting for memory cleanup (10s)...
+✅ qwen-coder-7b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ qwen-coder-7b stopped successfully
+
+✅ Completed qwen-coder-7b - 10 tests executed
+
+======================================================================
+MODEL 6/10: HERMES-3-LLAMA-8B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting hermes-3-llama-8b with retry logic...
+   Attempt 1/5
+▶️  Starting hermes-3-llama-8b (8B, port 8086)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ hermes-3-llama-8b VERIFIED READY AND FUNCTIONAL
+
+✅ hermes-3-llama-8b started successfully
+
+🛑 Stopping hermes-3-llama-8b with retry logic...
+   Attempt 1/5
+🛑 Stopping hermes-3-llama-8b (port 8086)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8086 released ✓
+   Waiting for memory cleanup (10s)...
+✅ hermes-3-llama-8b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ hermes-3-llama-8b stopped successfully
+
+✅ Completed hermes-3-llama-8b - 10 tests executed
+
+======================================================================
+MODEL 7/10: LLAMA-3.1-8B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting llama-3.1-8b with retry logic...
+   Attempt 1/5
+▶️  Starting llama-3.1-8b (8B, port 8087)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ llama-3.1-8b VERIFIED READY AND FUNCTIONAL
+
+✅ llama-3.1-8b started successfully
+
+🛑 Stopping llama-3.1-8b with retry logic...
+   Attempt 1/5
+🛑 Stopping llama-3.1-8b (port 8087)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8087 released ✓
+   Waiting for memory cleanup (10s)...
+✅ llama-3.1-8b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ llama-3.1-8b stopped successfully
+
+✅ Completed llama-3.1-8b - 10 tests executed
+
+======================================================================
+MODEL 8/10: LLAMA-4-SCOUT-17B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting llama-4-scout-17b with retry logic...
+   Attempt 1/5
+▶️  Starting llama-4-scout-17b (17B, port 8088)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Health endpoint OK after 27s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ llama-4-scout-17b VERIFIED READY AND FUNCTIONAL
+
+✅ llama-4-scout-17b started successfully
+
+🛑 Stopping llama-4-scout-17b with retry logic...
+   Attempt 1/5
+🛑 Stopping llama-4-scout-17b (port 8088)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8088 released ✓
+   Waiting for memory cleanup (10s)...
+✅ llama-4-scout-17b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ llama-4-scout-17b stopped successfully
+
+✅ Completed llama-4-scout-17b - 10 tests executed
+
+======================================================================
+MODEL 9/10: MISTRAL-SMALL-24B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting mistral-small-24b with retry logic...
+   Attempt 1/5
+▶️  Starting mistral-small-24b (24B, port 8089)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ mistral-small-24b VERIFIED READY AND FUNCTIONAL
+
+✅ mistral-small-24b started successfully
+
+🛑 Stopping mistral-small-24b with retry logic...
+   Attempt 1/5
+🛑 Stopping mistral-small-24b (port 8089)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8089 released ✓
+   Waiting for memory cleanup (10s)...
+✅ mistral-small-24b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ mistral-small-24b stopped successfully
+
+✅ Completed mistral-small-24b - 10 tests executed
+
+======================================================================
+MODEL 10/10: DEEPSEEK-R1-QWEN-32B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting deepseek-r1-qwen-32b with retry logic...
+   Attempt 1/5
+▶️  Starting deepseek-r1-qwen-32b (32B, port 8092)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "<think>
+Okay, so I just saw this message..."
+✅ deepseek-r1-qwen-32b VERIFIED READY AND FUNCTIONAL
+
+✅ deepseek-r1-qwen-32b started successfully
+
+🛑 Stopping deepseek-r1-qwen-32b with retry logic...
+   Attempt 1/5
+🛑 Stopping deepseek-r1-qwen-32b (port 8092)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8092 released ✓
+   Waiting for memory cleanup (10s)...
+✅ deepseek-r1-qwen-32b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ deepseek-r1-qwen-32b stopped successfully
+
+✅ Completed deepseek-r1-qwen-32b - 10 tests executed
+
+✅ Run 2 complete: 100 executions
+
+================================================================================
+STARTING RUN 3: MEDIUM INPUT PROMPTS
+================================================================================
+
+================================================================================
+PERFORMANCE RUN 3: 10 prompts × 10 models
+================================================================================
+
+======================================================================
+MODEL 1/10: PHI3
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting phi3 with retry logic...
+   Attempt 1/5
+▶️  Starting phi3 (4B, port 8081)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK..."
+✅ phi3 VERIFIED READY AND FUNCTIONAL
+
+✅ phi3 started successfully
+
+🛑 Stopping phi3 with retry logic...
+   Attempt 1/5
+🛑 Stopping phi3 (port 8081)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8081 released ✓
+   Waiting for memory cleanup (10s)...
+✅ phi3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ phi3 stopped successfully
+
+✅ Completed phi3 - 10 tests executed
+
+======================================================================
+MODEL 2/10: SMOLLM3
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting smollm3 with retry logic...
+   Attempt 1/5
+▶️  Starting smollm3 (1B, port 8082)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "<think>
+
+</think>
+OK..."
+✅ smollm3 VERIFIED READY AND FUNCTIONAL
+
+✅ smollm3 started successfully
+
+🛑 Stopping smollm3 with retry logic...
+   Attempt 1/5
+🛑 Stopping smollm3 (port 8082)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8082 released ✓
+   Waiting for memory cleanup (10s)...
+✅ smollm3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ smollm3 stopped successfully
+
+✅ Completed smollm3 - 10 tests executed
+
+======================================================================
+MODEL 3/10: MISTRAL
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting mistral with retry logic...
+   Attempt 1/5
+▶️  Starting mistral (7B, port 8083)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK. I have received your test message. If..."
+✅ mistral VERIFIED READY AND FUNCTIONAL
+
+✅ mistral started successfully
+
+🛑 Stopping mistral with retry logic...
+   Attempt 1/5
+🛑 Stopping mistral (port 8083)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8083 released ✓
+   Waiting for memory cleanup (10s)...
+✅ mistral VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ mistral stopped successfully
+
+✅ Completed mistral - 10 tests executed
+
+======================================================================
+MODEL 4/10: QWEN2.5-32B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting qwen2.5-32b with retry logic...
+   Attempt 1/5
+▶️  Starting qwen2.5-32b (32B, port 8084)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ qwen2.5-32b VERIFIED READY AND FUNCTIONAL
+
+✅ qwen2.5-32b started successfully
+
+🛑 Stopping qwen2.5-32b with retry logic...
+   Attempt 1/5
+🛑 Stopping qwen2.5-32b (port 8084)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8084 released ✓
+   Waiting for memory cleanup (10s)...
+✅ qwen2.5-32b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ qwen2.5-32b stopped successfully
+
+✅ Completed qwen2.5-32b - 10 tests executed
+
+======================================================================
+MODEL 5/10: QWEN-CODER-7B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting qwen-coder-7b with retry logic...
+   Attempt 1/5
+▶️  Starting qwen-coder-7b (7B, port 8085)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ qwen-coder-7b VERIFIED READY AND FUNCTIONAL
+
+✅ qwen-coder-7b started successfully
+
+🛑 Stopping qwen-coder-7b with retry logic...
+   Attempt 1/5
+🛑 Stopping qwen-coder-7b (port 8085)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8085 released ✓
+   Waiting for memory cleanup (10s)...
+✅ qwen-coder-7b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ qwen-coder-7b stopped successfully
+
+✅ Completed qwen-coder-7b - 10 tests executed
+
+======================================================================
+MODEL 6/10: HERMES-3-LLAMA-8B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting hermes-3-llama-8b with retry logic...
+   Attempt 1/5
+▶️  Starting hermes-3-llama-8b (8B, port 8086)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ hermes-3-llama-8b VERIFIED READY AND FUNCTIONAL
+
+✅ hermes-3-llama-8b started successfully
+
+🛑 Stopping hermes-3-llama-8b with retry logic...
+   Attempt 1/5
+🛑 Stopping hermes-3-llama-8b (port 8086)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8086 released ✓
+   Waiting for memory cleanup (10s)...
+✅ hermes-3-llama-8b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ hermes-3-llama-8b stopped successfully
+
+✅ Completed hermes-3-llama-8b - 10 tests executed
+
+======================================================================
+MODEL 7/10: LLAMA-3.1-8B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting llama-3.1-8b with retry logic...
+   Attempt 1/5
+▶️  Starting llama-3.1-8b (8B, port 8087)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ llama-3.1-8b VERIFIED READY AND FUNCTIONAL
+
+✅ llama-3.1-8b started successfully
+
+🛑 Stopping llama-3.1-8b with retry logic...
+   Attempt 1/5
+🛑 Stopping llama-3.1-8b (port 8087)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8087 released ✓
+   Waiting for memory cleanup (10s)...
+✅ llama-3.1-8b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ llama-3.1-8b stopped successfully
+
+✅ Completed llama-3.1-8b - 10 tests executed
+
+======================================================================
+MODEL 8/10: LLAMA-4-SCOUT-17B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting llama-4-scout-17b with retry logic...
+   Attempt 1/5
+▶️  Starting llama-4-scout-17b (17B, port 8088)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Health endpoint OK after 18s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ llama-4-scout-17b VERIFIED READY AND FUNCTIONAL
+
+✅ llama-4-scout-17b started successfully
+
+🛑 Stopping llama-4-scout-17b with retry logic...
+   Attempt 1/5
+🛑 Stopping llama-4-scout-17b (port 8088)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8088 released ✓
+   Waiting for memory cleanup (10s)...
+✅ llama-4-scout-17b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ llama-4-scout-17b stopped successfully
+
+✅ Completed llama-4-scout-17b - 10 tests executed
+
+======================================================================
+MODEL 9/10: MISTRAL-SMALL-24B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting mistral-small-24b with retry logic...
+   Attempt 1/5
+▶️  Starting mistral-small-24b (24B, port 8089)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ mistral-small-24b VERIFIED READY AND FUNCTIONAL
+
+✅ mistral-small-24b started successfully
+
+🛑 Stopping mistral-small-24b with retry logic...
+   Attempt 1/5
+🛑 Stopping mistral-small-24b (port 8089)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8089 released ✓
+   Waiting for memory cleanup (10s)...
+✅ mistral-small-24b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ mistral-small-24b stopped successfully
+
+✅ Completed mistral-small-24b - 10 tests executed
+
+======================================================================
+MODEL 10/10: DEEPSEEK-R1-QWEN-32B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting deepseek-r1-qwen-32b with retry logic...
+   Attempt 1/5
+▶️  Starting deepseek-r1-qwen-32b (32B, port 8092)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "<think>
+Okay, so I just saw this message..."
+✅ deepseek-r1-qwen-32b VERIFIED READY AND FUNCTIONAL
+
+✅ deepseek-r1-qwen-32b started successfully
+
+🛑 Stopping deepseek-r1-qwen-32b with retry logic...
+   Attempt 1/5
+🛑 Stopping deepseek-r1-qwen-32b (port 8092)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8092 released ✓
+   Waiting for memory cleanup (10s)...
+✅ deepseek-r1-qwen-32b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ deepseek-r1-qwen-32b stopped successfully
+
+✅ Completed deepseek-r1-qwen-32b - 10 tests executed
+
+✅ Run 3 complete: 100 executions
+
+================================================================================
+STARTING RUN 4: LONG INPUT PROMPTS
+================================================================================
+
+================================================================================
+PERFORMANCE RUN 4: 10 prompts × 10 models
+================================================================================
+
+======================================================================
+MODEL 1/10: PHI3
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting phi3 with retry logic...
+   Attempt 1/5
+▶️  Starting phi3 (4B, port 8081)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK..."
+✅ phi3 VERIFIED READY AND FUNCTIONAL
+
+✅ phi3 started successfully
+
+🛑 Stopping phi3 with retry logic...
+   Attempt 1/5
+🛑 Stopping phi3 (port 8081)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8081 released ✓
+   Waiting for memory cleanup (10s)...
+✅ phi3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ phi3 stopped successfully
+
+✅ Completed phi3 - 10 tests executed
+
+======================================================================
+MODEL 2/10: SMOLLM3
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting smollm3 with retry logic...
+   Attempt 1/5
+▶️  Starting smollm3 (1B, port 8082)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "<think>
+
+</think>
+I'm sorry, but I..."
+✅ smollm3 VERIFIED READY AND FUNCTIONAL
+
+✅ smollm3 started successfully
+
+🛑 Stopping smollm3 with retry logic...
+   Attempt 1/5
+🛑 Stopping smollm3 (port 8082)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8082 released ✓
+   Waiting for memory cleanup (10s)...
+✅ smollm3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ smollm3 stopped successfully
+
+✅ Completed smollm3 - 10 tests executed
+
+======================================================================
+MODEL 3/10: MISTRAL
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting mistral with retry logic...
+   Attempt 1/5
+▶️  Starting mistral (7B, port 8083)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK. I have received your test message. If..."
+✅ mistral VERIFIED READY AND FUNCTIONAL
+
+✅ mistral started successfully
+
+🛑 Stopping mistral with retry logic...
+   Attempt 1/5
+🛑 Stopping mistral (port 8083)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8083 released ✓
+   Waiting for memory cleanup (10s)...
+✅ mistral VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ mistral stopped successfully
+
+✅ Completed mistral - 10 tests executed
+
+======================================================================
+MODEL 4/10: QWEN2.5-32B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting qwen2.5-32b with retry logic...
+   Attempt 1/5
+▶️  Starting qwen2.5-32b (32B, port 8084)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ qwen2.5-32b VERIFIED READY AND FUNCTIONAL
+
+✅ qwen2.5-32b started successfully
+
+🛑 Stopping qwen2.5-32b with retry logic...
+   Attempt 1/5
+🛑 Stopping qwen2.5-32b (port 8084)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8084 released ✓
+   Waiting for memory cleanup (10s)...
+✅ qwen2.5-32b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ qwen2.5-32b stopped successfully
+
+✅ Completed qwen2.5-32b - 10 tests executed
+
+======================================================================
+MODEL 5/10: QWEN-CODER-7B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting qwen-coder-7b with retry logic...
+   Attempt 1/5
+▶️  Starting qwen-coder-7b (7B, port 8085)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ qwen-coder-7b VERIFIED READY AND FUNCTIONAL
+
+✅ qwen-coder-7b started successfully
+
+🛑 Stopping qwen-coder-7b with retry logic...
+   Attempt 1/5
+🛑 Stopping qwen-coder-7b (port 8085)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8085 released ✓
+   Waiting for memory cleanup (10s)...
+✅ qwen-coder-7b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ qwen-coder-7b stopped successfully
+
+✅ Completed qwen-coder-7b - 10 tests executed
+
+======================================================================
+MODEL 6/10: HERMES-3-LLAMA-8B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting hermes-3-llama-8b with retry logic...
+   Attempt 1/5
+▶️  Starting hermes-3-llama-8b (8B, port 8086)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ hermes-3-llama-8b VERIFIED READY AND FUNCTIONAL
+
+✅ hermes-3-llama-8b started successfully
+
+🛑 Stopping hermes-3-llama-8b with retry logic...
+   Attempt 1/5
+🛑 Stopping hermes-3-llama-8b (port 8086)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8086 released ✓
+   Waiting for memory cleanup (10s)...
+✅ hermes-3-llama-8b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ hermes-3-llama-8b stopped successfully
+
+✅ Completed hermes-3-llama-8b - 10 tests executed
+
+======================================================================
+MODEL 7/10: LLAMA-3.1-8B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting llama-3.1-8b with retry logic...
+   Attempt 1/5
+▶️  Starting llama-3.1-8b (8B, port 8087)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ llama-3.1-8b VERIFIED READY AND FUNCTIONAL
+
+✅ llama-3.1-8b started successfully
+
+🛑 Stopping llama-3.1-8b with retry logic...
+   Attempt 1/5
+🛑 Stopping llama-3.1-8b (port 8087)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8087 released ✓
+   Waiting for memory cleanup (10s)...
+✅ llama-3.1-8b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ llama-3.1-8b stopped successfully
+
+✅ Completed llama-3.1-8b - 10 tests executed
+
+======================================================================
+MODEL 8/10: LLAMA-4-SCOUT-17B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting llama-4-scout-17b with retry logic...
+   Attempt 1/5
+▶️  Starting llama-4-scout-17b (17B, port 8088)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Health endpoint OK after 18s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ llama-4-scout-17b VERIFIED READY AND FUNCTIONAL
+
+✅ llama-4-scout-17b started successfully
+
+🛑 Stopping llama-4-scout-17b with retry logic...
+   Attempt 1/5
+🛑 Stopping llama-4-scout-17b (port 8088)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8088 released ✓
+   Waiting for memory cleanup (10s)...
+✅ llama-4-scout-17b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ llama-4-scout-17b stopped successfully
+
+✅ Completed llama-4-scout-17b - 10 tests executed
+
+======================================================================
+MODEL 9/10: MISTRAL-SMALL-24B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting mistral-small-24b with retry logic...
+   Attempt 1/5
+▶️  Starting mistral-small-24b (24B, port 8089)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ mistral-small-24b VERIFIED READY AND FUNCTIONAL
+
+✅ mistral-small-24b started successfully
+
+🛑 Stopping mistral-small-24b with retry logic...
+   Attempt 1/5
+🛑 Stopping mistral-small-24b (port 8089)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8089 released ✓
+   Waiting for memory cleanup (10s)...
+✅ mistral-small-24b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ mistral-small-24b stopped successfully
+
+✅ Completed mistral-small-24b - 10 tests executed
+
+======================================================================
+MODEL 10/10: DEEPSEEK-R1-QWEN-32B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting deepseek-r1-qwen-32b with retry logic...
+   Attempt 1/5
+▶️  Starting deepseek-r1-qwen-32b (32B, port 8092)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "<think>
+Okay, so I just received this test..."
+✅ deepseek-r1-qwen-32b VERIFIED READY AND FUNCTIONAL
+
+✅ deepseek-r1-qwen-32b started successfully
+
+🛑 Stopping deepseek-r1-qwen-32b with retry logic...
+   Attempt 1/5
+🛑 Stopping deepseek-r1-qwen-32b (port 8092)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8092 released ✓
+   Waiting for memory cleanup (10s)...
+✅ deepseek-r1-qwen-32b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ deepseek-r1-qwen-32b stopped successfully
+
+✅ Completed deepseek-r1-qwen-32b - 10 tests executed
+
+✅ Run 4 complete: 100 executions
+
+================================================================================
+STARTING RUN 5: VERYLONG INPUT PROMPTS
+================================================================================
+
+================================================================================
+PERFORMANCE RUN 5: 10 prompts × 10 models
+================================================================================
+
+======================================================================
+MODEL 1/10: PHI3
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting phi3 with retry logic...
+   Attempt 1/5
+▶️  Starting phi3 (4B, port 8081)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK..."
+✅ phi3 VERIFIED READY AND FUNCTIONAL
+
+✅ phi3 started successfully
+
+🛑 Stopping phi3 with retry logic...
+   Attempt 1/5
+🛑 Stopping phi3 (port 8081)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8081 released ✓
+   Waiting for memory cleanup (10s)...
+✅ phi3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ phi3 stopped successfully
+
+✅ Completed phi3 - 10 tests executed
+
+======================================================================
+MODEL 2/10: SMOLLM3
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting smollm3 with retry logic...
+   Attempt 1/5
+▶️  Starting smollm3 (1B, port 8082)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "<think>
+
+</think>
+OK..."
+✅ smollm3 VERIFIED READY AND FUNCTIONAL
+
+✅ smollm3 started successfully
+
+🛑 Stopping smollm3 with retry logic...
+   Attempt 1/5
+🛑 Stopping smollm3 (port 8082)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8082 released ✓
+   Waiting for memory cleanup (10s)...
+✅ smollm3 VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ smollm3 stopped successfully
+
+✅ Completed smollm3 - 10 tests executed
+
+======================================================================
+MODEL 3/10: MISTRAL
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting mistral with retry logic...
+   Attempt 1/5
+▶️  Starting mistral (7B, port 8083)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: " OK. I have received and understood your test mess..."
+✅ mistral VERIFIED READY AND FUNCTIONAL
+
+✅ mistral started successfully
+
+🛑 Stopping mistral with retry logic...
+   Attempt 1/5
+🛑 Stopping mistral (port 8083)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8083 released ✓
+   Waiting for memory cleanup (10s)...
+✅ mistral VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ mistral stopped successfully
+
+✅ Completed mistral - 10 tests executed
+
+======================================================================
+MODEL 4/10: QWEN2.5-32B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting qwen2.5-32b with retry logic...
+   Attempt 1/5
+▶️  Starting qwen2.5-32b (32B, port 8084)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ qwen2.5-32b VERIFIED READY AND FUNCTIONAL
+
+✅ qwen2.5-32b started successfully
+
+🛑 Stopping qwen2.5-32b with retry logic...
+   Attempt 1/5
+🛑 Stopping qwen2.5-32b (port 8084)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8084 released ✓
+   Waiting for memory cleanup (10s)...
+✅ qwen2.5-32b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ qwen2.5-32b stopped successfully
+
+✅ Completed qwen2.5-32b - 10 tests executed
+
+======================================================================
+MODEL 5/10: QWEN-CODER-7B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting qwen-coder-7b with retry logic...
+   Attempt 1/5
+▶️  Starting qwen-coder-7b (7B, port 8085)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ qwen-coder-7b VERIFIED READY AND FUNCTIONAL
+
+✅ qwen-coder-7b started successfully
+
+🛑 Stopping qwen-coder-7b with retry logic...
+   Attempt 1/5
+🛑 Stopping qwen-coder-7b (port 8085)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8085 released ✓
+   Waiting for memory cleanup (10s)...
+✅ qwen-coder-7b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ qwen-coder-7b stopped successfully
+
+✅ Completed qwen-coder-7b - 10 tests executed
+
+======================================================================
+MODEL 6/10: HERMES-3-LLAMA-8B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting hermes-3-llama-8b with retry logic...
+   Attempt 1/5
+▶️  Starting hermes-3-llama-8b (8B, port 8086)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ hermes-3-llama-8b VERIFIED READY AND FUNCTIONAL
+
+✅ hermes-3-llama-8b started successfully
+
+🛑 Stopping hermes-3-llama-8b with retry logic...
+   Attempt 1/5
+🛑 Stopping hermes-3-llama-8b (port 8086)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8086 released ✓
+   Waiting for memory cleanup (10s)...
+✅ hermes-3-llama-8b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ hermes-3-llama-8b stopped successfully
+
+✅ Completed hermes-3-llama-8b - 10 tests executed
+
+======================================================================
+MODEL 7/10: LLAMA-3.1-8B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting llama-3.1-8b with retry logic...
+   Attempt 1/5
+▶️  Starting llama-3.1-8b (8B, port 8087)
+   Timeout: 2.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ llama-3.1-8b VERIFIED READY AND FUNCTIONAL
+
+✅ llama-3.1-8b started successfully
+
+🛑 Stopping llama-3.1-8b with retry logic...
+   Attempt 1/5
+🛑 Stopping llama-3.1-8b (port 8087)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8087 released ✓
+   Waiting for memory cleanup (10s)...
+✅ llama-3.1-8b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ llama-3.1-8b stopped successfully
+
+✅ Completed llama-3.1-8b - 10 tests executed
+
+======================================================================
+MODEL 8/10: LLAMA-4-SCOUT-17B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting llama-4-scout-17b with retry logic...
+   Attempt 1/5
+▶️  Starting llama-4-scout-17b (17B, port 8088)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Model loading... (503)
+   Health endpoint OK after 18s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ llama-4-scout-17b VERIFIED READY AND FUNCTIONAL
+
+✅ llama-4-scout-17b started successfully
+
+🛑 Stopping llama-4-scout-17b with retry logic...
+   Attempt 1/5
+🛑 Stopping llama-4-scout-17b (port 8088)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8088 released ✓
+   Waiting for memory cleanup (10s)...
+✅ llama-4-scout-17b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ llama-4-scout-17b stopped successfully
+
+✅ Completed llama-4-scout-17b - 10 tests executed
+
+======================================================================
+MODEL 9/10: MISTRAL-SMALL-24B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting mistral-small-24b with retry logic...
+   Attempt 1/5
+▶️  Starting mistral-small-24b (24B, port 8089)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "OK..."
+✅ mistral-small-24b VERIFIED READY AND FUNCTIONAL
+
+✅ mistral-small-24b started successfully
+
+🛑 Stopping mistral-small-24b with retry logic...
+   Attempt 1/5
+🛑 Stopping mistral-small-24b (port 8089)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8089 released ✓
+   Waiting for memory cleanup (10s)...
+✅ mistral-small-24b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ mistral-small-24b stopped successfully
+
+✅ Completed mistral-small-24b - 10 tests executed
+
+======================================================================
+MODEL 10/10: DEEPSEEK-R1-QWEN-32B
+======================================================================
+
+🔧 FORCE STOPPING ALL MODELS...
+✅ All models force-stopped
+
+🔍 PRE-FLIGHT CHECK: Verifying no models running...
+   ✓ Status check: All models stopped
+   ✓ Process check: No llama-server running
+   Testing all 10 ports...
+   ✓ Port check: All 10 ports unreachable
+✅ PRE-FLIGHT COMPLETE: System is clean
+
+
+▶️  Starting deepseek-r1-qwen-32b with retry logic...
+   Attempt 1/5
+▶️  Starting deepseek-r1-qwen-32b (32B, port 8092)
+   Timeout: 5.0 minutes
+   Start command sent
+   Waiting for health endpoint...
+   Health endpoint OK after 3s ✓
+   Sending test query to verify functionality...
+   Test query succeeded: "<think>
+Okay, so I just saw this message..."
+✅ deepseek-r1-qwen-32b VERIFIED READY AND FUNCTIONAL
+
+✅ deepseek-r1-qwen-32b started successfully
+
+🛑 Stopping deepseek-r1-qwen-32b with retry logic...
+   Attempt 1/5
+🛑 Stopping deepseek-r1-qwen-32b (port 8092)...
+   Stop command sent
+   Verifying endpoint shutdown...
+   Attempt 1/15: Connection refused ✓
+   Verifying port released...
+   Port 8092 released ✓
+   Waiting for memory cleanup (10s)...
+✅ deepseek-r1-qwen-32b VERIFIED STOPPED (endpoint unreachable, port released, memory cleanup complete)
+
+✅ deepseek-r1-qwen-32b stopped successfully
+
+✅ Completed deepseek-r1-qwen-32b - 10 tests executed
+
+✅ Run 5 complete: 100 executions
+
+================================================================================
+ALL PERFORMANCE TESTS COMPLETE
+================================================================================
+Total executions: 500/500 (100.0%)
+Issues encountered: 0
+Reports saved to: ./reports/performance-*.json
+
+Performance Summary:
+Model                    Tests     Output tok/s   Avg Time
+----------------------------------------------------------------------
+smollm3                  50        114.3          4.0s
+phi3                     50        58.0           8.4s
+mistral                  50        57.9           7.4s
+llama-3.1-8b             50        55.5           8.6s
+hermes-3-llama-8b        50        55.3           7.5s
+qwen-coder-7b            50        55.2           5.2s
+llama-4-scout-17b        50        28.4           17.1s
+qwen2.5-32b              50        19.3           23.6s
+deepseek-r1-qwen-32b     50        18.9           26.0s
+mistral-small-24b        50        18.4           27.0s
