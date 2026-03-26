@@ -304,6 +304,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_START_GDPR_NOVICE_1: {
     id: "ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "PROCEDURAL",
     persona: "NOVICE",

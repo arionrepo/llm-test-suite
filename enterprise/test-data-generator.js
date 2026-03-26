@@ -329,6 +329,8 @@ export function generateTests(standard, knowledgeType, persona) {
   
   return templates.map((template, idx) => ({
     id: standard + '_' + knowledgeType + '_' + persona + '_' + (idx + 1),
+    category: 'compliance_knowledge',
+    vendor: 'Generic',
     standard,
     knowledgeType,
     persona,
