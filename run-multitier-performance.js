@@ -1,6 +1,6 @@
 import { ResilientPerformanceTestRunner } from './performance-test-runner.js';
 import { AI_BACKEND_MULTI_TIER_TESTS } from './enterprise/arioncomply-workflows/ai-backend-multi-tier-tests.js';
-import fs from 'fs';
+import { saveSchemaCompliantResults } from './utils/test-helpers.js';
 
 const topModels = ['smollm3', 'phi3', 'mistral', 'llama-3.1-8b', 'hermes-3-llama-8b'];
 const multiTierTests = Object.values(AI_BACKEND_MULTI_TIER_TESTS).slice(0, 10);
@@ -8,7 +8,9 @@ const multiTierTests = Object.values(AI_BACKEND_MULTI_TIER_TESTS).slice(0, 10);
 const prompts = multiTierTests.map(t => ({
   id: t.id,
   input: t.fullPrompt,
-  estimatedTokens: t.estimatedTokens
+  estimatedTokens: t.estimatedTokens,
+  fullPromptText: t.fullPrompt,  // Store original prompt for schema
+  originalTest: t                 // Store original test object for metadata
 }));
 
 const runner = new ResilientPerformanceTestRunner();
@@ -20,13 +22,30 @@ console.log('Total executions:', 10 * 5, '= 50\n');
 
 const results = await runner.runPerformanceTests(prompts, 6);
 
-fs.writeFileSync('./reports/performance-run-6-multitier.json', JSON.stringify({
-  runNumber: 6,
-  runName: 'MULTITIER_REAL',
-  description: 'True multi-tier prompts with TIER 1+2+3 content (2000+ tokens)',
-  models: topModels,
-  results
-}, null, 2));
+// Enrich results with full prompt text for schema compliance
+const promptMap = Object.fromEntries(prompts.map(p => [p.id, p]));
+const enrichedResults = results.map(result => ({
+  ...result,
+  fullPromptText: promptMap[result.promptId]?.fullPromptText || '',
+  promptTokens: promptMap[result.promptId]?.estimatedTokens || 0
+}));
 
-console.log('\nMulti-tier performance test complete!');
-console.log('Report: reports/performance-run-6-multitier.json');
+// Save with schema validation and proper directory structure
+try {
+  const saveResult = await saveSchemaCompliantResults(enrichedResults, {
+    testType: 'performance',
+    runName: 'multitier-run-6',
+    validateSingle: true
+  });
+
+  console.log('\n✅ Multi-tier performance test complete!');
+  console.log(`📊 Results saved to: ${saveResult.filePath}`);
+  console.log(`   Validated: ${saveResult.validated} results`);
+  if (saveResult.failed > 0) {
+    console.log(`   ⚠️  Failed validation: ${saveResult.failed}`);
+  }
+} catch (error) {
+  console.error('\n❌ Error saving results:');
+  console.error(error.message);
+  process.exit(1);
+}
