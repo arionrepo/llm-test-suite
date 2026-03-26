@@ -373,6 +373,139 @@ The enterprise task taxonomy supports **vendor-agnostic business use case testin
 4. Test against local and cloud models to validate
 5. Document in taxonomy
 
+### 5.5 Tool/Function Calling Taxonomy (Taxonomy D)
+
+Tool calling tests validate LLM ability to use functions/tools correctly. This is a **critical capability** that varies significantly across models.
+
+**Tool Complexity Levels (5 levels):**
+
+**1. Single Tool - Simple Parameters**
+- One tool available
+- 2-3 simple parameters (strings, numbers, booleans)
+- Clear, unambiguous intent
+- Example: "Query the database for GDPR controls" → `query_db(standard="GDPR")`
+
+**2. Multi-Tool Selection**
+- 5-10 tools available
+- Model must choose correct tool based on intent
+- Parameters are straightforward once tool selected
+- Example: "Send an email to the compliance team" → Select `send_email` NOT `create_ticket` or `query_db`
+
+**3. Complex Parameters**
+- Nested objects, arrays, optional fields
+- Requires understanding JSON schema
+- May need to construct complex data structures
+- Example: `create_report({filters: {standards: ["GDPR", "ISO_27001"], status: ["gap", "partial"]}, format: "PDF", recipients: ["admin@company.com"]})`
+
+**4. Tool Chaining (Sequential)**
+- Multiple tools used in sequence
+- Output of tool 1 becomes input to tool 2
+- Requires planning and state management
+- Example: Query DB → Analyze results → Generate report → Send email
+
+**5. Parallel Tool Use**
+- Multiple tools called simultaneously
+- Results may need to be joined/merged
+- Requires understanding of independence
+- Example: Query users table + Query organizations table → Join on org_id
+
+**Tool Domains (5 domains):**
+
+**1. Data Retrieval**
+- Database queries (SQL, NoSQL)
+- API calls (REST, GraphQL)
+- Search operations (full-text, vector)
+- File retrieval
+
+**2. Data Transformation**
+- Format conversion (JSON → CSV, XML → JSON)
+- Calculations (sum, average, percentiles)
+- Data filtering and aggregation
+- Schema transformation
+
+**3. External Actions**
+- Send email/SMS notifications
+- Create tickets/issues
+- Schedule events
+- Update CRM/system records
+
+**4. Code Execution**
+- Run code (Python, JavaScript, SQL)
+- Compile and test code
+- Deploy applications
+- Execute scripts
+
+**5. Workflow Orchestration**
+- Multi-step business processes
+- Approval chains
+- Conditional branching
+- Error recovery
+
+**Error Scenarios (5 types):**
+
+Tests should validate both success and failure handling:
+
+**1. Perfect (Happy Path)**
+- All required parameters provided
+- All parameters valid
+- Tool available
+- Expected: Successful tool call
+
+**2. Missing Parameters**
+- Required parameters not provided by user
+- Expected: Model should ask for missing information or use reasonable defaults
+
+**3. Invalid Parameters**
+- Wrong data type (string instead of number)
+- Out of range values
+- Invalid enum values
+- Expected: Model should validate and reject or ask for correction
+
+**4. Tool Unavailable**
+- Requested tool doesn't exist
+- Tool is temporarily down
+- Expected: Graceful degradation, suggest alternative, or explain limitation
+
+**5. Ambiguous Selection**
+- Multiple tools could satisfy the request
+- Unclear intent
+- Expected: Model should clarify intent before selecting tool
+
+**When to Add Tool Calling Tests:**
+
+**Criteria:**
+1. **Model Support** - At least 3 models support this tool use pattern
+2. **Real-World Use Case** - Businesses actually need this capability
+3. **Testable** - Can objectively validate correctness
+4. **Coverage Gap** - Not already covered by existing tests
+5. **Complexity Value** - Tests a distinct complexity level
+
+**Process:**
+1. Define tool schema (OpenAI function calling format)
+2. Create test prompt requiring tool use
+3. Define expected tool calls with parameters
+4. Test against tool-capable models (GPT-4, Claude, etc.)
+5. Document which models pass/fail
+6. Add to test suite
+
+**Tool Calling Coverage Goals:**
+
+**Per Complexity Level:**
+- Single: ≥10 tests
+- Multi-Selection: ≥15 tests
+- Complex Parameters: ≥10 tests
+- Chaining: ≥5 tests
+- Parallel: ≥5 tests
+
+**Per Domain:**
+- Data Retrieval: ≥15 tests
+- Transformation: ≥10 tests
+- External Actions: ≥10 tests
+- Code Execution: ≥5 tests
+- Workflow: ≥5 tests
+
+**Total Tool Calling Tests:** ≥45 tests minimum
+
 ---
 
 ## 6. Routing Profile Selection
@@ -677,6 +810,143 @@ SYNTHESIS            1         3           4        4         6          2
 3. Vendor validates tests reflect actual product usage
 4. Run tests against vendor's recommended LLM configuration
 5. Expand based on coverage needs
+
+### 11.3 Model Capability Profile Management
+
+**Model capability profiles** define what each LLM can and cannot do, enabling intelligent test filtering and recommendations.
+
+**When to Add a New Model Profile:**
+
+**Criteria:**
+1. **Model Availability** - Model is available (cloud API or local download)
+2. **Testing Demand** - We plan to test against this model
+3. **Distinct Capabilities** - Offers different capabilities than existing models
+4. **Documentation Available** - Technical specs and capabilities are documented
+
+**Process:**
+1. Research model specifications:
+   - Context window size
+   - Parameter count
+   - Tool calling support
+   - Special capabilities (JSON mode, vision, etc.)
+
+2. Run benchmark tests:
+   - Test tool calling (if claimed)
+   - Test context window limits
+   - Test reasoning on standard prompts
+   - Test code generation quality
+
+3. Create capability profile in `models/model-capabilities.js`:
+   ```javascript
+   {
+     modelId: "new-model-id",
+     provider: "Provider Name",
+     name: "Model Display Name",
+
+     specs: {
+       contextWindow: 32000,
+       parameters: "14B",
+       quantization: "Q4_K_M",
+       speed: "fast",
+       localRunnable: true
+     },
+
+     capabilities: {
+       toolCalling: true,
+       reasoningDepth: "high",
+       codeGeneration: "intermediate",
+       structuredOutput: true,
+       multilingualSupport: true
+     },
+
+     suitableFor: [
+       "compliance_knowledge",
+       "document_analysis",
+       "tool_calling_simple"
+     ],
+
+     notSuitableFor: [
+       "tool_chaining",         // Struggles with multi-step
+       "long_context_tasks"     // Limited context window
+     ],
+
+     performance: {
+       avgLatency: 2800,
+       tokensPerSecond: 18,
+       costPerMillion: 2.50,
+       ramRequired: "16GB"
+     },
+
+     suitabilityScores: {
+       compliance_factual: 85,
+       compliance_procedural: 78,
+       tool_calling_single: 82,
+       tool_calling_chaining: 45,
+       document_analysis: 88,
+       code_generation: 72
+     }
+   }
+   ```
+
+4. Test model against multiple test categories
+5. Update suitability scores based on results
+6. Document limitations and recommendations
+
+**Capability Profile Fields:**
+
+**Required Fields:**
+- `modelId` - Unique identifier
+- `provider` - Company/organization
+- `name` - Display name
+- `specs` - Technical specifications
+- `capabilities` - Boolean/enum capabilities
+- `performance` - Performance metrics
+
+**Optional Fields:**
+- `suitableFor` - Task types where model excels
+- `notSuitableFor` - Tasks to avoid
+- `suitabilityScores` - Numeric scores (0-100) per task type
+- `recommendations` - When to use this model
+- `limitations` - Known issues or constraints
+
+**Suitability Scoring Guidelines:**
+
+Score models on each task type using this scale:
+
+| Score | Rating | Meaning |
+|-------|--------|---------|
+| 90-100 | Excellent | Top-tier performance, use with confidence |
+| 75-89 | Good | Solid performance, suitable for production |
+| 60-74 | Acceptable | Works but has limitations, use with caution |
+| 40-59 | Poor | Significant issues, avoid if possible |
+| 0-39 | Unsuitable | Will fail or produce unacceptable results |
+
+**Factors in Scoring:**
+1. **Accuracy** - Correctness of responses (40% weight)
+2. **Completeness** - Coverage of expected topics (20% weight)
+3. **Reliability** - Consistency across multiple runs (15% weight)
+4. **Speed** - Response time (10% weight)
+5. **Cost** - API cost or resource usage (10% weight)
+6. **Format** - Follows instructions, structured appropriately (5% weight)
+
+**Model Profile Maintenance:**
+
+**When to Update Profiles:**
+- New model version released (GPT-4 → GPT-4o)
+- Capabilities change (tool calling added/improved)
+- Performance characteristics change (context window increased)
+- Suitability scores drift over time (quarterly review)
+
+**Review Schedule:**
+- **Quarterly:** Review suitability scores based on test results
+- **Ad-hoc:** When new model version released
+- **Annual:** Comprehensive review of all profiles
+
+**Deprecation:**
+- Mark model as deprecated when no longer available
+- Keep profile for historical comparison
+- Don't use for new tests
+- Archive after 1 year
 
 ---
 

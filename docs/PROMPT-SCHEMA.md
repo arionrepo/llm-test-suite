@@ -195,6 +195,169 @@ interface ArionComplyWorkflowTest extends TestPromptBase {
 }
 ```
 
+### 2.6 Tool Calling Fields
+
+```typescript
+interface ToolCallingTest extends TestPromptBase {
+  // Tool calling configuration
+  toolCalling: {
+    enabled: true;                                    // Tool calling required
+
+    toolComplexity: "single" |                        // One tool, simple params
+                    "multi_selection" |               // Choose from multiple tools
+                    "complex_params" |                // Nested objects, arrays
+                    "chaining" |                      // Sequential tool use
+                    "parallel";                       // Multiple tools simultaneously
+
+    toolDomain: "data_retrieval" |                    // Database queries, API calls
+                "transformation" |                    // Format conversion, calculation
+                "external_action" |                   // Send email, create ticket
+                "code_execution" |                    // Run code, compile, test
+                "workflow";                           // Multi-step orchestration
+
+    toolCount: number;                                // Number of tools available
+
+    toolDefinitions: Array<{                          // Actual tool schemas (OpenAI format)
+      type: "function";
+      function: {
+        name: string;                                 // Tool name
+        description: string;                          // What it does
+        parameters: {                                 // JSON Schema for parameters
+          type: "object";
+          properties: Record<string, any>;
+          required: string[];
+        };
+      };
+    }>;
+
+    expectedToolCalls: Array<{                        // Expected behavior
+      tool: string;                                   // Tool name
+      parameters: Record<string, any>;                // Expected parameters
+      sequence?: number;                              // For chaining (1, 2, 3...)
+      optional?: boolean;                             // Is this call optional?
+    }>;
+
+    errorScenario?: "perfect" |                       // All params present and valid
+                    "missing_params" |                // Required params missing
+                    "invalid_params" |                // Type mismatch, out of range
+                    "tool_unavailable" |              // Tool doesn't exist
+                    "ambiguous_selection";            // Multiple tools could work
+  };
+}
+```
+
+**Example Tool Calling Test:**
+
+```typescript
+{
+  id: "TOOL_DATABASE_QUERY_GDPR_CONTROLS_1",
+  category: "tool_calling_test",
+  vendor: "Generic",
+  question: "Find all GDPR controls related to encryption in the database",
+
+  toolCalling: {
+    enabled: true,
+    toolComplexity: "single",
+    toolDomain: "data_retrieval",
+    toolCount: 1,
+
+    toolDefinitions: [{
+      type: "function",
+      function: {
+        name: "query_database",
+        description: "Query the compliance database for controls",
+        parameters: {
+          type: "object",
+          properties: {
+            standard: { type: "string", enum: ["GDPR", "ISO_27001", "SOC_2"] },
+            keyword: { type: "string" },
+            limit: { type: "number", default: 10 }
+          },
+          required: ["standard"]
+        }
+      }
+    }],
+
+    expectedToolCalls: [{
+      tool: "query_database",
+      parameters: {
+        standard: "GDPR",
+        keyword: "encryption"
+      }
+    }],
+
+    errorScenario: "perfect"
+  },
+
+  expectedTopics: ["database query", "GDPR", "encryption", "Article 32"],
+  complexity: "intermediate"
+}
+```
+
+### 2.7 Model Requirement Fields
+
+```typescript
+interface ModelRequirements {
+  // Capability requirements
+  requiredCapabilities?: {
+    toolCalling?: boolean;                            // Model MUST support function calling
+    minimumContextWindow?: number;                    // Minimum tokens (e.g., 8192, 32000, 128000)
+    minimumReasoningDepth?: "low" | "medium" | "high" | "very_high";
+    structuredOutput?: boolean;                       // Model MUST support JSON mode
+    codeGeneration?: "basic" | "intermediate" | "advanced";
+    multilingualSupport?: boolean;
+    conversationTracking?: boolean;                   // Can maintain multi-turn context
+  };
+
+  // Model recommendations
+  recommendedModels?: string[];                       // Models known to work well for this test
+  unsuitableModels?: string[];                        // Models that will fail/perform poorly
+
+  // Performance expectations
+  minimumModelSize?: "1B" | "7B" | "14B" | "70B";    // For local models
+  maxAcceptableLatency?: number;                      // ms (for time-sensitive tasks)
+
+  // Cost considerations
+  costSensitive?: boolean;                            // Prefer local/cheap models if possible
+  accuracyCritical?: boolean;                         // Must use best model regardless of cost
+}
+```
+
+**Example with Model Requirements:**
+
+```typescript
+{
+  id: "COMPLEX_TOOL_CHAIN_ISO27001_RISK_1",
+  question: "Query the risk database, analyze findings, and generate a remediation plan",
+
+  toolCalling: {
+    enabled: true,
+    toolComplexity: "chaining",
+    toolCount: 3,
+    toolDefinitions: [/* query_db, analyze_risk, generate_plan */],
+    expectedToolCalls: [
+      { tool: "query_db", parameters: {...}, sequence: 1 },
+      { tool: "analyze_risk", parameters: {...}, sequence: 2 },
+      { tool: "generate_plan", parameters: {...}, sequence: 3 }
+    ]
+  },
+
+  modelRequirements: {
+    requiredCapabilities: {
+      toolCalling: true,                              // ✅ MUST support tools
+      minimumContextWindow: 32000,                    // Need space for multi-turn
+      minimumReasoningDepth: "high"                   // Complex reasoning required
+    },
+    recommendedModels: ["gpt-4o", "claude-3-5-sonnet"],
+    unsuitableModels: ["llama3-70b", "mistral-7b"],   // No tool support
+    accuracyCritical: true                            // Use best models
+  },
+
+  expectedTopics: ["risk analysis", "remediation", "prioritization"],
+  complexity: "advanced"
+}
+```
+
 ---
 
 ## 3. Field Definitions

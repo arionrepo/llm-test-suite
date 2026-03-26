@@ -303,6 +303,111 @@ Level 1: Platform Feature (customer-specific)
 | Platform Feature | "Upload evidence in ArionComply" | Evidence Management × Upload × First-time × ArionComply × arioncomply_local |
 | Compliance + Platform | "Start GDPR assessment in ArionComply" | GDPR × PROCEDURAL × NOVICE × ArionComply × arioncomply_cloud_dev |
 
+### 2.4 Model Capability System
+
+The test suite includes **model capability profiles** that define what each LLM can and cannot do, enabling intelligent test filtering and model selection.
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                      Test Definition                         │
+│  - What we want to test                                      │
+│  - Model requirements (toolCalling: true, contextWindow: 32k)│
+└──────────────────────────────────────────────────────────────┘
+                            ↓
+┌──────────────────────────────────────────────────────────────┐
+│              Model Capability Matching                       │
+│  - Load model profiles                                       │
+│  - Filter by required capabilities                           │
+│  - Rank by suitability scores                                │
+└──────────────────────────────────────────────────────────────┘
+              ↓                                        ↓
+    ┌─────────────────┐                    ┌─────────────────┐
+    │ Compatible      │                    │ Incompatible    │
+    │ Models          │                    │ Models          │
+    │ ✅ gpt-4o       │                    │ ❌ llama3-70b   │
+    │ ✅ claude-sonnet│                    │ ❌ mistral-7b   │
+    │ ⚠️ qwen-72b     │                    │ (no tools)      │
+    └─────────────────┘                    └─────────────────┘
+              ↓                                        ↓
+    Run tests on these                         Skip or warn
+```
+
+**Model Profile Structure:**
+
+Each model has a capability profile defining:
+
+1. **Technical Specs:**
+   - Context window size (tokens)
+   - Parameter count (1B, 7B, 70B, etc.)
+   - Quantization level (Q4_K_M, Q5_K_S, etc.)
+   - Memory requirements
+   - Average latency (ms)
+
+2. **Capabilities:**
+   - Tool/function calling support (true/false)
+   - Reasoning depth (low, medium, high, very_high)
+   - Code generation quality (basic, intermediate, advanced)
+   - Structured output (JSON mode support)
+   - Multilingual support
+   - Long context handling
+
+3. **Suitability Scores:**
+   - Which task types this model excels at
+   - Which task types to avoid
+   - Cost-benefit positioning (when to use vs alternatives)
+
+**Example Model Profiles:**
+
+```javascript
+"gpt-4o": {
+  capabilities: {
+    toolCalling: true,           // ✅ Excellent tool support
+    contextWindow: 128000,       // ✅ Very large context
+    reasoningDepth: "very_high", // ✅ Best-in-class reasoning
+    codeGeneration: "advanced"
+  },
+  suitableFor: ["all"],          // Generally capable
+  costPerMillion: 15.00
+}
+
+"llama3-70b": {
+  capabilities: {
+    toolCalling: false,          // ❌ No tool support
+    contextWindow: 8192,         // ⚠️ Limited context
+    reasoningDepth: "high",      // ✅ Good reasoning
+    codeGeneration: "medium"
+  },
+  suitableFor: ["compliance_knowledge", "document_analysis", "customer_service"],
+  notSuitableFor: ["tool_calling", "long_context"],
+  costPerMillion: 0              // ✅ Free (local)
+}
+```
+
+**Capability Matching Logic:**
+
+```javascript
+// Test declares requirements
+test.modelRequirements = {
+  requiredCapabilities: {
+    toolCalling: true,
+    minimumContextWindow: 32000
+  }
+};
+
+// System filters compatible models
+compatibleModels = models.filter(m =>
+  m.capabilities.toolCalling === true &&
+  m.capabilities.contextWindow >= 32000
+);
+// Result: ["gpt-4o", "claude-3-5-sonnet", "gemini-pro-1.5"]
+// Filtered out: ["llama3-70b", "mistral-7b"] (no tool support)
+
+// Warn user if they try to use incompatible model
+if (selectedModel.capabilities.toolCalling === false) {
+  throw new Error("This test requires tool calling, but llama3-70b does not support it");
+}
+```
+
 ---
 
 ## 3. Vendor/Customer Handling Strategy
@@ -574,6 +679,113 @@ Analysis:
 **Configuration File:** `config.routing.js`
 
 Contains all routing profile definitions, transformers, and selection logic.
+
+### 4.6 Tool Calling Architecture
+
+**Tool calling tests** validate LLM ability to correctly use functions/tools provided by the system.
+
+**Design Overview:**
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                   Tool Calling Test                          │
+│  - Question requiring tool use                               │
+│  - Tool definitions (OpenAI function calling format)         │
+│  - Expected tool calls with parameters                       │
+└──────────────────────────────────────────────────────────────┘
+                            ↓
+┌──────────────────────────────────────────────────────────────┐
+│              Capability Check                                │
+│  - Does selected model support tool calling?                 │
+│  - If NO → Skip test or warn user                           │
+│  - If YES → Proceed                                          │
+└──────────────────────────────────────────────────────────────┘
+                            ↓
+┌──────────────────────────────────────────────────────────────┐
+│              Send to LLM with Tools                          │
+│  - Format: OpenAI function calling standard                  │
+│  - Include: question + tool definitions                      │
+│  - Model responds with tool calls                            │
+└──────────────────────────────────────────────────────────────┘
+                            ↓
+┌──────────────────────────────────────────────────────────────┐
+│              Validate Tool Calls                             │
+│  - Correct tool selected?                                    │
+│  - Parameters correct? (names, types, values)                │
+│  - Sequence correct? (for chaining)                          │
+│  - Error handling appropriate?                               │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**Tool Calling Taxonomy:**
+
+| Complexity Level | Description | Example |
+|-----------------|-------------|---------|
+| **Single** | One tool, simple parameters | "Query database for GDPR controls" → `query_db(standard="GDPR")` |
+| **Multi-Selection** | Choose correct tool from 5-10 options | "Send email to user" → Select `send_email` NOT `create_ticket` |
+| **Complex Parameters** | Nested objects, arrays, optional fields | `create_report({filters: {standards: ["GDPR"], status: ["gap"]}, format: "PDF"})` |
+| **Chaining** | Sequential tool use (output → input) | Query DB → Analyze results → Generate report |
+| **Parallel** | Multiple simultaneous tool calls | Query users table + Query orgs table → Join results |
+
+**Tool Domains:**
+
+1. **Data Retrieval** - Database queries, API calls, search
+2. **Transformation** - Format conversion, calculations, data manipulation
+3. **External Actions** - Send email, create ticket, schedule event
+4. **Code Execution** - Run code, compile, test, deploy
+5. **Workflow** - Multi-step orchestration, approval chains
+
+**Error Scenarios:**
+
+Tests should cover both success and error cases:
+- **Perfect:** All parameters present and valid
+- **Missing Params:** Required parameters not provided (should ask for them)
+- **Invalid Params:** Wrong type, out of range (should validate and reject)
+- **Tool Unavailable:** Tool doesn't exist (should gracefully degrade)
+- **Ambiguous Selection:** Multiple tools could work (should clarify intent)
+
+**Tool Calling Test Example:**
+
+```javascript
+{
+  id: "TOOL_MULTI_SELECT_COMPLIANCE_ACTION_1",
+  category: "tool_calling_test",
+  vendor: "Generic",
+
+  toolCalling: {
+    enabled: true,
+    toolComplexity: "multi_selection",
+    toolDomain: "data_retrieval",
+    toolCount: 5,
+
+    toolDefinitions: [
+      { function: { name: "query_controls", description: "Search compliance controls" } },
+      { function: { name: "query_assessments", description: "Search gap assessments" } },
+      { function: { name: "query_evidence", description: "Search evidence repository" } },
+      { function: { name: "create_report", description: "Generate compliance report" } },
+      { function: { name: "send_email", description: "Send email notification" } }
+    ],
+
+    expectedToolCalls: [{
+      tool: "query_controls",  // Should select this tool
+      parameters: { standard: "GDPR", keyword: "encryption" }
+    }]
+  },
+
+  question: "Find all GDPR controls related to encryption",
+
+  modelRequirements: {
+    requiredCapabilities: {
+      toolCalling: true  // MUST support tools
+    },
+    recommendedModels: ["gpt-4o", "claude-3-5-sonnet"],
+    unsuitableModels: ["llama3-70b", "mistral-7b", "qwen-14b"]
+  },
+
+  expectedTopics: ["GDPR", "encryption", "Article 32", "controls"],
+  complexity: "intermediate"
+}
+```
 
 ---
 
