@@ -11,7 +11,18 @@
       "Bash(swift build:*)",
       "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llamaCPPManager log --oneline -3)",
       "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite log --oneline -3)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite status --short)"
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite status --short)",
+      "Bash(git config:*)",
+      "Bash(llamacpp-manager list:*)",
+      "Bash(llamacpp-manager models list:*)",
+      "Bash(if [ -n \"$OPENAI_API_KEY\" ])",
+      "Bash(then echo \"API key is set (length: $#OPENAI_API_KEY)\")",
+      "Bash(else echo \"API key is NOT set\")",
+      "Bash(fi)",
+      "Bash(colima profile:*)",
+      "Bash(colima list:*)",
+      "Bash(if [ -n \"$ANTHROPIC_API_KEY\" ])",
+      "Bash(then echo \"API key is set (length: $#ANTHROPIC_API_KEY)\")"
     ],
     "deny": [],
     "ask": []
