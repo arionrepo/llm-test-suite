@@ -1,21 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite status)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite check-ignore:*)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite ls-files:*)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite diff ENHANCEMENT-PLAN.md)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite remote get-url:*)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite remote:*)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite push -u origin master)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite log --oneline -20)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite show --stat --oneline HEAD)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite add prompt-viewer.js PROMPTS-USED-IN-TESTING.md view-test-prompts.js run-multitier-performance.js)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite diff --cached --stat)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite commit -m \"$(cat <<''EOF''\nAdd interactive prompt viewer and testing documentation\n\nNew Tools:\n- prompt-viewer.js: Interactive CLI tool for viewing and filtering test prompts\n  * Filter by run number (1-6, ranges, or all)\n  * Filter by standard (GDPR, ISO_27001, etc)\n  * Filter by persona (NOVICE, PRACTITIONER, MANAGER, etc)\n  * Filter by knowledge type (FACTUAL, PROCEDURAL, SYNTHESIS, etc)\n  * Multiple output formats (text, JSON, CSV)\n  * Support for both simple prompts (Runs 1-5) and multi-tier prompts (Run 6)\n\nSupporting Files:\n- view-test-prompts.js: Simple viewer showing Run 6 prompts with token counts\n- run-multitier-performance.js: Performance test execution script\n- PROMPTS-USED-IN-TESTING.md: Complete reference documentation of all test prompts\n\nEnables comprehensive prompt analysis across all 6 test runs\nwith flexible filtering and output options.\n\nQuestions: libor@arionetworks.com\nEOF\n)\")",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite diff docs/DESIGN.md)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite diff .claude/settings.local.json)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite add docs/DESIGN.md docs/PROMPT-SCHEMA.md docs/TAXONOMY-GUIDE.md .claude/settings.local.json)"
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite log --oneline -5)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite add .claude/settings.local.json)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite commit -m \"settings: Add git command patterns for test suite management\")"
     ],
     "deny": [],
     "ask": []
