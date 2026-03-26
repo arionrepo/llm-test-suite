@@ -5,7 +5,14 @@
       "Bash(/opt/homebrew/bin/llama-bench:*)",
       "Bash(~/bin/llama-bench:*)",
       "Bash(/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/reports/COMPREHENSIVE-QUALITY-EVALUATION.md)",
-      "Bash(/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/reports/PROMPT-OPTIMIZATION-RECOMMENDATIONS.md)"
+      "Bash(/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/reports/PROMPT-OPTIMIZATION-RECOMMENDATIONS.md)",
+      "Bash(ratings/extraction-output.txt)",
+      "Bash(/dev/null)",
+      "Bash(tee:*)",
+      "Bash(ratings/quality-analysis-full-output.txt)",
+      "Bash(/tmp/phi3-prompts-21-25.json)",
+      "Bash(/tmp/smollm3-prompts-21-25.json)",
+      "Bash(/tmp/mistral-prompts-21-25.json)"
     ],
     "deny": [],
     "ask": []
