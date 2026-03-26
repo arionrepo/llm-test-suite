@@ -1,6 +1,9 @@
 # Reports directory (test results)
 reports/
 
+# Test execution logs
+logs/
+
 # API Keys (NEVER commit these!)
 config.llm-judge.js
 .env
