@@ -8,6 +8,7 @@ import { LlamaCppManagerClient } from './utils/llamacpp-manager-client.js';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import fs from 'fs';
+import path from 'path';
 
 const execAsync = promisify(exec);
 
@@ -15,7 +16,56 @@ class ResilientPerformanceTestRunner {
   constructor() {
     this.managerClient = new LlamaCppManagerClient();
     this.issueLog = [];
+    this.eventLog = [];
     this.MAX_RECOVERY_ATTEMPTS = 5;
+    this.logFile = null;
+  }
+
+  /**
+   * Initialize logger for this test run
+   * Creates timestamped log file and sets up event logging
+   */
+  initializeLogger(testName) {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '').replace('Z', 'Z');
+    const logDir = path.join(process.cwd(), 'logs');
+
+    if (!fs.existsSync(logDir)) {
+      fs.mkdirSync(logDir, { recursive: true });
+    }
+
+    this.logFile = path.join(logDir, `test-run-${testName}-${timestamp}.log`);
+    this.logEvent('TEST_START', { testName });
+    return this.logFile;
+  }
+
+  /**
+   * Log timestamped event
+   * Writes to both console and log file
+   */
+  logEvent(eventType, details = {}) {
+    const now = new Date().toISOString();
+    const logEntry = {
+      timestamp: now,
+      eventType,
+      ...details
+    };
+
+    this.eventLog.push(logEntry);
+
+    // Format for display
+    const formattedEntry = `[${now}] ${eventType} | ${JSON.stringify(details)}`;
+
+    // Console output
+    if (eventType.includes('ERROR') || eventType.includes('ISSUE')) {
+      console.error(formattedEntry);
+    } else {
+      console.log(formattedEntry);
+    }
+
+    // File output
+    if (this.logFile) {
+      fs.appendFileSync(this.logFile, formattedEntry + '\n');
+    }
   }
 
   async forceStopAllModels() {
@@ -163,9 +213,16 @@ class ResilientPerformanceTestRunner {
     return false;
   }
 
-  async runPerformanceTests(prompts, runNumber) {
+  async runPerformanceTests(prompts, runNumber, onModelComplete = null) {
     const models = this.managerClient.getAllModels();
     const results = [];
+
+    this.logEvent('PERFORMANCE_RUN_START', {
+      runNumber,
+      totalPrompts: prompts.length,
+      totalModels: models.length,
+      totalExecutions: prompts.length * models.length
+    });
 
     console.log(`\n${'='.repeat(80)}`);
     console.log(`PERFORMANCE RUN ${runNumber}: ${prompts.length} prompts × ${models.length} models`);
@@ -173,6 +230,13 @@ class ResilientPerformanceTestRunner {
 
     for (let i = 0; i < models.length; i++) {
       const modelName = models[i];
+      const modelStartTime = new Date();
+
+      this.logEvent('MODEL_START', {
+        modelNumber: i + 1,
+        totalModels: models.length,
+        modelName
+      });
 
       console.log(`\n${'='.repeat(70)}`);
       console.log(`MODEL ${i+1}/${models.length}: ${modelName.toUpperCase()}`);
@@ -185,44 +249,119 @@ class ResilientPerformanceTestRunner {
       // Start with retry
       const started = await this.startModelWithRetry(modelName);
       if (!started) {
+        this.logEvent('MODEL_SKIP', { modelName, reason: 'Failed to start' });
         console.log(`❌ Skipping ${modelName} - could not start`);
         continue; // Skip this model, continue to next
       }
 
-      // Run tests
+      // Run tests for this model
       const port = this.managerClient.getModelPort(modelName);
       const client = new LLMClient(`http://127.0.0.1:${port}`);
+      const modelResults = [];
 
-      for (const prompt of prompts) {
-        const result = await this.runSingleTest(client, modelName, prompt, runNumber);
-        if (result) results.push(result);
+      this.logEvent('TESTS_START', {
+        modelName,
+        totalPrompts: prompts.length
+      });
+
+      for (let testNum = 0; testNum < prompts.length; testNum++) {
+        const prompt = prompts[testNum];
+        const result = await this.runSingleTest(client, modelName, prompt, runNumber, testNum + 1, prompts.length);
+        if (result) {
+          modelResults.push(result);
+          results.push(result);
+        }
       }
+
+      this.logEvent('TESTS_COMPLETE', {
+        modelName,
+        testsRun: modelResults.length,
+        duration: new Date() - modelStartTime
+      });
 
       // Stop with retry
       await this.stopModelWithRetry(modelName);
 
-      console.log(`\n✅ Completed ${modelName} - ${results.filter(r => r.modelName === modelName).length} tests executed`);
+      this.logEvent('MODEL_COMPLETE', {
+        modelName,
+        testsExecuted: modelResults.length,
+        duration: new Date() - modelStartTime
+      });
+
+      console.log(`\n✅ Completed ${modelName} - ${modelResults.length} tests executed`);
+
+      // Call callback if provided (for incremental result saving)
+      if (onModelComplete) {
+        try {
+          await onModelComplete(modelName, modelResults);
+        } catch (error) {
+          this.logEvent('CALLBACK_ERROR', {
+            modelName,
+            error: error.message
+          });
+        }
+      }
     }
+
+    this.logEvent('PERFORMANCE_RUN_COMPLETE', {
+      runNumber,
+      totalResults: results.length,
+      logFile: this.logFile
+    });
 
     return results;
   }
 
-  async runSingleTest(client, modelName, prompt, runNumber) {
+  async runSingleTest(client, modelName, prompt, runNumber, testNumber = 0, totalTests = 0) {
+    const testStartTime = Date.now();
+    const testLabel = totalTests > 0 ? `${testNumber}/${totalTests}` : '?/?';
+
     try {
+      this.logEvent('TEST_PROMPT_START', {
+        modelName,
+        promptId: prompt.id,
+        testNumber: testLabel
+      });
+
       const result = await client.chatCompletion([
         { role: 'user', content: prompt.input }
       ], { max_tokens: 500, temperature: 0.3 });
 
       if (!result.success) {
+        this.logEvent('TEST_PROMPT_ERROR', {
+          modelName,
+          promptId: prompt.id,
+          testNumber: testLabel,
+          error: result.error
+        });
         this.logIssue(modelName, 'test_execution', `Test ${prompt.id} failed`, result.error);
         return null;
       }
 
       // CRITICAL: Capture actual response text (not just metrics)
       if (!result.response || result.response.trim() === '') {
+        this.logEvent('TEST_PROMPT_ERROR', {
+          modelName,
+          promptId: prompt.id,
+          testNumber: testLabel,
+          error: 'Response is empty'
+        });
         this.logIssue(modelName, 'test_execution', `Test ${prompt.id} - response is empty`, 'Invalid test result');
         return null;
       }
+
+      const testDuration = Date.now() - testStartTime;
+      const outputTokPerSec = result.timing.tokensPerSec;
+
+      this.logEvent('TEST_PROMPT_COMPLETE', {
+        modelName,
+        promptId: prompt.id,
+        testNumber: testLabel,
+        inputTokens: result.timing.promptTokens,
+        outputTokens: result.timing.completionTokens,
+        durationMs: testDuration,
+        outputTokensPerSec: outputTokPerSec.toFixed(2)
+      });
 
       return {
         runNumber,
@@ -239,9 +378,17 @@ class ResilientPerformanceTestRunner {
         generationMs: result.timing.predictedMs,
         inputTokPerSec: result.timing.promptTokens / (result.timing.promptMs / 1000),
         outputTokPerSec: result.timing.tokensPerSec,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        testNumber,
+        totalTests
       };
     } catch (error) {
+      this.logEvent('TEST_PROMPT_EXCEPTION', {
+        modelName,
+        promptId: prompt.id,
+        testNumber: testLabel,
+        error: error.message
+      });
       this.logIssue(modelName, 'test_execution', `Exception on ${prompt.id}`, error.message);
       return null;
     }
