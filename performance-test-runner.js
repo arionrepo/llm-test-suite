@@ -218,10 +218,19 @@ class ResilientPerformanceTestRunner {
         return null;
       }
 
+      // CRITICAL: Capture actual response text (not just metrics)
+      if (!result.response || result.response.trim() === '') {
+        this.logIssue(modelName, 'test_execution', `Test ${prompt.id} - response is empty`, 'Invalid test result');
+        return null;
+      }
+
       return {
         runNumber,
         modelName,
         promptId: prompt.id,
+        response: result.response,
+        responseLength: result.response.length,
+        responseTokens: result.timing.completionTokens,
         inputTokens: result.timing.promptTokens,
         outputTokens: result.timing.completionTokens,
         totalTokens: result.timing.promptTokens + result.timing.completionTokens,
@@ -229,7 +238,8 @@ class ResilientPerformanceTestRunner {
         promptProcessingMs: result.timing.promptMs,
         generationMs: result.timing.predictedMs,
         inputTokPerSec: result.timing.promptTokens / (result.timing.promptMs / 1000),
-        outputTokPerSec: result.timing.tokensPerSec
+        outputTokPerSec: result.timing.tokensPerSec,
+        timestamp: new Date().toISOString()
       };
     } catch (error) {
       this.logIssue(modelName, 'test_execution', `Exception on ${prompt.id}`, error.message);

@@ -207,6 +207,96 @@ messages: [
 
 ---
 
+## CRITICAL: Unified Test Result Schema (ENFORCED)
+
+**ALL test executions MUST follow the unified test result schema.**
+
+**See:** `TEST-RESULT-SCHEMA.md` - Complete reference for comprehensive data capture
+
+### Philosophy: Capture Everything, Focus Selectively
+
+Every test run captures:
+1. ✅ **WHAT WAS SENT** - Complete input with all context/tiers
+2. ✅ **WHAT WAS RECEIVED** - Complete response text
+3. ✅ **HOW IT PERFORMED** - All timing and throughput metrics
+4. ✅ **HOW IT PERFORMED QUALITATIVELY** - All quality and accuracy metrics
+5. ✅ **WHERE IT WAS RUN** - Environment, models, configuration
+6. ✅ **WHEN IT WAS RUN** - Timestamps and execution metadata
+
+**Then different test runs can focus analysis on different aspects** (performance vs accuracy), but underlying data ALWAYS contains everything.
+
+### Mandatory Fields (ALWAYS Required)
+
+**These MUST be in every result, no exceptions:**
+
+```javascript
+{
+  "metadata": {
+    "timestamp": "2026-03-26T10:30:45.123Z",  // REQUIRED
+    "testRunId": "test-run-6-multitier-...",  // REQUIRED
+    "runNumber": 6                             // REQUIRED
+  },
+  "input": {
+    "promptId": "ARION_MULTITIER_...",        // REQUIRED
+    "fullPromptText": "[TIER 1]...[TIER 2]... // REQUIRED - COMPLETE text
+    "fullPromptTokens": 2585                   // REQUIRED
+  },
+  "output": {
+    "response": "The General Data Protection...", // REQUIRED - COMPLETE response
+    "responseTokens": 187                      // REQUIRED
+  },
+  "timing": {
+    "totalMs": 5234,                           // REQUIRED
+    "tokensPerSecond": 38.87                   // REQUIRED
+  },
+  "execution": {
+    "success": true,                           // REQUIRED
+    "responseValidated": true                  // REQUIRED - must verify response not empty
+  }
+}
+```
+
+### Optional Fields (Context-Dependent)
+
+Include when applicable:
+- **Quality metrics** - when evaluating accuracy/relevance
+- **Resource metrics** - when measuring system impact
+- **Compliance analysis** - when testing standards
+- **Topic analysis** - when evaluating knowledge coverage
+
+### Test Runner Implementation Checklist
+
+**All test runners MUST:**
+
+1. ✅ Capture COMPLETE input prompt (all tiers, all context)
+2. ✅ Capture COMPLETE output response (not truncated)
+3. ✅ Include model configuration (temperature, max_tokens, etc.)
+4. ✅ Include timing metrics (total, prompt processing, generation)
+5. ✅ Include resource usage (CPU, memory, GPU)
+6. ✅ Validate response is not null/empty before saving
+7. ✅ Validate against schema before writing file
+8. ✅ Write to dated directory: `reports/{type}/{YYYY-MM-DD}/`
+9. ✅ Include testRunId and timestamp in filename
+10. ✅ Log any validation failures clearly
+
+**If ANY mandatory field is missing or empty:**
+- ❌ Test result is INVALID
+- ❌ Mark result as failed in log
+- ❌ DO NOT include in analysis
+- ❌ Must re-run test to get valid data
+
+### Viewer Integration Requirement
+
+**The prompt viewer MUST show (for each prompt):**
+1. Complete prompt text (fullPromptText with all tiers)
+2. LLM response that was generated for that prompt
+3. Performance metrics (tokens/sec, latency, timing breakdown)
+4. Quality metrics (if available - accuracy, completeness, etc.)
+5. Resource metrics (CPU, memory, GPU usage)
+6. Execution metadata (model, timestamp, status)
+
+---
+
 ## Test Result Validity Criteria
 
 **A test run is only valid if:**
@@ -214,10 +304,14 @@ messages: [
 1. ✅ Only 1 model running at any time (verified via process count)
 2. ✅ All stop verifications passed (endpoint unreachable)
 3. ✅ All start verifications passed (test query succeeded)
-4. ✅ No verification failures in audit log
-5. ✅ Memory stable (not growing unbounded)
+4. ✅ **LLM responses captured for ALL test prompts** (not null, not empty)
+5. ✅ Response text stored in result file alongside metrics
+6. ✅ No verification failures in audit log
+7. ✅ Memory stable (not growing unbounded)
 
 **If ANY criterion fails → results are INVALID, must re-run**
+
+**ESPECIALLY:** If response capture fails for ANY prompt, the entire test run is invalid
 
 ### Manual Monitoring During Tests
 

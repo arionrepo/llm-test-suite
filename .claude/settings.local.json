@@ -3,7 +3,15 @@
     "allow": [
       "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite log --oneline -5)",
       "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite add .claude/settings.local.json)",
-      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite commit -m \"settings: Add git command patterns for test suite management\")"
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite commit -m \"settings: Add git command patterns for test suite management\")",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite config:*)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite rev-parse:*)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llamaCPPManager status)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llamaCPPManager status --short)",
+      "Bash(swift build:*)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llamaCPPManager log --oneline -3)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite log --oneline -3)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite status --short)"
     ],
     "deny": [],
     "ask": []

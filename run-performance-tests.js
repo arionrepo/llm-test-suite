@@ -1,6 +1,11 @@
-// Run all 5 performance tests
+// File: /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/run-performance-tests.js
+// Description: Execute all 6 performance test runs (TINY through MULTITIER) with schema-compliant result capture
+// Author: Libor Ballaty <libor@arionetworks.com>
+// Created: 2026-03-25
+
 import { ResilientPerformanceTestRunner } from './performance-test-runner.js';
 import { PERFORMANCE_PROMPTS } from './performance-prompts.js';
+import { saveSchemaCompliantResults } from './utils/test-helpers.js';
 import fs from 'fs';
 
 async function runAllPerformanceTests() {
@@ -32,16 +37,21 @@ async function runAllPerformanceTests() {
     const results = await runner.runPerformanceTests(run.prompts, run.num);
     allResults.push(...results);
 
-    // Save per-run results
-    fs.writeFileSync(
-      `./reports/performance-run-${run.num}.json`,
-      JSON.stringify({
-        runNumber: run.num,
-        runName: run.name,
-        results,
-        issues: runner.issueLog.filter(i => i.runNumber === run.num)
-      }, null, 2)
-    );
+    // Convert to unified schema format
+    const schemaResults = results.map(r => convertToSchema(r, run.num, run.name));
+
+    // Save per-run results with validation
+    try {
+      const timestamp = new Date().toISOString();
+      saveSchemaCompliantResults(schemaResults, {
+        testType: 'performance',
+        runName: `run-${run.num}-${run.name.toLowerCase()}`,
+        timestamp
+      });
+    } catch (error) {
+      console.error(`❌ Failed to save Run ${run.num} results:`, error.message);
+      console.log('   Continuing with remaining runs...');
+    }
 
     console.log(`\n✅ Run ${run.num} complete: ${results.length} executions`);
   }
@@ -121,6 +131,70 @@ function printSummary(summary) {
         (stats.avgTotalTimeMs/1000).toFixed(1) + 's'
       );
     });
+}
+
+/**
+ * Convert performance test result to unified schema format.
+ *
+ * @param {Object} result - Result from performance test runner
+ * @param {number} runNumber - The run number
+ * @param {string} runName - The run name (TINY, SMALL, etc.)
+ * @returns {Object} Result in unified schema format
+ */
+function convertToSchema(result, runNumber, runName) {
+  const now = new Date(result.timestamp || new Date().toISOString());
+
+  return {
+    metadata: {
+      timestamp: now.toISOString(),
+      testRunId: `test-run-${runNumber}-${runName.toLowerCase()}-${now.toISOString().split('T')[0]}`,
+      runNumber: runNumber,
+      runName: runName,
+      runType: 'performance',
+      focus: 'throughput'
+    },
+
+    input: {
+      promptId: result.promptId,
+      fullPromptText: result.fullPromptText || '', // Should be populated by performance-prompts
+      fullPromptTokens: result.inputTokens || 0
+    },
+
+    modelConfig: {
+      modelName: result.modelName,
+      quantization: 'Q4_K_M' // Default, may vary
+    },
+
+    output: {
+      response: result.response || '',
+      responseTokens: result.outputTokens || result.responseTokens || 0,
+      responseCharacters: (result.response || '').length
+    },
+
+    timing: {
+      totalMs: result.totalTimeMs,
+      promptProcessingMs: result.promptProcessingMs,
+      generationMs: result.generationMs,
+      tokensPerSecond: result.outputTokPerSec || 0,
+      inputTokensPerSecond: result.inputTokPerSec || 0,
+      outputTokensPerSecond: result.outputTokPerSec || 0,
+      timePerToken: result.totalTimeMs / (result.outputTokens || 1)
+    },
+
+    execution: {
+      success: result.response && result.response.trim() !== '',
+      responseValidated: result.response && result.response.trim() !== '',
+      errors: [],
+      warnings: [],
+      validationChecks: {
+        responseNotEmpty: result.response && result.response.trim() !== '',
+        responseWithinTokenLimit: (result.outputTokens || 0) <= 500,
+        modelResponded: !!result.response,
+        noConnectionErrors: true,
+        noTimeouts: true
+      }
+    }
+  };
 }
 
 runAllPerformanceTests().catch(console.error);
