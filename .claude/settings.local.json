@@ -22,7 +22,13 @@
       "Bash(colima profile:*)",
       "Bash(colima list:*)",
       "Bash(if [ -n \"$ANTHROPIC_API_KEY\" ])",
-      "Bash(then echo \"API key is set (length: $#ANTHROPIC_API_KEY)\")"
+      "Bash(then echo \"API key is set (length: $#ANTHROPIC_API_KEY)\")",
+      "Bash(git branch:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(while ps aux)",
+      "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite status)",
+      "Bash(PROMPT-SCHEMA-COMPLIANCE-ANALYSIS.md )",
+      "Bash(TEST-INFRASTRUCTURE-READINESS.md)"
     ],
     "deny": [],
     "ask": []
