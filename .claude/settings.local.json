@@ -28,7 +28,10 @@
       "Bash(while ps aux)",
       "Bash(git -C /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite status)",
       "Bash(PROMPT-SCHEMA-COMPLIANCE-ANALYSIS.md )",
-      "Bash(TEST-INFRASTRUCTURE-READINESS.md)"
+      "Bash(TEST-INFRASTRUCTURE-READINESS.md)",
+      "Bash(enterprise/test-data-generator.js)",
+      "Bash(/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/run-multitier-performance.js)",
+      "Bash(/Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/run-multitier-split-25.js )"
     ],
     "deny": [],
     "ask": []
