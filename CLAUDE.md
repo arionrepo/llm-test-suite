@@ -17,6 +17,36 @@ Enterprise LLM testing framework for:
 
 ---
 
+## CRITICAL: Always Use Existing Test Prompts (ENFORCED)
+
+**NEVER create new prompts on the fly.**
+
+**When running tests:**
+- ✅ Use prompts from: `test-data-generator.js`, `AI_BACKEND_MULTI_TIER_TESTS`, existing test files
+- ✅ Select from the 205+ existing prompts
+- ✅ If different prompts needed, ASK FIRST
+
+**Never do this:**
+- ❌ Create new test prompts during test execution
+- ❌ Make up prompts "on the fly"
+- ❌ Invent new questions without approval
+
+**Why:**
+- We carefully designed 205 prompts with specific metadata
+- They have complexity analysis, expected topics, retrieval strategies
+- Creating new ones bypasses all that work
+- Invalidates comparisons with previous tests
+
+**If you think new prompts are needed:**
+1. STOP
+2. ASK the user
+3. Explain why existing prompts insufficient
+4. Get approval before creating anything new
+
+**Rule:** Use what exists. Ask before creating.
+
+---
+
 ## CRITICAL: Sequential Model Testing Rules
 
 ### The Problem We Solve
