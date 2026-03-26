@@ -303,7 +303,46 @@ Level 1: Platform Feature (customer-specific)
 | Platform Feature | "Upload evidence in ArionComply" | Evidence Management × Upload × First-time × ArionComply × arioncomply_local |
 | Compliance + Platform | "Start GDPR assessment in ArionComply" | GDPR × PROCEDURAL × NOVICE × ArionComply × arioncomply_cloud_dev |
 
-### 2.4 Model Capability System
+### 2.4 Thinking Mode vs Quick Answer Models
+
+**Two fundamentally different LLM operation modes exist:**
+
+**Thinking Mode Models** (o1, o3-mini):
+- Use extended internal reasoning (optimized chain-of-thought)
+- Take 15-120+ seconds to respond
+- Much higher accuracy on complex reasoning, synthesis, and advanced code
+- Cannot use tools or functions
+- Lower cost per token, but expensive overall due to slow speed
+
+**Quick Answer Models** (GPT-4o, Claude, local models):
+- Respond in milliseconds to seconds
+- Good accuracy for most tasks
+- Can use tools/functions
+- Suitable for real-time responses and high-volume workloads
+
+**When to Use Each:**
+
+| Task Type | Thinking Mode | Quick Answer | Notes |
+|-----------|---------------|--------------|-------|
+| **Simple compliance questions** | ❌ Overkill | ✅ Perfect | "What is GDPR Article 32?" |
+| **Complex compliance synthesis** | ✅ Excellent | ⚠️ Good | "How do we implement GDPR controls?" |
+| **Customer service** | ❌ Too slow | ✅ Perfect | Real-time responses needed |
+| **Code generation** | ✅ Best for complex | ✅ Good for simple | Complex algorithms → thinking mode |
+| **Tool calling** | ❌ Not supported | ✅ Required | No tool support in thinking mode |
+| **Long context analysis** | ✅ Excellent | ✅ Good | Both handle well |
+| **High-volume tasks** | ❌ Too expensive | ✅ Perfect | Batch processing |
+| **Mathematical problems** | ✅ Best | ⚠️ Adequate | Complex math → thinking mode |
+
+**Cost-Benefit Analysis:**
+- Thinking mode: $60/1M tokens, 60s latency → only use for critical high-value decisions
+- Quick answer: $0-18/1M tokens, <5s latency → use for 90% of tasks
+
+**Design Implication:**
+- Model profiles include `thinkingMode: true/false` capability
+- Tests should specify model requirements (thinking needed or not)
+- System can recommend appropriate models automatically
+
+### 2.5 Model Capability System
 
 The test suite includes **model capability profiles** that define what each LLM can and cannot do, enabling intelligent test filtering and model selection.
 

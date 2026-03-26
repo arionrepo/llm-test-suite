@@ -1,0 +1,266 @@
+# Docker Compose configuration for containerized LLaMA.cpp models
+# File: /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/docker-compose.yml
+# Description: Manages 10 LLM models in Docker containers for parallel testing
+# Author: Libor Ballaty <libor@arionetworks.com>
+# Created: 2026-03-26
+
+version: '3.8'
+
+services:
+  # Model 1: Phi-3 (8B parameters)
+  llm-phi3:
+    image: ghcr.io/ggerganov/llama.cpp:server-latest
+    container_name: llm-phi3
+    ports:
+      - "9081:8000"
+    volumes:
+      - ~/llms:/models:ro
+    environment:
+      - MODEL=/models/phi3/Phi-3-mini-4k-instruct-fp16.gguf
+      - CONTEXT_SIZE=4096
+      - N_GPU_LAYERS=9999
+      - THREADS=8
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 12G
+
+  # Model 2: Mistral 7B (7B parameters)
+  llm-mistral7b:
+    image: ghcr.io/ggerganov/llama.cpp:server-latest
+    container_name: llm-mistral7b
+    ports:
+      - "9082:8000"
+    volumes:
+      - ~/llms:/models:ro
+    environment:
+      - MODEL=/models/mistral7b/mistral-7b-instruct-v0.2.Q8_0.gguf
+      - CONTEXT_SIZE=8192
+      - N_GPU_LAYERS=9999
+      - THREADS=8
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 12G
+
+  # Model 3: Hermes 3 Llama 8B (8B parameters)
+  llm-hermes-3:
+    image: ghcr.io/ggerganov/llama.cpp:server-latest
+    container_name: llm-hermes-3
+    ports:
+      - "9083:8000"
+    volumes:
+      - ~/llms:/models:ro
+    environment:
+      - MODEL=/models/hermes-3-llama-8b/Hermes-3-Llama-3.1-8B.Q8_0.gguf
+      - CONTEXT_SIZE=8192
+      - N_GPU_LAYERS=9999
+      - THREADS=8
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 12G
+
+  # Model 4: Llama 3.1 8B (8B parameters)
+  llm-llama-3.1-8b:
+    image: ghcr.io/ggerganov/llama.cpp:server-latest
+    container_name: llm-llama-3.1-8b
+    ports:
+      - "9084:8000"
+    volumes:
+      - ~/llms:/models:ro
+    environment:
+      - MODEL=/models/llama-3.1-8b/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf
+      - CONTEXT_SIZE=8192
+      - N_GPU_LAYERS=9999
+      - THREADS=8
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 12G
+
+  # Model 5: Qwen Coder 7B (7B parameters)
+  llm-qwen-coder-7b:
+    image: ghcr.io/ggerganov/llama.cpp:server-latest
+    container_name: llm-qwen-coder-7b
+    ports:
+      - "9085:8000"
+    volumes:
+      - ~/llms:/models:ro
+    environment:
+      - MODEL=/models/qwen-coder-7b/qwen2.5-coder-7b-instruct-q8_0.gguf
+      - CONTEXT_SIZE=8192
+      - N_GPU_LAYERS=9999
+      - THREADS=8
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 12G
+
+  # Model 6: SmolLM3 (1B parameters)
+  llm-smollm3:
+    image: ghcr.io/ggerganov/llama.cpp:server-latest
+    container_name: llm-smollm3
+    ports:
+      - "9086:8000"
+    volumes:
+      - ~/llms:/models:ro
+    environment:
+      - MODEL=/models/smollm3/SmolLM3-Q8_0.gguf
+      - CONTEXT_SIZE=8192
+      - N_GPU_LAYERS=9999
+      - THREADS=8
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+
+  # Model 7: Llama 4 Scout 17B (17B parameters)
+  llm-llama-4-scout-17b:
+    image: ghcr.io/ggerganov/llama.cpp:server-latest
+    container_name: llm-llama-4-scout-17b
+    ports:
+      - "9087:8000"
+    volumes:
+      - ~/llms:/models:ro
+    environment:
+      - MODEL=/models/llama-4-scout-17b/Llama-4-Scout-17B-16E-Instruct-Q3_K_S.gguf
+      - CONTEXT_SIZE=8192
+      - N_GPU_LAYERS=9999
+      - THREADS=8
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 45s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 20G
+
+  # Model 8: Qwen 2.5 32B (32B parameters)
+  llm-qwen-32b:
+    image: ghcr.io/ggerganov/llama.cpp:server-latest
+    container_name: llm-qwen-32b
+    ports:
+      - "9088:8000"
+    volumes:
+      - ~/llms:/models:ro
+    environment:
+      - MODEL=/models/qwen/qwen2.5-32b-instruct-q4_k_m-merged.gguf
+      - CONTEXT_SIZE=32768
+      - N_GPU_LAYERS=9999
+      - THREADS=8
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 36G
+
+  # Model 9: DeepSeek R1 Distill 32B (32B parameters)
+  llm-deepseek-32b:
+    image: ghcr.io/ggerganov/llama.cpp:server-latest
+    container_name: llm-deepseek-32b
+    ports:
+      - "9089:8000"
+    volumes:
+      - ~/llms:/models:ro
+    environment:
+      - MODEL=/models/DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf
+      - CONTEXT_SIZE=4096
+      - N_GPU_LAYERS=9999
+      - THREADS=8
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 36G
+
+  # Model 10: Mistral Small 24B (24B parameters)
+  llm-mistral-24b:
+    image: ghcr.io/ggerganov/llama.cpp:server-latest
+    container_name: llm-mistral-24b
+    ports:
+      - "9090:8000"
+    volumes:
+      - ~/llms:/models:ro
+    environment:
+      - MODEL=/models/Mistral-Small-3.2-24B-Instruct-2506-Q8_0.gguf
+      - CONTEXT_SIZE=32768
+      - N_GPU_LAYERS=9999
+      - THREADS=8
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 28G
+
+volumes:
+  models:
+    driver: local
+
+networks:
+  default:
+    name: llm-network
