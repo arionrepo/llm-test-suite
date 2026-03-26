@@ -214,6 +214,16 @@ class ResilientPerformanceTestRunner {
   }
 
   async runPerformanceTests(prompts, runNumber, onModelComplete = null) {
+    // MANDATORY: Logger MUST be initialized before running tests
+    if (!this.logFile) {
+      throw new Error('FATAL: Logger not initialized. Call initializeLogger() before runPerformanceTests()');
+    }
+
+    // MANDATORY: onModelComplete callback MUST be provided for incremental saving
+    if (!onModelComplete) {
+      throw new Error('FATAL: onModelComplete callback is REQUIRED for incremental result saving. No exceptions.');
+    }
+
     const models = this.managerClient.getAllModels();
     const results = [];
 
@@ -221,7 +231,9 @@ class ResilientPerformanceTestRunner {
       runNumber,
       totalPrompts: prompts.length,
       totalModels: models.length,
-      totalExecutions: prompts.length * models.length
+      totalExecutions: prompts.length * models.length,
+      loggingEnabled: true,
+      incrementalSavingEnabled: true
     });
 
     console.log(`\n${'='.repeat(80)}`);

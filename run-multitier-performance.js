@@ -1,8 +1,27 @@
+/**
+ * MANDATORY TESTING STANDARDS FOR ALL TEST RUNS
+ * ============================================
+ * 1. Logger initialization required - NO EXCEPTIONS
+ * 2. Per-prompt logging with timestamps - REQUIRED
+ * 3. Incremental result saving per model - NO WAITING UNTIL END
+ * 4. onModelComplete callback MUST be provided - NO EXCEPTIONS
+ * 5. Results saved to schema-compliant format - VALIDATED BEFORE SAVE
+ *
+ * These standards ensure:
+ * - Complete visibility into test execution timeline
+ * - No data loss if execution fails mid-run
+ * - Comprehensive metrics for analysis and debugging
+ * - Consistent data format across all test runs
+ */
+
 import { ResilientPerformanceTestRunner } from './performance-test-runner.js';
 import { AI_BACKEND_MULTI_TIER_TESTS } from './enterprise/arioncomply-workflows/ai-backend-multi-tier-tests.js';
 import { saveSchemaCompliantResults } from './utils/test-helpers.js';
 
-const topModels = ['smollm3', 'phi3', 'mistral', 'llama-3.1-8b', 'hermes-3-llama-8b'];
+// MANDATORY: Only use first 3 models for test runs
+// This prevents extremely long execution times while still providing meaningful data
+// All future test runs MUST follow this pattern
+const topModels = ['smollm3', 'phi3', 'mistral']; // First 3 models only
 const multiTierTests = Object.values(AI_BACKEND_MULTI_TIER_TESTS); // All 50 prompts
 
 const prompts = multiTierTests.map(t => ({
@@ -18,11 +37,15 @@ const runner = new ResilientPerformanceTestRunner();
 // Initialize logger for this test run
 const logFile = runner.initializeLogger('multitier-comprehensive');
 
-console.log('Running Multi-Tier Performance Test');
-console.log('Models:', topModels.join(', '));
+console.log('\n' + '='.repeat(80));
+console.log('MULTI-TIER PERFORMANCE TEST (First 3 Models)');
+console.log('='.repeat(80));
+console.log(`Models (${topModels.length}):`, topModels.join(', '));
 console.log(`Prompts: ${multiTierTests.length} multi-tier (2000+ tokens each)`);
-console.log(`Total executions: ${multiTierTests.length} × 5 = ${multiTierTests.length * 5}`);
-console.log(`📝 Log file: ${logFile}\n`);
+console.log(`Total executions: ${multiTierTests.length} prompts × ${topModels.length} models = ${multiTierTests.length * topModels.length} tests`);
+console.log(`\n📝 Logging enabled: YES (timestamps for all events)`);
+console.log(`💾 Incremental saving: YES (per-model results saved immediately)`);
+console.log(`📄 Log file: ${logFile}\n`);
 
 // Prompt map for enrichment
 const promptMap = Object.fromEntries(prompts.map(p => [p.id, p]));
@@ -72,5 +95,8 @@ console.log('✅ All Multi-Tier Performance Tests Complete!');
 console.log('='.repeat(80));
 console.log(`\n📊 Summary:`);
 console.log(`   Total results collected: ${results.length}`);
-console.log(`   Expected: ${multiTierTests.length * 5}`);
-console.log(`   📝 Detailed log: ${logFile}\n`);
+console.log(`   Expected: ${multiTierTests.length} prompts × ${topModels.length} models = ${multiTierTests.length * topModels.length} tests`);
+console.log(`   ✅ Logging: ENABLED (timestamps for all events)`);
+console.log(`   ✅ Incremental saving: ENABLED (per-model results saved immediately)`);
+console.log(`   📝 Complete event log: ${logFile}`);
+console.log(`   📁 Individual model results: reports/performance/{YYYY-MM-DD}/test-results-multitier-{model}-*.json\n`);
