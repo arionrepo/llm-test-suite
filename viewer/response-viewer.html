@@ -686,7 +686,7 @@
                         <div class="file-browser-group-title">📂 ${dir}</div>
                         ${grouped[dir].map(file => `
                             <div class="file-browser-item ${currentlyLoadedFiles.includes(file.path) ? 'selected' : ''}"
-                                 onclick="loadFileInBrowser('${file.path}')">
+                                 onclick="toggleFileSelection('${file.path}', event)">
                                 <span class="file-name">${file.basename}</span>
                                 <span class="file-size">${formatFileSize(file.path)}</span>
                             </div>
@@ -704,77 +704,101 @@
             return '~150K';
         }
 
-        // Load a single file in the browser
-        async function loadFileInBrowser(filePath) {
+        // Toggle file selection (supports multi-select)
+        function toggleFileSelection(filePath, event) {
+            if (event.ctrlKey || event.metaKey) {
+                // Multi-select with Ctrl/Cmd
+                const index = currentlyLoadedFiles.indexOf(filePath);
+                if (index > -1) {
+                    currentlyLoadedFiles.splice(index, 1);
+                } else {
+                    currentlyLoadedFiles.push(filePath);
+                }
+            } else {
+                // Single select
+                currentlyLoadedFiles = [filePath];
+            }
+
+            loadSelectedFiles();
+        }
+
+        // Load all currently selected files
+        async function loadSelectedFiles() {
+            if (currentlyLoadedFiles.length === 0) {
+                allData = [];
+                updateLoadedFilesDisplay();
+                displayCurrentPrompt();
+                document.getElementById('fileStatus').textContent = 'No files selected';
+                return;
+            }
+
             const status = document.getElementById('fileStatus');
             status.className = 'file-selector-status loading';
-            status.textContent = `Loading: ${filePath}...`;
+            status.textContent = `Loading ${currentlyLoadedFiles.length} file(s)...`;
 
             try {
-                const response = await fetch(`/api/file?path=${encodeURIComponent(filePath)}`);
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                // Load all selected files in parallel
+                const filePromises = currentlyLoadedFiles.map(path =>
+                    fetch(`/api/file?path=${encodeURIComponent(path)}`)
+                        .then(r => r.ok ? r.json() : Promise.reject(`HTTP ${r.status}`))
+                        .then(data => ({ path, data: data.data }))
+                );
 
-                const data = await response.json();
-                if (!data.success) throw new Error(data.error);
+                const loadedFiles = await Promise.all(filePromises);
 
-                // Process the loaded file
-                processLoadedFile(data.data, filePath);
+                // Merge all files by promptId
+                allData = mergeLoadedFiles(loadedFiles);
 
-                // Update UI
-                currentlyLoadedFiles = [filePath];
                 updateLoadedFilesDisplay();
                 renderFileBrowser();
 
+                // Reset view
+                filteredIndices = allData.map((_, i) => i);
+                currentPromptIndex = 0;
+
+                populatePromptSelect();
+                displayCurrentPrompt();
+
                 status.className = 'file-selector-status success';
-                status.textContent = `✓ Loaded: ${filePath}`;
+                status.textContent = `✓ Loaded ${currentlyLoadedFiles.length} file(s) with ${allData.length} unique prompts`;
             } catch (error) {
                 status.className = 'file-selector-status error';
-                status.textContent = `Error loading file: ${error.message}`;
-                console.error('Error loading file:', error);
+                status.textContent = `Error loading files: ${error.message}`;
+                console.error('Error loading files:', error);
             }
         }
 
-        // Process a single loaded file
-        function processLoadedFile(data, filePath) {
-            // Handle test results file format
-            if (data.results && Array.isArray(data.results)) {
-                // Format: { results: [...], metadata: {...} }
-                const results = data.results;
+        // Merge multiple loaded files by promptId to enable model comparison
+        function mergeLoadedFiles(loadedFiles) {
+            const byPrompt = {};
 
-                // Group by promptId
-                const byPrompt = {};
-                results.forEach(result => {
+            // Process each file
+            loadedFiles.forEach(({ path, data }) => {
+                const results = data.results || [];
+                const modelMatch = path.match(/multitier-(\w+)-/);
+                const model = modelMatch ? modelMatch[1] : 'unknown';
+                const runMatch = path.match(/run(\d)/);
+                const run = runMatch ? parseInt(runMatch[1]) : 1;
+
+                // Organize by promptId
+                results.forEach((result, index) => {
                     const id = result.input.promptId;
                     if (!byPrompt[id]) {
                         byPrompt[id] = {
                             promptId: id,
-                            promptIndex: Object.keys(byPrompt).length,
-                            run: 1,
+                            promptIndex: index,
+                            run: run,
                             prompt: result.input,
                             responses: {}
                         };
                     }
 
-                    // Extract model name from filename or use generic
-                    const modelMatch = filePath.match(/multitier-(\w+)-/);
-                    const model = modelMatch ? modelMatch[1] : 'unknown';
+                    // Add this model's response
                     byPrompt[id].responses[model] = result;
                 });
+            });
 
-                allData = Object.values(byPrompt);
-            } else if (data.data && Array.isArray(data.data)) {
-                // Already formatted
-                allData = data.data;
-            } else {
-                throw new Error('Unsupported file format');
-            }
-
-            // Reset view
-            filteredIndices = allData.map((_, i) => i);
-            currentPromptIndex = 0;
-
-            populatePromptSelect();
-            displayCurrentPrompt();
+            return Object.values(byPrompt).sort((a, b) => a.promptIndex - b.promptIndex);
         }
 
         // Update the header display of loaded files
