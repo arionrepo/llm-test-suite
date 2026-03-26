@@ -8,6 +8,7 @@ version: '3.8'
 
 services:
   # Model 1: Phi-3 (8B parameters)
+  # Memory: 6.0GB base (conservative), 6.6GB (balanced), 7.2GB (aggressive)
   llm-phi3:
     image: ghcr.io/ggerganov/llama.cpp:server-latest
     container_name: llm-phi3
@@ -19,7 +20,9 @@ services:
       - MODEL=/models/phi3/Phi-3-mini-4k-instruct-fp16.gguf
       - CONTEXT_SIZE=4096
       - N_GPU_LAYERS=9999
-      - THREADS=8
+      - THREADS=${DOCKER_THREADS:-10}
+      - N_BATCH=${DOCKER_N_BATCH:-1024}
+      - N_PARALLEL=${DOCKER_N_PARALLEL:-2}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 5s
@@ -30,9 +33,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 12G
+          memory: ${DOCKER_PHI3_MEMORY:-7G}
 
   # Model 2: Mistral 7B (7B parameters)
+  # Memory: 8.3GB (conservative), 9.0GB (balanced), 9.8GB (aggressive)
   llm-mistral7b:
     image: ghcr.io/ggerganov/llama.cpp:server-latest
     container_name: llm-mistral7b
@@ -44,7 +48,9 @@ services:
       - MODEL=/models/mistral7b/mistral-7b-instruct-v0.2.Q8_0.gguf
       - CONTEXT_SIZE=8192
       - N_GPU_LAYERS=9999
-      - THREADS=8
+      - THREADS=${DOCKER_THREADS:-10}
+      - N_BATCH=${DOCKER_N_BATCH:-1024}
+      - N_PARALLEL=${DOCKER_N_PARALLEL:-2}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 5s
@@ -55,9 +61,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 12G
+          memory: ${DOCKER_MISTRAL7B_MEMORY:-10G}
 
   # Model 3: Hermes 3 Llama 8B (8B parameters)
+  # Memory: 9.4GB (conservative), 10.2GB (balanced), 11.0GB (aggressive)
   llm-hermes-3:
     image: ghcr.io/ggerganov/llama.cpp:server-latest
     container_name: llm-hermes-3
@@ -69,7 +76,9 @@ services:
       - MODEL=/models/hermes-3-llama-8b/Hermes-3-Llama-3.1-8B.Q8_0.gguf
       - CONTEXT_SIZE=8192
       - N_GPU_LAYERS=9999
-      - THREADS=8
+      - THREADS=${DOCKER_THREADS:-10}
+      - N_BATCH=${DOCKER_N_BATCH:-1024}
+      - N_PARALLEL=${DOCKER_N_PARALLEL:-2}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 5s
@@ -80,9 +89,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 12G
+          memory: ${DOCKER_HERMES3_MEMORY:-11G}
 
   # Model 4: Llama 3.1 8B (8B parameters)
+  # Memory: 9.4GB (conservative), 10.2GB (balanced), 11.0GB (aggressive)
   llm-llama-3.1-8b:
     image: ghcr.io/ggerganov/llama.cpp:server-latest
     container_name: llm-llama-3.1-8b
@@ -94,7 +104,9 @@ services:
       - MODEL=/models/llama-3.1-8b/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf
       - CONTEXT_SIZE=8192
       - N_GPU_LAYERS=9999
-      - THREADS=8
+      - THREADS=${DOCKER_THREADS:-10}
+      - N_BATCH=${DOCKER_N_BATCH:-1024}
+      - N_PARALLEL=${DOCKER_N_PARALLEL:-2}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 5s
@@ -105,9 +117,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 12G
+          memory: ${DOCKER_LLAMA8B_MEMORY:-11G}
 
   # Model 5: Qwen Coder 7B (7B parameters)
+  # Memory: 7.7GB (conservative), 8.4GB (balanced), 9.1GB (aggressive)
   llm-qwen-coder-7b:
     image: ghcr.io/ggerganov/llama.cpp:server-latest
     container_name: llm-qwen-coder-7b
@@ -119,7 +132,9 @@ services:
       - MODEL=/models/qwen-coder-7b/qwen2.5-coder-7b-instruct-q8_0.gguf
       - CONTEXT_SIZE=8192
       - N_GPU_LAYERS=9999
-      - THREADS=8
+      - THREADS=${DOCKER_THREADS:-10}
+      - N_BATCH=${DOCKER_N_BATCH:-1024}
+      - N_PARALLEL=${DOCKER_N_PARALLEL:-2}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 5s
@@ -130,9 +145,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 12G
+          memory: ${DOCKER_QWENCODER_MEMORY:-9G}
 
   # Model 6: SmolLM3 (1B parameters)
+  # Memory: 2.8GB (conservative), 3.0GB (balanced), 3.3GB (aggressive)
   llm-smollm3:
     image: ghcr.io/ggerganov/llama.cpp:server-latest
     container_name: llm-smollm3
@@ -144,7 +160,9 @@ services:
       - MODEL=/models/smollm3/SmolLM3-Q8_0.gguf
       - CONTEXT_SIZE=8192
       - N_GPU_LAYERS=9999
-      - THREADS=8
+      - THREADS=${DOCKER_THREADS:-10}
+      - N_BATCH=${DOCKER_N_BATCH:-1024}
+      - N_PARALLEL=${DOCKER_N_PARALLEL:-2}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 5s
@@ -155,9 +173,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 8G
+          memory: ${DOCKER_SMOLLM3_MEMORY:-4G}
 
   # Model 7: Llama 4 Scout 17B (17B parameters)
+  # Memory: 19.8GB (conservative), 21.6GB (balanced), 23.4GB (aggressive)
   llm-llama-4-scout-17b:
     image: ghcr.io/ggerganov/llama.cpp:server-latest
     container_name: llm-llama-4-scout-17b
@@ -169,7 +188,9 @@ services:
       - MODEL=/models/llama-4-scout-17b/Llama-4-Scout-17B-16E-Instruct-Q3_K_S.gguf
       - CONTEXT_SIZE=8192
       - N_GPU_LAYERS=9999
-      - THREADS=8
+      - THREADS=${DOCKER_THREADS:-10}
+      - N_BATCH=${DOCKER_N_BATCH:-1024}
+      - N_PARALLEL=${DOCKER_N_PARALLEL:-2}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 5s
@@ -180,9 +201,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 20G
+          memory: ${DOCKER_LLAMA17B_MEMORY:-24G}
 
   # Model 8: Qwen 2.5 32B (32B parameters)
+  # Memory: 35.2GB (conservative), 38.4GB (balanced), 41.6GB (aggressive)
   llm-qwen-32b:
     image: ghcr.io/ggerganov/llama.cpp:server-latest
     container_name: llm-qwen-32b
@@ -194,7 +216,9 @@ services:
       - MODEL=/models/qwen/qwen2.5-32b-instruct-q4_k_m-merged.gguf
       - CONTEXT_SIZE=32768
       - N_GPU_LAYERS=9999
-      - THREADS=8
+      - THREADS=${DOCKER_THREADS:-10}
+      - N_BATCH=${DOCKER_N_BATCH:-1024}
+      - N_PARALLEL=${DOCKER_N_PARALLEL:-2}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 5s
@@ -205,9 +229,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 36G
+          memory: ${DOCKER_QWEN32B_MEMORY:-40G}
 
   # Model 9: DeepSeek R1 Distill 32B (32B parameters)
+  # Memory: 35.2GB (conservative), 38.4GB (balanced), 41.6GB (aggressive)
   llm-deepseek-32b:
     image: ghcr.io/ggerganov/llama.cpp:server-latest
     container_name: llm-deepseek-32b
@@ -219,7 +244,9 @@ services:
       - MODEL=/models/DeepSeek-R1-Distill-Qwen-32B-Q4_K_M.gguf
       - CONTEXT_SIZE=4096
       - N_GPU_LAYERS=9999
-      - THREADS=8
+      - THREADS=${DOCKER_THREADS:-10}
+      - N_BATCH=${DOCKER_N_BATCH:-1024}
+      - N_PARALLEL=${DOCKER_N_PARALLEL:-2}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 5s
@@ -230,9 +257,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 36G
+          memory: ${DOCKER_DEEPSEEK32B_MEMORY:-40G}
 
   # Model 10: Mistral Small 24B (24B parameters)
+  # Memory: 26.4GB (conservative), 28.8GB (balanced), 31.2GB (aggressive)
   llm-mistral-24b:
     image: ghcr.io/ggerganov/llama.cpp:server-latest
     container_name: llm-mistral-24b
@@ -244,7 +272,9 @@ services:
       - MODEL=/models/Mistral-Small-3.2-24B-Instruct-2506-Q8_0.gguf
       - CONTEXT_SIZE=32768
       - N_GPU_LAYERS=9999
-      - THREADS=8
+      - THREADS=${DOCKER_THREADS:-10}
+      - N_BATCH=${DOCKER_N_BATCH:-1024}
+      - N_PARALLEL=${DOCKER_N_PARALLEL:-2}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 5s
@@ -255,7 +285,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 28G
+          memory: ${DOCKER_MISTRAL24B_MEMORY:-31G}
 
 volumes:
   models:
