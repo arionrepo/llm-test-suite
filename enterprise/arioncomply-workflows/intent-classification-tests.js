@@ -2,213 +2,359 @@
 // Description: Intent classification accuracy tests for ArionComply - test if model can correctly identify user intent from queries
 // Author: Libor Ballaty <libor@arionetworks.com>
 // Created: 2026-03-23
+// Last Updated: 2026-03-26 - Updated to PROMPT-SCHEMA v2.2.0
 
 export const INTENT_CLASSIFICATION_TESTS = [
   // Evidence Management Intents
   {
-    userQuery: "I need to upload a document for one of our security controls",
+    id: "ARION_INTENT_EVIDENCE_UPLOAD_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "I need to upload a document for one of our security controls",
+    expectedTopics: ["upload", "document", "evidence", "control"],
+    complexity: "beginner",
+    // Intent-specific fields (schema extension)
     expectedIntent: "EVIDENCE_UPLOAD",
     intentCategory: "evidence_management",
     confidence: "high",
     contextClues: ["upload", "document", "security controls"]
   },
   {
-    userQuery: "How do I attach proof that we have encryption in place?",
+    id: "ARION_INTENT_EVIDENCE_UPLOAD_2",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "How do I attach proof that we have encryption in place?",
+    expectedTopics: ["attach", "proof", "evidence", "encryption"],
+    complexity: "beginner",
     expectedIntent: "EVIDENCE_UPLOAD",
     intentCategory: "evidence_management",
     confidence: "high",
     contextClues: ["attach", "proof", "encryption"]
   },
   {
-    userQuery: "Where do I add files?",
+    id: "ARION_INTENT_EVIDENCE_UPLOAD_AMBIGUOUS_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "Where do I add files?",
+    expectedTopics: ["add", "files", "upload"],
+    complexity: "beginner",
     expectedIntent: "EVIDENCE_UPLOAD",
     intentCategory: "evidence_management",
     confidence: "low",
     ambiguity: "Could be evidence, policy, or general file upload"
   },
-  
+
   // Assessment Intents
   {
-    userQuery: "I need to mark this control as implemented",
+    id: "ARION_INTENT_ASSESSMENT_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "I need to mark this control as implemented",
+    expectedTopics: ["mark", "control", "implemented", "status"],
+    complexity: "beginner",
     expectedIntent: "CONTROL_ASSESSMENT",
     intentCategory: "assessment",
     confidence: "high",
     contextClues: ["mark", "control", "implemented"]
   },
   {
-    userQuery: "How do I evaluate if our access control is working?",
+    id: "ARION_INTENT_ASSESSMENT_2",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "How do I evaluate if our access control is working?",
+    expectedTopics: ["evaluate", "assess", "control", "working"],
+    complexity: "intermediate",
     expectedIntent: "CONTROL_ASSESSMENT",
     intentCategory: "assessment",
     confidence: "high",
     contextClues: ["evaluate", "control", "working"]
   },
   {
-    userQuery: "We finished implementing MFA, where do I update the status?",
+    id: "ARION_INTENT_ASSESSMENT_3",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "We finished implementing MFA, where do I update the status?",
+    expectedTopics: ["update", "status", "implementation", "MFA"],
+    complexity: "beginner",
     expectedIntent: "CONTROL_ASSESSMENT",
     intentCategory: "assessment",
     confidence: "high",
     contextClues: ["finished implementing", "update status"]
   },
-  
+
   // Framework Mapping Intents
   {
-    userQuery: "Which ISO 27001 controls satisfy SOC 2 requirements?",
+    id: "ARION_INTENT_MAPPING_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "Which ISO 27001 controls satisfy SOC 2 requirements?",
+    expectedTopics: ["ISO 27001", "SOC 2", "mapping", "controls"],
+    complexity: "intermediate",
+    standard: "ISO_27001",
     expectedIntent: "FRAMEWORK_MAPPING",
     intentCategory: "framework_management",
     confidence: "high",
     contextClues: ["ISO 27001", "SOC 2", "satisfy"]
   },
   {
-    userQuery: "Can you show me how our controls map across different standards?",
+    id: "ARION_INTENT_MAPPING_2",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "Can you show me how our controls map across different standards?",
+    expectedTopics: ["controls", "map", "standards", "mapping"],
+    complexity: "intermediate",
     expectedIntent: "FRAMEWORK_MAPPING",
     intentCategory: "framework_management",
     confidence: "high",
     contextClues: ["controls", "map", "different standards"]
   },
-  
+
   // Dashboard/Reporting Intents
   {
-    userQuery: "What's our overall compliance score?",
+    id: "ARION_INTENT_DASHBOARD_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "What's our overall compliance score?",
+    expectedTopics: ["compliance", "score", "status", "dashboard"],
+    complexity: "beginner",
     expectedIntent: "COMPLIANCE_DASHBOARD",
     intentCategory: "reporting",
     confidence: "high",
     contextClues: ["overall", "compliance score"]
   },
   {
-    userQuery: "Show me where we stand with GDPR",
+    id: "ARION_INTENT_DASHBOARD_2",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "Show me where we stand with GDPR",
+    expectedTopics: ["status", "GDPR", "compliance", "dashboard"],
+    complexity: "beginner",
+    standard: "GDPR",
     expectedIntent: "COMPLIANCE_DASHBOARD",
     intentCategory: "reporting",
     confidence: "high",
     contextClues: ["where we stand", "GDPR"]
   },
   {
-    userQuery: "I need a report for the board meeting",
+    id: "ARION_INTENT_DASHBOARD_AMBIGUOUS_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "I need a report for the board meeting",
+    expectedTopics: ["report", "board", "compliance"],
+    complexity: "beginner",
     expectedIntent: "COMPLIANCE_DASHBOARD",
     intentCategory: "reporting",
     confidence: "medium",
     ambiguity: "Could be dashboard, custom report, or audit report"
   },
-  
+
   // Risk Management Intents
   {
-    userQuery: "How do I add a new security risk to the system?",
+    id: "ARION_INTENT_RISK_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "How do I add a new security risk to the system?",
+    expectedTopics: ["add", "risk", "security", "risk register"],
+    complexity: "beginner",
     expectedIntent: "RISK_ASSESSMENT",
     intentCategory: "risk_management",
     confidence: "high",
     contextClues: ["add", "security risk"]
   },
   {
-    userQuery: "We identified a data breach risk, where do I document it?",
+    id: "ARION_INTENT_RISK_2",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "We identified a data breach risk, where do I document it?",
+    expectedTopics: ["risk", "data breach", "document", "register"],
+    complexity: "intermediate",
     expectedIntent: "RISK_ASSESSMENT",
     intentCategory: "risk_management",
     confidence: "high",
     contextClues: ["identified", "risk", "document"]
   },
-  
+
   // Policy Management Intents
   {
-    userQuery: "I need to create a new data retention policy",
+    id: "ARION_INTENT_POLICY_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "I need to create a new data retention policy",
+    expectedTopics: ["create", "policy", "data retention"],
+    complexity: "beginner",
     expectedIntent: "POLICY_MANAGEMENT",
     intentCategory: "policy_management",
     confidence: "high",
     contextClues: ["create", "policy"]
   },
   {
-    userQuery: "Where are the policy templates?",
+    id: "ARION_INTENT_POLICY_2",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "Where are the policy templates?",
+    expectedTopics: ["policy", "templates", "find"],
+    complexity: "beginner",
     expectedIntent: "POLICY_MANAGEMENT",
     intentCategory: "policy_management",
     confidence: "high",
     contextClues: ["policy templates"]
   },
   {
-    userQuery: "Our access control policy needs updating",
+    id: "ARION_INTENT_POLICY_3",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "Our access control policy needs updating",
+    expectedTopics: ["policy", "update", "access control"],
+    complexity: "beginner",
     expectedIntent: "POLICY_MANAGEMENT",
     intentCategory: "policy_management",
     confidence: "high",
     contextClues: ["policy", "needs updating"]
   },
-  
+
   // Audit Preparation Intents
   {
-    userQuery: "Our ISO 27001 audit is in 2 weeks, what do we need to prepare?",
+    id: "ARION_INTENT_AUDIT_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "Our ISO 27001 audit is in 2 weeks, what do we need to prepare?",
+    expectedTopics: ["audit", "preparation", "ISO 27001", "readiness"],
+    complexity: "intermediate",
+    standard: "ISO_27001",
     expectedIntent: "AUDIT_PREPARATION",
     intentCategory: "audit",
     confidence: "high",
     contextClues: ["audit", "prepare"]
   },
   {
-    userQuery: "How do I generate an evidence package for our auditor?",
+    id: "ARION_INTENT_AUDIT_2",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "How do I generate an evidence package for our auditor?",
+    expectedTopics: ["evidence", "package", "auditor", "generate"],
+    complexity: "intermediate",
     expectedIntent: "AUDIT_PREPARATION",
     intentCategory: "audit",
     confidence: "high",
     contextClues: ["evidence package", "auditor"]
   },
   {
-    userQuery: "What's missing for our SOC 2 readiness?",
+    id: "ARION_INTENT_AUDIT_3",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "What's missing for our SOC 2 readiness?",
+    expectedTopics: ["readiness", "SOC 2", "gaps", "missing"],
+    complexity: "intermediate",
+    standard: "SOC_2",
     expectedIntent: "AUDIT_PREPARATION",
     intentCategory: "audit",
     confidence: "high",
     contextClues: ["missing", "readiness"]
   },
-  
+
   // Data Subject Request Intents
   {
-    userQuery: "A customer asked for all their data, what do I do?",
+    id: "ARION_INTENT_DSR_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "A customer asked for all their data, what do I do?",
+    expectedTopics: ["data subject request", "access request", "customer data"],
+    complexity: "intermediate",
+    standard: "GDPR",
     expectedIntent: "DATA_SUBJECT_REQUEST",
     intentCategory: "privacy_operations",
     confidence: "high",
     contextClues: ["customer", "all their data"]
   },
   {
-    userQuery: "Someone wants us to delete their account and information",
+    id: "ARION_INTENT_DSR_2",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "Someone wants us to delete their account and information",
+    expectedTopics: ["delete", "right to erasure", "account", "personal data"],
+    complexity: "intermediate",
+    standard: "GDPR",
     expectedIntent: "DATA_SUBJECT_REQUEST",
     intentCategory: "privacy_operations",
     confidence: "high",
     contextClues: ["delete", "account", "information"]
   },
   {
-    userQuery: "GDPR access request came in, how to handle?",
+    id: "ARION_INTENT_DSR_3",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "GDPR access request came in, how to handle?",
+    expectedTopics: ["GDPR", "access request", "data subject rights", "process"],
+    complexity: "intermediate",
+    standard: "GDPR",
     expectedIntent: "DATA_SUBJECT_REQUEST",
     intentCategory: "privacy_operations",
     confidence: "high",
     contextClues: ["GDPR", "access request", "handle"]
   },
-  
+
   // Vendor Risk Intents
   {
-    userQuery: "We're evaluating a new cloud provider, how do we assess them?",
+    id: "ARION_INTENT_VENDOR_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "We're evaluating a new cloud provider, how do we assess them?",
+    expectedTopics: ["vendor", "assessment", "cloud provider", "risk"],
+    complexity: "intermediate",
     expectedIntent: "VENDOR_RISK_ASSESSMENT",
     intentCategory: "third_party_risk",
     confidence: "high",
     contextClues: ["evaluating", "cloud provider", "assess"]
   },
   {
-    userQuery: "Where do I send a security questionnaire to our vendors?",
+    id: "ARION_INTENT_VENDOR_2",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "Where do I send a security questionnaire to our vendors?",
+    expectedTopics: ["security questionnaire", "vendor", "send"],
+    complexity: "beginner",
     expectedIntent: "VENDOR_RISK_ASSESSMENT",
     intentCategory: "third_party_risk",
     confidence: "high",
     contextClues: ["security questionnaire", "vendors"]
   },
-  
+
   // AI Governance Intents
   {
-    userQuery: "We built a chatbot, do we need to register it?",
+    id: "ARION_INTENT_AI_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "We built a chatbot, do we need to register it?",
+    expectedTopics: ["AI system", "chatbot", "register", "EU AI Act"],
+    complexity: "intermediate",
+    standard: "EU_AI_ACT",
     expectedIntent: "AI_SYSTEM_REGISTRATION",
     intentCategory: "ai_governance",
     confidence: "high",
     contextClues: ["chatbot", "register"]
   },
   {
-    userQuery: "How do I check if our AI system is high-risk under EU AI Act?",
+    id: "ARION_INTENT_AI_2",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "How do I check if our AI system is high-risk under EU AI Act?",
+    expectedTopics: ["AI system", "high-risk", "EU AI Act", "classification"],
+    complexity: "intermediate",
+    standard: "EU_AI_ACT",
     expectedIntent: "AI_SYSTEM_REGISTRATION",
     intentCategory: "ai_governance",
     confidence: "high",
     contextClues: ["AI system", "high-risk", "EU AI Act"]
   },
-  
+
   // Ambiguous Queries (Multi-Intent)
   {
-    userQuery: "I need help with compliance",
+    id: "ARION_INTENT_AMBIGUOUS_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "I need help with compliance",
+    expectedTopics: ["help", "compliance", "clarification needed"],
+    complexity: "beginner",
     expectedIntent: "AMBIGUOUS",
     intentCategory: "needs_clarification",
     confidence: "none",
@@ -220,7 +366,12 @@ export const INTENT_CLASSIFICATION_TESTS = [
     ]
   },
   {
-    userQuery: "How do I add something?",
+    id: "ARION_INTENT_AMBIGUOUS_2",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "How do I add something?",
+    expectedTopics: ["add", "clarification needed"],
+    complexity: "beginner",
     expectedIntent: "AMBIGUOUS",
     intentCategory: "needs_clarification",
     confidence: "none",
@@ -231,7 +382,12 @@ export const INTENT_CLASSIFICATION_TESTS = [
     ]
   },
   {
-    userQuery: "Where is the upload button?",
+    id: "ARION_INTENT_AMBIGUOUS_3",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "Where is the upload button?",
+    expectedTopics: ["upload", "button", "navigation"],
+    complexity: "beginner",
     expectedIntent: "AMBIGUOUS",
     intentCategory: "needs_clarification",
     confidence: "low",
@@ -241,10 +397,15 @@ export const INTENT_CLASSIFICATION_TESTS = [
       "Are you uploading evidence for a control or uploading a policy document?"
     ]
   },
-  
+
   // Context-Dependent Queries
   {
-    userQuery: "What do I do next?",
+    id: "ARION_INTENT_CONTEXT_1",
+    category: "intent_classification",
+    vendor: "ArionComply",
+    question: "What do I do next?",
+    expectedTopics: ["next action", "guidance", "workflow"],
+    complexity: "beginner",
     expectedIntent: "CONTEXT_DEPENDENT",
     intentCategory: "needs_context",
     confidence: "none",
@@ -260,9 +421,22 @@ export const INTENT_CLASSIFICATION_TESTS = [
 export const WORKFLOW_UNDERSTANDING_TESTS = [
   // Evidence Upload Workflow
   {
+    id: "ARION_WORKFLOW_EVIDENCE_UPLOAD_1",
+    category: "workflow_understanding",
+    vendor: "ArionComply",
+    question: "How do I upload evidence for a control?",
+    expectedTopics: ["navigate", "control", "evidence", "upload", "button"],
+    complexity: "beginner",
+    // Workflow-specific fields (schema extension)
     task: "EVIDENCE_UPLOAD",
-    userQuery: "How do I upload evidence for a control?",
     expectedSteps: [
+      "Navigate to the control detail page",
+      "Click the Add Evidence button",
+      "Select evidence type",
+      "Upload file or provide link",
+      "Add description"
+    ],
+    expectedGuidance: [
       "Navigate to the control detail page",
       "Click the Add Evidence button",
       "Select evidence type",
@@ -279,12 +453,24 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       includesAllSteps: 20
     }
   },
-  
+
   // Control Assessment Workflow
   {
+    id: "ARION_WORKFLOW_ASSESSMENT_1",
+    category: "workflow_understanding",
+    vendor: "ArionComply",
+    question: "How do I assess the implementation status of a control?",
+    expectedTopics: ["assessment", "control", "implementation", "status", "evidence"],
+    complexity: "intermediate",
     task: "CONTROL_ASSESSMENT",
-    userQuery: "How do I assess the implementation status of a control?",
     expectedSteps: [
+      "Go to Assessment module",
+      "Select the framework and control",
+      "Review existing evidence",
+      "Rate implementation status",
+      "Add assessment notes"
+    ],
+    expectedGuidance: [
       "Go to Assessment module",
       "Select the framework and control",
       "Review existing evidence",
@@ -301,17 +487,30 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       mentionsNotes: 20
     }
   },
-  
+
   // Framework Mapping Workflow
   {
+    id: "ARION_WORKFLOW_MAPPING_1",
+    category: "workflow_understanding",
+    vendor: "ArionComply",
+    question: "How do I map controls between ISO 27001 and SOC 2?",
+    expectedTopics: ["mapping", "ISO 27001", "SOC 2", "controls", "framework"],
+    complexity: "intermediate",
+    standard: "ISO_27001",
     task: "FRAMEWORK_MAPPING",
-    userQuery: "How do I map controls between ISO 27001 and SOC 2?",
     expectedSteps: [
       "Navigate to Framework Mapping module",
       "Select source framework (ISO 27001)",
       "Select target framework (SOC 2)",
       "View suggested mappings",
       "Review and approve mappings"
+    ],
+    expectedGuidance: [
+      "Navigate to Framework Mapping module",
+      "Select source and target frameworks",
+      "View AI-powered suggested mappings",
+      "Review and approve mappings",
+      "Link evidence across mapped controls"
     ],
     expectedScreens: ["Framework Mapping"],
     expectedFeatures: ["AI-powered mapping", "suggested mappings", "manual override"],
@@ -323,15 +522,26 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       mentionsAIAssistance: 25
     }
   },
-  
+
   // Compliance Dashboard Usage
   {
+    id: "ARION_WORKFLOW_DASHBOARD_1",
+    category: "workflow_understanding",
+    vendor: "ArionComply",
+    question: "How do I check our overall compliance status?",
+    expectedTopics: ["dashboard", "compliance", "status", "score"],
+    complexity: "beginner",
     task: "COMPLIANCE_DASHBOARD",
-    userQuery: "How do I check our overall compliance status?",
     expectedSteps: [
       "Go to Compliance Dashboard",
       "Select framework filter (optional)",
       "View compliance score",
+      "Review control implementation breakdown"
+    ],
+    expectedGuidance: [
+      "Navigate to Compliance Dashboard from main menu",
+      "View overall compliance score",
+      "Filter by framework if needed",
       "Review control implementation breakdown"
     ],
     expectedScreens: ["Compliance Dashboard", "Dashboard"],
@@ -343,16 +553,29 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       mentionsBreakdown: 30
     }
   },
-  
+
   // Risk Assessment Workflow
   {
+    id: "ARION_WORKFLOW_RISK_1",
+    category: "workflow_understanding",
+    vendor: "ArionComply",
+    question: "How do I add a new security risk?",
+    expectedTopics: ["risk", "add", "register", "likelihood", "impact"],
+    complexity: "intermediate",
     task: "RISK_ASSESSMENT",
-    userQuery: "How do I add a new security risk?",
     expectedSteps: [
       "Navigate to Risk Register",
       "Click Add New Risk",
       "Describe the risk scenario",
       "Assess likelihood and impact",
+      "Link to affected controls",
+      "Define mitigation measures"
+    ],
+    expectedGuidance: [
+      "Navigate to Risk Register",
+      "Click Add New Risk",
+      "Describe risk scenario and impact",
+      "Assess likelihood and impact levels",
       "Link to affected controls",
       "Define mitigation measures"
     ],
@@ -366,11 +589,17 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       mentionsMitigation: 25
     }
   },
-  
+
   // Data Subject Request Workflow
   {
+    id: "ARION_WORKFLOW_DSR_1",
+    category: "workflow_understanding",
+    vendor: "ArionComply",
+    question: "A customer requested all their data under GDPR, what's the process?",
+    expectedTopics: ["data subject request", "GDPR", "access request", "30 days", "process"],
+    complexity: "advanced",
+    standard: "GDPR",
     task: "DATA_SUBJECT_REQUEST",
-    userQuery: "A customer requested all their data under GDPR, what's the process?",
     expectedSteps: [
       "Go to Privacy Operations > Data Subject Requests",
       "Create new request",
@@ -378,6 +607,14 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       "Search connected systems for data",
       "Compile data (30-day deadline)",
       "Respond to data subject"
+    ],
+    expectedGuidance: [
+      "Navigate to Privacy Operations",
+      "Create new data subject request",
+      "Verify requester identity",
+      "Search systems for personal data",
+      "Compile data within 30-day deadline",
+      "Respond to requester"
     ],
     expectedScreens: ["Privacy Operations", "Data Subject Requests"],
     expectedDeadlines: ["30 days", "30-day"],
@@ -389,11 +626,17 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       mentionsDataCompilation: 25
     }
   },
-  
+
   // Audit Preparation Workflow
   {
+    id: "ARION_WORKFLOW_AUDIT_1",
+    category: "workflow_understanding",
+    vendor: "ArionComply",
+    question: "Our ISO 27001 audit is next month, how do I prepare?",
+    expectedTopics: ["audit", "preparation", "readiness", "evidence", "ISO 27001"],
+    complexity: "advanced",
+    standard: "ISO_27001",
     task: "AUDIT_PREPARATION",
-    userQuery: "Our ISO 27001 audit is next month, how do I prepare?",
     expectedSteps: [
       "Run Audit Readiness Report",
       "Review control implementation status",
@@ -401,6 +644,14 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       "Complete outstanding remediation tasks",
       "Generate evidence package",
       "Review and update policies"
+    ],
+    expectedGuidance: [
+      "Run Audit Readiness Report",
+      "Review control implementation status",
+      "Verify all evidence uploaded",
+      "Complete remediation tasks",
+      "Generate evidence package",
+      "Update policies if needed"
     ],
     expectedScreens: ["Audit Preparation", "Audit Readiness"],
     expectedReports: ["Audit Readiness Report", "evidence package"],
@@ -412,11 +663,16 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       mentionsPolicyReview: 20
     }
   },
-  
+
   // Policy Management Workflow
   {
+    id: "ARION_WORKFLOW_POLICY_1",
+    category: "workflow_understanding",
+    vendor: "ArionComply",
+    question: "How do I create a new information security policy?",
+    expectedTopics: ["policy", "create", "template", "approval", "controls"],
+    complexity: "intermediate",
     task: "POLICY_MANAGEMENT",
-    userQuery: "How do I create a new information security policy?",
     expectedSteps: [
       "Go to Policy Management module",
       "Choose Create from Template or Create New",
@@ -424,6 +680,14 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       "Draft policy content",
       "Link to relevant controls",
       "Submit for approval"
+    ],
+    expectedGuidance: [
+      "Navigate to Policy Management",
+      "Create from template or create new",
+      "Select framework requirements",
+      "Draft policy content",
+      "Link to controls",
+      "Submit for approval workflow"
     ],
     expectedScreens: ["Policy Management"],
     expectedFeatures: ["templates", "AI assistant", "approval workflow"],
@@ -435,17 +699,30 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       mentionsControlLinking: 25
     }
   },
-  
+
   // Vendor Assessment Workflow
   {
+    id: "ARION_WORKFLOW_VENDOR_1",
+    category: "workflow_understanding",
+    vendor: "ArionComply",
+    question: "We're using AWS, how do I assess their compliance?",
+    expectedTopics: ["vendor", "AWS", "assessment", "questionnaire", "certifications"],
+    complexity: "intermediate",
     task: "VENDOR_RISK_ASSESSMENT",
-    userQuery: "We're using AWS, how do I assess their compliance?",
     expectedSteps: [
       "Navigate to Vendor Risk Management",
       "Add or select vendor (AWS)",
       "Send security questionnaire",
       "Request vendor certifications",
       "Assess risk level",
+      "Approve or reject vendor"
+    ],
+    expectedGuidance: [
+      "Navigate to Vendor Risk Management",
+      "Add or select AWS as vendor",
+      "Send security questionnaire",
+      "Request compliance certifications",
+      "Assess risk level based on responses",
       "Approve or reject vendor"
     ],
     expectedScreens: ["Vendor Risk Management", "Third Party Risk"],
@@ -458,11 +735,17 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       mentionsRiskAssessment: 20
     }
   },
-  
+
   // AI System Registration Workflow
   {
+    id: "ARION_WORKFLOW_AI_1",
+    category: "workflow_understanding",
+    vendor: "ArionComply",
+    question: "We deployed a new AI model, how do I register it for EU AI Act?",
+    expectedTopics: ["AI system", "register", "EU AI Act", "risk classification"],
+    complexity: "advanced",
+    standard: "EU_AI_ACT",
     task: "AI_SYSTEM_REGISTRATION",
-    userQuery: "We deployed a new AI model, how do I register it for EU AI Act?",
     expectedSteps: [
       "Go to AI Governance > AI Systems Register",
       "Click Register New AI System",
@@ -470,6 +753,14 @@ export const WORKFLOW_UNDERSTANDING_TESTS = [
       "System classifies risk level automatically",
       "If high-risk: complete technical documentation",
       "Submit for review"
+    ],
+    expectedGuidance: [
+      "Navigate to AI Governance module",
+      "Register new AI system",
+      "Complete questionnaire",
+      "Review automatic risk classification",
+      "Complete additional requirements if high-risk",
+      "Submit for compliance review"
     ],
     expectedScreens: ["AI Governance", "AI Systems Register"],
     expectedFeatures: ["automatic risk classification", "questionnaire"],

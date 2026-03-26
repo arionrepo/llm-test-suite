@@ -2,330 +2,298 @@
 // Description: ArionComply application-specific workflow prompts - UI tasks, user guidance, feature usage
 // Author: Libor Ballaty <libor@arionetworks.com>
 // Created: 2026-03-23
+// Last Updated: 2026-03-26 - Updated to PROMPT-SCHEMA v2.2.0
 
-export const ARIONCOMPLY_UI_TASKS = {
-  // Evidence Management
-  EVIDENCE_UPLOAD: {
-    category: 'evidence_management',
-    task: 'Upload evidence for a control',
-    userContext: {
-      userType: 'PRACTITIONER',
-      currentScreen: 'control_detail',
-      hasControl: true
-    },
-    prompts: {
-      complete_context: 'How do I upload evidence for ISO 27001 control A.8.2 in ArionComply?',
-      missing_standard: 'How do I upload evidence for a control?',
-      missing_control: 'How do I upload evidence for ISO 27001?',
-      minimal_context: 'How do I upload evidence?'
-    },
+// Note: Each task now has separate test objects for different context levels
+// This follows schema v2.2.0 with platformFeature taxonomy
+
+export const ARIONCOMPLY_UI_TASKS = [
+  // Evidence Management - Complete Context
+  {
+    id: "ARION_UI_EVIDENCE_UPLOAD_COMPLETE_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "How do I upload evidence for ISO 27001 control A.8.2 in ArionComply?",
+    expectedTopics: ["navigate", "control", "evidence", "upload", "ISO 27001"],
+    complexity: "beginner",
+    // Platform Feature Taxonomy (Taxonomy C)
+    platformFeature: "evidence_management",
+    featureAction: "upload",
+    userContext: "first_time",
+    // UI-specific fields (schema extension)
+    standard: "ISO_27001",
+    contextLevel: "complete_context",
+    expectedGuidance: [
+      "Navigate to Frameworks > ISO 27001 > Control A.8.2",
+      "Click the Add Evidence button",
+      "Select evidence type (file upload or URL)",
+      "Upload your file or provide link",
+      "Add description and tags",
+      "Save to link evidence to control"
+    ],
+    expectedScreens: ["Frameworks", "Control Detail", "Evidence Upload"],
+    expectedButtons: ["Add Evidence", "Upload", "Save"]
+  },
+  {
+    id: "ARION_UI_EVIDENCE_UPLOAD_MISSING_STANDARD_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "How do I upload evidence for a control?",
+    expectedTopics: ["upload", "evidence", "control", "clarification"],
+    complexity: "beginner",
+    platformFeature: "evidence_management",
+    featureAction: "upload",
+    userContext: "first_time",
+    contextLevel: "missing_standard",
     expectedClarifications: [
-      'Which compliance standard are you working with?',
-      'Which specific control do you need to provide evidence for?',
-      'What type of evidence do you have? (document, screenshot, policy, etc.)'
+      "Which compliance standard are you working with?",
+      "Which specific control do you need to provide evidence for?"
     ],
     expectedGuidance: [
-      'Navigate to the control detail page',
-      'Click the "Add Evidence" button',
-      'Select evidence type',
-      'Upload file or provide link',
-      'Add description and tags'
+      "Navigate to the control detail page",
+      "Click Add Evidence button",
+      "Upload file or provide link"
+    ]
+  },
+  {
+    id: "ARION_UI_EVIDENCE_UPLOAD_MINIMAL_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "How do I upload evidence?",
+    expectedTopics: ["upload", "evidence", "clarification"],
+    complexity: "beginner",
+    platformFeature: "evidence_management",
+    featureAction: "upload",
+    userContext: "first_time",
+    contextLevel: "minimal_context",
+    expectedClarifications: [
+      "Which compliance standard are you working with?",
+      "Which specific control do you need to provide evidence for?",
+      "What type of evidence do you have?"
     ]
   },
 
-  CONTROL_ASSESSMENT: {
-    category: 'assessment',
-    task: 'Assess control implementation status',
-    userContext: {
-      userType: 'AUDITOR',
-      currentScreen: 'assessment_dashboard',
-      hasControl: true
-    },
-    prompts: {
-      complete_context: 'How do I assess the implementation status of SOC 2 CC6.1 in ArionComply?',
-      missing_details: 'How do I assess a control?',
-      first_time_user: 'I need to evaluate if our security controls are working. Where do I start?'
-    },
-    expectedClarifications: [
-      'Which framework are you assessing against?',
-      'Are you conducting a self-assessment or external audit?',
-      'Do you have evidence already uploaded for this control?'
-    ],
+  // Control Assessment
+  {
+    id: "ARION_UI_CONTROL_ASSESSMENT_COMPLETE_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "How do I assess the implementation status of SOC 2 CC6.1 in ArionComply?",
+    expectedTopics: ["assess", "control", "implementation", "status", "SOC 2"],
+    complexity: "intermediate",
+    platformFeature: "assessment_workflows",
+    featureAction: "update",
+    userContext: "power_user",
+    standard: "SOC_2",
+    contextLevel: "complete_context",
     expectedGuidance: [
-      'Go to Assessment module',
-      'Select the framework and control',
-      'Review existing evidence',
-      'Rate implementation status (Not Implemented / Partially / Fully)',
-      'Add assessment notes',
-      'Assign remediation tasks if needed'
+      "Go to Assessments module from main navigation",
+      "Select SOC 2 framework",
+      "Find control CC6.1",
+      "Review existing evidence",
+      "Rate implementation status (Not Implemented / Partially / Fully)",
+      "Add assessment notes",
+      "Save assessment"
+    ],
+    expectedScreens: ["Assessments", "SOC 2", "Control Detail"],
+    expectedButtons: ["Assess", "Save Assessment"]
+  },
+  {
+    id: "ARION_UI_CONTROL_ASSESSMENT_GENERIC_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "How do I assess a control?",
+    expectedTopics: ["assess", "control", "clarification"],
+    complexity: "beginner",
+    platformFeature: "assessment_workflows",
+    featureAction: "update",
+    userContext: "first_time",
+    contextLevel: "minimal_context",
+    expectedClarifications: [
+      "Which framework are you assessing against?",
+      "Which control are you assessing?",
+      "Do you have evidence already uploaded?"
     ]
   },
 
-  FRAMEWORK_MAPPING: {
-    category: 'framework_management',
-    task: 'Map controls between frameworks',
-    userContext: {
-      userType: 'MANAGER',
-      currentScreen: 'frameworks',
-      hasMultipleFrameworks: true
-    },
-    prompts: {
-      complete_context: 'How do I map ISO 27001 A.8.2 to SOC 2 CC6.1 in ArionComply?',
-      general: 'How do I map controls between different frameworks?',
-      exploratory: 'Can ArionComply show me which ISO controls satisfy SOC 2 requirements?'
-    },
+  // Framework Mapping
+  {
+    id: "ARION_UI_FRAMEWORK_MAPPING_COMPLETE_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "How do I map ISO 27001 A.8.2 to SOC 2 CC6.1 in ArionComply?",
+    expectedTopics: ["map", "ISO 27001", "SOC 2", "controls", "mapping"],
+    complexity: "intermediate",
+    platformFeature: "framework_mapping",
+    featureAction: "configure",
+    userContext: "power_user",
+    standard: "ISO_27001",
+    contextLevel: "complete_context",
+    expectedGuidance: [
+      "Navigate to Framework Mapping module",
+      "Select source framework (ISO 27001)",
+      "Select target framework (SOC 2)",
+      "Select control A.8.2 from source",
+      "View AI-suggested mappings to SOC 2 controls",
+      "Review mapping to CC6.1",
+      "Approve or customize mapping",
+      "Link shared evidence if applicable"
+    ],
+    expectedScreens: ["Framework Mapping"],
+    expectedFeatures: ["AI-powered mapping suggestions"]
+  },
+  {
+    id: "ARION_UI_FRAMEWORK_MAPPING_GENERIC_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "How do I map controls between different frameworks?",
+    expectedTopics: ["map", "controls", "frameworks", "mapping"],
+    complexity: "intermediate",
+    platformFeature: "framework_mapping",
+    featureAction: "configure",
+    userContext: "first_time",
+    contextLevel: "missing_details",
     expectedClarifications: [
-      'Which source framework are you mapping from?',
-      'Which target framework are you mapping to?',
-      'Are you looking for automatic mapping suggestions or manual mapping?'
+      "Which source framework are you mapping from?",
+      "Which target framework are you mapping to?"
     ],
     expectedGuidance: [
-      'Navigate to Framework Mapping module',
-      'Select source and target frameworks',
-      'View suggested mappings (AI-powered)',
-      'Review and approve mappings',
-      'Link evidence across mapped controls'
+      "Navigate to Framework Mapping module",
+      "Select source and target frameworks",
+      "View suggested mappings",
+      "Review and approve"
     ]
   },
 
-  COMPLIANCE_DASHBOARD: {
-    category: 'reporting',
-    task: 'View overall compliance status',
-    userContext: {
-      userType: 'EXECUTIVE',
-      currentScreen: 'dashboard',
-      needsOverview: true
-    },
-    prompts: {
-      complete_context: 'Show me our current GDPR compliance status in ArionComply',
-      executive_summary: 'What is our overall compliance posture?',
-      specific_concern: 'Are we ready for our SOC 2 audit next month?'
-    },
-    expectedClarifications: [
-      'Which frameworks are you most concerned about?',
-      'Do you need a summary or detailed breakdown?',
-      'Are you preparing for a specific audit or certification?'
-    ],
+  // Compliance Dashboard
+  {
+    id: "ARION_UI_DASHBOARD_COMPLETE_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "Show me our current GDPR compliance status in ArionComply",
+    expectedTopics: ["dashboard", "compliance", "status", "GDPR"],
+    complexity: "beginner",
+    platformFeature: "compliance_dashboard",
+    featureAction: "view",
+    userContext: "power_user",
+    standard: "GDPR",
+    contextLevel: "complete_context",
     expectedGuidance: [
-      'Go to Compliance Dashboard',
-      'Select framework filter',
-      'View compliance score and status',
-      'Review control implementation breakdown',
-      'Check outstanding remediation tasks',
-      'Generate executive summary report'
+      "Navigate to Dashboard from main menu",
+      "View overall compliance score",
+      "Filter by GDPR framework",
+      "Review control implementation breakdown",
+      "Check gap summary"
+    ],
+    expectedScreens: ["Dashboard", "Compliance Overview"],
+    expectedElements: ["compliance score", "framework filter", "gap summary"]
+  },
+  {
+    id: "ARION_UI_DASHBOARD_GENERIC_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "Where do I see our compliance status?",
+    expectedTopics: ["compliance", "status", "dashboard"],
+    complexity: "beginner",
+    platformFeature: "compliance_dashboard",
+    featureAction: "view",
+    userContext: "first_time",
+    contextLevel: "minimal_context",
+    expectedGuidance: [
+      "Go to Dashboard from left sidebar",
+      "View overall compliance score",
+      "Select framework to see details"
     ]
   },
 
-  RISK_ASSESSMENT: {
-    category: 'risk_management',
-    task: 'Conduct risk assessment',
-    userContext: {
-      userType: 'PRACTITIONER',
-      currentScreen: 'risk_register',
-      needsGuidance: true
-    },
-    prompts: {
-      complete_context: 'How do I create a risk assessment for data breach in ArionComply?',
-      missing_risk_type: 'How do I add a new risk?',
-      need_methodology: 'What risk assessment methodology does ArionComply use?'
-    },
+  // Report Generation
+  {
+    id: "ARION_UI_REPORT_GENERATION_COMPLETE_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "How do I generate an executive summary report for our ISO 27001 compliance?",
+    expectedTopics: ["report", "executive summary", "ISO 27001", "generate"],
+    complexity: "intermediate",
+    platformFeature: "report_generation",
+    featureAction: "generate",
+    userContext: "power_user",
+    standard: "ISO_27001",
+    contextLevel: "complete_context",
+    expectedGuidance: [
+      "Navigate to Reports section",
+      "Select Executive Summary template",
+      "Choose ISO 27001 framework",
+      "Select date range",
+      "Customize report sections (optional)",
+      "Generate report",
+      "Export as PDF or Excel"
+    ],
+    expectedScreens: ["Reports", "Executive Summary"],
+    expectedButtons: ["Generate Report", "Export"]
+  },
+  {
+    id: "ARION_UI_REPORT_GENERATION_GENERIC_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "How do I create a compliance report?",
+    expectedTopics: ["report", "compliance", "create"],
+    complexity: "beginner",
+    platformFeature: "report_generation",
+    featureAction: "generate",
+    userContext: "first_time",
+    contextLevel: "minimal_context",
     expectedClarifications: [
-      'What type of risk are you assessing? (security, privacy, operational, etc.)',
-      'Is this related to a specific compliance requirement?',
-      'Do you need to assess inherent risk, residual risk, or both?'
+      "What type of report do you need?",
+      "Which framework(s) should be included?"
     ],
     expectedGuidance: [
-      'Navigate to Risk Register',
-      'Click "Add New Risk"',
-      'Describe the risk scenario',
-      'Assess likelihood and impact',
-      'Link to affected controls and assets',
-      'Define mitigation measures',
-      'Assign risk owner'
+      "Navigate to Reports section",
+      "Select report template",
+      "Choose framework(s)",
+      "Generate and export"
     ]
   },
 
-  POLICY_MANAGEMENT: {
-    category: 'policy_management',
-    task: 'Create or update policy',
-    userContext: {
-      userType: 'MANAGER',
-      currentScreen: 'policies',
-      hasTemplate: false
-    },
-    prompts: {
-      complete_context: 'How do I create a data retention policy that meets GDPR requirements in ArionComply?',
-      template_needed: 'Where can I find a template for an information security policy?',
-      update_existing: 'How do I update our existing access control policy?'
-    },
-    expectedClarifications: [
-      'Which compliance frameworks does this policy need to address?',
-      'Do you want to start from a template or create from scratch?',
-      'Who are the policy approvers in your organization?'
-    ],
+  // Risk Register Management
+  {
+    id: "ARION_UI_RISK_MANAGEMENT_COMPLETE_1",
+    category: "platform_feature_test",
+    vendor: "ArionComply",
+    question: "How do I add a new cybersecurity risk to the risk register in ArionComply?",
+    expectedTopics: ["risk", "add", "register", "cybersecurity"],
+    complexity: "intermediate",
+    platformFeature: "risk_management",
+    featureAction: "create",
+    userContext: "power_user",
+    contextLevel: "complete_context",
     expectedGuidance: [
-      'Go to Policy Management module',
-      'Choose "Create from Template" or "Create New"',
-      'Select relevant framework requirements',
-      'Draft policy content (AI assistant available)',
-      'Link to relevant controls',
-      'Submit for approval workflow',
-      'Publish and distribute'
-    ]
-  },
-
-  AUDIT_PREPARATION: {
-    category: 'audit',
-    task: 'Prepare for external audit',
-    userContext: {
-      userType: 'MANAGER',
-      currentScreen: 'audit_prep',
-      auditDate: 'upcoming'
-    },
-    prompts: {
-      complete_context: 'How do I prepare for our upcoming ISO 27001 certification audit in ArionComply?',
-      general: 'What do I need to do to get ready for an audit?',
-      checklist: 'Can you give me an audit readiness checklist?'
-    },
-    expectedClarifications: [
-      'Which certification or framework are you being audited against?',
-      'When is the audit scheduled?',
-      'Is this your first audit or a surveillance audit?',
-      'Do you have evidence collected for all required controls?'
+      "Navigate to Risk Management > Risk Register",
+      "Click Add New Risk",
+      "Describe risk scenario",
+      "Assess likelihood (Low/Medium/High)",
+      "Assess impact (Low/Medium/High)",
+      "Link to affected controls",
+      "Define mitigation measures",
+      "Assign risk owner",
+      "Save risk"
     ],
-    expectedGuidance: [
-      'Run Audit Readiness Report',
-      'Review control implementation status (target: 100%)',
-      'Verify all evidence is uploaded and current',
-      'Complete any outstanding remediation tasks',
-      'Generate evidence package for auditor',
-      'Review and update all policies',
-      'Schedule evidence review sessions',
-      'Prepare statement of applicability (if applicable)'
-    ]
-  },
-
-  DATA_SUBJECT_REQUEST: {
-    category: 'privacy_operations',
-    task: 'Handle GDPR data subject request',
-    userContext: {
-      userType: 'PRACTITIONER',
-      currentScreen: 'dsr_inbox',
-      requestType: 'access'
-    },
-    prompts: {
-      complete_context: 'How do I process a GDPR right to access request in ArionComply?',
-      different_right: 'How do I handle a right to erasure request?',
-      general: 'How does the data subject request workflow work?'
-    },
-    expectedClarifications: [
-      'Which type of data subject request is this? (access, erasure, portability, etc.)',
-      'Have you verified the identity of the data subject?',
-      'Which systems contain this person\'s data?'
-    ],
-    expectedGuidance: [
-      'Go to Privacy Operations > Data Subject Requests',
-      'Create new request or select existing',
-      'Verify requester identity',
-      'Search connected systems for data',
-      'Review and compile data (30-day deadline)',
-      'Redact third-party information if needed',
-      'Respond to data subject',
-      'Document request handling for compliance'
-    ]
-  },
-
-  VENDOR_RISK_ASSESSMENT: {
-    category: 'third_party_risk',
-    task: 'Assess vendor compliance',
-    userContext: {
-      userType: 'PRACTITIONER',
-      currentScreen: 'vendors',
-      hasVendor: true
-    },
-    prompts: {
-      complete_context: 'How do I assess our AWS compliance posture in ArionComply?',
-      new_vendor: 'How do I onboard and assess a new vendor?',
-      questionnaire: 'Where can I send a security questionnaire to a vendor?'
-    },
-    expectedClarifications: [
-      'What type of vendor is this? (cloud provider, SaaS, processor, etc.)',
-      'What data do they process or have access to?',
-      'Which compliance frameworks must they comply with?'
-    ],
-    expectedGuidance: [
-      'Navigate to Vendor Risk Management',
-      'Add or select vendor',
-      'Send security questionnaire',
-      'Request vendor certifications (SOC 2, ISO 27001, etc.)',
-      'Assess risk level based on responses',
-      'Review and approve/reject vendor',
-      'Monitor ongoing compliance',
-      'Schedule periodic re-assessments'
-    ]
-  },
-
-  AI_SYSTEM_REGISTRATION: {
-    category: 'ai_governance',
-    task: 'Register AI system for EU AI Act compliance',
-    userContext: {
-      userType: 'PRACTITIONER',
-      currentScreen: 'ai_systems',
-      hasAISystem: false
-    },
-    prompts: {
-      complete_context: 'How do I register our customer service chatbot for EU AI Act compliance in ArionComply?',
-      classification: 'How do I determine if my AI system is high-risk under EU AI Act?',
-      requirements: 'What documentation is required for high-risk AI systems?'
-    },
-    expectedClarifications: [
-      'What is the purpose of this AI system?',
-      'Does it affect fundamental rights or safety?',
-      'Is it used in hiring, credit scoring, law enforcement, or critical infrastructure?',
-      'What type of AI is it? (generative, predictive, classification, etc.)'
-    ],
-    expectedGuidance: [
-      'Go to AI Governance > AI Systems Register',
-      'Click "Register New AI System"',
-      'Complete AI system questionnaire',
-      'System will classify risk level automatically',
-      'If high-risk: complete technical documentation requirements',
-      'Upload risk management documentation',
-      'Document data governance practices',
-      'Submit for internal review',
-      'Monitor for regulatory updates'
-    ]
+    expectedScreens: ["Risk Management", "Risk Register"],
+    expectedButtons: ["Add New Risk", "Save"]
   }
-};
-
-export function getTasksByCategory(category) {
-  return Object.entries(ARIONCOMPLY_UI_TASKS)
-    .filter(([key, task]) => task.category === category)
-    .map(([key, task]) => ({ key, ...task }));
-}
-
-export function getTaskPrompts(taskKey, contextLevel = 'complete_context') {
-  const task = ARIONCOMPLY_UI_TASKS[taskKey];
-  return task ? task.prompts[contextLevel] : null;
-}
+];
 
 export function getAllArionComplyPrompts() {
-  const allPrompts = [];
-  
-  for (const [taskKey, task] of Object.entries(ARIONCOMPLY_UI_TASKS)) {
-    for (const [contextLevel, prompt] of Object.entries(task.prompts)) {
-      allPrompts.push({
-        taskKey,
-        category: task.category,
-        task: task.task,
-        contextLevel,
-        prompt,
-        userType: task.userContext.userType,
-        expectedClarifications: task.expectedClarifications,
-        expectedGuidance: task.expectedGuidance
-      });
-    }
-  }
-  
-  return allPrompts;
+  return ARIONCOMPLY_UI_TASKS;
+}
+
+export function getPromptsByFeature(feature) {
+  return ARIONCOMPLY_UI_TASKS.filter(t => t.platformFeature === feature);
+}
+
+export function getPromptsByAction(action) {
+  return ARIONCOMPLY_UI_TASKS.filter(t => t.featureAction === action);
+}
+
+export function getPromptsByContextLevel(level) {
+  return ARIONCOMPLY_UI_TASKS.filter(t => t.contextLevel === level);
 }
