@@ -84,12 +84,14 @@ async function executeTestRun(runConfig) {
       return;
     }
 
-    // Enrich results with full prompt text for schema compliance
-    const enrichedResults = modelResults.map(result => ({
-      ...result,
-      fullPromptText: promptMap[result.promptId]?.fullPromptText || '',
-      promptTokens: promptMap[result.promptId]?.estimatedTokens || 0
-    }));
+    // Convert results to schema-compliant format with full prompt text
+    const enrichedResults = modelResults.map(result =>
+      convertRunnerResultToSchema(
+        result,
+        promptMap[result.promptId]?.fullPromptText || '',
+        promptMap[result.promptId]?.estimatedTokens || 0
+      )
+    );
 
     // Save incrementally per model
     try {

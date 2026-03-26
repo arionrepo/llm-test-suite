@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Response Viewer & Rating System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .controls button {
+            padding: 8px 16px;
+            border: none;
+            background: #3498db;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .controls button:hover {
+            background: #2980b9;
+        }
+
+        .controls button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .controls select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .prompt-info {
+            background: #ecf0f1;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .prompt-info h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .prompt-info .meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .prompt-info .meta span {
+            padding: 4px 8px;
+            background: white;
+            border-radius: 3px;
+        }
+
+        .prompt-section {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .prompt-section h3 {
+            font-size: 14px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .prompt-section h3:hover {
+            color: #3498db;
+        }
+
+        .prompt-section .content {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 4px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .prompt-section .content.collapsed {
+            display: none;
+        }
+
+        .user-message {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .responses-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .response-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .response-header {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            font-weight: 600;
+        }
+
+        .response-header.phi3 { background: #e74c3c; }
+        .response-header.smollm3 { background: #27ae60; }
+        .response-header.mistral { background: #9b59b6; }
+
+        .response-metrics {
+            padding: 10px;
+            background: #ecf0f1;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .response-content {
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 500px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+
+        .quality-flags {
+            padding: 10px;
+            background: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+            font-size: 11px;
+        }
+
+        .flag {
+            display: inline-block;
+            padding: 3px 8px;
+            margin: 2px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .flag.error { background: #ffebee; color: #c62828; }
+        .flag.warning { background: #fff3e0; color: #ef6c00; }
+        .flag.success { background: #e8f5e9; color: #2e7d32; }
+
+        .rating-section {
+            padding: 15px;
+            background: #f8f9fa;
+            border-top: 2px solid #dee2e6;
+        }
+
+        .rating-section h4 {
+            font-size: 13px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .rating-buttons {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .rating-btn {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .rating-btn:hover {
+            border-color: #3498db;
+            background: #ecf0f1;
+        }
+
+        .rating-btn.selected {
+            border-color: #3498db;
+            background: #3498db;
+            color: white;
+        }
+
+        .rating-btn.harm { border-color: #c0392b; }
+        .rating-btn.harm.selected { background: #c0392b; border-color: #c0392b; }
+
+        .rating-btn.unacceptable { border-color: #e67e22; }
+        .rating-btn.unacceptable.selected { background: #e67e22; border-color: #e67e22; }
+
+        .rating-explanation {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 12px;
+            min-height: 60px;
+            resize: vertical;
+        }
+
+        .save-rating-btn {
+            margin-top: 8px;
+            padding: 8px 16px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .save-rating-btn:hover {
+            background: #229954;
+        }
+
+        .save-rating-btn.saved {
+            background: #95a5a6;
+        }
+
+        .stats {
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: #ecf0f1;
+            border-radius: 4px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+        }
+
+        .export-btn {
+            background: #8e44ad;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .export-btn:hover {
+            background: #732d91;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LLM Response Viewer & Rating System</h1>
+            <p>Compare and rate model responses for multi-tier compliance prompts</p>
+            <p style="font-size: 12px; margin-top: 8px; opacity: 0.9;">
+                Test Suite: 50 prompts × 3 models × 2 runs = 150 responses | Scale: -1 (harmful) to 5 (excellent)
+            </p>
+        </header>
+
+        <div class="stats" id="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalPrompts">0</div>
+                    <div class="stat-label">Total Prompts</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalResponses">0</div>
+                    <div class="stat-label">Total Responses</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="ratedCount">0</div>
+                    <div class="stat-label">Rated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="avgRating">-</div>
+                    <div class="stat-label">Avg Rating</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="issuesFound">0</div>
+                    <div class="stat-label">Issues Detected</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="controls-row">
+                <button onclick="previousPrompt()">← Previous</button>
+                <span id="promptCounter" style="font-weight: 600;">Prompt 1 of 50</span>
+                <button onclick="nextPrompt()">Next →</button>
+
+                <select id="promptSelect" onchange="jumpToPrompt(this.value)">
+                    <!-- Populated by JavaScript -->
+                </select>
+
+                <select id="filterPersona" onchange="applyFilters()">
+                    <option value="">All Personas</option>
+                    <option value="NOVICE">NOVICE</option>
+                    <option value="PRACTITIONER">PRACTITIONER</option>
+                    <option value="MANAGER">MANAGER</option>
+                    <option value="AUDITOR">AUDITOR</option>
+                    <option value="DEVELOPER">DEVELOPER</option>
+                </select>
+
+                <button class="export-btn" onclick="exportRatings()">Export Ratings</button>
+                <button class="export-btn" onclick="saveAllRatings()">Save All Ratings</button>
+            </div>
+        </div>
+
+        <div id="promptDisplay">
+            <!-- Prompt content populated by JavaScript -->
+        </div>
+
+        <div class="responses-grid" id="responsesGrid">
+            <!-- Model responses populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let allData = [];
+        let currentPromptIndex = 0;
+        let ratings = {};
+        let filteredIndices = [];
+
+        // Load test results
+        async function loadTestResults() {
+            const files = [
+                '../reports/performance/2026-03-26/test-results-multitier-phi3-split-25-run1-2026-03-26T153232299Z.json',
+                '../reports/performance/2026-03-26/test-results-multitier-smollm3-split-25-run1-2026-03-26T153432907Z.json',
+                '../reports/performance/2026-03-26/test-results-multitier-mistral-split-25-run1-2026-03-26T153734424Z.json',
+                '../reports/performance/2026-03-26/test-results-multitier-phi3-split-25-run2-2026-03-26T154119506Z.json',
+                '../reports/performance/2026-03-26/test-results-multitier-smollm3-split-25-run2-2026-03-26T154333186Z.json',
+                '../reports/performance/2026-03-26/test-results-multitier-mistral-split-25-run2-2026-03-26T154657787Z.json'
+            ];
+
+            const allResults = {};
+
+            for (const file of files) {
+                try {
+                    const response = await fetch(file);
+                    const data = await response.json();
+                    const modelMatch = file.match(/multitier-(\w+)-split/);
+                    const runMatch = file.match(/run(\d)/);
+
+                    if (modelMatch && runMatch) {
+                        const model = modelMatch[1];
+                        const run = parseInt(runMatch[1]);
+
+                        if (!allResults[model]) allResults[model] = {};
+                        allResults[model][run] = data.results;
+                    }
+                } catch (error) {
+                    console.error(`Error loading ${file}:`, error);
+                }
+            }
+
+            // Organize by prompt ID
+            const organized = [];
+
+            // Use run1 as the base (25 prompts each)
+            const run1Prompts = allResults.phi3[1];
+
+            for (let i = 0; i < run1Prompts.length; i++) {
+                const promptId = run1Prompts[i].input.promptId;
+
+                organized.push({
+                    promptId,
+                    promptIndex: i,
+                    run: 1,
+                    prompt: run1Prompts[i].input,
+                    responses: {
+                        phi3: allResults.phi3[1][i],
+                        smollm3: allResults.smollm3[1][i],
+                        mistral: allResults.mistral[1][i]
+                    }
+                });
+            }
+
+            // Add run2 prompts
+            const run2Prompts = allResults.phi3[2];
+            for (let i = 0; i < run2Prompts.length; i++) {
+                const promptId = run2Prompts[i].input.promptId;
+
+                organized.push({
+                    promptId,
+                    promptIndex: i + 25,
+                    run: 2,
+                    prompt: run2Prompts[i].input,
+                    responses: {
+                        phi3: allResults.phi3[2][i],
+                        smollm3: allResults.smollm3[2][i],
+                        mistral: allResults.mistral[2][i]
+                    }
+                });
+            }
+
+            return organized;
+        }
+
+        // Extract sections from full prompt text
+        function extractPromptSections(fullPromptText) {
+            const tier1Match = fullPromptText.match(/\[TIER 1[^\]]*\]([\s\S]*?)(?=\[TIER 2|$)/);
+            const tier2Match = fullPromptText.match(/\[TIER 2[^\]]*\]([\s\S]*?)(?=\[TIER 3|$)/);
+            const tier3Match = fullPromptText.match(/\[TIER 3[^\]]*\]([\s\S]*?)(?=\[CONVERSATION HISTORY\]|\[CURRENT USER MESSAGE\]|$)/);
+            const historyMatch = fullPromptText.match(/\[CONVERSATION HISTORY\]([\s\S]*?)(?=\[CURRENT USER MESSAGE\]|$)/);
+            const messageMatch = fullPromptText.match(/\[CURRENT USER MESSAGE\]\n([\s\S]*?)$/);
+
+            return {
+                tier1: tier1Match ? tier1Match[1].trim() : '',
+                tier2: tier2Match ? tier2Match[1].trim() : '',
+                tier3: tier3Match ? tier3Match[1].trim() : '',
+                history: historyMatch ? historyMatch[1].trim() : '',
+                message: messageMatch ? messageMatch[1].trim() : ''
+            };
+        }
+
+        // Detect quality issues
+        function detectIssues(response, modelName) {
+            const issues = [];
+            const text = response.output.response;
+
+            // Hallucination detection
+            if (text.includes('[USER RESPONSE]') || text.includes('[ARIONCOMPLY AI]')) {
+                issues.push({ type: 'error', label: 'Fabricated Dialogue', description: 'Contains fake user responses' });
+            }
+
+            // Think tags
+            if (text.includes('<think>')) {
+                issues.push({ type: 'warning', label: 'Think Tags', description: 'Contains reasoning tags' });
+            }
+
+            // Unnecessary labels
+            if (text.match(/^\s*\[(RESPONSE|ASSISTANT)/)) {
+                issues.push({ type: 'warning', label: 'Output Labels', description: 'Unnecessary response labels' });
+            }
+
+            // Context usage (check if industry mentioned)
+            const contextMatch = text.match(/(Healthcare|Financial Services|Education|Technology|Retail|healthcare|financial services|retail|technology)/i);
+            if (contextMatch) {
+                issues.push({ type: 'success', label: 'Context Used', description: `Mentions ${contextMatch[0]}` });
+            }
+
+            // Article citations
+            const articleMatch = text.match(/Article \d+/g);
+            if (articleMatch) {
+                issues.push({ type: 'success', label: 'Article Citations', description: `${articleMatch.length} citations` });
+            }
+
+            // Control citations (ISO 27001)
+            const controlMatch = text.match(/A\.\d+/g);
+            if (controlMatch) {
+                issues.push({ type: 'success', label: 'Control Citations', description: `${controlMatch.length} controls` });
+            }
+
+            return issues;
+        }
+
+        // Render prompt display
+        function renderPrompt(promptData) {
+            const sections = extractPromptSections(promptData.prompt.fullPromptText);
+            const persona = promptData.promptId.split('_').slice(-2, -1)[0];
+            const topic = promptData.promptId.split('_').slice(2, -2).join('_');
+
+            let html = `
+                <div class="prompt-info">
+                    <h2>Prompt ${promptData.promptIndex + 1}/50: ${promptData.promptId}</h2>
+                    <div class="meta">
+                        <span><strong>Topic:</strong> ${topic}</span>
+                        <span><strong>Persona:</strong> ${persona}</span>
+                        <span><strong>Run:</strong> ${promptData.run}</span>
+                        <span><strong>Input Tokens:</strong> ${promptData.prompt.fullPromptTokens}</span>
+                    </div>
+                </div>
+
+                <div class="prompt-section">
+                    <h3 onclick="toggleSection('tier1')">▼ TIER 1 - Base System Prompt</h3>
+                    <div id="tier1" class="content collapsed">${sections.tier1}</div>
+                </div>
+
+                <div class="prompt-section">
+                    <h3 onclick="toggleSection('tier2')">▼ TIER 2 - Situational Context</h3>
+                    <div id="tier2" class="content collapsed">${sections.tier2}</div>
+                </div>
+
+                <div class="prompt-section">
+                    <h3 onclick="toggleSection('tier3')">▼ TIER 3 - Organization Context</h3>
+                    <div id="tier3" class="content">${sections.tier3}</div>
+                </div>
+            `;
+
+            if (sections.history) {
+                html += `
+                    <div class="prompt-section">
+                        <h3 onclick="toggleSection('history')">▼ Conversation History</h3>
+                        <div id="history" class="content collapsed">${sections.history}</div>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="user-message">
+                    <strong>USER QUESTION:</strong> ${sections.message}
+                </div>
+            `;
+
+            document.getElementById('promptDisplay').innerHTML = html;
+        }
+
+        // Render model responses
+        function renderResponses(promptData) {
+            const models = ['phi3', 'smollm3', 'mistral'];
+            let html = '';
+
+            for (const model of models) {
+                const response = promptData.responses[model];
+                const issues = detectIssues(response, model);
+                const currentRating = ratings[`${promptData.promptId}_${model}_run${promptData.run}`] || {};
+
+                html += `
+                    <div class="response-card">
+                        <div class="response-header ${model}">
+                            ${model.toUpperCase()}
+                        </div>
+
+                        <div class="response-metrics">
+                            <span>${response.output.responseTokens} tokens</span>
+                            <span>${response.timing.tokensPerSecond.toFixed(1)} tok/s</span>
+                            <span>${(response.timing.totalMs / 1000).toFixed(1)}s</span>
+                        </div>
+
+                        <div class="response-content">${response.output.response}</div>
+
+                        <div class="quality-flags">
+                            ${issues.map(issue => `
+                                <span class="flag ${issue.type}" title="${issue.description}">
+                                    ${issue.label}
+                                </span>
+                            `).join('')}
+                        </div>
+
+                        <div class="rating-section">
+                            <h4>Your Rating:</h4>
+                            <div class="rating-buttons">
+                                <button class="rating-btn harm ${currentRating.rating === -1 ? 'selected' : ''}"
+                                        onclick="setRating('${promptData.promptId}', '${model}', ${promptData.run}, -1)">
+                                    -1<br>Harm
+                                </button>
+                                <button class="rating-btn unacceptable ${currentRating.rating === 0 ? 'selected' : ''}"
+                                        onclick="setRating('${promptData.promptId}', '${model}', ${promptData.run}, 0)">
+                                    0<br>Bad
+                                </button>
+                                ${[1, 2, 3, 4, 5].map(r => `
+                                    <button class="rating-btn ${currentRating.rating === r ? 'selected' : ''}"
+                                            onclick="setRating('${promptData.promptId}', '${model}', ${promptData.run}, ${r})">
+                                        ${r}
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <textarea class="rating-explanation"
+                                      id="explanation_${promptData.promptId}_${model}_${promptData.run}"
+                                      placeholder="Explain your rating (required for -1, 0, and 5 ratings)...">${currentRating.explanation || ''}</textarea>
+                            <button class="save-rating-btn ${currentRating.rating !== undefined ? 'saved' : ''}"
+                                    id="save_${promptData.promptId}_${model}_${promptData.run}"
+                                    onclick="saveRating('${promptData.promptId}', '${model}', ${promptData.run})">
+                                ${currentRating.rating !== undefined ? '✓ Saved' : 'Save Rating'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('responsesGrid').innerHTML = html;
+        }
+
+        // Navigation
+        function previousPrompt() {
+            if (currentPromptIndex > 0) {
+                currentPromptIndex--;
+                displayCurrentPrompt();
+            }
+        }
+
+        function nextPrompt() {
+            if (currentPromptIndex < filteredIndices.length - 1) {
+                currentPromptIndex++;
+                displayCurrentPrompt();
+            }
+        }
+
+        function jumpToPrompt(index) {
+            currentPromptIndex = parseInt(index);
+            displayCurrentPrompt();
+        }
+
+        function applyFilters() {
+            const persona = document.getElementById('filterPersona').value;
+
+            if (!persona) {
+                filteredIndices = allData.map((_, i) => i);
+            } else {
+                filteredIndices = allData
+                    .map((d, i) => ({ data: d, index: i }))
+                    .filter(({ data }) => data.promptId.includes(persona))
+                    .map(({ index }) => index);
+            }
+
+            currentPromptIndex = 0;
+            populatePromptSelect();
+            displayCurrentPrompt();
+        }
+
+        function populatePromptSelect() {
+            const select = document.getElementById('promptSelect');
+            select.innerHTML = filteredIndices.map((dataIndex, filterIndex) => {
+                const prompt = allData[dataIndex];
+                return `<option value="${filterIndex}">${filterIndex + 1}. ${prompt.promptId}</option>`;
+            }).join('');
+        }
+
+        function displayCurrentPrompt() {
+            const dataIndex = filteredIndices[currentPromptIndex];
+            const promptData = allData[dataIndex];
+
+            renderPrompt(promptData);
+            renderResponses(promptData);
+
+            document.getElementById('promptCounter').textContent =
+                `Prompt ${currentPromptIndex + 1} of ${filteredIndices.length}`;
+
+            document.getElementById('promptSelect').value = currentPromptIndex;
+
+            updateStats();
+        }
+
+        function toggleSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            element.classList.toggle('collapsed');
+
+            const header = element.previousElementSibling;
+            header.textContent = header.textContent.replace(/[▼▶]/,
+                element.classList.contains('collapsed') ? '▶' : '▼');
+        }
+
+        // Rating system
+        function setRating(promptId, model, run, rating) {
+            const key = `${promptId}_${model}_run${run}`;
+
+            if (!ratings[key]) {
+                ratings[key] = {
+                    promptId,
+                    modelName: model,
+                    runNumber: run,
+                    timestamp: new Date().toISOString()
+                };
+            }
+
+            ratings[key].rating = rating;
+
+            // Highlight selected button
+            const buttons = document.querySelectorAll(`button.rating-btn`);
+            buttons.forEach(btn => {
+                const text = btn.textContent.trim();
+                if (text.startsWith(rating.toString())) {
+                    btn.classList.add('selected');
+                } else if (text.includes('Harm') && rating === -1) {
+                    btn.classList.add('selected');
+                } else if (text.includes('Bad') && rating === 0) {
+                    btn.classList.add('selected');
+                } else {
+                    btn.classList.remove('selected');
+                }
+            });
+
+            displayCurrentPrompt();
+        }
+
+        function saveRating(promptId, model, run) {
+            const key = `${promptId}_${model}_run${run}`;
+            const explanation = document.getElementById(`explanation_${promptId}_${model}_${run}`).value;
+
+            if (!ratings[key] || ratings[key].rating === undefined) {
+                alert('Please select a rating first');
+                return;
+            }
+
+            // Require explanation for extreme ratings
+            if ((ratings[key].rating <= 0 || ratings[key].rating === 5) && !explanation) {
+                alert('Explanation required for -1, 0, and 5 ratings');
+                return;
+            }
+
+            ratings[key].explanation = explanation;
+            ratings[key].savedAt = new Date().toISOString();
+
+            // Update button
+            const btn = document.getElementById(`save_${promptId}_${model}_${run}`);
+            btn.textContent = '✓ Saved';
+            btn.classList.add('saved');
+
+            console.log(`Saved rating for ${key}:`, ratings[key]);
+            updateStats();
+        }
+
+        function saveAllRatings() {
+            const ratingsData = {
+                rater: "Libor Ballaty <libor@arionetworks.com>",
+                timestamp: new Date().toISOString(),
+                totalRatings: Object.keys(ratings).length,
+                ratings: Object.values(ratings)
+            };
+
+            const blob = new Blob([JSON.stringify(ratingsData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `human-ratings-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            alert(`Saved ${Object.keys(ratings).length} ratings to file`);
+        }
+
+        function exportRatings() {
+            // Export as CSV for analysis
+            let csv = 'PromptID,Model,Run,Rating,Explanation,HasHallucination,HasContextUsage,TokensPerSec\n';
+
+            for (const [key, rating] of Object.entries(ratings)) {
+                const promptData = allData.find(d => d.promptId === rating.promptId && d.run === rating.runNumber);
+                if (!promptData) continue;
+
+                const response = promptData.responses[rating.modelName];
+                const hasHallucination = response.output.response.includes('[USER RESPONSE]');
+                const hasContext = response.output.response.match(/(Healthcare|Financial Services|Education|Technology|Retail)/i);
+
+                csv += `"${rating.promptId}","${rating.modelName}",${rating.runNumber},${rating.rating},"${(rating.explanation || '').replace(/"/g, '""')}",${hasHallucination},${!!hasContext},${response.timing.tokensPerSecond.toFixed(2)}\n`;
+            }
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ratings-export-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function updateStats() {
+            const uniquePrompts = new Set(allData.map(d => d.promptId)).size;
+            const totalResponses = allData.length * 3; // 3 models per prompt
+
+            const ratedCount = Object.keys(ratings).length;
+            const ratedWithScores = Object.values(ratings).filter(r => r.rating !== undefined);
+            const avgRating = ratedWithScores.length > 0
+                ? (ratedWithScores.reduce((sum, r) => sum + r.rating, 0) / ratedWithScores.length).toFixed(2)
+                : '-';
+
+            // Count issues across all responses
+            let totalIssues = 0;
+            allData.forEach(promptData => {
+                ['phi3', 'smollm3', 'mistral'].forEach(model => {
+                    const issues = detectIssues(promptData.responses[model], model);
+                    totalIssues += issues.filter(i => i.type === 'error' || i.type === 'warning').length;
+                });
+            });
+
+            document.getElementById('totalPrompts').textContent = uniquePrompts;
+            document.getElementById('totalResponses').textContent = totalResponses;
+            document.getElementById('ratedCount').textContent = ratedCount;
+            document.getElementById('avgRating').textContent = avgRating;
+            document.getElementById('issuesFound').textContent = totalIssues;
+        }
+
+        // Initialize
+        async function init() {
+            console.log('Loading test results...');
+            allData = await loadTestResults();
+            console.log(`Loaded ${allData.length} prompts`);
+
+            filteredIndices = allData.map((_, i) => i);
+
+            populatePromptSelect();
+            displayCurrentPrompt();
+
+            console.log('Viewer ready!');
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') previousPrompt();
+            if (e.key === 'ArrowRight') nextPrompt();
+        });
+
+        // Load on page load
+        init();
+    </script>
+</body>
+</html>
