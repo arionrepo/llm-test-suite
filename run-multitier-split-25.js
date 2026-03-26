@@ -111,8 +111,8 @@ async function executeTestRun(runConfig) {
     }
   }
 
-  // Execute test run with mandatory logging and callbacks
-  const results = await runner.runPerformanceTests(prompts, runConfig.runNumber, onModelComplete);
+  // Execute test run with mandatory logging, callbacks, and model filter
+  const results = await runner.runPerformanceTests(prompts, runConfig.runNumber, onModelComplete, topModels);
 
   console.log('\n' + '='.repeat(80));
   console.log(`✅ Run ${runConfig.runNumber}/2 Complete`);

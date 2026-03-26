@@ -87,8 +87,8 @@ async function onModelComplete(modelName, modelResults) {
   }
 }
 
-// Run tests with incremental result saving via callback
-const results = await runner.runPerformanceTests(prompts, 6, onModelComplete);
+// Run tests with incremental result saving via callback (filter to first 3 models)
+const results = await runner.runPerformanceTests(prompts, 6, onModelComplete, topModels);
 
 console.log('\n' + '='.repeat(80));
 console.log('✅ All Multi-Tier Performance Tests Complete!');

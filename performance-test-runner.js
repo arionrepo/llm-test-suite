@@ -213,7 +213,7 @@ class ResilientPerformanceTestRunner {
     return false;
   }
 
-  async runPerformanceTests(prompts, runNumber, onModelComplete = null) {
+  async runPerformanceTests(prompts, runNumber, onModelComplete = null, modelFilter = null) {
     // MANDATORY: Logger MUST be initialized before running tests
     if (!this.logFile) {
       throw new Error('FATAL: Logger not initialized. Call initializeLogger() before runPerformanceTests()');
@@ -224,7 +224,14 @@ class ResilientPerformanceTestRunner {
       throw new Error('FATAL: onModelComplete callback is REQUIRED for incremental result saving. No exceptions.');
     }
 
-    const models = this.managerClient.getAllModels();
+    // Get all models, optionally filter to subset
+    let models = this.managerClient.getAllModels();
+    if (modelFilter && Array.isArray(modelFilter) && modelFilter.length > 0) {
+      models = models.filter(m => modelFilter.includes(m));
+      if (models.length === 0) {
+        throw new Error(`FATAL: No models found matching filter: ${modelFilter.join(', ')}`);
+      }
+    }
     const results = [];
 
     this.logEvent('PERFORMANCE_RUN_START', {
