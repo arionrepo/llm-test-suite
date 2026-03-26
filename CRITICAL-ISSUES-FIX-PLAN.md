@@ -1,19 +1,36 @@
-# Critical Issues - Detailed Fix Plan
+# Critical Issues - Comprehensive Fix Plan with llama-bench Integration
 
 **File:** /Users/liborballaty/LocalProjects/GitHubProjectsDocuments/llm-test-suite/CRITICAL-ISSUES-FIX-PLAN.md
-**Description:** Detailed implementation plan for fixing 7 critical issues preventing commercial launch
+**Description:** Complete implementation plan for commercial launch: 7 critical fixes + llama-bench integration
 **Author:** Libor Ballaty <libor@arionetworks.com>
 **Created:** 2026-03-26
+**Last Updated:** 2026-03-26
 **Status:** IMPLEMENTATION PLAN - Ready for execution
 
 ---
 
 ## Overview
 
-**Total Critical Issues:** 7
-**Estimated Total Time:** 12-16 hours (1.5-2 days)
-**Dependencies:** Issues should be fixed in numbered order
-**Goal:** Production-ready data integrity and schema compliance
+**Total Work Streams:** 2 major streams
+- **Stream 1:** 7 Critical Issues (data integrity, schema compliance)
+- **Stream 2:** llama-bench Integration (authoritative performance metrics)
+
+**Estimated Total Time:** 18-24 hours (2.5-3 days)
+**Dependencies:** Stream 1 must complete before Stream 2
+**Goal:** Production-ready commercial benchmarking service with industry-standard metrics
+
+---
+
+## Implementation Strategy
+
+### Phase 1: Critical Fixes (Day 1-2, 12-16 hours)
+Fix data integrity and schema compliance issues that prevent valid results.
+
+### Phase 2: llama-bench Integration (Day 3, 4-6 hours)
+Add authoritative performance measurement using llama.cpp official tooling.
+
+### Phase 3: Validation & Documentation (Day 3, 2-3 hours)
+End-to-end testing, documentation updates, customer deliverables.
 
 ---
 

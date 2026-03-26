@@ -6,11 +6,26 @@
 // Tests the AI backend's TIER 1 + TIER 2 + TIER 3 + TIER 4 prompt construction system
 // Validates that user queries are correctly enhanced with system prompts, framework expertise, and org context
 
+// Import centralized prompt modules
+import { TIER1_BASE_SYSTEM } from '../prompts/tier1-base-system.js';
+import { TIER2_PROMPTS, combineTier2Prompts } from '../prompts/tier2-prompts.js';
+import { ORG_PROFILES, buildTier3Context } from '../prompts/org-profiles.js';
+import { assembleFullPrompt, estimateTokens, validatePromptStructure } from '../prompts/helpers.js';
+
 /**
- * Organization Profile Templates
- * Used across multiple test cases to simulate different customer scenarios
+ * NOTE: Organization profiles, TIER 1, TIER 2, and helper functions are now
+ * imported from enterprise/prompts/ modules for centralized maintenance.
+ *
+ * To modify prompts:
+ * - TIER 1 (base system): Edit enterprise/prompts/tier1-base-system.js
+ * - TIER 2 (situational): Edit enterprise/prompts/tier2-prompts.js
+ * - Org profiles: Edit enterprise/prompts/org-profiles.js
+ * - Helpers: Edit enterprise/prompts/helpers.js
  */
-const ORG_PROFILES = {
+
+// Legacy organization profiles object (kept for backwards compatibility)
+// These are now imported from org-profiles.js but re-exported here for existing code
+const ORG_PROFILES_LEGACY = {
   HEALTHTECH_STARTUP: {
     industry: "Healthcare",
     org_size: "1-50",
@@ -74,6 +89,14 @@ Communication Style:
 - Cite specific articles, controls, or requirements when relevant
 - Ask clarifying questions when user intent is ambiguous
 
+Output Format Rules:
+- Provide only your direct response to the user
+- Do NOT include reasoning tags (such as <think>, <reasoning>, <reflection>)
+- Do NOT create fictional dialogues or example user responses
+- Do NOT add labels like [USER RESPONSE], [ASSISTANT], or [ARIONCOMPLY AI]
+- Do NOT simulate multi-turn conversations in a single response
+- Output clean, professional text formatted in markdown without meta-commentary
+
 When helping with assessments:
 - Parse natural language responses into structured data
 - Extract YES/NO/PARTIAL compliance status from user descriptions
@@ -94,16 +117,26 @@ const TIER2_PROMPTS = {
 
 You are guiding the user through a compliance gap assessment. Your goal is to:
 1. Ask clear, focused questions about their current compliance status
-2. Parse their responses to extract compliance status and evidence
-3. Guide them through all applicable controls systematically
-4. Provide encouraging feedback and next steps
+2. WAIT for the user to respond (do not invent or assume their answers)
+3. When user provides their actual answer, parse it to extract status and evidence
+4. Guide them systematically through all applicable controls
+5. Provide encouraging feedback and next steps
 
-Assessment Flow:
-- Present one control or requirement at a time
+Assessment Flow (Follow This Sequence):
+- Present ONE control or requirement at a time
 - Ask if they have implemented it (YES/NO/PARTIAL/NOT_APPLICABLE)
+- STOP and WAIT for user's actual response
+- When user answers, parse their actual response (never fabricate examples)
 - Request evidence or documentation if they claim implementation
 - Record gaps and provide guidance on remediation
 - Track progress and show completion percentage
+
+CRITICAL ASSESSMENT RULES:
+- NEVER create [USER RESPONSE] sections or fictional user answers
+- NEVER simulate multi-turn dialogues in one response
+- ONLY respond to actual messages from the user
+- If you ask questions, your response ENDS there - wait for user input
+- Do not "demonstrate" the process with fake examples
 
 Keep the conversation flowing naturally while ensuring comprehensive coverage of all requirements.`,
 
@@ -268,7 +301,14 @@ function buildTier3Context(orgProfile) {
 
 ${guidance}
 
-Tailor your responses to this organization's industry, size, and maturity level. Use relevant examples from the ${orgProfile.industry} industry when possible.`;
+MANDATORY CONTEXT USAGE:
+Your responses MUST be tailored to this specific organizational context:
+- Reference ${orgProfile.industry} industry in your examples
+- Scale recommendations for ${orgProfile.org_size} employee organization
+- Match guidance to ${orgProfile.maturity_level} maturity level
+- Use ${orgProfile.region}-relevant regulatory context when applicable
+
+Every response should demonstrate understanding of this organization's unique situation.`;
 }
 
 /**
@@ -288,6 +328,22 @@ function assembleFullPrompt(tier1, tier2, tier3, conversationHistory, userQuery)
   }
 
   prompt += `[CURRENT USER MESSAGE]\n${userQuery}`;
+
+  // Extract context info from tier3 for post-message reminder
+  const industryMatch = tier3.match(/Industry: ([^\n]+)/);
+  const sizeMatch = tier3.match(/Organization Size: ([^\n]+)/);
+  const maturityMatch = tier3.match(/Compliance Maturity: ([^\n]+)/);
+
+  if (industryMatch && sizeMatch && maturityMatch) {
+    const industry = industryMatch[1];
+    const size = sizeMatch[1];
+    const maturity = maturityMatch[1];
+
+    prompt += `\n\n────────────────────────────────────────────────────────────\n`;
+    prompt += `CONTEXT: ${industry} | ${size} | ${maturity} maturity\n`;
+    prompt += `Tailor your response to this organizational context.\n`;
+    prompt += `────────────────────────────────────────────────────────────`;
+  }
 
   return prompt;
 }
