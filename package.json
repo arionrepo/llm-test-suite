@@ -18,7 +18,21 @@
     "enterprise:comprehensive": "node run-enterprise-tests.js comprehensive",
     "enterprise:functions": "node run-enterprise-tests.js function-calling"
   },
-  "keywords": ["llm", "testing", "llama.cpp", "benchmark", "compliance", "enterprise", "GDPR", "ISO27001", "SOC2"],
+  "keywords": [
+    "llm",
+    "testing",
+    "llama.cpp",
+    "benchmark",
+    "compliance",
+    "enterprise",
+    "GDPR",
+    "ISO27001",
+    "SOC2"
+  ],
   "author": "Libor Ballaty <libor@arionetworks.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1",
+    "glob": "^13.0.6"
+  }
 }
