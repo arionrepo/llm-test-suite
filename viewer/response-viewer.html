@@ -38,6 +38,182 @@
             margin-bottom: 10px;
         }
 
+        header .file-info {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            font-size: 13px;
+            opacity: 0.95;
+        }
+
+        header .file-info strong {
+            display: block;
+            margin-bottom: 5px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 11px;
+        }
+
+        header .file-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        header .file-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            max-width: 350px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .file-selector {
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #dee2e6;
+        }
+
+        .file-selector h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-selector-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .file-selector-controls button {
+            padding: 8px 16px;
+            border: none;
+            background: #3498db;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .file-selector-controls button:hover {
+            background: #2980b9;
+        }
+
+        .file-selector-controls button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .file-selector-controls button.reload {
+            background: #27ae60;
+        }
+
+        .file-selector-controls button.reload:hover {
+            background: #229954;
+        }
+
+        .file-count {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-left: auto;
+        }
+
+        .file-browser {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .file-browser.show {
+            display: block;
+        }
+
+        .file-browser-group {
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .file-browser-group-title {
+            padding: 10px;
+            background: #e9ecef;
+            font-weight: 600;
+            font-size: 12px;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .file-browser-item {
+            padding: 10px;
+            border-bottom: 1px solid #dee2e6;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-browser-item:hover {
+            background: #e9ecef;
+        }
+
+        .file-browser-item.selected {
+            background: #cfe2ff;
+            font-weight: 600;
+        }
+
+        .file-browser-item .file-name {
+            flex: 1;
+            color: #2c3e50;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-browser-item .file-size {
+            font-size: 11px;
+            color: #7f8c8d;
+            margin-left: 10px;
+        }
+
+        .file-selector-status {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 8px;
+            min-height: 20px;
+        }
+
+        .file-selector-status.loading {
+            color: #3498db;
+        }
+
+        .file-selector-status.error {
+            color: #e74c3c;
+        }
+
+        .file-selector-status.success {
+            color: #27ae60;
+        }
+
         .controls {
             background: white;
             padding: 15px;
@@ -337,6 +513,20 @@
         .export-btn:hover {
             background: #732d91;
         }
+
+        .empty-state {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            color: #7f8c8d;
+        }
+
+        .empty-state h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -344,10 +534,24 @@
         <header>
             <h1>LLM Response Viewer & Rating System</h1>
             <p>Compare and rate model responses for multi-tier compliance prompts</p>
-            <p style="font-size: 12px; margin-top: 8px; opacity: 0.9;">
-                Test Suite: 50 prompts × 3 models × 2 runs = 150 responses | Scale: -1 (harmful) to 5 (excellent)
-            </p>
+            <div class="file-info">
+                <strong>Currently Loaded Files:</strong>
+                <div class="file-list" id="loadedFiles">
+                    <span class="file-badge">Loading...</span>
+                </div>
+            </div>
         </header>
+
+        <div class="file-selector">
+            <h3>📁 Browse Test Result Files</h3>
+            <div class="file-selector-controls">
+                <button onclick="toggleFileBrowser()">Browse Files</button>
+                <button class="reload" onclick="reloadFileList()">Refresh List</button>
+                <span class="file-count" id="fileCount"></span>
+            </div>
+            <div class="file-browser" id="fileBrowser"></div>
+            <div class="file-selector-status" id="fileStatus"></div>
+        </div>
 
         <div class="stats" id="stats">
             <div class="stats-grid">
@@ -377,7 +581,7 @@
         <div class="controls">
             <div class="controls-row">
                 <button onclick="previousPrompt()">← Previous</button>
-                <span id="promptCounter" style="font-weight: 600;">Prompt 1 of 50</span>
+                <span id="promptCounter" style="font-weight: 600;">No data loaded</span>
                 <button onclick="nextPrompt()">Next →</button>
 
                 <select id="promptSelect" onchange="jumpToPrompt(this.value)">
@@ -413,80 +617,176 @@
         let currentPromptIndex = 0;
         let ratings = {};
         let filteredIndices = [];
+        let allFiles = [];
+        let currentlyLoadedFiles = [];
 
-        // Load test results
-        async function loadTestResults() {
-            const files = [
-                '../reports/performance/2026-03-26/test-results-multitier-phi3-split-25-run1-2026-03-26T153232299Z.json',
-                '../reports/performance/2026-03-26/test-results-multitier-smollm3-split-25-run1-2026-03-26T153432907Z.json',
-                '../reports/performance/2026-03-26/test-results-multitier-mistral-split-25-run1-2026-03-26T153734424Z.json',
-                '../reports/performance/2026-03-26/test-results-multitier-phi3-split-25-run2-2026-03-26T154119506Z.json',
-                '../reports/performance/2026-03-26/test-results-multitier-smollm3-split-25-run2-2026-03-26T154333186Z.json',
-                '../reports/performance/2026-03-26/test-results-multitier-mistral-split-25-run2-2026-03-26T154657787Z.json'
-            ];
+        // File browser state
+        let fileBrowserOpen = false;
 
-            const allResults = {};
+        // Toggle file browser visibility
+        function toggleFileBrowser() {
+            fileBrowserOpen = !fileBrowserOpen;
+            const browser = document.getElementById('fileBrowser');
+            browser.classList.toggle('show', fileBrowserOpen);
+        }
 
-            for (const file of files) {
-                try {
-                    const response = await fetch(file);
-                    const data = await response.json();
-                    const modelMatch = file.match(/multitier-(\w+)-split/);
-                    const runMatch = file.match(/run(\d)/);
+        // Reload file list from API
+        async function reloadFileList() {
+            const status = document.getElementById('fileStatus');
+            status.className = 'file-selector-status loading';
+            status.textContent = 'Loading files...';
 
-                    if (modelMatch && runMatch) {
-                        const model = modelMatch[1];
-                        const run = parseInt(runMatch[1]);
+            try {
+                const response = await fetch('/api/files');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-                        if (!allResults[model]) allResults[model] = {};
-                        allResults[model][run] = data.results;
-                    }
-                } catch (error) {
-                    console.error(`Error loading ${file}:`, error);
-                }
+                const data = await response.json();
+                allFiles = data.files;
+
+                renderFileBrowser();
+                document.getElementById('fileCount').textContent = `${allFiles.length} files found`;
+                status.className = 'file-selector-status success';
+                status.textContent = '✓ File list loaded';
+            } catch (error) {
+                status.className = 'file-selector-status error';
+                status.textContent = `Error loading files: ${error.message}`;
+                console.error('Error loading file list:', error);
+            }
+        }
+
+        // Render file browser UI
+        function renderFileBrowser() {
+            const browser = document.getElementById('fileBrowser');
+
+            if (allFiles.length === 0) {
+                browser.innerHTML = '<div class="file-browser-item" style="text-align: center; color: #7f8c8d;">No test result files found</div>';
+                return;
             }
 
-            // Organize by prompt ID
-            const organized = [];
+            // Group files by directory
+            const grouped = {};
+            allFiles.forEach(file => {
+                const dir = file.dir || 'root';
+                if (!grouped[dir]) grouped[dir] = [];
+                grouped[dir].push(file);
+            });
 
-            // Use run1 as the base (25 prompts each)
-            const run1Prompts = allResults.phi3[1];
+            let html = '';
 
-            for (let i = 0; i < run1Prompts.length; i++) {
-                const promptId = run1Prompts[i].input.promptId;
+            // Sort directories with 'performance' first
+            const dirs = Object.keys(grouped).sort((a, b) => {
+                if (a === 'performance' && b !== 'performance') return -1;
+                if (a !== 'performance' && b === 'performance') return 1;
+                return a.localeCompare(b);
+            });
 
-                organized.push({
-                    promptId,
-                    promptIndex: i,
-                    run: 1,
-                    prompt: run1Prompts[i].input,
-                    responses: {
-                        phi3: allResults.phi3[1][i],
-                        smollm3: allResults.smollm3[1][i],
-                        mistral: allResults.mistral[1][i]
+            dirs.forEach(dir => {
+                html += `
+                    <div class="file-browser-group">
+                        <div class="file-browser-group-title">📂 ${dir}</div>
+                        ${grouped[dir].map(file => `
+                            <div class="file-browser-item ${currentlyLoadedFiles.includes(file.path) ? 'selected' : ''}"
+                                 onclick="loadFileInBrowser('${file.path}')">
+                                <span class="file-name">${file.basename}</span>
+                                <span class="file-size">${formatFileSize(file.path)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+
+            browser.innerHTML = html;
+        }
+
+        // Format file size (simplified)
+        function formatFileSize(path) {
+            // Could fetch actual size, for now just return "~150K"
+            return '~150K';
+        }
+
+        // Load a single file in the browser
+        async function loadFileInBrowser(filePath) {
+            const status = document.getElementById('fileStatus');
+            status.className = 'file-selector-status loading';
+            status.textContent = `Loading: ${filePath}...`;
+
+            try {
+                const response = await fetch(`/api/file?path=${encodeURIComponent(filePath)}`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const data = await response.json();
+                if (!data.success) throw new Error(data.error);
+
+                // Process the loaded file
+                processLoadedFile(data.data, filePath);
+
+                // Update UI
+                currentlyLoadedFiles = [filePath];
+                updateLoadedFilesDisplay();
+                renderFileBrowser();
+
+                status.className = 'file-selector-status success';
+                status.textContent = `✓ Loaded: ${filePath}`;
+            } catch (error) {
+                status.className = 'file-selector-status error';
+                status.textContent = `Error loading file: ${error.message}`;
+                console.error('Error loading file:', error);
+            }
+        }
+
+        // Process a single loaded file
+        function processLoadedFile(data, filePath) {
+            // Handle test results file format
+            if (data.results && Array.isArray(data.results)) {
+                // Format: { results: [...], metadata: {...} }
+                const results = data.results;
+
+                // Group by promptId
+                const byPrompt = {};
+                results.forEach(result => {
+                    const id = result.input.promptId;
+                    if (!byPrompt[id]) {
+                        byPrompt[id] = {
+                            promptId: id,
+                            promptIndex: Object.keys(byPrompt).length,
+                            run: 1,
+                            prompt: result.input,
+                            responses: {}
+                        };
                     }
+
+                    // Extract model name from filename or use generic
+                    const modelMatch = filePath.match(/multitier-(\w+)-/);
+                    const model = modelMatch ? modelMatch[1] : 'unknown';
+                    byPrompt[id].responses[model] = result;
                 });
+
+                allData = Object.values(byPrompt);
+            } else if (data.data && Array.isArray(data.data)) {
+                // Already formatted
+                allData = data.data;
+            } else {
+                throw new Error('Unsupported file format');
             }
 
-            // Add run2 prompts
-            const run2Prompts = allResults.phi3[2];
-            for (let i = 0; i < run2Prompts.length; i++) {
-                const promptId = run2Prompts[i].input.promptId;
+            // Reset view
+            filteredIndices = allData.map((_, i) => i);
+            currentPromptIndex = 0;
 
-                organized.push({
-                    promptId,
-                    promptIndex: i + 25,
-                    run: 2,
-                    prompt: run2Prompts[i].input,
-                    responses: {
-                        phi3: allResults.phi3[2][i],
-                        smollm3: allResults.smollm3[2][i],
-                        mistral: allResults.mistral[2][i]
-                    }
-                });
+            populatePromptSelect();
+            displayCurrentPrompt();
+        }
+
+        // Update the header display of loaded files
+        function updateLoadedFilesDisplay() {
+            const container = document.getElementById('loadedFiles');
+            if (currentlyLoadedFiles.length === 0) {
+                container.innerHTML = '<span class="file-badge" style="opacity: 0.6;">No files loaded - browse to get started</span>';
+            } else {
+                container.innerHTML = currentlyLoadedFiles.map(f =>
+                    `<span class="file-badge">${f.split('/').pop()}</span>`
+                ).join('');
             }
-
-            return organized;
         }
 
         // Extract sections from full prompt text
@@ -526,7 +826,7 @@
                 issues.push({ type: 'warning', label: 'Output Labels', description: 'Unnecessary response labels' });
             }
 
-            // Context usage (check if industry mentioned)
+            // Context usage
             const contextMatch = text.match(/(Healthcare|Financial Services|Education|Technology|Retail|healthcare|financial services|retail|technology)/i);
             if (contextMatch) {
                 issues.push({ type: 'success', label: 'Context Used', description: `Mentions ${contextMatch[0]}` });
@@ -538,7 +838,7 @@
                 issues.push({ type: 'success', label: 'Article Citations', description: `${articleMatch.length} citations` });
             }
 
-            // Control citations (ISO 27001)
+            // Control citations
             const controlMatch = text.match(/A\.\d+/g);
             if (controlMatch) {
                 issues.push({ type: 'success', label: 'Control Citations', description: `${controlMatch.length} controls` });
@@ -555,11 +855,10 @@
 
             let html = `
                 <div class="prompt-info">
-                    <h2>Prompt ${promptData.promptIndex + 1}/50: ${promptData.promptId}</h2>
+                    <h2>Prompt ${promptData.promptIndex + 1}/${allData.length}: ${promptData.promptId}</h2>
                     <div class="meta">
                         <span><strong>Topic:</strong> ${topic}</span>
                         <span><strong>Persona:</strong> ${persona}</span>
-                        <span><strong>Run:</strong> ${promptData.run}</span>
                         <span><strong>Input Tokens:</strong> ${promptData.prompt.fullPromptTokens}</span>
                     </div>
                 </div>
@@ -600,11 +899,13 @@
 
         // Render model responses
         function renderResponses(promptData) {
-            const models = ['phi3', 'smollm3', 'mistral'];
+            const models = Object.keys(promptData.responses);
             let html = '';
 
             for (const model of models) {
                 const response = promptData.responses[model];
+                if (!response) continue;
+
                 const issues = detectIssues(response, model);
                 const currentRating = ratings[`${promptData.promptId}_${model}_run${promptData.run}`] || {};
 
@@ -710,6 +1011,18 @@
         }
 
         function displayCurrentPrompt() {
+            if (allData.length === 0) {
+                document.getElementById('promptDisplay').innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Test Data Loaded</h3>
+                        <p>Use the file browser above to load a test result file to get started.</p>
+                    </div>
+                `;
+                document.getElementById('responsesGrid').innerHTML = '';
+                document.getElementById('promptCounter').textContent = 'No data loaded';
+                return;
+            }
+
             const dataIndex = filteredIndices[currentPromptIndex];
             const promptData = allData[dataIndex];
 
@@ -726,11 +1039,15 @@
 
         function toggleSection(sectionId) {
             const element = document.getElementById(sectionId);
+            if (!element) return;
+
             element.classList.toggle('collapsed');
 
             const header = element.previousElementSibling;
-            header.textContent = header.textContent.replace(/[▼▶]/,
-                element.classList.contains('collapsed') ? '▶' : '▼');
+            if (header) {
+                header.textContent = header.textContent.replace(/[▼▶]/,
+                    element.classList.contains('collapsed') ? '▶' : '▼');
+            }
         }
 
         // Rating system
@@ -813,7 +1130,6 @@
         }
 
         function exportRatings() {
-            // Export as CSV for analysis
             let csv = 'PromptID,Model,Run,Rating,Explanation,HasHallucination,HasContextUsage,TokensPerSec\n';
 
             for (const [key, rating] of Object.entries(ratings)) {
@@ -838,7 +1154,7 @@
 
         function updateStats() {
             const uniquePrompts = new Set(allData.map(d => d.promptId)).size;
-            const totalResponses = allData.length * 3; // 3 models per prompt
+            const totalResponses = allData.length * Math.max(1, Object.keys(allData[0]?.responses || {}).length);
 
             const ratedCount = Object.keys(ratings).length;
             const ratedWithScores = Object.values(ratings).filter(r => r.rating !== undefined);
@@ -846,10 +1162,9 @@
                 ? (ratedWithScores.reduce((sum, r) => sum + r.rating, 0) / ratedWithScores.length).toFixed(2)
                 : '-';
 
-            // Count issues across all responses
             let totalIssues = 0;
             allData.forEach(promptData => {
-                ['phi3', 'smollm3', 'mistral'].forEach(model => {
+                Object.keys(promptData.responses).forEach(model => {
                     const issues = detectIssues(promptData.responses[model], model);
                     totalIssues += issues.filter(i => i.type === 'error' || i.type === 'warning').length;
                 });
@@ -864,22 +1179,16 @@
 
         // Initialize
         async function init() {
-            console.log('Loading test results...');
-            allData = await loadTestResults();
-            console.log(`Loaded ${allData.length} prompts`);
-
-            filteredIndices = allData.map((_, i) => i);
-
-            populatePromptSelect();
-            displayCurrentPrompt();
-
-            console.log('Viewer ready!');
+            console.log('Initializing LLM Response Viewer...');
+            await reloadFileList();
+            updateLoadedFilesDisplay();
+            console.log('Viewer initialized and ready!');
         }
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') previousPrompt();
-            if (e.key === 'ArrowRight') nextPrompt();
+            if (e.key === 'ArrowLeft' && allData.length > 0) previousPrompt();
+            if (e.key === 'ArrowRight' && allData.length > 0) nextPrompt();
         });
 
         // Load on page load
