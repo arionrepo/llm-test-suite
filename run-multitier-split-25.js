@@ -22,7 +22,7 @@
 
 import { ResilientPerformanceTestRunner } from './performance-test-runner.js';
 import { AI_BACKEND_MULTI_TIER_TESTS } from './enterprise/arioncomply-workflows/ai-backend-multi-tier-tests.js';
-import { saveSchemaCompliantResults } from './utils/test-helpers.js';
+import { saveSchemaCompliantResults, convertRunnerResultToSchema } from './utils/test-helpers.js';
 
 // MANDATORY: Only first 3 models
 const topModels = ['smollm3', 'phi3', 'mistral'];

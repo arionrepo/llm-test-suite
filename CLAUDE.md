@@ -47,6 +47,207 @@ Enterprise LLM testing framework for:
 
 ---
 
+## MANDATORY: Prompt Schema Compliance v2.2.0 (ENFORCED)
+
+**When creating new test prompts (with user approval), ALL prompts MUST follow the standardized schema.**
+
+**Reference:** `docs/PROMPT-SCHEMA.md` - Official schema specification
+
+### Required Fields (ALL Prompts)
+
+```javascript
+{
+  // Core identification
+  id: string,                    // Format: {VENDOR}_{STANDARD}_{TYPE}_{PERSONA}_{N}
+                                 // Example: "GDPR_FACTUAL_NOVICE_1"
+                                 //          "ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1"
+
+  // Categorization
+  category: string,              // "compliance_knowledge" | "ai_backend_multitier" |
+                                 // "arioncomply_workflow" | "tool_calling_test"
+
+  vendor: string | null,         // "Generic" | "ArionComply" | vendor name
+                                 // Use "Generic" for vendor-agnostic compliance tests
+                                 // Use "ArionComply" for platform-specific tests
+
+  // The test content
+  question: string,              // The actual prompt/question (5-500 chars)
+
+  expectedTopics: string[],      // Topics expected in response (2-10 items)
+                                 // Use lowercase, be specific
+
+  complexity: enum               // "beginner" | "intermediate" | "advanced" | "expert"
+}
+```
+
+### Taxonomy Requirements (AT LEAST ONE Required)
+
+**Every prompt MUST use at least ONE of these taxonomies:**
+
+**Taxonomy A: Compliance Testing**
+```javascript
+{
+  standard: string,              // "GDPR", "ISO_27001", "SOC_2", etc. (29 standards)
+  knowledgeType: enum,           // "FACTUAL", "RELATIONAL", "PROCEDURAL",
+                                 // "EXACT_MATCH", "SYNTHESIS"
+  persona: enum                  // "NOVICE", "PRACTITIONER", "MANAGER",
+                                 // "AUDITOR", "EXECUTIVE", "DEVELOPER"
+}
+```
+
+**Taxonomy B: Enterprise Task Testing** (Future)
+```javascript
+{
+  taskDomain: string,            // "customer_service", "document_processing", etc.
+  taskType: enum,                // "generate", "analyze", "transform", "classify", "extract"
+  businessFunction: string       // "sales", "support", "finance", "hr", "engineering"
+}
+```
+
+**Taxonomy C: Platform Feature Testing** (Future)
+```javascript
+{
+  platformFeature: string,       // "evidence_management", "assessment_workflows", etc.
+  featureAction: enum,           // "upload", "view", "update", "delete", "configure"
+  userContext: enum              // "first_time", "power_user", "admin", "auditor"
+}
+```
+
+**Taxonomy D: Tool Calling Testing** (Planned - Not Yet Implemented)
+```javascript
+{
+  toolCalling: {
+    enabled: true,
+    toolComplexity: enum,        // "single", "multi_selection", "complex_params",
+                                 // "chaining", "parallel"
+    toolDomain: enum,            // "data_retrieval", "transformation",
+                                 // "external_action", "code_execution", "workflow"
+    toolDefinitions: [...],      // OpenAI function calling format
+    expectedToolCalls: [...]     // Expected tool calls with parameters
+  }
+}
+```
+
+### ArionComply Multi-Tier Extensions
+
+**For ArionComply-specific multi-tier tests, also include:**
+
+```javascript
+{
+  vendor: "ArionComply",         // REQUIRED
+  category: "ai_backend_multitier",
+
+  tier2Mode: string,             // "assessment" | "framework-gdpr" | "framework-iso27001" |
+                                 // "product-value" | "product-features" | "general"
+
+  tier1Content: string,          // TIER 1 base system prompt
+  tier2Content: string,          // TIER 2 situational prompt
+  tier3Context: string,          // TIER 3 org context (built from orgProfile)
+
+  orgProfile: {                  // Organization profile for TIER 3
+    industry: string,
+    org_size: string,
+    region: string,
+    frameworks: string[],
+    maturity_level: string,
+    profile_completion: number
+  },
+
+  conversationHistory: [...],    // Array of prior messages (for mid-conversation tests)
+  fullPrompt: string,            // Complete assembled prompt (TIER1+2+3+user)
+  estimatedTokens: number        // Total token count
+}
+```
+
+### Validation Rules
+
+**Before adding any prompt:**
+
+1. ✅ **Check ID uniqueness** - No duplicate IDs across all test files
+2. ✅ **Verify taxonomy** - At least ONE taxonomy must be complete
+3. ✅ **Validate vendor** - Use "Generic" or specific vendor name (PascalCase)
+4. ✅ **Check expectedTopics** - 2-10 topics, lowercase, specific
+5. ✅ **Assign complexity** - Match persona expertise and question complexity
+6. ✅ **Follow naming** - Use SCREAMING_SNAKE_CASE for standards (GDPR, ISO_27001)
+
+### Examples
+
+**Generic Compliance Test:**
+```javascript
+{
+  id: "GDPR_FACTUAL_NOVICE_1",
+  category: "compliance_knowledge",
+  vendor: "Generic",
+  standard: "GDPR",
+  knowledgeType: "FACTUAL",
+  persona: "NOVICE",
+  question: "What is GDPR?",
+  expectedTopics: ["regulation", "privacy", "EU", "data protection"],
+  complexity: "beginner"
+}
+```
+
+**ArionComply Multi-Tier Test:**
+```javascript
+{
+  id: "ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1",
+  category: "ai_backend_multitier",
+  vendor: "ArionComply",
+  standard: "GDPR",
+  knowledgeType: "PROCEDURAL",
+  persona: "NOVICE",
+  tier2Mode: "assessment",
+  question: "I want to assess my GDPR compliance",
+  tier1Content: TIER1_BASE_SYSTEM,
+  tier2Content: TIER2_PROMPTS.ASSESSMENT + "\\n\\n" + TIER2_PROMPTS.GDPR_FRAMEWORK,
+  tier3Context: buildTier3Context(ORG_PROFILES.HEALTHTECH_STARTUP),
+  orgProfile: ORG_PROFILES.HEALTHTECH_STARTUP,
+  conversationHistory: [],
+  fullPrompt: assembleFullPrompt(...),
+  expectedTopics: ["gap assessment", "questionnaire", "controls", "evidence"],
+  expectedBehavior: "Should initiate GDPR gap assessment workflow",
+  complexity: "beginner",
+  estimatedTokens: 2300
+}
+```
+
+### Quality Checklist
+
+**Before adding a new prompt:**
+
+- [ ] Question is realistic (something a user would actually ask)
+- [ ] Question is unambiguous (clear intent)
+- [ ] expectedTopics are specific and verifiable (not too generic like "data", "information")
+- [ ] expectedTopics count is 3-5 (ideal range)
+- [ ] Complexity matches persona and question type
+- [ ] Standard/KnowledgeType/Persona classifications are correct
+- [ ] Vendor field is "Generic" or specific vendor name
+- [ ] No duplicate or near-duplicate tests exist
+- [ ] ID follows naming convention and is unique
+
+### Where to Add New Prompts
+
+**Generic Compliance Tests:**
+- **File:** `enterprise/test-data-generator.js`
+- **Location:** Add to `TEST_TEMPLATES[STANDARD][KNOWLEDGE_TYPE][PERSONA]` array
+- **Format:** `{ q: "question", expectedTopics: [...] }`
+- **Auto-generated fields:** id, category, vendor, standard, knowledgeType, persona, complexity
+
+**ArionComply Multi-Tier Tests:**
+- **File:** `enterprise/arioncomply-workflows/ai-backend-multi-tier-tests.js`
+- **Location:** Add to `AI_BACKEND_MULTI_TIER_TESTS` object
+- **Format:** Complete object with all fields
+- **Use helpers:** `buildTier3Context()`, `assembleFullPrompt()`
+
+### Reference Documents
+
+- **`docs/PROMPT-SCHEMA.md`** - Complete schema specification v2.2.0
+- **`docs/TAXONOMY-GUIDE.md`** - Standards, personas, knowledge types reference
+- **`ENHANCEMENT-PLAN.md`** - Planned infrastructure improvements
+- **`PROMPT-SCHEMA-COMPLIANCE-ANALYSIS.md`** - Current compliance status
+
+---
+
 ## MANDATORY TESTING STANDARDS (ALL TEST RUNNERS - NO EXCEPTIONS)
 
 **These standards apply to EVERY test run - existing and future. No exceptions.**

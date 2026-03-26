@@ -331,6 +331,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_MID_ISO27001_PRACTITIONER_1: {
     id: "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -359,6 +360,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_GAP_QUESTION_GDPR_MANAGER_1: {
     id: "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "SYNTHESIS",
     persona: "MANAGER",
@@ -385,6 +387,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_EVIDENCE_CLARIFICATION_ISO27001_PRACTITIONER_2: {
     id: "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -417,6 +420,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_PARTIAL_IMPLEMENTATION_GDPR_PRACTITIONER_1: {
     id: "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -447,6 +451,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_COMPLETE_SUMMARY_ISO27001_MANAGER_1: {
     id: "ARION_MULTITIER_ASSESSMENT_ISO27001_MANAGER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "SYNTHESIS",
     persona: "MANAGER",
@@ -475,6 +480,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_NOT_APPLICABLE_GDPR_PRACTITIONER_2: {
     id: "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "RELATIONAL",
     persona: "PRACTITIONER",
@@ -503,6 +509,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_MULTI_FRAMEWORK_MANAGER_2: {
     id: "ARION_MULTITIER_ASSESSMENT_MULTI_FRAMEWORK_MANAGER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "SYNTHESIS",
     persona: "MANAGER",
@@ -529,6 +536,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_RESTART_REQUEST_ISO27001_NOVICE_1: {
     id: "ARION_MULTITIER_ASSESSMENT_ISO27001_NOVICE_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "NOVICE",
@@ -563,6 +571,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_PROGRESS_CHECK_GDPR_MANAGER_2: {
     id: "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "FACTUAL",
     persona: "MANAGER",
@@ -591,6 +600,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_SKIP_REQUEST_ISO27001_PRACTITIONER_3: {
     id: "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_3",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -619,6 +629,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_CHANGE_ANSWER_GDPR_PRACTITIONER_3: {
     id: "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_3",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -653,6 +664,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_EVIDENCE_UPLOAD_ISO27001_PRACTITIONER_4: {
     id: "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_4",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -681,6 +693,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_TIMELINE_QUESTION_GDPR_MANAGER_3: {
     id: "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_3",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "FACTUAL",
     persona: "MANAGER",
@@ -707,6 +720,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ASSESSMENT_EXPORT_RESULTS_ISO27001_AUDITOR_1: {
     id: "ARION_MULTITIER_ASSESSMENT_ISO27001_AUDITOR_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "AUDITOR",
@@ -739,6 +753,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GDPR_ARTICLE6_LEGAL_BASIS_PRACTITIONER_1: {
     id: "ARION_MULTITIER_GDPR_ARTICLE6_PRACTITIONER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "FACTUAL",
     persona: "PRACTITIONER",
@@ -765,6 +780,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GDPR_DPIA_REQUIREMENT_MANAGER_1: {
     id: "ARION_MULTITIER_GDPR_DPIA_MANAGER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "PROCEDURAL",
     persona: "MANAGER",
@@ -791,6 +807,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GDPR_BREACH_NOTIFICATION_PRACTITIONER_2: {
     id: "ARION_MULTITIER_GDPR_BREACH_PRACTITIONER_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -817,6 +834,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GDPR_CONSENT_IMPLEMENTATION_DEVELOPER_1: {
     id: "ARION_MULTITIER_GDPR_CONSENT_DEVELOPER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "PROCEDURAL",
     persona: "DEVELOPER",
@@ -843,6 +861,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GDPR_DATA_SUBJECT_RIGHTS_NOVICE_1: {
     id: "ARION_MULTITIER_GDPR_DSR_NOVICE_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "FACTUAL",
     persona: "NOVICE",
@@ -869,6 +888,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GDPR_ROPA_CREATION_PRACTITIONER_3: {
     id: "ARION_MULTITIER_GDPR_ROPA_PRACTITIONER_3",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -895,6 +915,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GDPR_INTERNATIONAL_TRANSFER_MANAGER_2: {
     id: "ARION_MULTITIER_GDPR_TRANSFER_MANAGER_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "RELATIONAL",
     persona: "MANAGER",
@@ -921,6 +942,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GDPR_PRIVACY_BY_DESIGN_DEVELOPER_2: {
     id: "ARION_MULTITIER_GDPR_DESIGN_DEVELOPER_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "PROCEDURAL",
     persona: "DEVELOPER",
@@ -947,6 +969,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GDPR_CHILDREN_DATA_PRACTITIONER_4: {
     id: "ARION_MULTITIER_GDPR_CHILDREN_PRACTITIONER_4",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "RELATIONAL",
     persona: "PRACTITIONER",
@@ -973,6 +996,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GDPR_PROCESSOR_VS_CONTROLLER_NOVICE_2: {
     id: "ARION_MULTITIER_GDPR_ROLES_NOVICE_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "GDPR",
     knowledgeType: "FACTUAL",
     persona: "NOVICE",
@@ -1003,6 +1027,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ISO27001_CONTROL_A82_PRACTITIONER_1: {
     id: "ARION_MULTITIER_ISO27001_A82_PRACTITIONER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -1029,6 +1054,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ISO27001_ISMS_SCOPE_MANAGER_1: {
     id: "ARION_MULTITIER_ISO27001_ISMS_MANAGER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "MANAGER",
@@ -1055,6 +1081,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ISO27001_RISK_ASSESSMENT_PRACTITIONER_2: {
     id: "ARION_MULTITIER_ISO27001_RISK_PRACTITIONER_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -1081,6 +1108,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ISO27001_SOA_CREATION_AUDITOR_1: {
     id: "ARION_MULTITIER_ISO27001_SOA_AUDITOR_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "AUDITOR",
@@ -1107,6 +1135,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ISO27001_ACCESS_CONTROL_DEVELOPER_1: {
     id: "ARION_MULTITIER_ISO27001_ACCESS_DEVELOPER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "DEVELOPER",
@@ -1133,6 +1162,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ISO27001_CERTIFICATION_PROCESS_EXECUTIVE_1: {
     id: "ARION_MULTITIER_ISO27001_CERT_EXECUTIVE_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "FACTUAL",
     persona: "EXECUTIVE",
@@ -1159,6 +1189,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ISO27001_INCIDENT_MANAGEMENT_PRACTITIONER_3: {
     id: "ARION_MULTITIER_ISO27001_INCIDENT_PRACTITIONER_3",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -1185,6 +1216,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   ISO27001_CRYPTOGRAPHY_POLICY_PRACTITIONER_4: {
     id: "ARION_MULTITIER_ISO27001_CRYPTO_PRACTITIONER_4",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: "ISO_27001",
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -1215,6 +1247,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_VALUE_WHY_ARIONCOMPLY_MANAGER_1: {
     id: "ARION_MULTITIER_VALUE_WHY_MANAGER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "FACTUAL",
     persona: "MANAGER",
@@ -1241,6 +1274,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_VALUE_ROI_EXECUTIVE_1: {
     id: "ARION_MULTITIER_VALUE_ROI_EXECUTIVE_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "SYNTHESIS",
     persona: "EXECUTIVE",
@@ -1267,6 +1301,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_VALUE_COMPETITIVE_ADVANTAGE_EXECUTIVE_2: {
     id: "ARION_MULTITIER_VALUE_COMPETITIVE_EXECUTIVE_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "SYNTHESIS",
     persona: "EXECUTIVE",
@@ -1293,6 +1328,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_VALUE_CONSULTANT_VS_PLATFORM_MANAGER_2: {
     id: "ARION_MULTITIER_VALUE_CONSULTANT_MANAGER_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "RELATIONAL",
     persona: "MANAGER",
@@ -1319,6 +1355,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_VALUE_CONTINUOUS_MONITORING_PRACTITIONER_1: {
     id: "ARION_MULTITIER_VALUE_MONITORING_PRACTITIONER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "FACTUAL",
     persona: "PRACTITIONER",
@@ -1345,6 +1382,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_VALUE_MULTI_FRAMEWORK_MANAGER_3: {
     id: "ARION_MULTITIER_VALUE_MULTI_MANAGER_3",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "RELATIONAL",
     persona: "MANAGER",
@@ -1371,6 +1409,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_VALUE_AUDIT_PREPARATION_AUDITOR_1: {
     id: "ARION_MULTITIER_VALUE_AUDIT_AUDITOR_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "PROCEDURAL",
     persona: "AUDITOR",
@@ -1401,6 +1440,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_FEATURES_EVIDENCE_UPLOAD_PRACTITIONER_1: {
     id: "ARION_MULTITIER_FEATURES_EVIDENCE_PRACTITIONER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -1427,6 +1467,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_FEATURES_DASHBOARD_NAVIGATION_NOVICE_1: {
     id: "ARION_MULTITIER_FEATURES_DASHBOARD_NOVICE_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "FACTUAL",
     persona: "NOVICE",
@@ -1453,6 +1494,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_FEATURES_GENERATE_REPORT_MANAGER_1: {
     id: "ARION_MULTITIER_FEATURES_REPORT_MANAGER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "PROCEDURAL",
     persona: "MANAGER",
@@ -1479,6 +1521,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_FEATURES_SEARCH_CONTROLS_PRACTITIONER_2: {
     id: "ARION_MULTITIER_FEATURES_SEARCH_PRACTITIONER_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "PROCEDURAL",
     persona: "PRACTITIONER",
@@ -1505,6 +1548,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   PRODUCT_FEATURES_NOTIFICATIONS_SETTINGS_MANAGER_2: {
     id: "ARION_MULTITIER_FEATURES_NOTIFICATIONS_MANAGER_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "PROCEDURAL",
     persona: "MANAGER",
@@ -1535,6 +1579,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GENERAL_COMPLIANCE_BASICS_NOVICE_1: {
     id: "ARION_MULTITIER_GENERAL_BASICS_NOVICE_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "FACTUAL",
     persona: "NOVICE",
@@ -1561,6 +1606,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GENERAL_FRAMEWORK_SELECTION_MANAGER_1: {
     id: "ARION_MULTITIER_GENERAL_FRAMEWORK_MANAGER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "RELATIONAL",
     persona: "MANAGER",
@@ -1587,6 +1633,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GENERAL_MATURITY_MODEL_EXECUTIVE_1: {
     id: "ARION_MULTITIER_GENERAL_MATURITY_EXECUTIVE_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "SYNTHESIS",
     persona: "EXECUTIVE",
@@ -1613,6 +1660,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GENERAL_FRAMEWORK_MAPPING_PRACTITIONER_1: {
     id: "ARION_MULTITIER_GENERAL_MAPPING_PRACTITIONER_1",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "RELATIONAL",
     persona: "PRACTITIONER",
@@ -1639,6 +1687,7 @@ export const AI_BACKEND_MULTI_TIER_TESTS = {
   GENERAL_COMPLIANCE_CULTURE_EXECUTIVE_2: {
     id: "ARION_MULTITIER_GENERAL_CULTURE_EXECUTIVE_2",
     category: "ai_backend_multitier",
+    vendor: "ArionComply",
     standard: null,
     knowledgeType: "SYNTHESIS",
     persona: "EXECUTIVE",

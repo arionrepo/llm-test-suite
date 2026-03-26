@@ -199,3 +199,65 @@ export function validateResponse(response, criteria) {
     results,
   };
 }
+
+/**
+ * Convert test runner result format to unified schema format
+ *
+ * Business Purpose: Transforms performance test runner output (simple format)
+ * into the comprehensive unified schema format required for consistent data storage.
+ *
+ * @param {Object} runnerResult - Result from performance test runner
+ * @param {string} fullPromptText - Complete prompt text (all tiers)
+ * @param {number} fullPromptTokens - Total input tokens
+ * @returns {Object} Result in unified schema format with all mandatory sections
+ */
+export function convertRunnerResultToSchema(runnerResult, fullPromptText = '', fullPromptTokens = 0) {
+  if (!runnerResult) {
+    throw new Error('Runner result is required for schema conversion');
+  }
+
+  const timestamp = new Date().toISOString();
+
+  return {
+    // MANDATORY: Metadata section
+    metadata: {
+      timestamp: runnerResult.timestamp || timestamp,
+      testRunId: `test-run-${runnerResult.runNumber}-${runnerResult.modelName}`,
+      runNumber: runnerResult.runNumber || 0
+    },
+
+    // MANDATORY: Input section (what was sent)
+    input: {
+      promptId: runnerResult.promptId || 'unknown',
+      fullPromptText: fullPromptText || '',
+      fullPromptTokens: fullPromptTokens || runnerResult.inputTokens || 0
+    },
+
+    // MANDATORY: Output section (what was received)
+    output: {
+      response: runnerResult.response || '',
+      responseTokens: runnerResult.responseTokens || runnerResult.outputTokens || 0,
+      completionFinishReason: 'length',
+      truncated: false
+    },
+
+    // MANDATORY: Timing section (how long it took)
+    timing: {
+      totalMs: runnerResult.totalTimeMs || 0,
+      promptProcessingMs: runnerResult.promptProcessingMs || 0,
+      generationMs: runnerResult.generationMs || 0,
+      tokensPerSecond: runnerResult.outputTokPerSec || 0
+    },
+
+    // MANDATORY: Execution section (did it work?)
+    execution: {
+      success: !!runnerResult.response && runnerResult.response.trim().length > 0,
+      responseValidated: true
+    },
+
+    // Additional fields from runner
+    modelName: runnerResult.modelName || 'unknown',
+    testNumber: runnerResult.testNumber || 0,
+    totalTests: runnerResult.totalTests || 0
+  };
+}
