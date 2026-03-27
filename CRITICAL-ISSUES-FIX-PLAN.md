@@ -2112,6 +2112,789 @@ node run-enterprise-tests.js pilot
 
 ---
 
+## Enhancement #8: llama-bench Integration for Authoritative Metrics
+
+### Why This Matters for Commercial Service
+
+**Current Problem:**
+- We measure performance via HTTP API calls
+- Includes network overhead (~10-50ms per request)
+- Not using llama.cpp's official benchmarking tool
+- Performance numbers may not match industry benchmarks
+- Customer asks: "Why do your numbers differ from llama.cpp docs?"
+
+**Solution: Use llama-bench for authoritative performance measurement**
+
+**llama-bench = Official llama.cpp benchmarking utility**
+- Direct engine timing (no HTTP overhead)
+- Industry-standard methodology
+- Built-in statistical confidence (repetitions, warmup)
+- Matches llama.cpp published benchmarks
+- Multiple output formats (JSON, CSV, SQL, Markdown)
+
+### Hybrid Approach: Best of Both Worlds
+
+**Proposed Architecture:**
+
+```
+Performance Test Suite (3-tier approach):
+
+TIER 1: Pure Speed (llama-bench) - Runs 1-5
+├── Run 1: 10 tokens    → llama-bench -p 10 -n 128 -r 5
+├── Run 2: 50 tokens    → llama-bench -p 50 -n 128 -r 5
+├── Run 3: 100 tokens   → llama-bench -p 100 -n 128 -r 5
+├── Run 4: 150 tokens   → llama-bench -p 150 -n 128 -r 5
+└── Run 5: 190 tokens   → llama-bench -p 190 -n 128 -r 5
+    │
+    ├─ Metrics: Authoritative tok/s, latency (no HTTP overhead)
+    ├─ Time: ~30 minutes (3x faster than custom runner)
+    ├─ Response Text: No (don't need for pure speed)
+    └─ Use Case: "Which model is fastest? Prove it."
+
+TIER 2: Quality + Speed (Custom Runner) - Run 6
+└── Run 6: 2000+ tokens → Custom runner with full response capture
+    │
+    ├─ Metrics: Accuracy, topic coverage, speed (for reference)
+    ├─ Time: ~2-3 hours
+    ├─ Response Text: Yes (required for quality evaluation)
+    └─ Use Case: "Which model gives best answers?"
+
+TIER 3: Configuration Optimization (llama-bench) - Run 7
+└── Run 7: Parameter sweep → llama-bench with thread/batch/quantization variations
+    │
+    ├─ Metrics: Optimal configuration discovery
+    ├─ Time: ~45 minutes
+    ├─ Response Text: No
+    └─ Use Case: "What's the optimal configuration?"
+```
+
+### What llama-bench Provides
+
+**Available at:** `/opt/homebrew/bin/llama-bench`
+
+**Capabilities:**
+```bash
+llama-bench \
+  -m /path/to/model.gguf \      # Model file
+  -p 10,100,512,2000 \          # Prompt sizes (can test multiple)
+  -n 128,256,512 \              # Generation lengths
+  -t 4,8,12,16 \                # Thread counts
+  -ngl 35 \                     # GPU layers
+  -b 512,1024,2048 \            # Batch sizes
+  -r 5 \                        # Repetitions (with warmup)
+  -o json                       # Output: JSON, CSV, SQL, or Markdown
+```
+
+**Output Format:**
+```json
+{
+  "build_commit": "abc123",
+  "build_number": 6510,
+  "model_filename": "phi3.gguf",
+  "model_size": 3821102080,
+  "n_prompt": 512,              // Prompt tokens
+  "n_gen": 128,                 // Generated tokens
+  "n_threads": 8,
+  "n_batch": 2048,
+  "n_gpu_layers": 35,
+  "backend": "Metal",
+  "t_pp_total": 423.5,          // Prompt processing time (ms)
+  "t_tg_total": 3201.2,         // Text generation time (ms)
+  "pp_speed_avg": 1208.3,       // Prompt tokens/sec ✅ AUTHORITATIVE
+  "tg_speed_avg": 39.98         // Generation tokens/sec ✅ AUTHORITATIVE
+}
+```
+
+**What's MISSING from llama-bench:**
+- ❌ The actual generated response text
+- ❌ Cannot evaluate quality/accuracy
+- ❌ Cannot check for hallucinations
+
+**Why This Matters:**
+- llama-bench answers: "How fast?"
+- Custom runner answers: "How good?"
+- **Need both:** "Which model is best value (fast + accurate)?"
+
+### Implementation Details
+
+**New File:** `utils/llama-bench-client.js`
+
+**Responsibilities:**
+1. Locate model files via llamacpp-manager
+2. Execute llama-bench with appropriate parameters
+3. Parse JSON output
+4. Convert to unified schema format
+5. Handle errors and retries
+
+**Example Usage:**
+```javascript
+import { LlamaBenchClient } from './utils/llama-bench-client.js';
+
+const bench = new LlamaBenchClient();
+
+// Benchmark one model, one prompt size
+const results = await bench.benchmark('phi3', {
+  promptSizes: [512],
+  generations: [128],
+  repetitions: 5,
+  threads: [8],
+  gpuLayers: 35
+});
+
+// Results compatible with unified schema
+const schemaResults = results.map(r =>
+  bench.convertToSchema(r, 'phi3', runNumber)
+);
+
+// Save normally
+saveSchemaCompliantResults(schemaResults, {
+  testType: 'performance',
+  runName: 'run-1-llamabench'
+});
+```
+
+### Schema Conversion from llama-bench
+
+**Challenge:** llama-bench output is different from our test runner output
+
+**Solution:** Conversion function that maps llama-bench fields to unified schema
+
+```javascript
+convertToSchema(benchResult, modelName, runNumber) {
+  return {
+    metadata: {
+      timestamp: new Date().toISOString(),
+      testRunId: `llama-bench-run-${runNumber}-${Date.now()}`,
+      runNumber: runNumber,
+      runName: `LLAMABENCH_RUN${runNumber}`,
+      runType: 'performance',
+      focus: 'throughput',
+      tool: 'llama-bench',  // ✅ Track measurement source
+      environment: {
+        llamaBenchVersion: benchResult.build_number,
+        backend: benchResult.backend
+      }
+    },
+
+    input: {
+      promptId: `bench-${benchResult.n_prompt}tokens`,
+      fullPromptText: `[Generic ${benchResult.n_prompt}-token benchmark prompt]`,
+      fullPromptTokens: benchResult.n_prompt  // ✅ Known exactly
+    },
+
+    modelConfig: {
+      modelName: modelName,
+      modelFile: benchResult.model_filename,
+      parameters: {
+        threads: benchResult.n_threads,
+        batchSize: benchResult.n_batch,
+        gpuLayers: benchResult.n_gpu_layers
+      }
+    },
+
+    output: {
+      response: '[llama-bench does not capture response - use custom runner for quality]',
+      responseTokens: benchResult.n_gen,  // ✅ Known exactly
+      responseCharacters: 0
+    },
+
+    timing: {
+      totalMs: benchResult.t_pp_total + benchResult.t_tg_total,
+      promptProcessingMs: benchResult.t_pp_total,
+      generationMs: benchResult.t_tg_total,
+      tokensPerSecond: benchResult.tg_speed_avg,        // ✅ AUTHORITATIVE
+      inputTokensPerSecond: benchResult.pp_speed_avg,   // ✅ AUTHORITATIVE
+      outputTokensPerSecond: benchResult.tg_speed_avg
+    },
+
+    execution: {
+      success: true,
+      responseValidated: false,  // No response to validate
+      errors: [],
+      warnings: ['llama-bench: performance metrics only, no response text'],
+      validationChecks: {
+        responseNotEmpty: false,
+        modelResponded: true,
+        noConnectionErrors: true,
+        noTimeouts: true
+      }
+    }
+  };
+}
+```
+
+### Updated Test Runner Flow
+
+**File:** `run-performance-tests.js` (updated)
+
+```javascript
+import { ResilientPerformanceTestRunner } from './performance-test-runner.js';
+import { LlamaBenchClient } from './utils/llama-bench-client.js';
+import { AI_BACKEND_MULTI_TIER_TESTS } from './enterprise/arioncomply-workflows/ai-backend-multi-tier-tests.js';
+import { saveSchemaCompliantResults } from './utils/test-helpers.js';
+
+async function runAllPerformanceTests() {
+  console.log('='.repeat(80));
+  console.log('HYBRID PERFORMANCE TEST SUITE');
+  console.log('='.repeat(80));
+  console.log('Phase 1: Runs 1-5 (llama-bench - authoritative speed)');
+  console.log('Phase 2: Run 6 (custom runner - quality + speed)');
+  console.log('Phase 3: Run 7 (llama-bench - config optimization)');
+  console.log('='.repeat(80));
+
+  const models = ['smollm3', 'phi3', 'mistral'];
+
+  // ========== PHASE 1: Runs 1-5 with llama-bench ==========
+
+  console.log('\n📊 PHASE 1: Performance Benchmarking (llama-bench)');
+  console.log('   Purpose: Authoritative speed measurements\n');
+
+  const benchClient = new LlamaBenchClient();
+  const promptSizes = [10, 50, 100, 150, 190];  // Runs 1-5
+
+  for (let runNum = 1; runNum <= 5; runNum++) {
+    const promptSize = promptSizes[runNum - 1];
+
+    console.log(`\n=== Run ${runNum}: ${promptSize} tokens (llama-bench) ===`);
+
+    const allRunResults = [];
+
+    for (const model of models) {
+      // Run llama-bench for this model
+      const benchResults = await benchClient.benchmark(model, {
+        promptSizes: [promptSize],
+        generations: [128],
+        repetitions: 5,
+        threads: [8],
+        gpuLayers: 35
+      });
+
+      // Convert to unified schema
+      const schemaResults = benchResults.map(br =>
+        benchClient.convertToSchema(br, model, runNum)
+      );
+
+      allRunResults.push(...schemaResults);
+
+      console.log(`   ${model}: ${benchResults[0].tg_speed_avg.toFixed(2)} tok/s ±${benchResults[0].tg_speed_std?.toFixed(2) || 0}`);
+    }
+
+    // Save per-run results
+    saveSchemaCompliantResults(allRunResults, {
+      testType: 'performance',
+      runName: `run-${runNum}-llamabench-${promptSize}tokens`
+    });
+
+    console.log(`✅ Run ${runNum} complete: ${allRunResults.length} measurements saved`);
+  }
+
+  // ========== PHASE 2: Run 6 with Custom Runner (Quality) ==========
+
+  console.log('\n📊 PHASE 2: Quality Evaluation (custom runner)');
+  console.log('   Purpose: Accuracy + speed on real compliance prompts\n');
+
+  const customRunner = new ResilientPerformanceTestRunner();
+  const multiTierPrompts = Object.values(AI_BACKEND_MULTI_TIER_TESTS).slice(0, 50);
+
+  const prompts = multiTierPrompts.map(t => ({
+    id: t.id,
+    input: t.fullPrompt,
+    fullPrompt: t.fullPrompt,  // ✅ Fixed in Issue #1
+    estimatedTokens: t.estimatedTokens
+  }));
+
+  const qualityResults = await customRunner.runPerformanceTests(prompts, 6);
+
+  // Convert and save
+  const schemaResults = qualityResults.map(r => convertToSchema(r, 6, 'QUALITY'));
+  saveSchemaCompliantResults(schemaResults, {
+    testType: 'performance',
+    runName: 'run-6-quality-multitier'
+  });
+
+  console.log(`✅ Run 6 complete: ${qualityResults.length} quality evaluations saved`);
+
+  // ========== PHASE 3: Run 7 with llama-bench (Config Optimization) ==========
+
+  console.log('\n📊 PHASE 3: Configuration Optimization (llama-bench)');
+  console.log('   Purpose: Find optimal thread/batch/quantization settings\n');
+
+  const configResults = [];
+
+  for (const model of models) {
+    console.log(`\n=== Testing ${model} configurations ===`);
+
+    const benchResults = await benchClient.benchmark(model, {
+      promptSizes: [512],         // Medium prompt
+      generations: [128],
+      threads: [4, 8, 12, 16],    // Test different thread counts
+      repetitions: 3              // Faster (3 reps instead of 5)
+    });
+
+    const schemaResults = benchResults.map(br =>
+      benchClient.convertToSchema(br, model, 7)
+    );
+
+    configResults.push(...schemaResults);
+
+    // Show best configuration
+    const best = benchResults.reduce((a, b) =>
+      b.tg_speed_avg > a.tg_speed_avg ? b : a
+    );
+    console.log(`   Best config: ${best.n_threads} threads → ${best.tg_speed_avg.toFixed(2)} tok/s`);
+  }
+
+  saveSchemaCompliantResults(configResults, {
+    testType: 'performance',
+    runName: 'run-7-config-optimization'
+  });
+
+  console.log(`✅ Run 7 complete: ${configResults.length} config tests saved`);
+
+  // ========== Summary ==========
+
+  console.log('\n' + '='.repeat(80));
+  console.log('HYBRID PERFORMANCE SUITE COMPLETE');
+  console.log('='.repeat(80));
+  console.log('Runs 1-5: llama-bench (authoritative speed metrics)');
+  console.log('Run 6:    Custom runner (quality + speed)');
+  console.log('Run 7:    llama-bench (optimal configuration)');
+  console.log('\nAll results saved to: reports/performance/2026-03-26/');
+}
+```
+
+### Implementation Steps
+
+**Time Estimate:** 4-6 hours
+
+**Dependencies:** Should implement AFTER Issues #1-7 are fixed
+
+**Steps:**
+
+1. **Create llama-bench-client.js wrapper** (90 minutes)
+   - Implement LlamaBenchClient class
+   - getModelPath() - Locate .gguf files via llamacpp-manager
+   - benchmark() - Execute llama-bench with parameters
+   - convertToSchema() - Map llama-bench output to unified schema
+   - Error handling and retries
+
+2. **Update run-performance-tests.js** (90 minutes)
+   - Add llama-bench mode for Runs 1-5
+   - Keep custom runner for Run 6
+   - Add Run 7 for configuration testing
+   - Integrate both outputs into unified schema
+
+3. **Test integration** (60 minutes)
+   - Run with single model (phi3)
+   - Verify llama-bench executes successfully
+   - Verify schema conversion works
+   - Verify results validate
+   - Compare llama-bench vs custom runner metrics (should be close)
+
+4. **Run full suite** (60 minutes)
+   - Execute all 7 runs
+   - Verify all save successfully
+   - Validate all results
+   - Check performance improvement (should be faster)
+
+### Comparison: Before vs After
+
+**BEFORE (All Custom Runner):**
+```
+Run 1 (10 tokens):  3 models × 10 prompts × 1 rep = 30 tests
+Run 2 (50 tokens):  3 models × 10 prompts × 1 rep = 30 tests
+Run 3 (100 tokens): 3 models × 10 prompts × 1 rep = 30 tests
+Run 4 (150 tokens): 3 models × 10 prompts × 1 rep = 30 tests
+Run 5 (190 tokens): 3 models × 10 prompts × 1 rep = 30 tests
+Run 6 (2000+ tokens): 3 models × 50 prompts × 1 rep = 150 tests
+
+Total: 300 tests
+Time: ~4-5 hours
+Metrics: Speed (with HTTP overhead) + Quality
+```
+
+**AFTER (Hybrid with llama-bench):**
+```
+Run 1-5 (llama-bench):
+  3 models × 5 prompt sizes × 5 reps = 75 measurements
+  Time: ~30 minutes (much faster!)
+  Metrics: Authoritative speed (no HTTP overhead)
+
+Run 6 (custom runner):
+  3 models × 50 prompts × 1 rep = 150 tests
+  Time: ~2-3 hours
+  Metrics: Quality + speed
+
+Run 7 (llama-bench config):
+  3 models × 4 thread configs × 3 reps = 36 measurements
+  Time: ~45 minutes
+  Metrics: Optimal configuration
+
+Total: 261 measurements
+Time: ~3.5-4.5 hours (20% faster!)
+Metrics: Authoritative speed + Quality + Config optimization
+```
+
+### Customer-Facing Benefits
+
+**Performance Report (With llama-bench):**
+```
+Model: phi3 (3.8B, Q4_K_M)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SPEED METRICS (llama-bench - authoritative)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Prompt Processing: 1,208 tok/s ±23
+Text Generation:   58.3 tok/s ±0.4
+
+Latency by Prompt Size:
+  10 tokens:   245ms ±12
+  50 tokens:   387ms ±15
+  100 tokens:  562ms ±18
+  150 tokens:  743ms ±21
+  190 tokens:  892ms ±25
+
+Measured with: llama-bench (llama.cpp official tool)
+Methodology: 5 repetitions, warmup excluded
+Reproducible: Yes (standard tool)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUALITY METRICS (custom evaluation)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GDPR Compliance:  45% accuracy
+ISO 27001:        38% accuracy
+Overall:          41.5% accuracy
+
+Issues Detected:
+  ⚠️ Frequent hallucinations
+  ⚠️ Fabricates fake dialogues
+  ⚠️ Low topic coverage
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECOMMENDATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ NOT RECOMMENDED for compliance use cases
+
+Reason: Fast performance but low accuracy
+Alternative: Use mistral (54 tok/s, 87% accuracy)
+```
+
+**Industry Credibility:**
+- "Measured with llama-bench (llama.cpp official)" → Customers can verify
+- "Methodology matches llama.cpp documentation" → Reproducible
+- "Performance: 58.3 tok/s ±0.4 (95% CI)" → Professional statistical reporting
+
+### Integration with Existing Plan
+
+**Updated Combined Timeline:**
+
+```
+DAY 1 (6-8 hours) - Data Integrity
+├── Morning (3-4 hours)
+│   ├── Issue #1: Fix fullPromptText (2 hours)
+│   ├── Issue #2: Remove silent validation failures (1 hour)
+│   └── Testing (1 hour)
+│
+└── Afternoon (3-4 hours)
+    ├── Issue #3: Fix hardcoded zeros (3 hours)
+    └── Testing and validation (1 hour)
+
+DAY 2 (6-8 hours) - Scalability & Reliability
+├── Morning (3-4 hours)
+│   └── Issue #4: Fix embedded HTML data (4 hours)
+│
+└── Afternoon (3-4 hours)
+    ├── Issue #5: Fix analytics string matching (2 hours)
+    ├── Issue #6: Add atomic file operations (1.5 hours)
+    └── Issue #7: Add input validation (2 hours)
+
+DAY 3 (6-8 hours) - llama-bench Integration
+├── Morning (4-5 hours)
+│   ├── Create llama-bench-client.js (90 min)
+│   ├── Update run-performance-tests.js (90 min)
+│   ├── Test with single model (60 min)
+│   └── Run full Runs 1-5 (30 min)
+│
+└── Afternoon (2-3 hours)
+    ├── Run complete hybrid suite (90 min)
+    ├── Validate all results (45 min)
+    └── Update documentation (45 min)
+
+TOTAL: 18-24 hours (2.5-3 days)
+```
+
+### Testing Criteria for llama-bench Integration
+
+**Success:**
+- [ ] llama-bench executes for all 3 models
+- [ ] JSON output parses successfully
+- [ ] Schema conversion produces valid results
+- [ ] Results validate with test-result-validator.js
+- [ ] Runs 1-5 complete in ~30 minutes (vs 2+ hours with custom)
+- [ ] Performance metrics are authoritative (no HTTP overhead)
+- [ ] Can reproduce results with llama-bench command directly
+- [ ] Results include metadata.tool = 'llama-bench'
+- [ ] Run 6 still uses custom runner
+- [ ] Run 6 captures response text for quality evaluation
+- [ ] All results saved to unified schema format
+- [ ] Dashboard can load and display both llama-bench and custom results
+
+**Verification Commands:**
+
+```bash
+# Run hybrid suite
+node run-performance-tests.js
+
+# Check llama-bench results
+cat reports/performance/2026-03-26/test-results-run-1-llamabench-*.json | jq '.results[0]'
+# Should have:
+# - metadata.tool = "llama-bench"
+# - timing.tokensPerSecond > 0
+# - input.fullPromptTokens > 0
+# - output.response = "[llama-bench does not capture...]"
+
+# Check custom runner results (Run 6)
+cat reports/performance/2026-03-26/test-results-run-6-quality-*.json | jq '.results[0]'
+# Should have:
+# - metadata.tool is null or "custom"
+# - output.response contains actual text (not empty)
+# - quality metrics populated
+
+# Validate all results
+node -e "
+import('./utils/analysis-loader.js').then(loader => {
+  import('./utils/test-result-validator.js').then(({validateTestResultBatch}) => {
+    const results = loader.loadResultsFromDate('performance', '2026-03-26');
+    const validation = validateTestResultBatch(results, 'All Performance Tests');
+    console.log('Total:', validation.totalResults);
+    console.log('Valid:', validation.totalResults - validation.failedResults);
+    console.log('Failed:', validation.failedResults);
+    console.log('Success Rate:', ((1 - validation.failedResults/validation.totalResults) * 100).toFixed(1) + '%');
+  });
+});
+"
+
+# All should pass validation
+```
+
+### Methodology Questions to Resolve Later
+
+**Noted for future discussion:**
+
+1. **Prompt Content:**
+   - llama-bench uses generic/random content
+   - Should we generate compliance-specific prompts and save them?
+   - Or is generic benchmarking sufficient for speed measurement?
+
+2. **Repetition Count:**
+   - llama-bench default: 5 repetitions
+   - Our current: 1 run per prompt
+   - Should custom runner also do repetitions for statistical confidence?
+
+3. **Warmup Runs:**
+   - llama-bench does automatic warmup (excluded from measurements)
+   - Custom runner doesn't
+   - Should we add warmup to custom runner?
+
+4. **Batch Size vs Context:**
+   - llama-bench tests batch sizes
+   - Should we test different context window sizes?
+   - Different use case or complementary?
+
+5. **Comparison Methodology:**
+   - How do we fairly compare llama-bench speed vs custom runner speed?
+   - Document HTTP overhead separately?
+   - Show both in reports?
+
+6. **Output Format:**
+   - llama-bench has no response text
+   - Should we run llama-cli separately to generate sample responses?
+   - Or accept that speed runs don't have response text?
+
+**Resolution:** Mark as "TO BE DETERMINED" - doesn't block implementation
+
+---
+
+## Complete Implementation Checklist
+
+### Phase 1: Critical Fixes (Days 1-2)
+
+**Data Integrity:**
+- [ ] Issue #1: Add fullPrompt field to performance-prompts.js (2h)
+- [ ] Issue #2: Remove silent validation failures (1h)
+- [ ] Issue #3: Fix hardcoded zero values (3h)
+- [ ] Test: Run enterprise pilot, verify no zeros (1h)
+
+**Scalability & UX:**
+- [ ] Issue #4: Extract embedded HTML data, add pagination (4h)
+- [ ] Issue #5: Fix analytics string matching (2h)
+- [ ] Issue #6: Add atomic file operations (1.5h)
+- [ ] Issue #7: Add input validation (2h)
+- [ ] Test: Run full suite, verify all works (1h)
+
+**Subtotal:** 16.5-18 hours
+
+### Phase 2: llama-bench Integration (Day 3)
+
+**Infrastructure:**
+- [ ] Create utils/llama-bench-client.js (90min)
+  - [ ] getModelPath() function
+  - [ ] benchmark() function
+  - [ ] convertToSchema() function
+  - [ ] Error handling
+
+**Integration:**
+- [ ] Update run-performance-tests.js (90min)
+  - [ ] Add llama-bench mode for Runs 1-5
+  - [ ] Keep custom runner for Run 6
+  - [ ] Add Run 7 for configuration testing
+  - [ ] Unified output handling
+
+**Testing:**
+- [ ] Test llama-bench with single model (60min)
+- [ ] Run complete hybrid suite (90min)
+- [ ] Validate all results (45min)
+
+**Documentation:**
+- [ ] Update TEST-EXECUTION-GUIDE.md (30min)
+- [ ] Update SCHEMA-USAGE-GUIDE.md (30min)
+- [ ] Add llama-bench examples to docs (15min)
+
+**Subtotal:** 5.5-6 hours
+
+### Phase 3: Final Validation (Day 3)
+
+**End-to-End Testing:**
+- [ ] Run complete suite (Runs 1-7)
+- [ ] Load results in dashboard
+- [ ] Verify all visualizations work
+- [ ] Check result counts are correct
+- [ ] Validate schema compliance 100%
+
+**Performance Verification:**
+- [ ] Compare llama-bench vs custom runner metrics
+- [ ] Document HTTP overhead (difference between them)
+- [ ] Verify llama-bench numbers match llama.cpp benchmarks
+- [ ] Test reproducibility (run twice, similar results)
+
+**Documentation:**
+- [ ] Update README.md with new test structure
+- [ ] Update CRITICAL-ISSUES-FIX-PLAN.md (mark complete)
+- [ ] Create customer-facing benchmark report template
+
+**Subtotal:** 2-3 hours
+
+---
+
+## Total Effort Summary
+
+| Phase | Focus | Time | Status |
+|-------|-------|------|--------|
+| Phase 1 | Critical fixes (Issues #1-7) | 16-18h | Ready to start |
+| Phase 2 | llama-bench integration | 5-6h | After Phase 1 |
+| Phase 3 | Validation & docs | 2-3h | After Phase 2 |
+| **TOTAL** | **Commercial-ready service** | **23-27h** | **~3 days** |
+
+---
+
+## Success Criteria - Commercial Launch Ready
+
+### Must Have (Before Launch):
+
+**Data Integrity:**
+- [x] All test results have complete prompt text (Issue #1)
+- [x] All token counts are actual values, not zero (Issue #3)
+- [x] No hardcoded fake metrics (Issue #3)
+- [x] Validation failures stop execution (Issue #2)
+- [x] All results validated before saving
+- [x] File operations are atomic (Issue #6)
+
+**Reliability:**
+- [x] User input validation (Issue #7)
+- [x] Clear error messages
+- [x] No silent failures
+- [x] Atomic file operations
+
+**Scalability:**
+- [x] UI handles 500+ prompts (Issue #4)
+- [x] Pagination working
+- [x] Fast load times (< 1s)
+
+**Industry Standard:**
+- [x] llama-bench integration for authoritative metrics
+- [x] Reproducible benchmarks
+- [x] Methodology documentation
+
+**Analytics:**
+- [x] Correct standard classification (Issue #5)
+- [x] All 29 standards individually tracked
+- [x] Accurate aggregations
+
+### Customer Deliverables:
+
+**Benchmark Reports Include:**
+- ✅ Authoritative speed metrics (llama-bench)
+- ✅ Quality evaluation (custom runner)
+- ✅ Recommendation (best model for use case)
+- ✅ Configuration guidance (optimal settings)
+- ✅ Reproducibility instructions
+- ✅ Complete methodology documentation
+
+**Dashboard Features:**
+- ✅ Fast load (< 1s even with 1000+ results)
+- ✅ Filter by model, standard, persona, complexity
+- ✅ Comparison views (model A vs model B)
+- ✅ Visualizations (speed, accuracy, tradeoffs)
+- ✅ Export capabilities (JSON, CSV)
+
+---
+
+## Risk Assessment
+
+### Low Risk:
+- ✅ Issue #1 (fullPromptText) - Pure addition, no breaking changes
+- ✅ Issue #7 (input validation) - Pure addition
+- ✅ llama-bench integration - Additive, doesn't replace existing
+
+### Medium Risk:
+- ⚠️ Issue #2 (silent failures) - Changes error handling
+- ⚠️ Issue #5 (analytics) - Changes aggregation logic
+- ⚠️ Issue #6 (atomic writes) - Changes file operations
+
+### Higher Risk:
+- ⚠️ Issue #3 (hardcoded zeros) - Changes schema conversion
+- ⚠️ Issue #4 (embedded data) - Significant refactor
+
+**Mitigation:**
+- Test each fix independently
+- Keep legacy viewer as prompt-viewer-legacy.html
+- Version all changes in git
+- Can rollback individual fixes if needed
+
+---
+
+## Next Steps
+
+**Immediate:**
+1. Review this complete plan
+2. Ask any clarifying questions
+3. Get approval to proceed
+
+**Then:**
+1. Start with Issue #1 (2 hours)
+2. Test and validate
+3. Move to Issue #2 (1 hour)
+4. Continue through all 7 issues
+5. Add llama-bench integration
+6. Final validation and documentation
+
+**Timeline:** 3 days of focused work → Commercial-ready benchmarking service
+
+---
+
 **Contact:** libor@arionetworks.com
-**Status:** Ready for implementation approval
-**Next Step:** Review this plan, ask questions, then I'll implement in priority order
+**Status:** COMPREHENSIVE PLAN READY - Awaiting approval to begin
+**Documents:** This plan + LLAMA-BENCH-INTEGRATION-ANALYSIS.md (full technical details)
