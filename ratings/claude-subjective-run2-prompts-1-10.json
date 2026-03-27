@@ -1,0 +1,624 @@
+{
+  "evaluationMetadata": {
+    "evaluator": "Claude Sonnet 4.5 (claude-sonnet-4-5-20250929)",
+    "evaluationDate": "2026-03-26",
+    "evaluationMethod": "Subjective expert assessment",
+    "ratingsDescription": "Senior compliance advisor perspective: readability, understandability, accuracy, practical utility",
+    "runNumber": 2,
+    "promptRange": "1-10",
+    "modelsEvaluated": ["phi3", "smollm3", "mistral"],
+    "totalRatings": 30
+  },
+  "ratings": [
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_A82_PRACTITIONER_1",
+      "promptNumber": 1,
+      "model": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "evaluation": "This response provides a well-structured and comprehensive explanation of ISO 27001 control A.8.2. The model correctly identifies the five key requirements (defining classification levels, developing criteria, implementing policies, training, and regular review) and presents them in a logical, numbered format that makes the content highly scannable. The financial services context is appropriately addressed, and the JSON representation at the end, while somewhat redundant, demonstrates technical capability. The response is cut off at the end (truncated), which slightly reduces completeness, but the core content is solid and actionable. The language is clear and accessible, making complex compliance requirements understandable for practitioners.",
+      "strengths": [
+        "Clear 5-step breakdown of requirements",
+        "Industry-specific context (financial services)",
+        "Good balance of technical and practical guidance",
+        "JSON example demonstrates structured output capability"
+      ],
+      "weaknesses": [
+        "Response truncated at end",
+        "JSON representation somewhat redundant with prose",
+        "Could benefit from more specific control implementation examples"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_A82_PRACTITIONER_1",
+      "promptNumber": 1,
+      "model": "smollm3",
+      "runNumber": 2,
+      "rating": 3,
+      "evaluation": "This response demonstrates solid understanding of information classification but lacks the conciseness and practical focus needed for a practitioner-level question. The model begins with an unexplained '<think>' tag, which is unprofessional and confusing. The content itself is comprehensive, covering seven detailed requirements (policy, levels, criteria, management, mapping, documentation, communication), but this level of detail borders on overwhelming for a straightforward implementation question. The response is also truncated at the end ('effective,'), leaving the sentence incomplete. While technically accurate, the response feels more like a textbook chapter than actionable practitioner guidance. The classification level examples (public, internal, confidential, restricted) are helpful, but the extensive mapping discussion may be more detailed than necessary for this context.",
+      "strengths": [
+        "Comprehensive coverage of classification requirements",
+        "Detailed classification level examples",
+        "Addresses multiple aspects (policy, criteria, management)"
+      ],
+      "weaknesses": [
+        "Unprofessional '<think>' tag at start",
+        "Overly detailed for practitioner-level question",
+        "Truncated ending leaves sentence incomplete",
+        "Lacks concise, actionable summary"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_A82_PRACTITIONER_1",
+      "promptNumber": 1,
+      "model": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "evaluation": "This response exemplifies excellent compliance advisory communication. The model begins by acknowledging the specific control (A.8.2) and its context within the Asset Management theme, demonstrating contextual awareness. The seven-step implementation guidance is practical, sequential, and actionable, covering policy development, categorization, labeling, training, access controls, regular review, and documentation. The response appropriately tailors advice to the financial services context and provides a relevant industry example about classifying customer financial data versus market research data. The language is professional yet accessible, avoiding unnecessary jargon while maintaining technical precision. The response is truncated at the very end but only loses a few words, with all essential content intact. This is exactly the type of guidance a compliance practitioner would find valuable.",
+      "strengths": [
+        "Contextual awareness (acknowledges control within Asset Management)",
+        "Seven clear, sequential implementation steps",
+        "Industry-specific financial services example",
+        "Professional tone with accessible language",
+        "Practical focus on implementation over theory"
+      ],
+      "weaknesses": [
+        "Minor truncation at very end (loses 1-2 words)"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ISMS_MANAGER_1",
+      "promptNumber": 2,
+      "model": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "evaluation": "This response provides a reasonable framework for defining ISMS scope but lacks the precision and completeness expected for a manager-level question from a mature organization. The five-step approach (identify assets, determine boundaries, consider external dependencies, create scope statement, review and approval) is logical but somewhat generic. The example scope statement at the end is helpful but gets cut off mid-sentence, which significantly reduces its practical utility. For a technology organization with 251-1000 employees at 'Managed' maturity (85% profile completion), the response should demonstrate more sophisticated understanding of scope definition, perhaps addressing API boundaries, cloud services, DevOps pipelines, or third-party integrations common in tech companies. The advice is fundamentally sound but doesn't fully leverage the organization's mature context.",
+      "strengths": [
+        "Logical 5-step framework",
+        "Acknowledges external dependencies",
+        "Attempts to provide example scope statement"
+      ],
+      "weaknesses": [
+        "Example scope statement truncated mid-sentence",
+        "Generic advice doesn't fully leverage mature organization context",
+        "Lacks tech-industry-specific examples (APIs, cloud, DevOps)",
+        "Missing discussion of scope boundaries in distributed systems"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ISMS_MANAGER_1",
+      "promptNumber": 2,
+      "model": "smollm3",
+      "runNumber": 2,
+      "rating": 4,
+      "evaluation": "This response provides comprehensive, well-structured guidance for defining ISMS scope. The '<think>' tag appears again but is less disruptive here. The model delivers a thorough six-step process that appropriately addresses the complexity of scope definition for a mature technology organization. The breakdown of asset types (data, systems, applications, networks, physical assets) and the emphasis on business processes demonstrates sophisticated understanding. The example scope statement at the end, while truncated, shows practical application. The response appropriately balances comprehensiveness with usability, making it suitable for a manager who needs both strategic and tactical guidance. The level of detail is appropriate for the 'Managed' maturity level and demonstrates understanding that scope definition is a foundational but nuanced activity.",
+      "strengths": [
+        "Comprehensive 6-step methodology",
+        "Detailed asset categorization (data, systems, applications, networks, physical)",
+        "Emphasis on business process integration",
+        "Practical example scope statement (though truncated)",
+        "Appropriate detail level for manager audience"
+      ],
+      "weaknesses": [
+        "Persistent '<think>' tag",
+        "Example scope statement truncated",
+        "Could include more tech-specific examples (microservices, APIs)"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ISMS_MANAGER_1",
+      "promptNumber": 2,
+      "model": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "evaluation": "This response delivers excellent manager-level guidance that appropriately addresses the mature organization context. The opening paragraph correctly positions ISMS as covering all information-related processes, not just IT, which is a critical conceptual foundation. The five-step process (identify assets, determine processes, identify boundaries, document scope, review regularly) is well-structured and action-oriented. The technology industry example is particularly strong, showing how a 500-employee tech company would scope customer data, intellectual property, operational data, and related processes. This practical example demonstrates real-world application. The response is truncated at the end, but all essential guidance is provided. The advice appropriately balances strategic thinking with practical implementation, perfect for a manager overseeing ISMS scope definition.",
+      "strengths": [
+        "Clarifies ISMS covers all information processes, not just IT",
+        "Clear 5-step implementation framework",
+        "Strong technology industry example (500 employees, relevant data types)",
+        "Balances strategic and tactical guidance",
+        "Appropriate for 'Managed' maturity level"
+      ],
+      "weaknesses": [
+        "Response truncated at end",
+        "Could mention modern tech concepts (cloud boundaries, SaaS integrations)"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_RISK_PRACTITIONER_2",
+      "promptNumber": 3,
+      "model": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "evaluation": "This response provides solid foundational guidance but doesn't fully address the practitioner's question about methodology. The response correctly identifies the ISO/IEC 27001 Risk Assessment methodology and provides an 8-step process (establish context, gap analysis, risk assessment, determine risk levels, treatment options, SoA documentation, implementation, audits). However, the tone is somewhat instructional rather than advisory, and the '[ARIONCOMPLY AI RESPONSE]' header is unnecessary. For a healthcare organization at 'Initial' maturity with only 1-50 employees, the guidance is appropriately foundational. The response acknowledges the small organization context but doesn't specifically recommend simplified risk assessment approaches that would be more practical for such a small team. The response is truncated mid-sentence at the very end, losing what appears to be an offer for further assistance.",
+      "strengths": [
+        "Clear 8-step ISO 27001 risk assessment process",
+        "Appropriate foundational focus for 'Initial' maturity",
+        "References specific Annex A controls",
+        "Acknowledges small organization size"
+      ],
+      "weaknesses": [
+        "Unnecessary '[ARIONCOMPLY AI RESPONSE]' header",
+        "Doesn't recommend simplified approaches for 1-50 employee org",
+        "Truncated ending loses offer for assistance",
+        "Could mention lightweight risk assessment tools for small teams"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_RISK_PRACTITIONER_2",
+      "promptNumber": 3,
+      "model": "smollm3",
+      "runNumber": 2,
+      "rating": 4,
+      "evaluation": "This response demonstrates strong understanding of risk assessment methodology and appropriately tailors the advice to a small healthcare organization. The '<think>' tag continues to be an issue, but the content is excellent. The model recommends the Risk-Based Approach (RBA), which is widely accepted and appropriate for the context. The 5-step process (identification, assessment, prioritization, treatment, monitoring) is clear and practical. The response goes further by providing healthcare-specific examples (data breaches, system failures, non-compliance with HIPAA), which demonstrates contextual awareness. The JSON example at the end, while truncated, shows practical application. This is the kind of tailored, industry-specific guidance that compliance practitioners value. The response successfully balances ISO 27001 requirements with practical healthcare sector considerations.",
+      "strengths": [
+        "Recommends specific methodology (Risk-Based Approach)",
+        "Healthcare-specific risk examples (HIPAA, data breaches)",
+        "Clear 5-step process",
+        "JSON example demonstrates structured output",
+        "Appropriately tailored to small healthcare org"
+      ],
+      "weaknesses": [
+        "Persistent '<think>' tag",
+        "JSON example truncated",
+        "Could mention specific risk assessment tools or templates"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_RISK_PRACTITIONER_2",
+      "promptNumber": 3,
+      "model": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "evaluation": "This response provides exceptionally clear and practical risk assessment guidance perfectly suited to a small healthcare organization beginning its compliance journey. The structured 6-step methodology (identify assets, determine likelihood, determine impact, determine risk level, implement mitigation, monitor and review) is straightforward and actionable. The model appropriately emphasizes healthcare-specific context, mentioning patient data, medical records, and the consequences of data breaches (reputational damage, regulatory fines, legal action). The response acknowledges the organization's 'Initial' maturity level and focuses on understanding requirements and building foundational approaches. The tone is professional yet supportive, exactly what a practitioner new to compliance would need. The closing invitation for questions demonstrates appropriate conversational engagement.",
+      "strengths": [
+        "Clear 6-step methodology appropriate for beginners",
+        "Healthcare-specific examples (patient data, medical records)",
+        "Addresses consequences of breaches relevant to healthcare",
+        "Supportive tone appropriate for 'Initial' maturity",
+        "Emphasizes documentation as part of ISMS",
+        "Invites follow-up questions"
+      ],
+      "weaknesses": [
+        "None significant - this is excellent foundational guidance"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_SOA_AUDITOR_1",
+      "promptNumber": 4,
+      "model": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "evaluation": "This response provides technically accurate information about Statement of Applicability requirements but lacks the depth and precision expected for an auditor-level question from a large global retail organization. The response lists 8 elements that should be in an SoA (introduction, scope, controls selected, justification, controls not applicable, compliance with other standards, statement of compliance, appendices). While accurate, the guidance is somewhat generic and doesn't fully leverage the organization's 'Defined' maturity level or retail industry context. The JSON format at the end gets cut off mid-structure, which is unfortunate. For a 1000+ employee organization with documented processes at 70% profile completion, the response could be more sophisticated, perhaps discussing SoA maintenance, version control, or integration with risk treatment plans.",
+      "strengths": [
+        "Comprehensive 8-element list of SoA requirements",
+        "Mentions compliance with other standards (PCI_DSS, GDPR)",
+        "Appropriate acknowledgment of retail context",
+        "Attempts JSON representation"
+      ],
+      "weaknesses": [
+        "Generic advice doesn't fully leverage 'Defined' maturity",
+        "JSON example truncated",
+        "Lacks discussion of SoA maintenance and version control",
+        "Missing retail-specific control examples beyond brief mention"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_SOA_AUDITOR_1",
+      "promptNumber": 4,
+      "model": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "evaluation": "This response significantly misunderstands what a Statement of Applicability is in the ISO 27001 context. The model describes an SoA as if it were a scope declaration document, listing elements like 'Organization's Name and Address,' 'Date of Issuance,' and 'Signature and Date,' which are not correct SoA components. The actual purpose of an SoA is to document which Annex A controls apply to the organization and why, based on the risk assessment. While the response mentions 'Applicability of ISO 27001:2022' and references to other standards, the fundamental structure described is incorrect. The '<think>' tag and the example SoA format provided both reinforce this misunderstanding. For an auditor-level question from a large retail organization with documented processes, this response would be concerning as it doesn't reflect accurate ISO 27001 knowledge.",
+      "strengths": [
+        "Attempts to provide structured example",
+        "Mentions relevant frameworks (PCI_DSS, GDPR, CCPA)"
+      ],
+      "weaknesses": [
+        "Fundamental misunderstanding of what an SoA is",
+        "Describes SoA as scope document rather than control applicability document",
+        "Includes incorrect elements (signature, date of issuance)",
+        "Persistent '<think>' tag",
+        "Does not mention Annex A controls",
+        "Example format is incorrect for ISO 27001 SoA"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_SOA_AUDITOR_1",
+      "promptNumber": 4,
+      "model": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "evaluation": "This response provides excellent, audit-quality guidance on Statement of Applicability requirements. The model correctly identifies the seven essential elements that should be documented for each control (Control ID, Title, Applicability, Implementation Status, Control Owner, Control Date, Description). This demonstrates precise understanding of ISO 27001 SoA requirements. The response appropriately emphasizes that the SoA serves as evidence of thorough consideration of all controls and informed decision-making. The retail industry example is particularly strong, showing how a retailer might implement stricter access controls (A.12.6.2) for POS systems due to sensitive payment data, with specific implementation details (multi-factor authentication, RBAC). This practical example demonstrates real-world application relevant to the retail context. The response is concise yet comprehensive, perfect for an auditor audience.",
+      "strengths": [
+        "Accurate 7-element SoA documentation structure",
+        "Correct understanding of SoA purpose (evidence of control consideration)",
+        "Strong retail-specific example (POS systems, payment data)",
+        "Mentions specific controls (A.12.6.2)",
+        "Appropriate detail level for auditor audience",
+        "Concise yet comprehensive"
+      ],
+      "weaknesses": [
+        "None significant - this is excellent auditor-level guidance"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ACCESS_DEVELOPER_1",
+      "promptNumber": 5,
+      "model": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "evaluation": "This response provides solid, developer-friendly guidance on implementing user access provisioning according to ISO 27001. The 7-step approach (policy development, user access control, access provisioning process, documentation, risk assessment, regular audits, training) is comprehensive and appropriately detailed for a technical audience. The model correctly references relevant Annex A controls (A.5.1, A.5.2, A.14.1, A.14.2, A.14.3, A.12.1, A.12.2, A.5.3) demonstrating strong control mapping knowledge. The emphasis on least privilege principle (A.14.1) is particularly appropriate for a developer audience. For a technology organization with 'Managed' maturity, this guidance is actionable and practical. The response is clear and well-structured, making it easy for a developer to understand both the compliance requirements and implementation steps.",
+      "strengths": [
+        "Developer-appropriate 7-step implementation guide",
+        "Strong Annex A control references throughout",
+        "Emphasis on least privilege principle",
+        "Clear connection between policy and technical implementation",
+        "Appropriate for 'Managed' maturity level"
+      ],
+      "weaknesses": [
+        "Could include modern access provisioning tools (SCIM, SAML)",
+        "Lacks code examples or API integration guidance",
+        "Minimal technology-specific implementation details"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ACCESS_DEVELOPER_1",
+      "promptNumber": 5,
+      "model": "smollm3",
+      "runNumber": 2,
+      "rating": 4,
+      "evaluation": "This response provides excellent developer-focused guidance with strong technical depth. The '<think>' tag persists but the content quality is high. The response appropriately begins by referencing the relevant Annex A controls (A.8.1, A.8.2, A.8.3) and then provides a comprehensive 7-step implementation guide. The discussion of access control mechanisms (RBAC, ABAC, DAC) is particularly valuable for a developer audience, as it provides specific technical options. The access control management process (requesting, granting, revoking) is clearly defined. The technology industry example (IT department vs. sales department access) is practical and relevant. The response is appropriately truncated at the very end but doesn't lose essential content. The technical terminology and framework suggestions demonstrate strong understanding of access provisioning in technology organizations.",
+      "strengths": [
+        "Specific access control mechanisms (RBAC, ABAC, DAC)",
+        "Clear access control management process",
+        "Relevant Annex A control references (A.8.1, A.8.2, A.8.3)",
+        "Technology-specific example (IT vs. sales dept access)",
+        "Principles clearly stated (least privilege, separation of duties, accountability)",
+        "Developer-appropriate technical depth"
+      ],
+      "weaknesses": [
+        "Persistent '<think>' tag",
+        "Response truncated at 'centralized access control system'",
+        "Could mention modern identity providers or access management platforms"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ACCESS_DEVELOPER_1",
+      "promptNumber": 5,
+      "model": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "evaluation": "This response delivers outstanding developer-focused compliance guidance. The model begins by correctly identifying the specific control (A.12.1.2 - Access control) and then provides a detailed 8-step implementation framework. The steps are highly actionable and developer-friendly, covering policy definition, data classification, access control mechanisms (RBAC, ABAC, MAC), formal request/approval processes, access review procedures, monitoring and logging, user training, and documentation. The mention of specific access control mechanisms demonstrates technical sophistication appropriate for a developer audience. The emphasis on monitoring and logging aligns with both security best practices and audit requirements. The response is well-structured, comprehensive, and maintains a balance between compliance requirements and practical implementation. While truncated at the very end, all essential guidance is provided.",
+      "strengths": [
+        "Identifies specific control (A.12.1.2)",
+        "Detailed 8-step implementation framework",
+        "Technical access control mechanisms (RBAC, ABAC, MAC)",
+        "Emphasizes monitoring and logging",
+        "Formal request/approval process clearly defined",
+        "Balances compliance requirements with technical implementation",
+        "Regular review and revocation procedures included"
+      ],
+      "weaknesses": [
+        "Truncated at very end (loses final phrase)"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CERT_EXECUTIVE_1",
+      "promptNumber": 6,
+      "model": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "evaluation": "This response provides a solid executive-level overview of the ISO 27001 certification process. The 7-step framework (gap assessment, SoA, ISMS documentation, implementation, internal audits, management reviews, certification) is appropriately high-level for an executive audience while remaining informative. The response correctly identifies relevant Annex A controls (A.5.1, A.8.1.1, A.18.1) and tailors the advice to the financial services context. The specific mention of focusing on data protection controls and GDPR compliance demonstrates contextual awareness appropriate for a UK financial services organization. The response is truncated at the end, losing what appears to be additional implementation details. For a developing organization (60% profile completion), this guidance provides a clear roadmap without overwhelming detail.",
+      "strengths": [
+        "Clear 7-step certification roadmap",
+        "Executive-appropriate level of detail",
+        "Financial services and GDPR context acknowledged",
+        "Specific Annex A control examples",
+        "Appropriate for 'Developing' maturity level"
+      ],
+      "weaknesses": [
+        "Response truncated at end",
+        "Could provide timeline estimates for certification",
+        "Lacks discussion of certification body selection",
+        "Missing cost/resource considerations for executive planning"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CERT_EXECUTIVE_1",
+      "promptNumber": 6,
+      "model": "smollm3",
+      "runNumber": 2,
+      "rating": 4,
+      "evaluation": "This response delivers comprehensive executive-level guidance with excellent structure and detail. The '<think>' tag appears but doesn't detract from content quality. The 6-step certification process (gap assessment, risk assessment and SoA, ISMS documentation, internal audits and management reviews, management reviews as separate step, certification process) is well-explained. The response provides particularly strong detail on what each step entails, which is valuable for an executive who needs to understand resource allocation and timeline planning. The emphasis on gap assessment focusing on critical controls aligned with the organization's risk profile is sophisticated. The response is truncated at 'Once your ISMS is complete and audited, you can proceed' but has already provided substantial value. For a financial services organization at 'Developing' maturity, this level of detail helps executives understand the full scope of certification.",
+      "strengths": [
+        "Comprehensive 6-step process with detailed explanations",
+        "Strong emphasis on gap assessment and risk focus",
+        "Detailed documentation requirements explained",
+        "Audit and review processes clearly outlined",
+        "Appropriate detail for executive resource planning",
+        "Acknowledges 'Developing' maturity context"
+      ],
+      "weaknesses": [
+        "Persistent '<think>' tag",
+        "Truncated before completing certification process step",
+        "Could provide timeline estimates"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CERT_EXECUTIVE_1",
+      "promptNumber": 6,
+      "model": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "evaluation": "This response provides excellent executive-level certification guidance with strong contextual awareness. The 5-step process (gap assessment, risk assessment and SoA, documentation, internal audits and management review, certification process) is clearly articulated and appropriately scoped for an executive audience. The response particularly excels in connecting ISO 27001 controls to GDPR requirements, which is critical for a UK financial services organization. The specific mention of relevant controls (A.5.1, A.6.1, A.8.1, A.12.1, A.13.1, A.16.1) demonstrates technical depth while maintaining executive accessibility. The emphasis on ensuring ISMS addresses both ISO 27001 and GDPR requirements shows sophisticated understanding of the dual compliance challenge facing UK financial services. The response is truncated at the very end but has delivered all essential guidance. The tone is professional and appropriately strategic.",
+      "strengths": [
+        "Clear 5-step certification framework",
+        "Strong integration of GDPR compliance considerations",
+        "Specific Annex A controls relevant to financial services",
+        "Appropriate executive-level strategic focus",
+        "Addresses dual ISO 27001/GDPR compliance need",
+        "Tailored to UK financial services context"
+      ],
+      "weaknesses": [
+        "Truncated at very end",
+        "Could provide timeline or cost estimates"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_INCIDENT_PRACTITIONER_3",
+      "promptNumber": 7,
+      "model": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "evaluation": "This response provides technically accurate incident response guidance but struggles with organization and completeness. The model correctly identifies the 7 key elements (incident identification, classification, response team, response plan, communication procedures, incident documentation, review and improvement) and appropriately references specific Annex A controls (A.16.1 through A.16.7). The healthcare context and GDPR considerations are mentioned, which is appropriate. However, the response includes a '[CURRENT ASSISTANT RESPONSE]' header which is unnecessary, and the JSON format at the end is incomplete (truncated mid-structure). For a small healthcare organization at 'Initial' maturity, the guidance could be more explicitly tailored to their resource constraints. The response reads more like a checklist than integrated guidance for a practitioner who needs to actually build the plan.",
+      "strengths": [
+        "Comprehensive 7-element framework",
+        "Strong Annex A control references (A.16.1-A.16.7)",
+        "Mentions healthcare-specific considerations",
+        "Acknowledges GDPR requirements",
+        "Appropriate for small organization"
+      ],
+      "weaknesses": [
+        "Unnecessary '[CURRENT ASSISTANT RESPONSE]' header",
+        "JSON example truncated",
+        "Checklist format rather than integrated guidance",
+        "Could provide simplified approach for 1-50 employee org",
+        "Lacks healthcare-specific incident examples"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_INCIDENT_PRACTITIONER_3",
+      "promptNumber": 7,
+      "model": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "evaluation": "This response demonstrates significant organizational issues and misses the practical focus needed for a practitioner question. The '<think>' tag persists, and the response structure is confusing. The model attempts to be comprehensive by listing 11 different control areas (A.16 Incident Management, A.17 Business Continuity, A.18 Compliance, A.13 Communication Security, A.14 System Acquisition, A.8 Asset Management, A.5 Organizational Controls, A.8.3 Physical Controls, A.12/A.13/A.14 Technology Controls, and A. People Controls - incomplete at end). While showing knowledge of the standard's structure, this control-by-control approach is confusing and not useful for someone trying to build an actual incident response plan. The response reads like an index of ISO 27001 rather than practical implementation guidance. For a small healthcare organization beginning its compliance journey, this approach would be overwhelming and unhelpful.",
+      "strengths": [
+        "Demonstrates knowledge of ISO 27001 control structure",
+        "Attempts comprehensive coverage"
+      ],
+      "weaknesses": [
+        "Persistent '<think>' tag",
+        "Confusing control-by-control structure",
+        "Reads like an index rather than guidance",
+        "Not practical for building actual incident response plan",
+        "Overwhelming for 'Initial' maturity organization",
+        "Truncated at end",
+        "Lacks healthcare-specific guidance",
+        "No prioritization for resource-constrained small org"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_INCIDENT_PRACTITIONER_3",
+      "promptNumber": 7,
+      "model": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "evaluation": "This response delivers exceptional incident response guidance perfectly tailored to a small healthcare organization. The 12-component framework is comprehensive yet practical, covering scope, objectives, incident classification, roles and responsibilities, contacts, procedures, training, testing, documentation, continuous improvement, healthcare-specific data protection, and GDPR alignment. The response appropriately acknowledges the organization's 'Initial' maturity level and emphasizes understanding requirements and building foundational policies. The tone is supportive and advisory, with the closing offer of assistance demonstrating appropriate professional engagement. The healthcare context is well-integrated, particularly the emphasis on protecting sensitive patient data and GDPR compliance. For a practitioner in a small organization just beginning compliance, this provides a clear roadmap without overwhelming detail.",
+      "strengths": [
+        "Comprehensive 12-component framework",
+        "Appropriately tailored to 'Initial' maturity level",
+        "Strong healthcare and GDPR context integration",
+        "Supportive, advisory tone",
+        "Emphasizes testing and continuous improvement",
+        "Practical focus on building foundational plan",
+        "Acknowledges small organization context",
+        "Offers ongoing assistance"
+      ],
+      "weaknesses": [
+        "None significant - this is excellent foundational guidance"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CRYPTO_PRACTITIONER_4",
+      "promptNumber": 8,
+      "model": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "evaluation": "This response provides solid cryptographic controls policy guidance with good structure and appropriate detail. The '[RESPONSE]' header is somewhat unnecessary but doesn't detract significantly. The 6-component framework (scope and purpose, cryptographic controls overview, key management policy, access control, incident response, compliance and auditing) appropriately covers the essential policy elements. The model correctly references relevant Annex A controls (A.14, A.14.2, A.14.3, A.16, A.18) demonstrating strong control mapping. The emphasis on key management (FIPS 140-2 certified modules, key lifecycle) is technically appropriate. The response is truncated just as it begins the compliance and auditing section, losing some content. For a large retail organization with 'Defined' maturity handling PCI_DSS, GDPR, and CCPA, this guidance provides a solid foundation for policy development.",
+      "strengths": [
+        "Clear 6-component policy framework",
+        "Strong Annex A control references",
+        "Technical depth on key management (FIPS 140-2)",
+        "Appropriate for 'Defined' maturity level",
+        "Acknowledges multiple compliance frameworks (PCI_DSS, GDPR)"
+      ],
+      "weaknesses": [
+        "Unnecessary '[RESPONSE]' header",
+        "Truncated during compliance and auditing section",
+        "Could provide more retail-specific examples",
+        "Lacks discussion of cryptographic algorithm selection criteria"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CRYPTO_PRACTITIONER_4",
+      "promptNumber": 8,
+      "model": "smollm3",
+      "runNumber": 2,
+      "rating": 3,
+      "evaluation": "This response demonstrates good understanding of cryptographic controls but suffers from structural issues and incompleteness. The '<think>' tag persists, and the response is heavily focused on listing Annex A controls without fully developing practical policy content. The two main sections (Communications Security Controls A.13, and System Acquisition Controls A.14) contain 8 and 2+ subsections respectively, but many of these are just headings without sufficient explanation. For example, 'A.13.4: Cryptographic Algorithms and Protocols - Identify the cryptographic algorithms and protocols to be used' lacks detail on how to make those selections. The response is truncated before completing the System Acquisition section. For a large retail organization with 'Defined' maturity (70% profile completion), this reads more like an outline than actionable policy guidance. A practitioner would need significantly more detail to actually develop a comprehensive cryptographic controls policy.",
+      "strengths": [
+        "Comprehensive coverage of relevant Annex A controls",
+        "Structured approach with clear control families",
+        "Acknowledges both A.13 and A.14 control areas"
+      ],
+      "weaknesses": [
+        "Persistent '<think>' tag",
+        "Outline format lacks sufficient detail",
+        "Truncated before completing content",
+        "Control-by-control listing not practical for policy development",
+        "Lacks retail-specific guidance despite industry context",
+        "Missing practical implementation examples",
+        "No discussion of algorithm selection or key management processes"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CRYPTO_PRACTITIONER_4",
+      "promptNumber": 8,
+      "model": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "evaluation": "This response provides excellent cryptographic controls policy guidance specifically addressing A.13.11 of ISO 27001. The 13-component policy framework is comprehensive and highly practical, covering objectives, scope, key management, algorithms, hardware, software, protocols, access control, audit and monitoring, training, incident response, compliance, and regular review. Each element is clearly explained, making it easy for a practitioner to understand what needs to be included. The response appropriately references multiple compliance frameworks (GDPR, CCPA, PCI_DSS), which is critical for a global retail organization. The retail-specific example at the end (handling sensitive customer and payment card data) demonstrates practical application. The response is truncated at the very end but has delivered all essential policy components. For a 1000+ employee organization with 'Defined' maturity, this provides an excellent foundation for comprehensive cryptographic controls policy development.",
+      "strengths": [
+        "Comprehensive 13-component policy framework",
+        "Specific control reference (A.13.11)",
+        "Clear explanation of each policy element",
+        "Multi-framework compliance (GDPR, CCPA, PCI_DSS)",
+        "Retail-specific example (payment card data)",
+        "Emphasizes regular review and update",
+        "Appropriate for 'Defined' maturity level",
+        "Practical and actionable guidance"
+      ],
+      "weaknesses": [
+        "Truncated at very end"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_WHY_MANAGER_1",
+      "promptNumber": 9,
+      "model": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "evaluation": "This response provides reasonable value proposition content but includes an unnecessary structural element. The '[CURRENT USER MESSAGE]' line that repeats the user's question is awkward and unprofessional. The content itself covers 6 key value points (automated workflows reducing effort by 80%, efficient gap assessments in hours, centralized evidence management, real-time dashboards, built-in frameworks, continuous monitoring), which are all relevant. The healthcare context is appropriately addressed. However, the response feels somewhat generic and doesn't fully leverage the specific pain points of a 1-50 employee healthcare organization at 'Initial' maturity. The emphasis on reducing manual effort is appropriate for a small team, but the response could better address the challenges of getting started with compliance when you have limited resources and expertise. The response is truncated at the end but essential content is provided.",
+      "strengths": [
+        "Covers 6 relevant value propositions",
+        "Healthcare context addressed",
+        "Appropriate focus on automation for small team",
+        "Addresses GDPR requirements"
+      ],
+      "weaknesses": [
+        "Unnecessary '[CURRENT USER MESSAGE]' repetition",
+        "Somewhat generic - doesn't fully leverage small org context",
+        "Could emphasize getting-started challenges for 'Initial' maturity",
+        "Truncated ending",
+        "Lacks specific pain point examples for 1-50 employee healthcare org"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_WHY_MANAGER_1",
+      "promptNumber": 9,
+      "model": "smollm3",
+      "runNumber": 2,
+      "rating": 4,
+      "evaluation": "This response provides strong value proposition guidance well-tailored to the target audience. The '<think>' tag persists but content quality is high. The response directly addresses the spreadsheet comparison question with 6 clear value differentiators (accuracy reducing human error, efficiency through automation, scalability for growth, real-time visibility, proactive risk management, cost savings). The structure is excellent, with each benefit clearly explained in terms of why it matters. The healthcare industry examples at the end are particularly valuable, showing how ArionComply helps with HIPAA, GDPR, SOC 2, and ISO 27001 in a healthcare context. The closing statement about building a 'solid foundation for compliance' resonates with an organization at 'Initial' maturity. The response is slightly truncated but loses only minimal content. This is exactly the kind of tailored value explanation that would help a small healthcare organization understand why to choose ArionComply over spreadsheets.",
+      "strengths": [
+        "Direct spreadsheet comparison with 6 clear differentiators",
+        "Each benefit explained with practical implications",
+        "Strong healthcare industry examples (HIPAA, GDPR, SOC 2, ISO 27001)",
+        "Appropriate emphasis on foundation-building for 'Initial' maturity",
+        "Clear ROI messaging (avoid penalties, reduce risk)",
+        "Well-tailored to small healthcare org context"
+      ],
+      "weaknesses": [
+        "Persistent '<think>' tag",
+        "Minimal truncation at end"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_WHY_MANAGER_1",
+      "promptNumber": 9,
+      "model": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "evaluation": "This response delivers exceptional value proposition guidance perfectly tailored to a small healthcare organization. The response directly addresses the spreadsheet comparison question with 6 compelling differentiators (automated workflows reducing effort 60-80%, AI-powered gap assessments in hours vs weeks, centralized evidence management, real-time dashboards, built-in GDPR framework, continuous monitoring). Each point is explained with specific benefits relevant to the healthcare context. The emphasis on protection of sensitive patient data and GDPR compliance is appropriate and compelling. The response correctly positions ArionComply as a solution for organizations 'just beginning compliance journey' and emphasizes understanding requirements and building foundational policies. The tone is professional, persuasive, and appropriately supportive. This is exactly the kind of targeted value explanation that would resonate with a healthcare manager trying to move beyond spreadsheets.",
+      "strengths": [
+        "Direct spreadsheet comparison with 6 compelling differentiators",
+        "Specific quantification (60-80% effort reduction, hours vs weeks)",
+        "Strong healthcare and GDPR focus throughout",
+        "Appropriate positioning for 'Initial' maturity",
+        "Emphasis on foundation-building resonates with context",
+        "Professional, persuasive tone",
+        "Addresses specific pain points of manual tracking"
+      ],
+      "weaknesses": [
+        "None significant - this is excellent value proposition messaging"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_ROI_EXECUTIVE_1",
+      "promptNumber": 10,
+      "model": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "evaluation": "This response provides solid ROI content but has structural issues and lacks executive-level sophistication. The '[CURRENT USER MESSAGE]' repetition is awkward and unprofessional. The '[RESPONSE]' header is unnecessary. The content covers 7 relevant ROI elements (cost reduction, time efficiency, documentation management, visibility, framework integration, risk mitigation, audit readiness), which are appropriate. The guidance on how to quantify benefits (labor cost savings calculation) starts to provide actionable metrics but is cut off. For a technology organization with 251-1000 employees at 'Managed' maturity (85% profile completion), the response doesn't fully demonstrate the sophistication expected. An executive at this maturity level would likely want more concrete ROI calculations, industry benchmarks, or case study examples. The response feels somewhat generic rather than tailored to a mature technology organization.",
+      "strengths": [
+        "Covers 7 relevant ROI elements",
+        "Attempts quantification approach (labor cost calculation)",
+        "Appropriate focus on efficiency and decision-making",
+        "Mentions multiple compliance frameworks (SOC_2, ISO_27001, GDPR)"
+      ],
+      "weaknesses": [
+        "Unnecessary '[CURRENT USER MESSAGE]' and '[RESPONSE]' headers",
+        "Truncated before completing quantification guidance",
+        "Lacks concrete ROI calculations or benchmarks",
+        "Generic advice doesn't fully leverage 'Managed' maturity context",
+        "Missing technology industry-specific examples",
+        "Could provide timeline to ROI or payback period"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_ROI_EXECUTIVE_1",
+      "promptNumber": 10,
+      "model": "smollm3",
+      "runNumber": 2,
+      "rating": 4,
+      "evaluation": "This response provides comprehensive and well-structured ROI guidance appropriate for an executive audience. The '<think>' tag persists but content is strong. The response delivers 8 detailed ROI elements (reduced compliance costs with 60-80% automation savings, faster risk identification in hours not weeks, centralized evidence management, improved executive visibility, enhanced business continuity, reduced consultant dependency, faster certification timeline, lower operational overhead). Each element is explained with business impact, not just features. The specific mention of '60-80% cost reduction' provides tangible ROI quantification. The technology industry context is acknowledged, with emphasis on data breaches and business continuity being particularly relevant. The response is truncated at 'Lower Operational Overhead' but has already provided substantial ROI justification. For a 251-1000 employee technology organization with 'Managed' maturity, this provides strong executive-level ROI argumentation.",
+      "strengths": [
+        "Comprehensive 8-element ROI framework",
+        "Specific quantification (60-80% cost reduction)",
+        "Business impact focus (not just features)",
+        "Technology industry context (data breaches, market access)",
+        "Appropriate emphasis on executive visibility and decision-making",
+        "Links compliance to business continuity and competitiveness",
+        "Strong for 'Managed' maturity level"
+      ],
+      "weaknesses": [
+        "Persistent '<think>' tag",
+        "Truncated at 'Lower Operational Overhead'",
+        "Could provide timeline to ROI or payback period estimates"
+      ]
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_ROI_EXECUTIVE_1",
+      "promptNumber": 10,
+      "model": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "evaluation": "This response delivers excellent executive-level ROI guidance with strong business focus and appropriate detail. The 7 ROI elements (efficiency with 60-80% effort reduction, faster compliance in hours vs weeks, centralized evidence management, real-time dashboards for data-driven decisions, built-in frameworks saving research time, continuous monitoring for proactive risk management, cost savings through multiple channels) are all clearly articulated with business value. The response appropriately emphasizes data-driven decision-making and leadership visibility, which resonate with executive priorities. The specific quantification (60-80% manual effort reduction, hours vs weeks) provides concrete ROI metrics. The mention of reducing consultant dependency, avoiding penalties, streamlining certification timelines, and lowering operational overhead addresses multiple cost dimensions. The response is truncated at '2' but has already delivered comprehensive ROI justification. For a mature technology organization, this provides the strategic, business-focused ROI explanation executives need.",
+      "strengths": [
+        "Comprehensive 7-element ROI framework",
+        "Strong business value articulation",
+        "Specific quantification (60-80% reduction, hours vs weeks)",
+        "Emphasizes data-driven decision-making for executives",
+        "Addresses multiple cost dimensions (consultants, penalties, overhead)",
+        "Technology industry context acknowledged",
+        "Appropriate for 'Managed' maturity level",
+        "Strategic focus suitable for executive audience"
+      ],
+      "weaknesses": [
+        "Truncated at end (loses minimal content)"
+      ]
+    }
+  ]
+}

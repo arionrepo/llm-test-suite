@@ -1,0 +1,475 @@
+{
+  "evaluationMetadata": {
+    "evaluatorName": "Claude (Sonnet 4.5)",
+    "evaluationDate": "2026-03-26",
+    "evaluationMethod": "subjective_expert_review",
+    "methodology": "Senior compliance advisor reading complete responses and evaluating readability, understandability, accuracy, and relevance. Ratings based on holistic expert judgment rather than mechanical scoring.",
+    "ratingScale": {
+      "-1": "Invalid/Error response",
+      "0": "Completely inadequate",
+      "1": "Poor quality",
+      "2": "Below average",
+      "3": "Acceptable",
+      "4": "Good quality",
+      "5": "Excellent"
+    },
+    "evaluatedRun": 2,
+    "evaluatedPromptRange": "11-20",
+    "totalRatingsThisFile": 30
+  },
+  "ratings": [
+    {
+      "promptId": "ARION_MULTITIER_VALUE_COMPETITIVE_EXECUTIVE_2",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "reasoning": "This response provides a well-structured, executive-appropriate answer about competitive advantage through certification. The six numbered points (trust/credibility, market access, risk mitigation, operational efficiency, audit readiness, competitive differentiation) are all accurate and relevant to financial services. The language is professional and appropriate for an executive audience. The response correctly emphasizes trust in the financial sector and the proactive risk management benefits. One minor weakness is that it includes the system prompt echo at the beginning, which is a formatting artifact. Otherwise, this is a strong, practical answer that addresses the business value question effectively.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": true,
+        "systemPromptEcho": true
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_CONSULTANT_MANAGER_2",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "reasoning": "Strong response that directly addresses the build-vs-buy decision for an early-stage education organization. The answer appropriately recommends ArionComply over a consultant, with six well-justified reasons (automated workflows, AI gap assessments, centralized evidence, dashboards, built-in frameworks, continuous monitoring). The response correctly tailors the recommendation to the organization's context (1-50 employees, initial maturity, GDPR focus in education). The tone is consultative and helpful. The response acknowledges consultants can be useful but makes a clear, justified recommendation. Minor issue: the final sentence is cut off due to length limit, but the core recommendation is complete. Overall, this provides practical decision-making guidance appropriate for a manager persona.",
+      "flags": {
+        "truncated": true,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MONITORING_PRACTITIONER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 2,
+      "reasoning": "This response takes an inappropriate approach by formatting the entire answer as JSON, which is not what a practitioner asking about continuous monitoring would expect. While the JSON structure contains relevant information (automated alerts, gap assessments, dashboard updates, retail-specific benefits), the format makes it difficult to read and understand as a conversational response. A practitioner would expect a clear, prose explanation with specific examples of how the monitoring works in practice. The content itself is accurate regarding continuous compliance monitoring features, but the delivery format is wrong for the persona and question type. This demonstrates a misunderstanding of when to use structured data formats versus natural language explanations.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": true,
+        "jsonOveruse": true
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MULTI_MANAGER_3",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "reasoning": "Excellent response to the multi-framework management question. The answer directly confirms ArionComply can handle both GDPR and ISO 27001, then provides six specific benefits (multi-framework management, automated workflows, AI gap assessments, centralized evidence, real-time dashboards, continuous monitoring). The response appropriately addresses the financial services context and developing maturity level. The explanation of why centralized evidence matters for both GDPR (evidence of compliance) and ISO 27001 (documented ISMS) shows good technical understanding. The language is clear and manager-appropriate. The conclusion effectively summarizes the value proposition. This response demonstrates strong comprehension of both the technical requirements and the business context.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_AUDIT_AUDITOR_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "reasoning": "Strong response tailored appropriately for an auditor persona. The answer provides six numbered points explaining how ArionComply streamlines audits (automated workflows, AI gap assessments, centralized evidence, real-time dashboards, built-in frameworks, continuous monitoring). The response correctly emphasizes aspects most relevant to auditors, such as organized evidence repositories and real-time visibility into compliance posture. The language is professional and audit-focused. The explanation of how AI-powered gap assessments enable more targeted audits is particularly relevant. The conclusion effectively summarizes the efficiency and effectiveness benefits. This demonstrates good understanding of auditor priorities and how the platform addresses their specific workflow needs.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_COSTTIME_EXECUTIVE_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "reasoning": "Excellent executive-level response about cost and time savings. The answer provides specific quantification (60-80% manual effort reduction, hours vs weeks for assessments) which executives value. The three main benefits (reduced manual effort, faster gap identification, streamlined audit prep) are clearly explained with concrete examples. The response appropriately addresses the technology sector context and mentions relevant frameworks (SOC 2, ISO 27001, GDPR). The ROI discussion connects compliance investment to business outcomes (earlier market access, lower consultant costs). The language is concise and business-focused, appropriate for an executive audience. Minor issue: slight truncation at the end, but the core value proposition is complete. This effectively communicates financial benefits in executive terms.",
+      "flags": {
+        "truncated": true,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_CERTIFICATION_PRACTITIONER_2",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "reasoning": "Strong practitioner-focused response about the certification acceleration process. The answer provides seven specific ways ArionComply speeds certification (automated workflows, AI gap assessments, centralized evidence, built-in frameworks, real-time dashboards, documentation templates, continuous monitoring). Each point directly addresses a typical bottleneck in the certification process. The response appropriately targets the healthcare context and mentions relevant frameworks (HIPAA, HITRUST, GDPR). The explanation of how the platform reduces the typical 6-12 month timeline is concrete and actionable. The language is detailed enough for a practitioner while remaining clear. Minor truncation at the end doesn't significantly impact the answer quality. This demonstrates practical understanding of certification workflows and pain points.",
+      "flags": {
+        "truncated": true,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_EVIDENCE_PRACTITIONER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "reasoning": "Excellent technical response about evidence management features. The answer provides six specific capabilities (automated evidence tracking, metadata tagging, version control, search, dashboard visibility, audit trails) that directly address evidence management needs. The response appropriately addresses the technology sector context and mentions relevant frameworks. The explanation of automated linking between evidence and controls is particularly valuable for practitioners implementing compliance systems. The language is technical enough to be credible while remaining accessible. The response demonstrates strong understanding of evidence management workflows and the practical challenges practitioners face in organizing compliance documentation. This is a comprehensive, actionable answer for the practitioner persona.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_WORKFLOW_MANAGER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "reasoning": "Strong response explaining compliance workflow automation for a manager audience. The answer provides six specific workflow features (automated task assignment, deadline tracking, approval workflows, notifications, progress visibility, template workflows) that managers would need to understand for team coordination. The response appropriately addresses the financial services context and developing maturity level. The explanation of how automation reduces manual effort by 60-80% provides concrete business value. The language balances technical detail with managerial perspective. The response demonstrates good understanding of workflow management needs and how automation addresses coordination challenges in compliance teams. This provides practical information for evaluating and implementing workflow tools.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_DASHBOARD_EXECUTIVE_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "reasoning": "Excellent executive-focused response about dashboard capabilities. The answer provides six specific dashboard features (real-time status, compliance posture, risk alerts, progress tracking, audit readiness, customizable views) that executives need for oversight. The response appropriately emphasizes visibility and decision-making support, which are key executive concerns. The explanation of how dashboards reduce the need to dig through detailed reports is particularly relevant for busy executives. The language is concise and business-focused, avoiding unnecessary technical detail. The response demonstrates strong understanding of executive information needs and how visualization supports strategic decision-making. This effectively communicates the business intelligence value of compliance dashboards.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_COMPETITIVE_EXECUTIVE_2",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "reasoning": "This response has significant technical accuracy problems despite good structure. While it attempts to explain competitive advantage through certification with six numbered points, several claims are questionable or misleading. The response states certification can 'access markets that might otherwise be closed' which oversimplifies complex market access requirements. The claim about 'operational efficiency' leading to 'cost reductions' is vague and not well-connected to certification benefits. The 'audit readiness' point is valid but underdeveloped. The 'competitive differentiation' point is generic. Most problematically, the response includes system prompt echo at the beginning, and the overall depth of analysis is shallow for an executive-level question. The response lacks specific, actionable insights about competitive advantage in financial services.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": true,
+        "systemPromptEcho": true,
+        "accuracyIssues": true
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_CONSULTANT_MANAGER_2",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 3,
+      "reasoning": "Acceptable response that addresses the build-vs-buy decision, though with some weaknesses. The answer recommends ArionComply and provides six justification points (automated workflows, AI gap assessments, centralized evidence, real-time dashboards, built-in frameworks, continuous monitoring). The response appropriately mentions the education sector context and early-stage maturity. However, the analysis is somewhat superficial and doesn't adequately address when a consultant might still be valuable despite platform capabilities. The response correctly tailors to the small organization size (1-50 employees) and GDPR focus. The language is clear but could be more consultative in tone. The final sentence is cut off due to truncation. Overall, this provides a basic answer but lacks the depth of analysis a manager would need for an important vendor selection decision.",
+      "flags": {
+        "truncated": true,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MONITORING_PRACTITIONER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 1,
+      "reasoning": "This response completely fails to answer the question appropriately. Instead of explaining continuous monitoring capabilities, the AI attempts to provide a JSON-formatted response that is both incomplete and inappropriate for the practitioner persona. The JSON structure is malformed (incomplete closing brackets, incorrect nesting), making it both technically invalid and impossible to parse. The content that is present (automated alerts, gap assessments, dashboard updates) is relevant but the delivery format is entirely wrong. A practitioner asking about continuous monitoring expects a clear, detailed explanation of how the monitoring works, what gets monitored, alert mechanisms, and integration approaches. This response shows fundamental misunderstanding of both the question type and appropriate response format for a practitioner persona.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": true,
+        "jsonOveruse": true,
+        "jsonMalformed": true
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MULTI_MANAGER_3",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 3,
+      "reasoning": "Adequate response addressing multi-framework management, though somewhat generic. The answer confirms ArionComply can handle both GDPR and ISO 27001 and provides six benefit points (multi-framework management, automated workflows, AI gap assessments, centralized evidence, real-time dashboards, continuous monitoring). The response appropriately mentions the financial services context and developing maturity level. However, the explanation lacks specific details about how multi-framework management actually works in practice - does the platform identify overlapping controls? Can evidence be mapped to multiple frameworks? How are framework conflicts resolved? The response is structured clearly and the language is appropriate for a manager, but the depth of technical detail is insufficient for a manager who needs to understand implementation implications. The truncation at the end slightly impacts completeness.",
+      "flags": {
+        "truncated": true,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_AUDIT_AUDITOR_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 3,
+      "reasoning": "Acceptable response for an auditor, though lacking depth in some areas. The answer provides six points about audit streamlining (automated workflows, AI gap assessments, centralized evidence, real-time dashboards, built-in frameworks, continuous monitoring). The response appropriately emphasizes evidence organization and visibility, which are key auditor concerns. However, the explanation doesn't address important auditor-specific needs like audit trail requirements, sampling methodologies, or how auditors can verify control effectiveness. The claim that gap assessments help 'make informed decisions during the audit' is somewhat unclear about what decisions auditors make. The response is structured clearly and uses professional language, but could be more specific about how the platform supports audit procedures and standards. This provides a basic understanding but lacks the technical audit workflow details an auditor would need.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_COSTTIME_EXECUTIVE_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 3,
+      "reasoning": "Adequate executive response about cost and time savings, though with some weaknesses. The answer provides quantification (60-80% manual effort reduction, hours vs weeks) which executives value, and addresses three main areas (reduced manual effort, faster gap identification, streamlined audit prep). The response appropriately mentions ROI and business value. However, the analysis lacks concrete financial examples or case studies that executives typically want to see. The claim about 'earlier market access' is valuable but underdeveloped - how much earlier? What's the revenue impact? The response is structured clearly and uses business language, but could provide more concrete ROI calculations or benchmarks. The truncation at the end impacts completeness. Overall, this provides a basic value proposition but lacks the financial depth executives need for investment decisions.",
+      "flags": {
+        "truncated": true,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_CERTIFICATION_PRACTITIONER_2",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 3,
+      "reasoning": "Acceptable practitioner response about certification acceleration, though somewhat generic. The answer provides seven ways ArionComply speeds certification (automated workflows, AI gap assessments, centralized evidence, built-in frameworks, real-time dashboards, documentation templates, continuous monitoring). The response appropriately addresses the healthcare context and mentions relevant frameworks. However, the explanation lacks specific detail about typical certification timelines, common bottlenecks, and exactly how the platform addresses each bottleneck. The claim about reducing 6-12 month timelines is valuable but not well-supported with examples. A practitioner would benefit from more concrete information about the certification process steps and how each platform feature maps to those steps. The truncation impacts completeness. The response provides a general overview but needs more practical, implementation-focused detail.",
+      "flags": {
+        "truncated": true,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_EVIDENCE_PRACTITIONER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 3,
+      "reasoning": "Adequate technical response about evidence management, though lacking some depth. The answer provides six evidence management capabilities (automated tracking, metadata tagging, version control, search, dashboard visibility, audit trails). The response appropriately addresses the technology sector context and mature compliance practices. However, the explanation is somewhat generic and doesn't address important practitioner questions like: What file types are supported? How does version control work in practice? Can evidence be linked to multiple controls? What search capabilities exist (full-text, metadata, etc.)? How are access controls managed for sensitive evidence? The response demonstrates basic understanding of evidence management needs but lacks the technical specificity a practitioner implementing the system would require. The language is clear but could be more detailed about actual implementation and usage.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_WORKFLOW_MANAGER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 3,
+      "reasoning": "Acceptable manager-focused response about workflow automation, though somewhat superficial. The answer provides six workflow features (automated task assignment, deadline tracking, approval workflows, notifications, progress visibility, template workflows). The response appropriately addresses the financial services context and developing maturity level. However, the explanation lacks important management details like: How are tasks assigned (rule-based, manual, hybrid)? Can workflows be customized for different frameworks? How do approval chains work? What reporting capabilities exist for team performance? The claim about 60-80% manual effort reduction is repeated but not well-connected to specific workflow features. The response is structured clearly and uses appropriate management language, but needs more concrete examples of how workflows improve team coordination and efficiency in practice.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_DASHBOARD_EXECUTIVE_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 3,
+      "reasoning": "Adequate executive response about dashboards, though lacking strategic depth. The answer provides six dashboard features (real-time status, compliance posture, risk alerts, progress tracking, audit readiness, customizable views). The response appropriately emphasizes visibility and decision-making support. However, the explanation is somewhat generic and doesn't address key executive questions like: What KPIs are tracked? How is compliance posture calculated? Can dashboards be shared with board/investors? What drill-down capabilities exist? How are multi-framework organizations represented? The response is structured clearly and concise, which executives appreciate, but lacks the strategic context about how dashboard insights drive business decisions. The language is appropriate but could better connect compliance metrics to business outcomes and risk management.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_COMPETITIVE_EXECUTIVE_2",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "reasoning": "Excellent executive-level response about competitive advantage through certification. The answer provides six well-reasoned points (customer trust, regulatory compliance, market differentiation, risk mitigation, operational excellence, business continuity) that directly address competitive advantage in financial services. The response demonstrates sophisticated understanding by connecting certification to specific business outcomes like customer confidence in data handling and reduced likelihood of breaches. The language is appropriately strategic and business-focused. The point about regulatory compliance enabling market expansion is particularly relevant for UK financial services. The risk mitigation and operational excellence points show good understanding of how compliance investments create business value beyond mere regulatory adherence. This response provides the strategic depth and business acumen an executive needs to justify certification investment to stakeholders.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_CONSULTANT_MANAGER_2",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "reasoning": "Outstanding response to the build-vs-buy decision question. The answer provides a sophisticated, balanced analysis that appropriately recommends ArionComply while acknowledging when consultants remain valuable. The response provides six strong justifications (immediate guidance, scalability, cost-effectiveness, continuous learning, integration, customization) that are well-reasoned and tailored to an early-stage education organization. Critically, the response includes an important nuance: 'it's important to note that while ArionComply can significantly reduce the need for external consultants, there may still be situations where their expertise is beneficial.' This shows mature advisory thinking rather than simply selling a product. The conclusion effectively balances the recommendation with practical implementation guidance. This demonstrates excellent understanding of both the platform capabilities and realistic implementation requirements for a small organization.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MONITORING_PRACTITIONER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "reasoning": "Excellent practitioner-focused response about continuous compliance monitoring. The answer provides six specific monitoring capabilities (real-time scanning, automated assessments, alert system, integration, reporting, trend analysis) with clear explanations of how each works in practice. The response appropriately addresses the retail context and multiple framework requirements (PCI DSS, GDPR, CCPA). The explanation of how real-time scanning works ('continuously scans your organization's systems, processes, and documentation') is concrete and actionable. The point about integration with existing systems shows practical implementation understanding. The mention of trend analysis for process optimization demonstrates sophisticated understanding of how monitoring supports continuous improvement, not just compliance checking. The language is technical enough to be credible for a practitioner while remaining clear. This is a comprehensive, actionable answer.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MULTI_MANAGER_3",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "reasoning": "Outstanding response about multi-framework management that demonstrates sophisticated understanding. The answer provides six specific capabilities (centralized management, cross-framework mapping, comprehensive assessments, shared evidence, unified dashboards, streamlined audits) that directly address the complexity of managing multiple frameworks. The explanation of cross-framework mapping ('identifies overlapping requirements between GDPR and ISO 27001, allowing you to address shared controls once rather than separately') is particularly valuable and shows deep technical understanding. The point about shared evidence repositories eliminating duplication is highly practical. The response appropriately addresses the financial services context and developing maturity level. The language balances technical detail with managerial perspective. This response provides exactly the kind of detailed, implementation-focused information a manager needs to understand how multi-framework support actually works in practice.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_AUDIT_AUDITOR_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "reasoning": "Excellent auditor-focused response that demonstrates strong understanding of audit workflows. The answer provides six specific ways ArionComply streamlines audits (centralized evidence, automated compliance tracking, real-time status, gap identification, collaboration, reporting) with clear explanations relevant to auditors. The point about centralized evidence providing 'a single, organized location for all compliance-related documentation' directly addresses a major audit pain point. The explanation of automated compliance tracking showing which controls are in place and which need attention is particularly valuable for audit planning. The mention of collaboration tools enabling auditor feedback is a sophisticated touch that shows understanding of the audit process as a collaborative effort. The language is appropriately professional and audit-focused. This response provides practical, detailed information about how the platform supports audit procedures.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_COSTTIME_EXECUTIVE_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "reasoning": "Outstanding executive response about cost and time savings with strong ROI focus. The answer provides six specific savings areas (reduced manual effort, faster assessments, lower consultant costs, accelerated certification, fewer penalties, improved productivity) with clear business value explanations. The quantification (60-80% manual effort reduction, hours vs weeks for assessments) is appropriately specific for executive decision-making. The point about reduced consultant costs ('handle routine compliance tasks in-house') directly addresses a major cost driver. The explanation of how faster certification enables earlier market access connects compliance investment to revenue opportunity. The mention of penalty avoidance through proactive gap identification is a strong risk management angle. The improved productivity point shows understanding that compliance efficiency benefits the entire organization. This provides the comprehensive ROI analysis executives need.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_CERTIFICATION_PRACTITIONER_2",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "reasoning": "Excellent practitioner response about certification acceleration with strong technical detail. The answer provides six specific acceleration mechanisms (automated gap assessments, guided implementation, centralized evidence, continuous monitoring, collaboration, reporting) that directly address certification timeline bottlenecks. The explanation of automated gap assessments identifying specific areas needing attention is highly practical. The point about guided implementation providing step-by-step instructions for each control shows understanding of practitioner needs for concrete guidance. The mention of how centralized evidence management streamlines auditor document requests addresses a major certification pain point. The continuous monitoring explanation shows understanding that certification is ongoing, not one-time. The language is appropriately technical and implementation-focused for a practitioner audience. This provides comprehensive, actionable information about the certification process.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_EVIDENCE_PRACTITIONER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "reasoning": "Outstanding technical response about evidence management with excellent depth. The answer provides six specific capabilities (centralized repository, version control, metadata tagging, automated linking, access controls, audit trails) with clear, detailed explanations. The point about version control tracking document changes over time addresses compliance continuity requirements. The explanation of automated linking between evidence and controls ('automatically links each piece of evidence to the relevant controls and requirements') shows sophisticated understanding of how evidence management supports compliance workflows. The access controls explanation demonstrates understanding of data sensitivity and confidentiality requirements. The audit trail point ('maintains a comprehensive audit trail, recording who uploaded, viewed, or modified evidence') is critical for demonstrating evidence integrity to auditors. The language is appropriately technical for a practitioner implementing the system. This is comprehensive and actionable.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_WORKFLOW_MANAGER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "reasoning": "Excellent manager-focused response about compliance workflow automation with strong operational detail. The answer provides six specific workflow features (task management, deadline tracking, collaboration, approval workflows, integration, reporting/analytics) with clear explanations of how they improve team coordination. The point about task management automatically assigning tasks based on roles and responsibilities shows understanding of how automation reduces coordination overhead. The explanation of how deadline tracking prevents missed deadlines and ensures timely completion addresses a critical management challenge. The collaboration tools explanation demonstrates understanding of how compliance work involves multiple stakeholders. The approval workflows point is particularly important for financial services where segregation of duties is critical. The reporting and analytics explanation shows how workflow data supports continuous improvement. This provides comprehensive, practical information for evaluating workflow automation.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_DASHBOARD_EXECUTIVE_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 5,
+      "reasoning": "Outstanding executive response about dashboard capabilities with excellent strategic focus. The answer provides six specific dashboard features (real-time compliance status, comprehensive metrics, risk visibility, progress tracking, customization, historical trends) that directly address executive oversight needs. The explanation of comprehensive metrics covering control implementation, evidence collection, and gap closure demonstrates understanding of what executives need to know. The point about risk visibility enabling prioritization of high-risk areas shows strong understanding of how dashboards support risk management decisions. The customization explanation ('can customize the dashboards to focus on the information most relevant to your organization') addresses the reality that different executives need different views. The historical trends point demonstrates understanding that executives need to see progress over time, not just current status. This provides exactly the strategic visibility information executives require.",
+      "flags": {
+        "truncated": false,
+        "irrelevant": false,
+        "formatIssue": false,
+        "systemPromptEcho": false
+      }
+    }
+  ],
+  "summary": {
+    "totalRatings": 30,
+    "byModel": {
+      "phi3": {
+        "count": 10,
+        "averageRating": 3.8,
+        "distribution": {
+          "5": 0,
+          "4": 8,
+          "3": 0,
+          "2": 2,
+          "1": 0,
+          "0": 0,
+          "-1": 0
+        }
+      },
+      "smollm3": {
+        "count": 10,
+        "averageRating": 2.6,
+        "distribution": {
+          "5": 0,
+          "4": 0,
+          "3": 8,
+          "2": 1,
+          "1": 1,
+          "0": 0,
+          "-1": 0
+        }
+      },
+      "mistral": {
+        "count": 10,
+        "averageRating": 5.0,
+        "distribution": {
+          "5": 10,
+          "4": 0,
+          "3": 0,
+          "2": 0,
+          "1": 0,
+          "0": 0,
+          "-1": 0
+        }
+      }
+    },
+    "overallAverage": 3.8,
+    "commonIssues": {
+      "formatIssues": 4,
+      "truncation": 7,
+      "jsonOveruse": 2,
+      "systemPromptEcho": 2,
+      "accuracyIssues": 1
+    },
+    "keyFindings": [
+      "Mistral-7B-Instruct maintains perfect 5.0 rating across all 10 prompts - consistently excellent",
+      "Phi3 performs well (3.8 avg) but has format issues with JSON overuse and system prompt echo",
+      "SmolLM3 struggles with appropriate response formatting (2.6 avg) and depth of analysis",
+      "JSON formatting issues appear in both Phi3 and SmolLM3 when inappropriate for persona/question",
+      "Mistral demonstrates superior understanding of persona-appropriate communication and technical depth",
+      "Truncation affects 7 responses but typically doesn't invalidate core answers",
+      "System prompt echo appears in 2 responses (Phi3 and SmolLM3) indicating prompt leakage issue"
+    ]
+  }
+}

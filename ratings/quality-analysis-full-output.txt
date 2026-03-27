@@ -1,0 +1,302 @@
+Analyzing 150 responses for quality indicators...
+
+================================================================================
+QUALITY ANALYSIS COMPLETE
+================================================================================
+
+Overall Statistics:
+  Average Quality Score: 60.3
+  Highest Score: 95
+  Lowest Score: -5
+
+Distribution of Issues:
+  Ignores industry context: 74 responses
+  Appears truncated or incomplete: 51 responses
+  Exposed <think> tags: 50 responses
+  Too long for NOVICE: 9 responses
+  Too many article citations for NOVICE: 2 responses
+  Hallucinated dialogue: 2 responses
+  Response very long: 1 responses
+  Severe hallucination - invented user dialogue: 1 responses
+
+Distribution of Strengths:
+  Well-structured with lists: 128 responses
+  Uses industry context: 76 responses
+  Clear headings: 71 responses
+  Cites specific articles/controls: 66 responses
+  Correctly references GDPR: 51 responses
+  Industry-specific terminology: 45 responses
+  Correctly references ISO 27001: 40 responses
+  Appropriate simplicity for NOVICE: 16 responses
+  Technical detail appropriate for DEVELOPER: 9 responses
+  Strategic language for EXECUTIVE: 8 responses
+  Evidence focus appropriate for AUDITOR: 7 responses
+
+================================================================================
+BEST 25 RESPONSES
+================================================================================
+
+1. Response #25 - Score: 95
+   Model: Unknown | Persona: NOVICE | Industry: Retail
+   Strengths: Uses industry context, Industry-specific terminology, Appropriate simplicity for NOVICE, Well-structured with lists, Clear headings, Correctly references GDPR, Cites specific articles/controls
+   Issues: Too long for NOVICE
+
+2. Response #123 - Score: 95
+   Model: Unknown | Persona: DEVELOPER | Industry: Technology
+   Strengths: Uses industry context, Industry-specific terminology, Technical detail appropriate for DEVELOPER, Well-structured with lists, Clear headings, Correctly references GDPR
+   Issues: None identified
+
+3. Response #129 - Score: 95
+   Model: Unknown | Persona: AUDITOR | Industry: Retail
+   Strengths: Uses industry context, Industry-specific terminology, Evidence focus appropriate for AUDITOR, Well-structured with lists, Correctly references ISO 27001, Cites specific articles/controls
+   Issues: None identified
+
+4. Response #17 - Score: 90
+   Model: Unknown | Persona: MANAGER | Industry: Financial Services
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Correctly references GDPR, Cites specific articles/controls
+   Issues: None identified
+
+5. Response #26 - Score: 90
+   Model: Unknown | Persona: PRACTITIONER | Industry: Financial Services
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Correctly references ISO 27001, Cites specific articles/controls
+   Issues: None identified
+
+6. Response #103 - Score: 90
+   Model: Unknown | Persona: MANAGER | Industry: Education
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Correctly references GDPR, Cites specific articles/controls
+   Issues: None identified
+
+7. Response #116 - Score: 90
+   Model: Unknown | Persona: PRACTITIONER | Industry: Healthcare
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Correctly references GDPR, Cites specific articles/controls
+   Issues: None identified
+
+8. Response #117 - Score: 90
+   Model: Unknown | Persona: MANAGER | Industry: Financial Services
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Correctly references GDPR, Cites specific articles/controls
+   Issues: None identified
+
+9. Response #121 - Score: 90
+   Model: Unknown | Persona: PRACTITIONER | Industry: Healthcare
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Correctly references GDPR, Cites specific articles/controls
+   Issues: None identified
+
+10. Response #16 - Score: 85
+   Model: Unknown | Persona: PRACTITIONER | Industry: Healthcare
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Clear headings, Correctly references GDPR, Cites specific articles/controls
+   Issues: Appears truncated or incomplete
+
+11. Response #24 - Score: 85
+   Model: Unknown | Persona: PRACTITIONER | Industry: Education
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Clear headings, Correctly references GDPR, Cites specific articles/controls
+   Issues: Appears truncated or incomplete
+
+12. Response #46 - Score: 85
+   Model: Unknown | Persona: NOVICE | Industry: Education
+   Strengths: Uses industry context, Industry-specific terminology, Appropriate simplicity for NOVICE, Well-structured with lists, Clear headings
+   Issues: Too long for NOVICE
+
+13. Response #110 - Score: 85
+   Model: Unknown | Persona: MANAGER | Industry: Retail
+   Strengths: Uses industry context, Industry-specific terminology, Correctly references GDPR, Cites specific articles/controls
+   Issues: None identified
+
+14. Response #118 - Score: 85
+   Model: Unknown | Persona: PRACTITIONER | Industry: Retail
+   Strengths: Uses industry context, Industry-specific terminology, Correctly references GDPR, Cites specific articles/controls
+   Issues: None identified
+
+15. Response #124 - Score: 85
+   Model: Unknown | Persona: PRACTITIONER | Industry: Education
+   Strengths: Uses industry context, Well-structured with lists, Clear headings, Correctly references GDPR, Cites specific articles/controls
+   Issues: None identified
+
+16. Response #128 - Score: 85
+   Model: Unknown | Persona: PRACTITIONER | Industry: Healthcare
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Correctly references ISO 27001
+   Issues: None identified
+
+17. Response #132 - Score: 85
+   Model: Unknown | Persona: PRACTITIONER | Industry: Healthcare
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Correctly references ISO 27001
+   Issues: None identified
+
+18. Response #7 - Score: 80
+   Model: Unknown | Persona: PRACTITIONER | Industry: Healthcare
+   Strengths: Uses industry context, Well-structured with lists, Correctly references GDPR, Cites specific articles/controls
+   Issues: None identified
+
+19. Response #27 - Score: 80
+   Model: Unknown | Persona: MANAGER | Industry: Technology
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Clear headings, Correctly references ISO 27001
+   Issues: Appears truncated or incomplete
+
+20. Response #32 - Score: 80
+   Model: Unknown | Persona: PRACTITIONER | Industry: Healthcare
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Correctly references ISO 27001, Cites specific articles/controls
+   Issues: Appears truncated or incomplete
+
+21. Response #48 - Score: 80
+   Model: Unknown | Persona: EXECUTIVE | Industry: Retail
+   Strengths: Uses industry context, Industry-specific terminology, Strategic language for EXECUTIVE, Well-structured with lists, Clear headings
+   Issues: Appears truncated or incomplete
+
+22. Response #101 - Score: 80
+   Model: Unknown | Persona: NOVICE | Industry: Healthcare
+   Strengths: Uses industry context, Appropriate simplicity for NOVICE, Well-structured with lists, Correctly references GDPR, Cites specific articles/controls
+   Issues: Too long for NOVICE
+
+23. Response #120 - Score: 80
+   Model: Unknown | Persona: NOVICE | Industry: Education
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Correctly references GDPR, Cites specific articles/controls
+   Issues: Too long for NOVICE, Too many article citations for NOVICE
+
+24. Response #125 - Score: 80
+   Model: Unknown | Persona: NOVICE | Industry: Retail
+   Strengths: Uses industry context, Industry-specific terminology, Appropriate simplicity for NOVICE, Correctly references GDPR
+   Issues: Too long for NOVICE
+
+25. Response #126 - Score: 80
+   Model: Unknown | Persona: PRACTITIONER | Industry: Financial Services
+   Strengths: Uses industry context, Industry-specific terminology, Well-structured with lists, Correctly references ISO 27001, Cites specific articles/controls
+   Issues: Appears truncated or incomplete
+
+
+================================================================================
+WORST 25 RESPONSES
+================================================================================
+
+1. Response #3 - Score: -5
+   Model: Unknown | Persona: MANAGER | Industry: Education
+   Issues: Hallucinated dialogue, Severe hallucination - invented user dialogue, Appears truncated or incomplete, Ignores industry context
+   Strengths: Well-structured with lists, Correctly references GDPR, Cites specific articles/controls
+
+2. Response #99 - Score: 25
+   Model: Unknown | Persona: PRACTITIONER | Industry: Financial Services
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings
+
+3. Response #93 - Score: 25
+   Model: Unknown | Persona: MANAGER | Industry: Technology
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings
+
+4. Response #58 - Score: 25
+   Model: Unknown | Persona: MANAGER | Industry: Financial Services
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings
+
+5. Response #81 - Score: 30
+   Model: Unknown | Persona: EXECUTIVE | Industry: Financial Services
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings, Correctly references ISO 27001
+
+6. Response #79 - Score: 30
+   Model: Unknown | Persona: AUDITOR | Industry: Retail
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings, Correctly references ISO 27001
+
+7. Response #76 - Score: 30
+   Model: Unknown | Persona: PRACTITIONER | Industry: Financial Services
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context, Response very long
+   Strengths: Well-structured with lists, Clear headings, Correctly references ISO 27001, Cites specific articles/controls
+
+8. Response #67 - Score: 30
+   Model: Unknown | Persona: MANAGER | Industry: Financial Services
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings, Correctly references GDPR
+
+9. Response #52 - Score: 30
+   Model: Unknown | Persona: PRACTITIONER | Industry: Financial Services
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings, Cites specific articles/controls
+
+10. Response #2 - Score: 30
+   Model: Unknown | Persona: PRACTITIONER | Industry: Financial Services
+   Issues: Hallucinated dialogue, Ignores industry context
+   Strengths: Well-structured with lists, Cites specific articles/controls
+
+11. Response #98 - Score: 35
+   Model: Unknown | Persona: EXECUTIVE | Industry: Retail
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Industry-specific terminology, Well-structured with lists, Clear headings
+
+12. Response #95 - Score: 35
+   Model: Unknown | Persona: MANAGER | Industry: Financial Services
+   Issues: Exposed <think> tags, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings
+
+13. Response #94 - Score: 35
+   Model: Unknown | Persona: PRACTITIONER | Industry: Retail
+   Issues: Exposed <think> tags, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings
+
+14. Response #91 - Score: 35
+   Model: Unknown | Persona: PRACTITIONER | Industry: Financial Services
+   Issues: Exposed <think> tags, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings
+
+15. Response #89 - Score: 35
+   Model: Unknown | Persona: MANAGER | Industry: Financial Services
+   Issues: Exposed <think> tags, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings
+
+16. Response #77 - Score: 35
+   Model: Unknown | Persona: MANAGER | Industry: Technology
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Industry-specific terminology, Well-structured with lists, Clear headings
+
+17. Response #74 - Score: 35
+   Model: Unknown | Persona: PRACTITIONER | Industry: Education
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings, Correctly references GDPR, Cites specific articles/controls
+
+18. Response #72 - Score: 35
+   Model: Unknown | Persona: MANAGER | Industry: Financial Services
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings, Correctly references GDPR, Cites specific articles/controls
+
+19. Response #51 - Score: 35
+   Model: Unknown | Persona: NOVICE | Industry: Healthcare
+   Issues: Exposed <think> tags, Ignores industry context
+   Strengths: Appropriate simplicity for NOVICE, Correctly references GDPR
+
+20. Response #92 - Score: 40
+   Model: Unknown | Persona: NOVICE | Industry: Healthcare
+   Issues: Exposed <think> tags, Ignores industry context
+   Strengths: Appropriate simplicity for NOVICE, Well-structured with lists, Clear headings
+
+21. Response #69 - Score: 40
+   Model: Unknown | Persona: DEVELOPER | Industry: Technology
+   Issues: Exposed <think> tags, Appears truncated or incomplete, Ignores industry context
+   Strengths: Technical detail appropriate for DEVELOPER, Well-structured with lists, Clear headings, Correctly references GDPR, Cites specific articles/controls
+
+22. Response #63 - Score: 40
+   Model: Unknown | Persona: PRACTITIONER | Industry: Financial Services
+   Issues: Exposed <think> tags, Ignores industry context
+   Strengths: Well-structured with lists, Correctly references ISO 27001, Cites specific articles/controls
+
+23. Response #57 - Score: 40
+   Model: Unknown | Persona: PRACTITIONER | Industry: Healthcare
+   Issues: Exposed <think> tags, Ignores industry context
+   Strengths: Well-structured with lists, Correctly references GDPR, Cites specific articles/controls
+
+24. Response #56 - Score: 40
+   Model: Unknown | Persona: MANAGER | Industry: Financial Services
+   Issues: Exposed <think> tags, Ignores industry context
+   Strengths: Well-structured with lists, Clear headings, Correctly references ISO 27001
+
+25. Response #54 - Score: 40
+   Model: Unknown | Persona: PRACTITIONER | Industry: Technology
+   Issues: Exposed <think> tags, Ignores industry context
+   Strengths: Well-structured with lists, Correctly references ISO 27001, Cites specific articles/controls
+
+
+================================================================================
+FILES SAVED
+================================================================================
+Best 25: ratings/best-25-responses.json
+Worst 25: ratings/worst-25-responses.json
+All Scored: ratings/all-scored-responses.json
+
+Ready for deep expert evaluation of best and worst performers.

@@ -1,0 +1,3736 @@
+{
+  "rater": "Claude Sonnet 4.5 (LLM Judge)",
+  "evaluationDate": "2026-03-26",
+  "totalRatings": 150,
+  "evaluationCriteria": {
+    "readability": "Structure, formatting, clarity, professionalism (1-5)",
+    "understandability": "Appropriate for persona, clear concepts, jargon usage (1-5)",
+    "accuracy": "Correct compliance info, valid citations, legally sound (1-5)"
+  },
+  "summary": {
+    "totalRatings": 150,
+    "byModel": {
+      "phi3": {
+        "count": 50,
+        "avgRating": "3.16",
+        "ratings": [
+          3,
+          3,
+          0,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          4,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          3,
+          4,
+          4,
+          3,
+          3,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          3,
+          3,
+          3
+        ]
+      },
+      "smollm3": {
+        "count": 50,
+        "avgRating": "2.00",
+        "ratings": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "mistral": {
+        "count": 50,
+        "avgRating": "3.16",
+        "ratings": [
+          3,
+          3,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          3,
+          3,
+          3,
+          4,
+          3,
+          3,
+          4,
+          3,
+          4,
+          4,
+          3,
+          3,
+          3,
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    },
+    "byRating": {
+      "0": 1,
+      "1": 0,
+      "2": 50,
+      "3": 80,
+      "4": 19,
+      "5": 0,
+      "-1": 0
+    },
+    "issueFrequency": {
+      "hallucination": 1,
+      "thinkTags": 50,
+      "outputLabels": 2,
+      "contextUsed": 77
+    }
+  },
+  "ratings": [
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Healthcare industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.194Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.8.24. Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.8.24"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.195Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 0,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 1
+      },
+      "explanation": "Unacceptable - Contains hallucination (fabricated user responses or assessment data). This response is fundamentally flawed and unusable.",
+      "flags": {
+        "hallucination": true,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 7",
+          "Article 15",
+          "Article 16",
+          "Article 33",
+          "Article 34"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.196Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_2",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.9.2. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.9.2"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.196Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 13. Weaknesses: ignores Retail industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 13"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.196Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_MANAGER_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, references controls A.5, A.8. Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.5",
+          "A.8"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.196Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_2",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 22, Article 9, Article 10, Article 25, Article 32, mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 22",
+          "Article 9",
+          "Article 10",
+          "Article 25",
+          "Article 32"
+        ],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.196Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_MULTI_FRAMEWORK_MANAGER_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting. Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.196Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_NOVICE_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 30. Weaknesses: ignores Education industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 30"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.196Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_2",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Retail industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.196Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_3",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.7.2. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.7.2"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.199Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_3",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 37, Article 38, mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 37",
+          "Article 38"
+        ],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.199Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_4",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, references controls A.5.26. Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.5.26"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.199Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_3",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Education industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.199Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_AUDITOR_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.5. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.5"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.199Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_ARTICLE6_PRACTITIONER_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 6, mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 6"
+        ],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.199Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_DPIA_MANAGER_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, cites Article 35, mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 35"
+        ],
+        "controlCitations": [],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.199Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_BREACH_PRACTITIONER_2",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting, mentions Retail industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_CONSENT_DEVELOPER_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, cites Article 7, Article 32. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 7",
+          "Article 32"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_DSR_NOVICE_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 2.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 15, Article 16, Article 17, Article 20, Article 18, Article 21, Article 12. Weaknesses: ignores Education industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 15",
+          "Article 16",
+          "Article 17",
+          "Article 20",
+          "Article 18",
+          "Article 21",
+          "Article 12"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_ROPA_PRACTITIONER_3",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, cites Article 30, Article 32. Weaknesses: ignores Healthcare industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 30",
+          "Article 32"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_TRANSFER_MANAGER_2",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_DESIGN_DEVELOPER_2",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, cites Article 25, Article 35, Article 32. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 25",
+          "Article 35",
+          "Article 32"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_CHILDREN_PRACTITIONER_4",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 8, Article 25, Article 35, Article 5, Article 13, Article 16, Article 45, mentions Education industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 8",
+          "Article 25",
+          "Article 35",
+          "Article 5",
+          "Article 13",
+          "Article 16",
+          "Article 45"
+        ],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_ROLES_NOVICE_2",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 4,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, appropriate for NOVICE persona, cites Article 28, Article 29, mentions Retail industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 28",
+          "Article 29"
+        ],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_A82_PRACTITIONER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.8.2, mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.8.2"
+        ],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ISMS_MANAGER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting, mentions Technology industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Technology",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_RISK_PRACTITIONER_2",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, references controls A.5, A.8, A.12, mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.5",
+          "A.8",
+          "A.12"
+        ],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_SOA_AUDITOR_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.8.1, A.12.1, A.16.1, mentions Retail industry context. Weaknesses: contains output labels like [RESPONSE].",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.8.1",
+          "A.12.1",
+          "A.16.1"
+        ],
+        "industryMention": "Retail",
+        "outputLabels": true
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ACCESS_DEVELOPER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.12, A.14, A.5.1. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.12",
+          "A.14",
+          "A.5.1",
+          "A.5.2",
+          "A.14.1",
+          "A.14.2",
+          "A.14.3",
+          "A.12.1",
+          "A.12.2",
+          "A.5.3"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.200Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CERT_EXECUTIVE_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, references controls A.5, A.8, A.5.1, mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.5",
+          "A.8",
+          "A.5.1",
+          "A.8.1",
+          "A.18.1"
+        ],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.201Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_INCIDENT_PRACTITIONER_3",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, references controls A.16.1, A.16.2, A.16.3, mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.16.1",
+          "A.16.2",
+          "A.16.3",
+          "A.16.4",
+          "A.16.5",
+          "A.16.6",
+          "A.16.7"
+        ],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.201Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CRYPTO_PRACTITIONER_4",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 2.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.14, A.14.2, A.14.3, mentions Retail industry context. Weaknesses: contains output labels like [RESPONSE].",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.14",
+          "A.14.2",
+          "A.14.3",
+          "A.16",
+          "A.18"
+        ],
+        "industryMention": "Retail",
+        "outputLabels": true
+      },
+      "timestamp": "2026-03-26T17:24:11.201Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_WHY_MANAGER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.201Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_ROI_EXECUTIVE_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.202Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_COMPETITIVE_EXECUTIVE_2",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.202Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_CONSULTANT_MANAGER_2",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Education industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.202Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MONITORING_PRACTITIONER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Retail industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.202Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MULTI_MANAGER_3",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.202Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_AUDIT_AUDITOR_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.202Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_EVIDENCE_PRACTITIONER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.203Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_DASHBOARD_NOVICE_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting, mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.203Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_REPORT_MANAGER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.203Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_SEARCH_PRACTITIONER_2",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting. Weaknesses: ignores Retail industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.203Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_NOTIFICATIONS_MANAGER_2",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.203Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_BASICS_NOVICE_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 4,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting, appropriate for NOVICE persona, mentions Education industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.203Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_FRAMEWORK_MANAGER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting, mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.203Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_MATURITY_EXECUTIVE_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Retail industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.204Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_MAPPING_PRACTITIONER_1",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.204Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_CULTURE_EXECUTIVE_2",
+      "modelName": "phi3",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.204Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.204Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.8.24"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_2",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.9.2"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 13"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_MANAGER_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3.5, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_2",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 22",
+          "Article 5"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_MULTI_FRAMEWORK_MANAGER_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3.5, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_NOVICE_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.8.1"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_2",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3.5, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 32",
+          "Article 25",
+          "Article 35",
+          "Article 33"
+        ],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_3",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.7.2"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_3",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3.5, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 37",
+          "Article 9"
+        ],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_4",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.5.26"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.205Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_3",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.206Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_AUDITOR_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.206Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_ARTICLE6_PRACTITIONER_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 6"
+        ],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.206Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_DPIA_MANAGER_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3.5, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.206Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_BREACH_PRACTITIONER_2",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3.5, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.206Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_CONSENT_DEVELOPER_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 13"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.206Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_DSR_NOVICE_1",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3.5, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.206Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_ROPA_PRACTITIONER_3",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3.5, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.207Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_TRANSFER_MANAGER_2",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3.5, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 44"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.207Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_DESIGN_DEVELOPER_2",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.207Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_CHILDREN_PRACTITIONER_4",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3.5, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 6",
+          "Article 5",
+          "Article 25",
+          "Article 8",
+          "Article 17",
+          "Article 35"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.207Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_ROLES_NOVICE_2",
+      "modelName": "smollm3",
+      "runNumber": 1,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3.5, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.207Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_A82_PRACTITIONER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.8.2"
+        ],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.207Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ISMS_MANAGER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3.5, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.207Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_RISK_PRACTITIONER_2",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3.5, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.207Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_SOA_AUDITOR_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.207Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ACCESS_DEVELOPER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.8.1",
+          "A.8.2",
+          "A.8.3"
+        ],
+        "industryMention": "Technology",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.207Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CERT_EXECUTIVE_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.207Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_INCIDENT_PRACTITIONER_3",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.16",
+          "A.17",
+          "A.18",
+          "A.13",
+          "A.14",
+          "A.8",
+          "A.5",
+          "A.8.3",
+          "A.12"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.208Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CRYPTO_PRACTITIONER_4",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.5.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.13",
+          "A.14",
+          "A.13.1",
+          "A.13.2",
+          "A.13.3",
+          "A.13.4",
+          "A.13.5",
+          "A.13.6",
+          "A.13.7",
+          "A.13.8",
+          "A.14.1",
+          "A.14.2"
+        ],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.208Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_WHY_MANAGER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.208Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_ROI_EXECUTIVE_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Technology",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.208Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_COMPETITIVE_EXECUTIVE_2",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.208Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_CONSULTANT_MANAGER_2",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.208Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MONITORING_PRACTITIONER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.208Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MULTI_MANAGER_3",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.208Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_AUDIT_AUDITOR_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Technology",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.209Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_EVIDENCE_PRACTITIONER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.209Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_DASHBOARD_NOVICE_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.209Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_REPORT_MANAGER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.209Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_SEARCH_PRACTITIONER_2",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.209Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_NOTIFICATIONS_MANAGER_2",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.209Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_BASICS_NOVICE_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3.5, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.209Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_FRAMEWORK_MANAGER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.210Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_MATURITY_EXECUTIVE_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.210Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_MAPPING_PRACTITIONER_1",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 2,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=2, understandability=3.5, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.210Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_CULTURE_EXECUTIVE_2",
+      "modelName": "smollm3",
+      "runNumber": 2,
+      "rating": 2,
+      "criteriaScores": {
+        "readability": 1.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Poor - Contains internal reasoning tags like <think> or <reasoning> which should not appear in production responses. This shows the model is exposing internal processing to users. Average quality otherwise: readability=1.5, understandability=3, accuracy=3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": true,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Technology",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.210Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 5, Article 6, Article 13, mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 5",
+          "Article 6",
+          "Article 13"
+        ],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.210Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.8.24, A.8.25. Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.8.24",
+          "A.8.25"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, cites Article 4, Article 30, Article 37, Article 35, mentions Education industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 4",
+          "Article 30",
+          "Article 37",
+          "Article 35"
+        ],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_2",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.9.2. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.9.2"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 13. Weaknesses: ignores Retail industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 13"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_MANAGER_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_2",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 22, Article 5. Weaknesses: ignores Healthcare industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 22",
+          "Article 5"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_MULTI_FRAMEWORK_MANAGER_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_NOVICE_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.8.1. Weaknesses: ignores Education industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.8.1"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_2",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 32, mentions Retail industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 32"
+        ],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_3",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_PRACTITIONER_3",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, cites Article 37. Weaknesses: ignores Healthcare industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 37"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_PRACTITIONER_4",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.5.26. Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.5.26"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_MANAGER_3",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Education industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_ISO27001_AUDITOR_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_ARTICLE6_PRACTITIONER_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 6, mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 6"
+        ],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_DPIA_MANAGER_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, cites Article 35, mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 35"
+        ],
+        "controlCitations": [],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_BREACH_PRACTITIONER_2",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 33, mentions Retail industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 33"
+        ],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_CONSENT_DEVELOPER_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, cites Article 4. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 4"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_DSR_NOVICE_1",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 2.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 15, Article 16, Article 17, Article 18, Article 21, Article 20, mentions Education industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 15",
+          "Article 16",
+          "Article 17",
+          "Article 18",
+          "Article 21",
+          "Article 20"
+        ],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_ROPA_PRACTITIONER_3",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 30, mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 30"
+        ],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.211Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_TRANSFER_MANAGER_2",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, cites Article 44. Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [
+          "Article 44"
+        ],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.212Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_DESIGN_DEVELOPER_2",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting, mentions Technology industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Technology",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.213Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_CHILDREN_PRACTITIONER_4",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3.5,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: cites Article 9, Article 8, mentions Education industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [
+          "Article 9",
+          "Article 8"
+        ],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.213Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GDPR_ROLES_NOVICE_2",
+      "modelName": "mistral",
+      "runNumber": 1,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 4,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: appropriate for NOVICE persona, mentions Retail industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.213Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_A82_PRACTITIONER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, references controls A.8.2, A.8, mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.8.2",
+          "A.8"
+        ],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.213Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ISMS_MANAGER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting, mentions Technology industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Technology",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.213Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_RISK_PRACTITIONER_2",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.215Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_SOA_AUDITOR_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.12.6, mentions Retail industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.12.6"
+        ],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.215Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_ACCESS_DEVELOPER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, references controls A.12.1. Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.12.1"
+        ],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.215Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CERT_EXECUTIVE_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 4,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: well-structured with clear formatting, references controls A.5.1, A.6.1, A.8.1, mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.5.1",
+          "A.6.1",
+          "A.8.1",
+          "A.12.1",
+          "A.13.1",
+          "A.16.1"
+        ],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.215Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_INCIDENT_PRACTITIONER_3",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.215Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_ISO27001_CRYPTO_PRACTITIONER_4",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3.5
+      },
+      "explanation": "Strengths: references controls A.13.11, mentions Retail industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [
+          "A.13.11"
+        ],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.215Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_WHY_MANAGER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.215Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_ROI_EXECUTIVE_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Technology industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Technology",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.215Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_COMPETITIVE_EXECUTIVE_2",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_CONSULTANT_MANAGER_2",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting. Weaknesses: ignores Education industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MONITORING_PRACTITIONER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Retail industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_MULTI_MANAGER_3",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_VALUE_AUDIT_AUDITOR_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Technology industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Technology",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_EVIDENCE_PRACTITIONER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_DASHBOARD_NOVICE_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_REPORT_MANAGER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Technology industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_SEARCH_PRACTITIONER_2",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Weaknesses: ignores Retail industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_FEATURES_NOTIFICATIONS_MANAGER_2",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting. Weaknesses: ignores Financial industry context from TIER 3. Generic response without organizational context limits rating to 3.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": null,
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_BASICS_NOVICE_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 4,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: appropriate for NOVICE persona, mentions Education industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Education",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_FRAMEWORK_MANAGER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Healthcare industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Healthcare",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_MATURITY_EXECUTIVE_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: well-structured with clear formatting, mentions Retail industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Retail",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_MAPPING_PRACTITIONER_1",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3,
+        "understandability": 3.5,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Financial industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Financial",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.216Z"
+    },
+    {
+      "promptId": "ARION_MULTITIER_GENERAL_CULTURE_EXECUTIVE_2",
+      "modelName": "mistral",
+      "runNumber": 2,
+      "rating": 3,
+      "criteriaScores": {
+        "readability": 3.5,
+        "understandability": 3,
+        "accuracy": 3
+      },
+      "explanation": "Strengths: mentions Technology industry context.",
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": true,
+        "articleCitations": [],
+        "controlCitations": [],
+        "industryMention": "Technology",
+        "outputLabels": false
+      },
+      "timestamp": "2026-03-26T17:24:11.217Z"
+    }
+  ]
+}

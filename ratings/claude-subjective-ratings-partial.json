@@ -1,0 +1,29 @@
+{
+  "rater": "Claude Sonnet 4.5 - Subjective Manual Evaluation",
+  "evaluationDate": "2026-03-26",
+  "status": "IN_PROGRESS",
+  "totalEvaluated": 1,
+  "totalTarget": 150,
+  "ratings": [
+    {
+      "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1",
+      "modelName": "phi3",
+      "runNumber": 1,
+      "rating": 3,
+      "explanation": "Provides 4 focused questions covering lawfulness, consent, data subject rights, and breach notification. Structure is clean with numbered format and YES/NO/PARTIAL options appropriate for novice users. HOWEVER, completely ignores the Healthcare industry context - no mention of patient data, medical records, HIPAA alignment, or healthcare-specific GDPR concerns. For a small healthcare startup just beginning compliance, this misses opportunity to address industry-specific challenges like consent for minors, health data sensitivity, or medical research consent. Generic response that could be sent to ANY organization.",
+      "criteriaScores": {
+        "readability": 4,
+        "understandability": 4,
+        "accuracy": 4
+      },
+      "flags": {
+        "hallucination": false,
+        "thinkTags": false,
+        "contextUsed": false,
+        "articleCitations": [],
+        "industryMention": null
+      },
+      "timestamp": "2026-03-26T18:35:00Z"
+    }
+  ]
+}
