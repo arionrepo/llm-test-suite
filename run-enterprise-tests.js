@@ -7,6 +7,7 @@ import { EnterpriseTestRunner } from './enterprise/enterprise-test-runner.js';
 import { generateAllTests, getTestStats } from './enterprise/test-data-generator.js';
 import { saveReport, saveSchemaCompliantResults } from './utils/test-helpers.js';
 import { createConfigLoader } from './utils/config-loader.js';
+import { transformEnterpriseResults } from './utils/schema-transformer.js';
 
 const USAGE = `
 Enterprise Compliance Test Suite
@@ -189,7 +190,7 @@ async function runPilotTest(runner, options) {
 
   // Save with schema validation and Docker config
   try {
-    const schemaResults = convertEnterpriseResultsToSchema(results, 'pilot');
+    const schemaResults = transformEnterpriseResults(results, 'pilot');
     saveSchemaCompliantResults(schemaResults, {
       testType: 'compliance',
       runName: 'enterprise-pilot',
@@ -238,7 +239,7 @@ async function runQuickTest(runner, options) {
 
   // Save with schema validation and Docker config
   try {
-    const schemaResults = convertEnterpriseResultsToSchema(results, 'quick');
+    const schemaResults = transformEnterpriseResults(results, 'quick');
     saveSchemaCompliantResults(schemaResults, {
       testType: 'compliance',
       runName: 'enterprise-quick',
@@ -297,7 +298,7 @@ async function runStandardTest(runner, options) {
 
   // Save with schema validation and Docker config
   try {
-    const schemaResults = convertEnterpriseResultsToSchema(results, 'standard');
+    const schemaResults = transformEnterpriseResults(results, 'standard');
     saveSchemaCompliantResults(schemaResults, {
       testType: 'compliance',
       runName: 'enterprise-standard',
@@ -347,7 +348,7 @@ async function runComprehensiveTest(runner, options) {
 
   // Save with schema validation and Docker config
   try {
-    const schemaResults = convertEnterpriseResultsToSchema(results, 'comprehensive');
+    const schemaResults = transformEnterpriseResults(results, 'comprehensive');
     saveSchemaCompliantResults(schemaResults, {
       testType: 'compliance',
       runName: 'enterprise-comprehensive',
@@ -392,92 +393,6 @@ async function runFunctionCallingTest(runner, options) {
  * @param {string} testName - Name of the test (pilot, quick, standard, comprehensive)
  * @returns {Array} Array of results in unified schema format
  */
-function convertEnterpriseResultsToSchema(enterpriseResults, testName) {
-  const schemaResults = [];
-  const now = new Date().toISOString();
-
-  // Extract individual test results from modelResults
-  if (enterpriseResults.modelResults) {
-    let testIndex = 0;
-    for (const [modelName, modelResults] of Object.entries(enterpriseResults.modelResults)) {
-      if (Array.isArray(modelResults)) {
-        modelResults.forEach(result => {
-          if (result.success) {
-            schemaResults.push({
-              metadata: {
-                timestamp: now,
-                testRunId: `test-run-enterprise-${testName}-${now.split('T')[0]}`,
-                runNumber: 1,
-                runName: `ENTERPRISE_${testName.toUpperCase()}`,
-                runType: 'compliance',
-                focus: 'accuracy'
-              },
-
-              input: {
-                promptId: result.testId || `test-${testIndex}`,
-                fullPromptText: result.question || '',
-                fullPromptTokens: 0
-              },
-
-              modelConfig: {
-                modelName: modelName
-              },
-
-              output: {
-                response: result.response || '',
-                responseTokens: 0,
-                responseCharacters: (result.response || '').length
-              },
-
-              quality: {
-                relevanceScore: result.evaluation?.score ? result.evaluation.score / 100 : 0,
-                completenessScore: result.evaluation?.passed ? 1.0 : 0.5,
-                accuracyScore: result.evaluation?.score ? result.evaluation.score / 100 : 0,
-                coherenceScore: 0.8,
-                overallScore: result.evaluation?.score ? result.evaluation.score / 100 : 0,
-                topicAnalysis: {
-                  expectedTopics: result.evaluation?.missingTopics || [],
-                  foundTopics: result.evaluation?.foundTopics || [],
-                  missingTopics: result.evaluation?.missingTopics || [],
-                  extraneousTopics: [],
-                  topicCoverage: result.evaluation?.passed ? 1.0 : 0.5
-                }
-              },
-
-              timing: {
-                totalMs: result.timing?.totalMs || 0,
-                tokensPerSecond: 0
-              },
-
-              execution: {
-                success: result.success,
-                responseValidated: result.response && result.response.trim() !== '',
-                errors: result.error ? [result.error] : [],
-                warnings: [],
-                validationChecks: {
-                  responseNotEmpty: result.response && result.response.trim() !== '',
-                  responseWithinTokenLimit: true,
-                  modelResponded: !!result.response,
-                  noConnectionErrors: true,
-                  noTimeouts: true
-                }
-              }
-            });
-
-            testIndex++;
-          }
-        });
-      }
-    }
-  }
-
-  if (schemaResults.length === 0) {
-    throw new Error('No valid results found to convert to schema format');
-  }
-
-  return schemaResults;
-}
-
 // Run main
 if (import.meta.url === 'file://' + process.argv[1]) {
   main()
