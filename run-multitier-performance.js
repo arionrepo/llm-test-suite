@@ -17,11 +17,12 @@
 import { ResilientPerformanceTestRunner } from './performance-test-runner.js';
 import { AI_BACKEND_MULTI_TIER_TESTS } from './enterprise/arioncomply-workflows/ai-backend-multi-tier-tests.js';
 import { saveSchemaCompliantResults } from './utils/test-helpers.js';
+import { transformPerformanceResults } from './utils/schema-transformer.js';
 
-// MANDATORY: Only use first 3 models for test runs
+// MANDATORY: Only use first 4 models for test runs
 // This prevents extremely long execution times while still providing meaningful data
 // All future test runs MUST follow this pattern
-const topModels = ['smollm3', 'phi3', 'mistral']; // First 3 models only
+const topModels = ['smollm3', 'phi3', 'mistral', 'llama-3.1-8b']; // First 4 models only
 const multiTierTests = Object.values(AI_BACKEND_MULTI_TIER_TESTS); // All 50 prompts
 
 const prompts = multiTierTests.map(t => ({
@@ -38,7 +39,7 @@ const runner = new ResilientPerformanceTestRunner();
 const logFile = runner.initializeLogger('multitier-comprehensive');
 
 console.log('\n' + '='.repeat(80));
-console.log('MULTI-TIER PERFORMANCE TEST (First 3 Models)');
+console.log('MULTI-TIER PERFORMANCE TEST (First 4 Models) - OPTIMIZED PROMPTS v2.1');
 console.log('='.repeat(80));
 console.log(`Models (${topModels.length}):`, topModels.join(', '));
 console.log(`Prompts: ${multiTierTests.length} multi-tier (2000+ tokens each)`);
@@ -60,16 +61,15 @@ async function onModelComplete(modelName, modelResults) {
     return;
   }
 
-  // Enrich results with full prompt text for schema compliance
-  const enrichedResults = modelResults.map(result => ({
-    ...result,
-    fullPromptText: promptMap[result.promptId]?.fullPromptText || '',
-    promptTokens: promptMap[result.promptId]?.estimatedTokens || 0
-  }));
+  // Transform flat results to schema-compliant format
+  const schemaResults = transformPerformanceResults(modelResults, {
+    testRunId: `test-run-6-multitier-${modelName}`,
+    runName: `MULTITIER_RUN6_${modelName.toUpperCase()}`
+  }, promptMap);
 
   // Save incrementally per model
   try {
-    const saveResult = await saveSchemaCompliantResults(enrichedResults, {
+    const saveResult = await saveSchemaCompliantResults(schemaResults, {
       testType: 'performance',
       runName: `multitier-${modelName}-${modelResults.length}tests`,
       validateSingle: true
