@@ -7,7 +7,9 @@ import { runSpeedTests } from './tests/speed-test.js';
 import { runAccuracyTests } from './tests/accuracy-test.js';
 import { runToolCallingTests } from './tests/tool-calling-test.js';
 import { runContextWindowTests } from './tests/context-window-test.js';
-import { saveReport } from './utils/test-helpers.js';
+import { saveSchemaCompliantResults } from './utils/test-helpers.js';
+import fs from 'fs';
+import path from 'path';
 
 async function runAllTests() {
   console.log('\n' + '█'.repeat(60));
@@ -15,7 +17,24 @@ async function runAllTests() {
   console.log('  Server: http://localhost:8088');
   console.log('  Started: ' + new Date().toISOString());
   console.log('█'.repeat(60));
-  
+
+  // MANDATORY: Initialize logger
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '').replace('Z', 'Z');
+  const logDir = path.join(process.cwd(), 'logs');
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true });
+  }
+  const logFile = path.join(logDir, `test-run-all-tests-${timestamp}.log`);
+
+  function logEvent(eventType, details = {}) {
+    const now = new Date().toISOString();
+    const entry = `[${now}] ${eventType} | ${JSON.stringify(details)}\n`;
+    fs.appendFileSync(logFile, entry);
+  }
+
+  logEvent('TEST_START', { testType: 'comprehensive', timestamp: new Date().toISOString() });
+  console.log(`📝 Logging to: ${logFile}\n`);
+
   const startTime = Date.now();
   const allResults = {
     timestamp: new Date().toISOString(),
@@ -26,23 +45,32 @@ async function runAllTests() {
   try {
     // Run Speed Tests
     console.log('\n[1/4] Running Speed Tests...');
+    logEvent('SUITE_START', { suite: 'speed' });
     allResults.testSuites.speed = await runSpeedTests();
-    
+    logEvent('SUITE_COMPLETE', { suite: 'speed', tests: allResults.testSuites.speed.tests.length });
+
     // Run Accuracy Tests
     console.log('\n[2/4] Running Accuracy Tests...');
+    logEvent('SUITE_START', { suite: 'accuracy' });
     allResults.testSuites.accuracy = await runAccuracyTests();
-    
+    logEvent('SUITE_COMPLETE', { suite: 'accuracy', tests: allResults.testSuites.accuracy.tests.length });
+
     // Run Tool Calling Tests
     console.log('\n[3/4] Running Tool Calling Tests...');
+    logEvent('SUITE_START', { suite: 'toolCalling' });
     allResults.testSuites.toolCalling = await runToolCallingTests();
-    
+    logEvent('SUITE_COMPLETE', { suite: 'toolCalling', tests: allResults.testSuites.toolCalling.tests.length });
+
     // Run Context Window Tests
     console.log('\n[4/4] Running Context Window Tests...');
+    logEvent('SUITE_START', { suite: 'contextWindow' });
     allResults.testSuites.contextWindow = await runContextWindowTests();
-    
+    logEvent('SUITE_COMPLETE', { suite: 'contextWindow', tests: allResults.testSuites.contextWindow.tests.length });
+
   } catch (error) {
     console.error('\n❌ Error running tests:', error.message);
     allResults.error = error.message;
+    logEvent('TEST_ERROR', { error: error.message });
   }
   
   const endTime = Date.now();
@@ -103,11 +131,78 @@ async function runAllTests() {
   
   console.log('\n  Grade: ' + grade);
   console.log('█'.repeat(60));
-  
-  // Save comprehensive report
-  saveReport('comprehensive', allResults);
-  
+
+  logEvent('TEST_COMPLETE', {
+    totalTests: allResults.summary.overall.totalTests,
+    passedCount: allResults.summary.overall.totalPassed,
+    grade
+  });
+
+  // Convert to schema format and save
+  const schemaResults = convertToSchema(allResults);
+  try {
+    saveSchemaCompliantResults(schemaResults, {
+      testType: 'comprehensive',
+      runName: 'all-tests-comprehensive'
+    });
+    console.log('\n✅ Results saved with schema validation');
+  } catch (error) {
+    console.error('❌ Failed to save schema-compliant results:', error.message);
+  }
+
   return allResults;
+}
+
+/**
+ * Convert run-all-tests results to unified schema format
+ */
+function convertToSchema(allResults) {
+  const schemaResults = [];
+  const now = new Date().toISOString();
+
+  // Aggregate all test results from all suites
+  Object.entries(allResults.testSuites).forEach(([suiteName, suiteResults]) => {
+    if (suiteResults && suiteResults.tests) {
+      suiteResults.tests.forEach((test, idx) => {
+        schemaResults.push({
+          metadata: {
+            timestamp: now,
+            testRunId: `all-tests-${suiteName}-${now.split('T')[0]}`,
+            runNumber: idx + 1,
+            runName: suiteName.toUpperCase(),
+            runType: 'comprehensive'
+          },
+          input: {
+            promptId: test.name.toUpperCase(),
+            fullPromptText: `${suiteName} test: ${test.name}`,
+            fullPromptTokens: 20
+          },
+          modelConfig: {
+            modelName: 'legacy-server-8088'
+          },
+          output: {
+            response: test.response || '',
+            responseTokens: (test.response || '').split(' ').length
+          },
+          timing: {
+            totalMs: test.timing?.totalMs || test.stats?.avg || 0,
+            tokensPerSecond: test.tokensPerSec || test.timing?.tokensPerSec || 0
+          },
+          execution: {
+            success: test.passed,
+            responseValidated: !!test.response || test.passed,
+            errors: test.error ? [test.error] : []
+          },
+          testSuite: {
+            name: suiteName,
+            testType: suiteName
+          }
+        });
+      });
+    }
+  });
+
+  return schemaResults;
 }
 
 // Run if executed directly

@@ -5,11 +5,30 @@
 
 import { LLMClient } from '../utils/llm-client.js';
 import { config } from '../config.js';
-import { printTestHeader, printTestResult, saveReport } from '../utils/test-helpers.js';
+import { printTestHeader, printTestResult, saveSchemaCompliantResults } from '../utils/test-helpers.js';
+import fs from 'fs';
+import path from 'path';
 
 async function runContextWindowTests() {
   printTestHeader('CONTEXT WINDOW TESTS');
-  
+
+  // MANDATORY: Initialize logger
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '').replace('Z', 'Z');
+  const logDir = path.join(process.cwd(), 'logs');
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true });
+  }
+  const logFile = path.join(logDir, `test-run-context-window-${timestamp}.log`);
+
+  function logEvent(eventType, details = {}) {
+    const now = new Date().toISOString();
+    const entry = `[${now}] ${eventType} | ${JSON.stringify(details)}\n`;
+    fs.appendFileSync(logFile, entry);
+  }
+
+  logEvent('TEST_START', { testType: 'context-window', timestamp: new Date().toISOString() });
+  console.log(`📝 Logging to: ${logFile}\n`);
+
   const client = new LLMClient();
   const results = {
     timestamp: new Date().toISOString(),
@@ -167,9 +186,64 @@ async function runContextWindowTests() {
   const totalTests = results.tests.length;
   console.log('CONTEXT WINDOW TESTS COMPLETE: ' + passedCount + '/' + totalTests + ' passed');
   console.log('='.repeat(60));
-  
-  saveReport('context-window', results);
+
+  logEvent('TEST_COMPLETE', { passedCount, totalTests, passRate: (passedCount/totalTests*100).toFixed(1) + '%' });
+
+  // Convert to schema format and save
+  const schemaResults = convertToSchema(results);
+  try {
+    saveSchemaCompliantResults(schemaResults, {
+      testType: 'context-window',
+      runName: 'legacy-context-window-tests'
+    });
+  } catch (error) {
+    console.error('Failed to save schema-compliant results:', error.message);
+  }
+
   return results;
+}
+
+/**
+ * Convert legacy context-window test results to unified schema format
+ */
+function convertToSchema(legacyResults) {
+  const now = new Date().toISOString();
+  return legacyResults.tests.map((test, idx) => ({
+    metadata: {
+      timestamp: now,
+      testRunId: `legacy-context-window-test-${now.split('T')[0]}`,
+      runNumber: idx + 1,
+      runName: 'LEGACY_CONTEXT_WINDOW',
+      runType: 'context-window'
+    },
+    input: {
+      promptId: test.name.toUpperCase(),
+      fullPromptText: `Context window test: ${test.name}`,
+      fullPromptTokens: test.storyWordCount || 50
+    },
+    modelConfig: {
+      modelName: 'legacy-server-8088'
+    },
+    output: {
+      response: test.conversation ? 'Multi-turn conversation' : '',
+      responseTokens: 100
+    },
+    timing: {
+      totalMs: 0,
+      tokensPerSecond: 0
+    },
+    execution: {
+      success: test.passed,
+      responseValidated: true,
+      errors: []
+    },
+    contextWindow: {
+      turns: test.completedTurns || test.maxTurns || 1,
+      maxTurns: test.maxTurns,
+      rememberedFacts: test.rememberedColor !== undefined ?
+        (test.rememberedColor && test.rememberedLocation ? 2 : 1) : 1
+    }
+  }));
 }
 
 // Run if executed directly

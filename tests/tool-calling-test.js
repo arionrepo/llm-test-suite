@@ -5,7 +5,9 @@
 
 import { LLMClient } from '../utils/llm-client.js';
 import { config } from '../config.js';
-import { printTestHeader, printTestResult, saveReport } from '../utils/test-helpers.js';
+import { printTestHeader, printTestResult, saveSchemaCompliantResults } from '../utils/test-helpers.js';
+import fs from 'fs';
+import path from 'path';
 
 // Define test tools
 const tools = [
@@ -82,7 +84,24 @@ const tools = [
 
 async function runToolCallingTests() {
   printTestHeader('TOOL/FUNCTION CALLING TESTS');
-  
+
+  // MANDATORY: Initialize logger
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '').replace('Z', 'Z');
+  const logDir = path.join(process.cwd(), 'logs');
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true });
+  }
+  const logFile = path.join(logDir, `test-run-tool-calling-${timestamp}.log`);
+
+  function logEvent(eventType, details = {}) {
+    const now = new Date().toISOString();
+    const entry = `[${now}] ${eventType} | ${JSON.stringify(details)}\n`;
+    fs.appendFileSync(logFile, entry);
+  }
+
+  logEvent('TEST_START', { testType: 'tool-calling', timestamp: new Date().toISOString() });
+  console.log(`📝 Logging to: ${logFile}\n`);
+
   const client = new LLMClient();
   const results = {
     timestamp: new Date().toISOString(),
@@ -256,9 +275,68 @@ async function runToolCallingTests() {
   }
   
   console.log('='.repeat(60));
-  
-  saveReport('tool-calling', results);
+
+  logEvent('TEST_COMPLETE', { passedCount, totalTests, passRate: (passedCount/totalTests*100).toFixed(1) + '%' });
+
+  // Convert to schema format and save
+  const schemaResults = convertToSchema(results);
+  try {
+    saveSchemaCompliantResults(schemaResults, {
+      testType: 'tool-calling',
+      runName: 'legacy-tool-calling-tests'
+    });
+  } catch (error) {
+    console.error('Failed to save schema-compliant results:', error.message);
+  }
+
   return results;
+}
+
+/**
+ * Convert legacy tool-calling test results to unified schema format
+ */
+function convertToSchema(legacyResults) {
+  const now = new Date().toISOString();
+  return legacyResults.tests.map((test, idx) => ({
+    metadata: {
+      timestamp: now,
+      testRunId: `legacy-tool-calling-test-${now.split('T')[0]}`,
+      runNumber: idx + 1,
+      runName: 'LEGACY_TOOL_CALLING',
+      runType: 'tool-calling'
+    },
+    input: {
+      promptId: test.name.toUpperCase(),
+      fullPromptText: `Tool calling test: ${test.name}`,
+      fullPromptTokens: 15
+    },
+    modelConfig: {
+      modelName: 'legacy-server-8088',
+      toolCallingEnabled: true
+    },
+    output: {
+      response: test.response || '',
+      responseTokens: 50,
+      toolCalls: test.functionName ? [{
+        function: test.functionName,
+        arguments: test.arguments
+      }] : []
+    },
+    timing: {
+      totalMs: 0,
+      tokensPerSecond: 0
+    },
+    execution: {
+      success: test.passed,
+      responseValidated: true,
+      errors: test.error ? [test.error] : []
+    },
+    toolCalling: {
+      enabled: true,
+      toolCalls: test.functionName ? 1 : 0,
+      passed: test.passed
+    }
+  }));
 }
 
 // Run if executed directly

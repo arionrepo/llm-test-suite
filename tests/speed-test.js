@@ -5,11 +5,30 @@
 
 import { LLMClient } from '../utils/llm-client.js';
 import { config } from '../config.js';
-import { printTestHeader, printTestResult, calculateStats, formatDuration, saveReport } from '../utils/test-helpers.js';
+import { printTestHeader, printTestResult, calculateStats, formatDuration, saveSchemaCompliantResults } from '../utils/test-helpers.js';
+import fs from 'fs';
+import path from 'path';
 
 async function runSpeedTests() {
   printTestHeader('SPEED & PERFORMANCE TESTS');
-  
+
+  // MANDATORY: Initialize logger
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '').replace('Z', 'Z');
+  const logDir = path.join(process.cwd(), 'logs');
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true });
+  }
+  const logFile = path.join(logDir, `test-run-speed-${timestamp}.log`);
+
+  function logEvent(eventType, details = {}) {
+    const now = new Date().toISOString();
+    const entry = `[${now}] ${eventType} | ${JSON.stringify(details)}\n`;
+    fs.appendFileSync(logFile, entry);
+  }
+
+  logEvent('TEST_START', { testType: 'speed', timestamp: new Date().toISOString() });
+  console.log(`📝 Logging to: ${logFile}\n`);
+
   const client = new LLMClient();
   const results = {
     timestamp: new Date().toISOString(),
@@ -137,9 +156,58 @@ async function runSpeedTests() {
   const totalTests = results.tests.length;
   console.log('SPEED TESTS COMPLETE: ' + passedCount + '/' + totalTests + ' passed');
   console.log('='.repeat(60));
-  
-  saveReport('speed', results);
+
+  logEvent('TEST_COMPLETE', { passedCount, totalTests, passRate: (passedCount/totalTests*100).toFixed(1) + '%' });
+
+  // Convert to schema format and save
+  const schemaResults = convertToSchema(results);
+  try {
+    saveSchemaCompliantResults(schemaResults, {
+      testType: 'speed',
+      runName: 'legacy-speed-tests'
+    });
+  } catch (error) {
+    console.error('Failed to save schema-compliant results:', error.message);
+  }
+
   return results;
+}
+
+/**
+ * Convert legacy speed test results to unified schema format
+ */
+function convertToSchema(legacyResults) {
+  const now = new Date().toISOString();
+  return legacyResults.tests.map((test, idx) => ({
+    metadata: {
+      timestamp: now,
+      testRunId: `legacy-speed-test-${now.split('T')[0]}`,
+      runNumber: idx + 1,
+      runName: 'LEGACY_SPEED',
+      runType: 'speed'
+    },
+    input: {
+      promptId: test.name.toUpperCase(),
+      fullPromptText: `Speed test: ${test.name}`,
+      fullPromptTokens: 10
+    },
+    modelConfig: {
+      modelName: 'legacy-server-8088'
+    },
+    output: {
+      response: test.response || '',
+      responseTokens: test.tokensPerSec ? 50 : 0
+    },
+    timing: {
+      totalMs: test.stats?.avg || test.totalTimeMs || test.timing?.totalMs || 0,
+      tokensPerSecond: test.tokensPerSec || 0
+    },
+    execution: {
+      success: test.passed,
+      responseValidated: true,
+      errors: []
+    }
+  }));
 }
 
 // Run if executed directly
