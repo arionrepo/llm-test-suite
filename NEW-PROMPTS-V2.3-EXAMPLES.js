@@ -369,7 +369,7 @@ export const NEW_PROMPTS_V23_EXAMPLES = [
       "only SQL injection"              // Covers all injection types
     ],
 
-    referenceAnswer: "PCI-DSS Requirement 6.5.1 requires applications to be developed securely to prevent injection flaws, including SQL injection, LDAP injection, and command injection. Specific requirements: (1) Validate all input data for type, length, format, and range; (2) Use parameterized queries or prepared statements (NOT string concatenation) for database access; (3) Escape special characters in output contexts; (4) Use ORM frameworks with built-in SQL injection protection; (5) Apply principle of least privilege for database accounts; (6) Code review and security testing to verify protection. Implementation: For SQL, always use prepared statements like `connection.execute('SELECT * FROM users WHERE id = ?', [userId])` never `query = 'SELECT * FROM users WHERE id = ' + userId`."
+    referenceAnswer: "PCI-DSS Requirement 6.5.1 requires applications to be developed securely to prevent injection flaws, including SQL injection, LDAP injection, and command injection. Specific requirements: (1) Validate all input data for type, length, format, and range; (2) Use parameterized queries or prepared statements (NOT string concatenation) for database access; (3) Escape special characters in output contexts; (4) Use ORM frameworks with built-in SQL injection protection; (5) Apply principle of least privilege for database accounts; (6) Code review and security testing to verify protection. Implementation: For SQL, always use prepared statements like connection.execute('SELECT * FROM users WHERE id = ?', [userId]) never query = 'SELECT * FROM users WHERE id = ' + userId."
   },
 
   // Example 9: SYNTHESIS + DEVELOPER (Technical comparison)
@@ -441,7 +441,7 @@ export const NEW_PROMPTS_V23_EXAMPLES = [
             fail: "Incorrect technical guidance"
           }
         }
-      },
+      ],
       minimumPassingScore: 60,
       scoringMethod: "weighted"
     }
@@ -638,7 +638,7 @@ export const NEW_PROMPTS_V23_EXAMPLES = [
       "logs are optional"
     ],
 
-    referenceAnswer: "GDPR Article 32 requires 'appropriate technical and organizational measures' for security, which includes audit logging. Logging requirements: (1) WHO - User ID or system accessing personal data; (2) WHAT - Which records/data were accessed or modified; (3) WHEN - Timestamp (UTC recommended); (4) WHY - Purpose or operation (read, update, delete); (5) RESULT - Success or failure. Technical implementation: Use centralized logging (ELK stack, Splunk, CloudWatch); Include PII access in logs but don't log PII values themselves; Implement log retention per Article 32 (recommend 12+ months); Protect logs from tampering (immutable storage); Regular log review for anomalies; Enable rapid incident investigation per Article 33 (72-hour breach notification). Example: `{timestamp: '2024-01-15T10:30:00Z', user: 'user@example.com', action: 'READ', resource: 'customer_record', recordId: '[hash]', success: true}`"
+    referenceAnswer: "GDPR Article 32 requires 'appropriate technical and organizational measures' for security, which includes audit logging. Logging requirements: (1) WHO - User ID or system accessing personal data; (2) WHAT - Which records/data were accessed or modified; (3) WHEN - Timestamp (UTC recommended); (4) WHY - Purpose or operation (read, update, delete); (5) RESULT - Success or failure. Technical implementation: Use centralized logging (ELK stack, Splunk, CloudWatch); Include PII access in logs but don't log PII values themselves; Implement log retention per Article 32 (recommend 12+ months); Protect logs from tampering (immutable storage); Regular log review for anomalies; Enable rapid incident investigation per Article 33 (72-hour breach notification). Example: {timestamp: '2024-01-15T10:30:00Z', user: 'user@example.com', action: 'READ', resource: 'customer_record', recordId: '[hash]', success: true}"
   },
 
   // Example 15: PROCEDURAL + DEVELOPER (Step-by-step technical implementation)
@@ -707,7 +707,7 @@ export const NEW_PROMPTS_V23_EXAMPLES = [
       }
     ],
 
-    referenceAnswer: "SOC 2 CC6.1 implementation for web application: (1) Authentication: Implement strong password policy (12+ chars, complexity) + MFA (TOTP, WebAuthn); Use framework like Auth0, Okta, or build with bcrypt/Argon2; (2) Authorization: Implement RBAC with roles (admin, user, readonly); Use middleware to check permissions on every endpoint; Principle of least privilege; (3) Session Management: Secure session tokens (httpOnly, secure, sameSite cookies); 30-minute idle timeout; Logout functionality; (4) Access Logging: Log authentication attempts (success/failure), authorization decisions, session creation/termination; Include user ID, timestamp, IP, resource accessed; (5) Access Reviews: Quarterly review of user accounts and permissions; Remove inactive users; Recertify role assignments; (6) Code Example: `app.post('/api/data', authenticate, authorize(['admin', 'user']), auditLog, handler)`. Testing: Verify unauthorized access blocked, MFA required, logs captured, timeouts enforced."
+    referenceAnswer: "SOC 2 CC6.1 implementation for web application: (1) Authentication: Implement strong password policy (12+ chars, complexity) + MFA (TOTP, WebAuthn); Use framework like Auth0, Okta, or build with bcrypt/Argon2; (2) Authorization: Implement RBAC with roles (admin, user, readonly); Use middleware to check permissions on every endpoint; Principle of least privilege; (3) Session Management: Secure session tokens (httpOnly, secure, sameSite cookies); 30-minute idle timeout; Logout functionality; (4) Access Logging: Log authentication attempts (success/failure), authorization decisions, session creation/termination; Include user ID, timestamp, IP, resource accessed; (5) Access Reviews: Quarterly review of user accounts and permissions; Remove inactive users; Recertify role assignments; (6) Code Example: app.post('/api/data', authenticate, authorize(['admin', 'user']), auditLog, handler). Testing: Verify unauthorized access blocked, MFA required, logs captured, timeouts enforced."
   }
 ];
 
