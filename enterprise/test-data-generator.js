@@ -53,8 +53,8 @@ export const TEST_TEMPLATES = {
     
     EXACT_MATCH: {
       AUDITOR: [
-        { q: 'What does GDPR Article 17 state about the right to erasure?', expectedCitation: 'Article 17' },
-        { q: 'Find the exact text of GDPR Article 25 on data protection by design', expectedCitation: 'Article 25' }
+        { q: 'What does GDPR Article 17 state about the right to erasure?', expectedCitation: 'Article 17', expectedTopics: ['Article 17', 'right to erasure', 'deletion', 'data subject rights'] },
+        { q: 'Find the exact text of GDPR Article 25 on data protection by design', expectedCitation: 'Article 25', expectedTopics: ['Article 25', 'data protection by design', 'privacy by default', 'technical measures'] }
       ]
     },
     
@@ -104,7 +104,7 @@ export const TEST_TEMPLATES = {
   ISO_27001: {
     FACTUAL: {
       PRACTITIONER: [
-        { q: 'How many controls are in ISO 27001:2022 Annex A?', expectedTopics: ['93 controls'] },
+        { q: 'How many controls are in ISO 27001:2022 Annex A?', expectedTopics: ['93 controls', 'Annex A', 'ISO 27001:2022', 'control count'] },
         { q: 'What are the main domains in ISO 27001 Annex A?', expectedTopics: ['organizational', 'people', 'physical', 'technological'] }
       ]
     },
@@ -125,8 +125,8 @@ export const TEST_TEMPLATES = {
     
     EXACT_MATCH: {
       AUDITOR: [
-        { q: 'What is the exact requirement of ISO 27001 control A.8.1?', expectedCitation: 'A.8.1' },
-        { q: 'Find ISO 27001 Annex A control 5.7 on threat intelligence', expectedCitation: 'A.5.7' }
+        { q: 'What is the exact requirement of ISO 27001 control A.8.1?', expectedCitation: 'A.8.1', expectedTopics: ['A.8.1', 'inventory of assets', 'asset management', 'asset register'] },
+        { q: 'Find ISO 27001 Annex A control 5.7 on threat intelligence', expectedCitation: 'A.5.7', expectedTopics: ['A.5.7', 'threat intelligence', 'threat information', 'security intelligence'] }
       ]
     },
     
@@ -177,7 +177,7 @@ export const TEST_TEMPLATES = {
     
     EXACT_MATCH: {
       AUDITOR: [
-        { q: 'What does PCI-DSS requirement 3.4 state about encryption of cardholder data?', expectedCitation: '3.4' }
+        { q: 'What does PCI-DSS requirement 3.4 state about encryption of cardholder data?', expectedCitation: '3.4', expectedTopics: ['requirement 3.4', 'encryption', 'cardholder data', 'cryptography'] }
       ]
     },
     
@@ -312,7 +312,7 @@ export const TEST_TEMPLATES = {
     },
     EXACT_MATCH: {
       AUDITOR: [
-        { q: 'What does ISO 27701 control 7.2.2 state about determining lawful basis?', expectedCitation: '7.2.2' }
+        { q: 'What does ISO 27701 control 7.2.2 state about determining lawful basis?', expectedCitation: '7.2.2', expectedTopics: ['control 7.2.2', 'lawful basis', 'PII processing', 'legal basis'] }
       ]
     },
     SYNTHESIS: {

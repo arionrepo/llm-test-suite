@@ -86,7 +86,7 @@ export const USER_PERSONAS = {
   EXECUTIVE: {
     name: 'Executive / C-Suite',
     description: 'Needs risk summaries, business impact, and strategic decisions',
-    expertise: 'strategic',
+    expertise: 'advanced',
     queryStyle: 'business-focused',
     needsExplanations: false,
     exampleQueries: [
@@ -107,7 +107,7 @@ export const USER_PERSONAS = {
   DEVELOPER: {
     name: 'Software Developer',
     description: 'Needs secure coding requirements, technical implementation guidance',
-    expertise: 'technical',
+    expertise: 'advanced',
     queryStyle: 'code-focused',
     needsExplanations: false,
     exampleQueries: [
