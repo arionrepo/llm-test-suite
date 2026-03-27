@@ -119,6 +119,49 @@ export OPENAI_API_KEY="your-key"
 
 See: `utils/cloud-llm-judge.js`, `review-interface.html`
 
+### Subjective Quality Ratings (NEW!)
+
+**Human-like evaluation** of LLM responses using structured rating format:
+- **Standardized 1-5 scale** with detailed explanations
+- **Multi-dimensional criteria** (readability, understandability, accuracy)
+- **Quality flags** (hallucinations, context usage, major issues)
+- **Machine-readable format** for aggregation and analysis
+
+**Storage location:** `ratings/` directory
+- Individual rating files: `claude-subjective-test-10.json`, etc.
+- Master merged file: `claude-all-150-ratings.json` (all evaluations)
+
+**Integration:**
+- **Web viewer:** `viewer/response-viewer.html` displays ratings alongside responses
+- **Analysis tools:** Load ratings for statistical comparison
+- **Validation:** Schema-compliant format ensures data quality
+
+**Documentation:**
+- **Complete schema:** `docs/RATINGS-SCHEMA.md` (field specs, validation, examples)
+- **Integration guide:** Code examples for loading and aggregating ratings
+- **Storage conventions:** File naming, directory structure, versioning
+
+**Example usage:**
+```javascript
+// Load and display ratings
+const ratings = await fetch('/ratings/claude-all-150-ratings.json');
+const data = await ratings.json();
+
+// Find rating for specific response
+const rating = data.ratings.find(r =>
+  r.promptId === 'ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1' &&
+  r.modelName === 'mistral'
+);
+
+console.log(`Rating: ${rating.rating}/5`);
+console.log(`Explanation: ${rating.explanation}`);
+```
+
+**Current ratings:** 150 evaluations (50 prompts × 3 models × 2 runs)
+- Mistral average: 4.08/5
+- Phi3 average: 3.35/5
+- SmolLM3 average: 2.73/5
+
 ---
 
 ## Quick Start
