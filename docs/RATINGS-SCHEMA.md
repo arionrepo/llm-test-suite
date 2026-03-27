@@ -636,40 +636,252 @@ async function loadAllRatingsWithResponses(ratingsFile, date = "2026-03-26") {
 }
 ```
 
-### Viewer Integration
+### Viewer Implementation - Active Linkage in Production
 
-The response viewer (`viewer/response-viewer.html`) implements this linkage:
+**File:** `viewer/response-viewer.html` (1,597 lines)
 
-1. **Load test results** from selected files
-2. **Load ratings** from rating files
-3. **Join on** `(promptId, modelName, runNumber)`
-4. **Display** response text with rating overlay
+The response viewer is a **working, production implementation** of the rating-response linkage. It actively uses the three-key pattern to display ratings alongside responses.
+
+#### How the Viewer Works
+
+**Step 1: Load Test Result Files** (lines 1003-1033)
 
 ```javascript
-// Simplified viewer logic
-function displayResponseWithRating(result, rating) {
-  return `
-    <div class="response-card">
-      <div class="prompt">${result.input.fullPromptText}</div>
-      <div class="response">${result.output.response}</div>
-      <div class="rating">
-        <span class="score">${rating.rating}/5</span>
-        <p class="explanation">${rating.explanation}</p>
-        <div class="flags">
-          ${rating.flags.hallucination ? '⚠️ Hallucination' : ''}
-          ${rating.flags.thinkTags ? '🤔 Think tags exposed' : ''}
-          ${!rating.flags.contextUsed ? '⚠️ Context ignored' : ''}
-        </div>
-      </div>
-      <div class="metadata">
-        Model: ${rating.modelName} |
-        Speed: ${result.timing.tokensPerSecond.toFixed(1)} tok/s |
-        Tokens: ${result.output.responseTokens}
-      </div>
-    </div>
-  `;
+function mergeLoadedFiles(loadedFiles) {
+    const byPrompt = {};
+
+    // For each loaded test result file
+    loadedFiles.forEach(({ path, data }) => {
+        // Extract model name from filename
+        // "test-results-multitier-{model}-split-25-run{N}-*.json"
+        const modelMatch = path.match(/multitier-(\w+)-/);
+        const model = modelMatch ? modelMatch[1] : 'unknown';
+
+        // Extract run number from filename
+        // "run{N}"
+        const runMatch = path.match(/run(\d)/);
+        const run = runMatch ? parseInt(runMatch[1]) : 1;
+
+        // Process results array
+        const results = data.results || [];
+        results.forEach((result) => {
+            const id = result.input.promptId;  // ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1
+
+            if (!byPrompt[id]) {
+                byPrompt[id] = {
+                    promptId: id,
+                    run: run,
+                    responses: {}
+                };
+            }
+
+            // Store response keyed by model
+            byPrompt[id].responses[model] = result;
+        });
+    });
+
+    return Object.values(byPrompt);
 }
 ```
+
+**Key insight:** The viewer extracts `model` and `run` from the **filename**, not from the data. This is crucial for proper linkage.
+
+---
+
+**Step 2: Load Rating Files**
+
+```javascript
+async function loadRatingFile(filePath, event) {
+    const response = await fetch(`/api/file?path=${encodeURIComponent(filePath)}`);
+    const { data: fileData } = await response.json();
+
+    // Handle both { ratings: [...] } and direct array format
+    const ratingsArray = fileData.ratings || (Array.isArray(fileData) ? fileData : []);
+
+    // Create lookup key for each rating
+    ratingsArray.forEach(rating => {
+        // Key: promptId_modelName_run{N}
+        const key = `${rating.promptId}_${rating.modelName}_run${rating.runNumber}`;
+        ratings[key] = rating;
+    });
+
+    console.log(`✅ Loaded ${ratingsArray.length} ratings`);
+}
+```
+
+---
+
+**Step 3: Join and Display** (lines 1165-1215)
+
+```javascript
+function renderResponses(promptData) {
+    const models = Object.keys(promptData.responses);
+
+    for (const model of models) {
+        const response = promptData.responses[model];
+
+        // PERFORM THE JOIN using three-key pattern
+        const currentRating = ratings[`${promptData.promptId}_${model}_run${promptData.run}`] || {};
+
+        // Display response with rating UI
+        html += `
+            <div class="response-card">
+                <div class="response-header">${model.toUpperCase()}</div>
+
+                <!-- Show response metrics -->
+                <div class="response-metrics">
+                    <span>${response.output.responseTokens} tokens</span>
+                    <span>${response.timing.tokensPerSecond.toFixed(1)} tok/s</span>
+                </div>
+
+                <!-- Show response text -->
+                <div class="response-content">
+                    ${response.output.response}
+                </div>
+
+                <!-- Show rating UI pre-populated with any existing rating -->
+                <div class="rating-section">
+                    <h4>Your Rating:</h4>
+                    <div class="rating-buttons">
+                        <button class="rating-btn ${currentRating.rating === 5 ? 'selected' : ''}"
+                                onclick="setRating('${promptData.promptId}', '${model}', ${promptData.run}, 5)">
+                            5 Excellent
+                        </button>
+                        <!-- ... more buttons ... -->
+                    </div>
+
+                    <!-- Pre-populate explanation textarea -->
+                    <textarea class="rating-explanation"
+                              placeholder="Explain your rating...">
+                        ${currentRating.explanation || ''}
+                    </textarea>
+
+                    <!-- Save button shows status -->
+                    <button class="save-rating-btn ${currentRating.rating !== undefined ? 'saved' : ''}"
+                            onclick="saveRating('${promptData.promptId}', '${model}', ${promptData.run})">
+                        ${currentRating.rating !== undefined ? '✓ Saved' : 'Save Rating'}
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+}
+```
+
+---
+
+#### What the Viewer Displays
+
+When you load test results and ratings:
+
+| Element | Source |
+|---------|--------|
+| **Prompt text** | `result.input.fullPromptText` |
+| **Response text** | `result.output.response` (THIS is what was rated) |
+| **Performance metrics** | `result.timing.tokensPerSecond`, `totalMs` |
+| **Rating score** | `currentRating.rating` (1-5) |
+| **Rating explanation** | `currentRating.explanation` (detailed feedback) |
+| **Quality flags** | `currentRating.flags` (hallucination, context usage, etc.) |
+| **Save status** | Visual indicator if rating was already saved |
+
+---
+
+#### User Workflow
+
+1. **Browse and select test result files** (e.g., `test-results-multitier-phi3-split-25-run1-*.json`)
+2. **Browse and select rating files** (e.g., `claude-all-150-ratings.json`)
+3. **View merged results** - One prompt at a time, all models side-by-side
+4. **See pre-populated ratings** - If rating exists for this (promptId, model, run), it displays
+5. **Edit ratings** - Can modify scores and explanations
+6. **Save new ratings** - Stored in local ratings object
+7. **Export ratings** - Download as JSON or CSV for external analysis
+
+---
+
+#### Key Implementation Details
+
+**Filename Parsing for Linkage** (Critical for correctness)
+
+```javascript
+// Test result file naming: test-results-multitier-{model}-split-25-run{N}-{timestamp}.json
+const modelMatch = path.match(/multitier-(\w+)-/);       // Extracts: phi3, mistral, smollm3
+const runMatch = path.match(/run(\d)/);                   // Extracts: 1, 2
+
+// These MUST match:
+// - rating.modelName must equal extracted model
+// - rating.runNumber must equal extracted run number
+```
+
+**Rating Key Format** (Must be consistent)
+
+```javascript
+// Format: "{promptId}_{modelName}_run{runNumber}"
+const key = `${promptData.promptId}_${model}_run${promptData.run}`;
+
+// Example:
+// "ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1_phi3_run1"
+
+ratings[key] = rating;  // Store/retrieve using this key
+```
+
+**Default Fallback** (Handles missing ratings gracefully)
+
+```javascript
+// If no rating exists, use empty object (prevents errors)
+const currentRating = ratings[key] || {};
+
+// UI handles empty gracefully:
+currentRating.rating          // undefined if not rated
+currentRating.explanation     // '' if not explained
+currentRating.flags           // undefined if not flagged
+```
+
+---
+
+#### Testing the Viewer
+
+**To verify the linkage works:**
+
+1. Open: http://127.0.0.1:7500/viewer/response-viewer.html
+2. Load test results: Select files from `reports/performance/2026-03-26/`
+3. Load ratings: Select `ratings/claude-all-150-ratings.json`
+4. Navigate through prompts - Ratings should be pre-populated
+5. Check browser console - Shows loaded count and any errors
+
+**Expected output:**
+```
+✅ Loaded 25 results from test-results-multitier-phi3-split-25-run1-*.json
+✅ Loaded 150 ratings from claude-all-150-ratings.json
+```
+
+---
+
+#### Common Integration Points
+
+**From Viewer to Schema:**
+- When viewing a rating, the explanation references response quality across three dimensions:
+  - `readability` - Is response well-structured?
+  - `understandability` - Is it clear to the target audience?
+  - `accuracy` - Is the information correct?
+
+**From Schema to Viewer:**
+- Ratings stored with `flags` object allows viewer to highlight specific issues:
+  - `hallucination: true` → Show warning badge
+  - `contextUsed: false` → Show "Ignored context" warning
+  - `majorIssues: [...]` → Show critical issues list
+
+---
+
+#### Extending the Viewer
+
+To add new features that depend on this linkage:
+
+1. **Side-by-side model comparison** - Join responses on `promptId`, display all models
+2. **Rating aggregate statistics** - Group ratings by `modelName`, calculate averages
+3. **Prompt difficulty analysis** - Correlate ratings to prompt complexity
+4. **Quality heat maps** - Visualize ratings across prompts and models
+
+All these require the documented linkage to work correctly.
 
 ### Data Integrity Checks
 
@@ -912,6 +1124,16 @@ function mergeRatingFiles(filePaths, outputPath) {
 ---
 
 ## Version History
+
+### 1.2.0 (2026-03-27)
+- Added comprehensive "Viewer Implementation - Active Linkage in Production" section
+- Documented actual working implementation in response-viewer.html
+- Showed step-by-step how viewer loads test results and ratings
+- Explained filename parsing for extracting model and run number
+- Documented rating key format and join mechanism
+- Added user workflow and testing instructions
+- Documented extension points for future features
+- 245 lines of viewer implementation documentation
 
 ### 1.1.0 (2026-03-27)
 - Added comprehensive "Linking Ratings to Test Results" section
