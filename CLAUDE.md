@@ -47,11 +47,12 @@ Enterprise LLM testing framework for:
 
 ---
 
-## MANDATORY: Prompt Schema Compliance v2.2.0 (ENFORCED)
+## MANDATORY: Prompt Schema Compliance v2.3.0 (ENFORCED)
 
 **When creating new test prompts (with user approval), ALL prompts MUST follow the standardized schema.**
 
-**Reference:** `docs/PROMPT-SCHEMA.md` - Official schema specification
+**Reference:** `docs/PROMPT-SCHEMA.md` - Official schema specification (v2.3.0)
+**Ground Truth:** `ground-truth/reference-urls.json` - Authoritative source URLs
 
 ### Required Fields (ALL Prompts)
 
@@ -211,6 +212,45 @@ Enterprise LLM testing framework for:
 }
 ```
 
+### Ground Truth & Reference Fields (NEW in v2.3.0)
+
+**For better validation beyond keyword matching, add these fields:**
+
+```javascript
+{
+  // Required fields...
+  question: "What is GDPR?",
+  expectedTopics: ["regulation", "privacy", "EU"],
+
+  // NEW: Authoritative source (REQUIRED for new prompts)
+  expectedReferenceURL: "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+  referenceSource: "EUR-Lex (Official EU GDPR Text)",
+  referenceAccessibility: "free",
+
+  // NEW: Essential facts (REQUIRED for new prompts)
+  mustMention: [
+    "EU regulation",
+    "personal data",
+    "effective 2018 OR May 2018"
+  ],
+
+  // NEW: Common misconceptions (RECOMMENDED)
+  mustNotMention: [
+    "only applies to EU companies",
+    "GDPR is optional"
+  ],
+
+  // NEW: Full reference answer (OPTIONAL but encouraged)
+  referenceAnswer: "GDPR (General Data Protection Regulation) is..."
+}
+```
+
+**How to find reference URLs:**
+- See `ground-truth/reference-urls.json` for all standard URLs
+- For regulations: Link to official government source
+- For ISO standards: Link to ISO.org + provide free alternative
+- For article/control-specific: Use URL pattern from reference-urls.json
+
 ### Quality Checklist
 
 **Before adding a new prompt:**
@@ -224,6 +264,9 @@ Enterprise LLM testing framework for:
 - [ ] Vendor field is "Generic" or specific vendor name
 - [ ] No duplicate or near-duplicate tests exist
 - [ ] ID follows naming convention and is unique
+- [ ] **NEW:** expectedReferenceURL points to authoritative source
+- [ ] **NEW:** mustMention includes 3-5 essential facts
+- [ ] **NEW:** mustNotMention includes 1-3 common misconceptions (if applicable)
 
 ### Where to Add New Prompts
 

@@ -21,7 +21,13 @@ All test prompts follow a consistent JSON schema supporting:
 
 ### 1.2 Schema Version
 
-**Current Version:** `2.2.0`
+**Current Version:** `2.3.0`
+
+**What's New in 2.3.0:**
+- Added ground truth validation fields (`mustMention`, `mustNotMention`, `referenceAnswer`, `answerKeyPoints`)
+- Added authoritative reference fields (`expectedReferenceURL`, `alternativeReferenceURL`, `referenceSource`)
+- Added validation rubric support (`validationRubric`, `exampleAnswers`)
+- Enables fact-checking and quality assessment beyond keyword matching
 
 **What's New in 2.2.0:**
 - Added routing configuration fields (`routingProfile`, `routingProfiles`)
@@ -124,6 +130,71 @@ interface TestPromptValidation {
   // Performance metadata
   promptComplexity?: PromptComplexity;  // Auto-calculated complexity scores
   estimatedTokens?: number;             // Estimated prompt size in tokens
+}
+```
+
+### 2.5 Ground Truth & Reference Fields (NEW in v2.3.0)
+
+```typescript
+interface TestPromptGroundTruth {
+  // Authoritative references
+  expectedReferenceURL?: string;        // Primary authoritative source URL
+  alternativeReferenceURL?: string;     // Free alternative if primary is paywall
+  referenceSource?: string;             // Human-readable source name (e.g., "EUR-Lex GDPR Article 17")
+  referenceAccessibility?: "free" | "paywall" | "free-with-registration";
+  referenceNote?: string;               // Instructions for accessing reference
+
+  // Ground truth validation
+  mustMention?: string[];               // Essential facts/concepts that MUST appear in response
+  mustNotMention?: string[];            // Common misconceptions that must NOT appear
+  referenceAnswer?: string;             // Expert-written full reference answer
+  answerKeyPoints?: AnswerKeyPoint[];   // Structured key points with weights
+  validationRubric?: ValidationRubric;  // Multi-dimensional scoring rubric
+  exampleAnswers?: ExampleAnswers;      // Example answers at different quality levels
+}
+
+interface AnswerKeyPoint {
+  concept: string;                      // What must be explained
+  keywords: string[];                   // Acceptable variations/synonyms
+  weight: number;                       // Importance score (0-100)
+  required: boolean;                    // Must be present for passing score
+  alternatives?: string[];              // Alternative phrasings that satisfy this point
+}
+
+interface ValidationRubric {
+  dimensions: RubricDimension[];        // Scoring dimensions (e.g., accuracy, completeness)
+  minimumPassingScore: number;          // Minimum score to pass (0-100)
+  scoringMethod?: "weighted" | "average" | "minimum";
+}
+
+interface RubricDimension {
+  name: string;                         // Dimension name (e.g., "Factual Accuracy")
+  weight: number;                       // Weight in overall score (0-100)
+  levels: {                             // Quality levels for this dimension
+    excellent: string;                  // Description of excellent performance
+    good: string;                       // Description of good performance
+    poor: string;                       // Description of poor performance
+    fail: string;                       // Description of failing performance
+  };
+}
+
+interface ExampleAnswers {
+  excellent?: {                         // Comprehensive, accurate answer
+    answer: string;
+    score: number;
+    strengths: string[];
+  };
+  acceptable?: {                        // Adequate, correct answer
+    answer: string;
+    score: number;
+    strengths: string[];
+    weaknesses?: string[];
+  };
+  insufficient?: {                      // Incomplete or incorrect answer
+    answer: string;
+    score: number;
+    weaknesses: string[];
+  };
 }
 ```
 
@@ -849,7 +920,7 @@ standard, knowledgeType, persona  // Can also use compliance taxonomy
 
 ## 5. Examples
 
-### 5.1 Generic Compliance Test
+### 5.1 Generic Compliance Test (with Ground Truth - NEW in v2.3.0)
 
 ```json
 {
@@ -864,6 +935,22 @@ standard, knowledgeType, persona  // Can also use compliance taxonomy
   "expectedCitation": null,
   "retrievalStrategy": "vector_db",
   "complexity": "beginner",
+
+  "expectedReferenceURL": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+  "referenceSource": "EUR-Lex (Official EU GDPR Text)",
+  "referenceAccessibility": "free",
+
+  "mustMention": [
+    "EU regulation",
+    "personal data",
+    "effective 2018 OR May 2018"
+  ],
+  "mustNotMention": [
+    "only applies to EU companies",
+    "GDPR is optional"
+  ],
+  "referenceAnswer": "GDPR (General Data Protection Regulation) is a comprehensive EU privacy regulation that came into effect on May 25, 2018. It governs how organizations collect, process, and store personal data of EU residents. It applies globally to any organization processing EU personal data, regardless of where the organization is located.",
+
   "promptComplexity": {
     "level": "simple",
     "score": 30,
