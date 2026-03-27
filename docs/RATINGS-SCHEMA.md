@@ -461,6 +461,272 @@ function validateRatingsFile(data) {
 
 ---
 
+## Linking Ratings to Test Results
+
+### Overview
+
+Ratings evaluate **LLM responses** from performance tests. Each rating links to its corresponding test result through three identifiers:
+
+1. **`promptId`** - Which test prompt was used
+2. **`modelName`** - Which model generated the response
+3. **`runNumber`** - Which test run (for repeated tests)
+
+### Test Result File Location
+
+Test results are stored in dated directories under `reports/performance/`:
+
+```
+reports/
+└── performance/
+    └── YYYY-MM-DD/
+        ├── test-results-multitier-{modelName}-split-25-run1-{timestamp}.json
+        ├── test-results-multitier-{modelName}-split-25-run2-{timestamp}.json
+        └── ...
+```
+
+**File naming pattern:**
+```
+test-results-{testType}-{modelName}-{descriptor}-run{N}-{timestamp}.json
+
+Examples:
+- test-results-multitier-phi3-split-25-run1-2026-03-26T153232299Z.json
+- test-results-multitier-smollm3-split-25-run2-2026-03-26T154333186Z.json
+- test-results-multitier-mistral-split-25-run1-2026-03-26T153734424Z.json
+```
+
+### Test Result Structure
+
+Each test result file contains an array of test executions:
+
+```json
+{
+  "results": [
+    {
+      "metadata": {
+        "timestamp": "2026-03-26T15:29:34.738Z",
+        "testRunId": "test-run-1-phi3",
+        "runNumber": 1                           // Matches rating.runNumber
+      },
+      "input": {
+        "promptId": "ARION_MULTITIER_ASSESSMENT_GDPR_NOVICE_1",  // Matches rating.promptId
+        "fullPromptText": "[TIER 1]... [complete prompt]",
+        "fullPromptTokens": 2300
+      },
+      "output": {
+        "response": "Understood! Let's begin...",  // THIS is what was rated
+        "responseTokens": 257,
+        "completionFinishReason": "length"
+      },
+      "timing": {
+        "totalMs": 5056,
+        "tokensPerSecond": 57.11
+      }
+    }
+  ]
+}
+```
+
+**Key fields for linking:**
+- `metadata.runNumber` → `rating.runNumber`
+- `input.promptId` → `rating.promptId`
+- Model name is in filename → `rating.modelName`
+- `output.response` → The text that was rated
+
+### Finding the Response for a Rating
+
+**Step-by-step process:**
+
+1. **Identify the test result file**
+   ```javascript
+   const date = "2026-03-26"; // From rating.timestamp or evaluationDate
+   const filename = `test-results-multitier-${rating.modelName}-split-25-run${rating.runNumber}-*.json`;
+   const filePath = `reports/performance/${date}/${filename}`;
+   ```
+
+2. **Load the test results**
+   ```javascript
+   const testResults = await fetch(filePath).then(r => r.json());
+   ```
+
+3. **Find the matching result**
+   ```javascript
+   const result = testResults.results.find(r =>
+     r.input.promptId === rating.promptId &&
+     r.metadata.runNumber === rating.runNumber
+   );
+   ```
+
+4. **Access the rated response**
+   ```javascript
+   const ratedText = result.output.response;
+   const ratedExplanation = rating.explanation;
+   ```
+
+### Complete Integration Example
+
+```javascript
+/**
+ * Load a rating and its corresponding test result response
+ */
+async function loadRatingWithResponse(rating, date = "2026-03-26") {
+  // 1. Construct test result file path
+  const pattern = `test-results-multitier-${rating.modelName}-split-25-run${rating.runNumber}`;
+
+  // 2. Find matching file (may need glob if timestamp unknown)
+  const directory = `reports/performance/${date}`;
+  const files = await fetchDirectoryListing(directory);
+  const matchingFile = files.find(f => f.startsWith(pattern));
+
+  if (!matchingFile) {
+    throw new Error(`No test results found for ${rating.modelName} run ${rating.runNumber}`);
+  }
+
+  // 3. Load test results
+  const testResults = await fetch(`${directory}/${matchingFile}`).then(r => r.json());
+
+  // 4. Find specific result for this prompt
+  const result = testResults.results.find(r =>
+    r.input.promptId === rating.promptId &&
+    r.metadata.runNumber === rating.runNumber
+  );
+
+  if (!result) {
+    throw new Error(`No result found for promptId: ${rating.promptId}`);
+  }
+
+  // 5. Return combined object
+  return {
+    // Rating information
+    rating: rating.rating,
+    explanation: rating.explanation,
+    flags: rating.flags,
+    ratedAt: rating.timestamp,
+
+    // Test result information
+    prompt: result.input.fullPromptText,
+    response: result.output.response,
+    promptTokens: result.input.fullPromptTokens,
+    responseTokens: result.output.responseTokens,
+    tokensPerSecond: result.timing.tokensPerSecond,
+    totalMs: result.timing.totalMs,
+
+    // Metadata
+    promptId: rating.promptId,
+    modelName: rating.modelName,
+    runNumber: rating.runNumber
+  };
+}
+
+/**
+ * Batch load all ratings with their responses
+ */
+async function loadAllRatingsWithResponses(ratingsFile, date = "2026-03-26") {
+  const combined = [];
+
+  for (const rating of ratingsFile.ratings) {
+    try {
+      const withResponse = await loadRatingWithResponse(rating, date);
+      combined.push(withResponse);
+    } catch (error) {
+      console.error(`Failed to load response for ${rating.promptId}:`, error);
+    }
+  }
+
+  return combined;
+}
+```
+
+### Viewer Integration
+
+The response viewer (`viewer/response-viewer.html`) implements this linkage:
+
+1. **Load test results** from selected files
+2. **Load ratings** from rating files
+3. **Join on** `(promptId, modelName, runNumber)`
+4. **Display** response text with rating overlay
+
+```javascript
+// Simplified viewer logic
+function displayResponseWithRating(result, rating) {
+  return `
+    <div class="response-card">
+      <div class="prompt">${result.input.fullPromptText}</div>
+      <div class="response">${result.output.response}</div>
+      <div class="rating">
+        <span class="score">${rating.rating}/5</span>
+        <p class="explanation">${rating.explanation}</p>
+        <div class="flags">
+          ${rating.flags.hallucination ? '⚠️ Hallucination' : ''}
+          ${rating.flags.thinkTags ? '🤔 Think tags exposed' : ''}
+          ${!rating.flags.contextUsed ? '⚠️ Context ignored' : ''}
+        </div>
+      </div>
+      <div class="metadata">
+        Model: ${rating.modelName} |
+        Speed: ${result.timing.tokensPerSecond.toFixed(1)} tok/s |
+        Tokens: ${result.output.responseTokens}
+      </div>
+    </div>
+  `;
+}
+```
+
+### Data Integrity Checks
+
+**Before integration, validate:**
+
+1. ✅ **All ratings have matching results**
+   ```javascript
+   const orphanedRatings = ratings.filter(rating =>
+     !testResults.some(r =>
+       r.input.promptId === rating.promptId &&
+       r.metadata.runNumber === rating.runNumber
+     )
+   );
+
+   if (orphanedRatings.length > 0) {
+     console.warn(`${orphanedRatings.length} ratings have no matching results`);
+   }
+   ```
+
+2. ✅ **All results have ratings** (if expected)
+   ```javascript
+   const unratedResults = testResults.filter(result =>
+     !ratings.some(r =>
+       r.promptId === result.input.promptId &&
+       r.runNumber === result.metadata.runNumber
+     )
+   );
+
+   if (unratedResults.length > 0) {
+     console.warn(`${unratedResults.length} results not yet rated`);
+   }
+   ```
+
+3. ✅ **Timestamps align** (ratings after test execution)
+   ```javascript
+   const invalidTimestamps = ratings.filter(rating => {
+     const result = findMatchingResult(rating);
+     return new Date(rating.timestamp) < new Date(result.metadata.timestamp);
+   });
+
+   if (invalidTimestamps.length > 0) {
+     console.error('Some ratings predate their test results!');
+   }
+   ```
+
+### Common Linkage Issues
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| Rating with no result | Test result file missing or moved | Check file exists in expected location |
+| Result with no rating | Rating not yet created | Normal - ratings created after tests |
+| Wrong response loaded | `runNumber` mismatch | Ensure `runNumber` used consistently |
+| Multiple matches found | Duplicate test executions | Filter by timestamp to get latest |
+| Model name mismatch | Inconsistent casing (Phi3 vs phi3) | Normalize to lowercase |
+
+---
+
 ## Integration Guidelines
 
 ### Loading Ratings in Web Applications
@@ -646,6 +912,14 @@ function mergeRatingFiles(filePaths, outputPath) {
 ---
 
 ## Version History
+
+### 1.1.0 (2026-03-27)
+- Added comprehensive "Linking Ratings to Test Results" section
+- Documented test result file structure and location
+- Provided complete integration examples with code
+- Added data integrity validation checks
+- Documented common linkage issues and solutions
+- Clarified the three-key join pattern (promptId, modelName, runNumber)
 
 ### 1.0.0 (2026-03-27)
 - Initial schema documentation
